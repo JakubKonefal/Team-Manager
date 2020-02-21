@@ -1,0 +1,29 @@
+.Player {
+  display: flex;
+  height: 70px;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  flex-basis: 100%;
+  padding: 5px 10px;
+  margin: 10px 10px;
+  border: 3px solid #888;
+  border-radius: 15px;
+  box-shadow: 2px 2px 2px #aaa;
+  box-sizing: border-box;
+  color: black;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.Player:hover {
+  border-color: #051;
+}
+
+.Label {
+  margin: 0 10px;
+}
+
+.PlayerImg {
+  width: 50px;
+}

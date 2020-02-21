@@ -1,0 +1,6 @@
+.MainContentWraper {
+  width: 70%;
+  margin: 0 auto;
+  background-color: #eee;
+  box-shadow: -5px 0 5px -5px #333, 5px 0 5px -5px #333;
+}

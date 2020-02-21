@@ -1,0 +1,72 @@
+/* .Teams{
+    display: none;
+} */
+
+.TeamManager {
+  width: 70%;
+  margin: 0 auto;
+  background-color: #eee;
+  /* box-shadow: 0 0 5px #001; */
+  box-shadow: -5px 0 5px -5px #333, 5px 0 5px -5px #333;
+}
+
+ul {
+  list-style-type: none;
+  width: 80%;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.TeamLogo {
+  height: 100px;
+}
+
+.Team {
+  display: flex;
+  border: 3px solid black;
+  border-radius: 10px;
+  margin: 15px 0;
+  padding: 15px 10px;
+  font-size: 30px;
+  align-items: center;
+}
+
+.Team:last-child {
+  border: 3px solid #888;
+  color: #888;
+}
+
+.Team:last-child:hover {
+  color: #000;
+  border-color: #000;
+  cursor: pointer;
+}
+
+.TeamName {
+  margin-left: 30px;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.TeamName:hover {
+  color: #3a623a;
+}
+
+.Buttons {
+  margin-left: auto;
+}
+
+.Choose_label {
+  margin-bottom: 60px;
+}
+
+.ImgUpload {
+  width: 500px;
+  border: 6px solid red;
+}
+
+.Submit_btn:disabled {
+  opacity: 0.8;
+  cursor: default;
+}

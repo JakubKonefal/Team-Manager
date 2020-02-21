@@ -1,0 +1,28 @@
+.NavLeft {
+  display: flex;
+  width: 100%;
+  height: 40px;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0;
+}
+
+.Inactive {
+  font-weight: bold;
+  font-size: 20px;
+  color: #555;
+}
+
+.Expanded {
+  max-height: 100vh;
+  overflow: auto;
+  transition: 0.5s ease-out;
+  background-color: #888;
+}
+
+.Hide {
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.5s ease-out;
+  background-color: #888;
+}
