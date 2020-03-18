@@ -4,16 +4,16 @@ import SideMenu from "./Navigation/SideMenu/SideMenu";
 import { Route, Switch } from "react-router-dom";
 import TeamManager from "../../containers/TeamsManager/TeamManager/TeamManager";
 
-const inside = props => {
+const Inside = props => {
   return (
     <div>
       <SideMenu />
       <Switch>
         <Route path="/my-teams" exact component={TeamsManager} />
-        <Route path="/my-teams/:teamName" component={TeamManager} />
+        <Route path="/my-teams/:teamId" component={TeamManager} />
       </Switch>
     </div>
   );
 };
 
-export default inside;
+export default Inside;

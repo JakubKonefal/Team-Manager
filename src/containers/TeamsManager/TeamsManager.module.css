@@ -70,3 +70,8 @@ ul {
   opacity: 0.8;
   cursor: default;
 }
+
+.PreviewFile {
+  max-width: 100px;
+  max-height: 120px;
+}

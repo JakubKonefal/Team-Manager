@@ -1,0 +1,38 @@
+.TeamLogo {
+  height: 100px;
+}
+
+.Team {
+  display: flex;
+  border: 3px solid black;
+  border-radius: 10px;
+  margin: 15px 0;
+  padding: 15px 10px;
+  font-size: 30px;
+  align-items: center;
+}
+
+.TeamName {
+  margin-left: 30px;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.TeamName:hover {
+  color: #3a623a;
+}
+
+.Buttons {
+  margin-left: auto;
+}
+
+.CloseIcon {
+  display: block;
+  margin-bottom: 8px;
+  color: red;
+}
+
+.Block {
+  display: block;
+}

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Player from "./Player/Player";
 import axios from "axios";
-import Aux from "../../../hoc/Auxiliary/Auxiliary";
+import { storage } from "../../../firebase/firebase";
 // import Spinner from "../UI/Spinner/Spinner";
 import classes from "./Players.module.css";
 import PlayerCreator from "./PlayerCreator/PlayerCreator";
@@ -9,44 +9,35 @@ import PlayerCreator from "./PlayerCreator/PlayerCreator";
 class Players extends Component {
   state = {
     players: null,
-    teamName: "",
+    teamName: this.props.location.teamName,
     addNewPlayerClicked: false,
     submitDisabled: true,
     newPlayerInfo: {
-      nr: "",
+      number: "",
       firstName: "",
       lastName: "",
       position: "",
-      birth: ""
-    }
+      birth: "",
+      photo: null
+    },
+    previewFile: null,
+    uploadedImage: null
   };
 
   componentDidMount() {
-    console.log(this.props.location.teamId);
     axios
       .get(
-        `https://team-manager-b8e8c.firebaseio.com/${this.props.location.teamId}.json`
+        `https://team-manager-b8e8c.firebaseio.com/${this.props.match.params.teamId}.json`
       )
       .then(res => {
         const data = res.data;
-        console.log(data);
-        console.log(data.players);
-        if (data.players === undefined) {
+        if (!data.players) {
           this.setState({ players: [], teamName: data.teamName });
+        } else {
+          this.setState({ players: data.players, teamName: data.teamName });
         }
-        this.setState({ players: data.players, teamName: data.teamName });
-      })
-      .catch(err => {
-        alert("No data after refresh");
       });
   }
-
-  createPlayerHandler = event => {
-    const newPlayer = this.state.newPlayerInfo;
-    this.sendData(newPlayer);
-    this.componentDidMount();
-    event.preventDefault();
-  };
 
   newPlayerClickedHandler = () => {
     if (!this.state.addNewPlayerClicked) {
@@ -54,101 +45,149 @@ class Players extends Component {
     }
   };
 
-  changeHandler = event => {
-    const inputId = event.target.id;
-    const inputValue = event.target.value;
-    console.log(event.target.id);
-    switch (inputId) {
-      case "number":
-        this.setState({
-          newPlayerInfo: {
-            ...this.state.newPlayerInfo,
-            nr: inputValue
-          }
-        });
-        break;
-      case "firstName":
-        this.setState({
-          newPlayerInfo: {
-            ...this.state.newPlayerInfo,
-            firstName: inputValue
-          }
-        });
-        break;
-      case "lastName":
-        this.setState({
-          newPlayerInfo: {
-            ...this.state.newPlayerInfo,
-            lastName: inputValue
-          }
-        });
-        break;
-      case "position":
-        this.setState({
-          newPlayerInfo: {
-            ...this.state.newPlayerInfo,
-            position: inputValue
-          }
-        });
-        break;
-      case "birth":
-        this.setState({
-          newPlayerInfo: {
-            ...this.state.newPlayerInfo,
-            birth: inputValue
-          }
-        });
-        break;
-      default:
-        return;
-    }
-  };
-
   createCancelledHandler = () => {
     this.setState({ addNewPlayerClicked: false });
-    console.log(this.state.addNewPlayerClicked);
   };
 
-  sendData = async newPlayer => {
-    await axios.post(
-      `https://team-manager-b8e8c.firebaseio.com/${this.props.location.teamId}/players.json`,
-      newPlayer
-    );
+  changeHandler = ({ target }) => {
+    const { id, value } = target;
+    this.setState({
+      newPlayerInfo: {
+        ...this.state.newPlayerInfo,
+        [id]: value
+      }
+    });
+  };
+
+  createPlayerHandler = uploadedImageUrl => {
+    console.log(uploadedImageUrl);
+    const newPlayer = { ...this.state.newPlayerInfo, photo: uploadedImageUrl };
+    console.log(newPlayer);
+    this.sendData(newPlayer);
     this.componentDidMount();
   };
 
+  sendData = async newPlayer => {
+    console.log(this.props.location.teamId);
+
+    await axios.post(
+      `https://team-manager-b8e8c.firebaseio.com/${this.props.match.params.teamId}/players.json`,
+      newPlayer
+    );
+  };
+
+  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+  handleFileSelect = e => {
+    const file = e.target.files[0];
+    const previewFile = URL.createObjectURL(file);
+    this.setState({
+      previewFile: previewFile,
+      uploadedImage: file
+    });
+  };
+
+  fileUploadHandler = event => {
+    event.preventDefault();
+    const { teamName, uploadedImage } = this.state;
+    const { firstName, lastName, number } = this.state.newPlayerInfo;
+    const playerFirebaseName = `${firstName}-${lastName}-${number}`;
+
+    const uploadTask = storage
+      .ref(`images/teams/${teamName}/players/${playerFirebaseName}`)
+      .put(uploadedImage);
+    return uploadTask.on(
+      "state_changed",
+      snapshot => {
+        // console.log(snapshot);
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        this.setState({ progress });
+      },
+      error => {},
+      () => {
+        storage
+          .ref(`images/teams/${teamName}/players/`)
+          .child(playerFirebaseName)
+          .getDownloadURL()
+          .then(url => {
+            this.createPlayerHandler(url);
+          });
+      }
+    );
+  };
+
+  // createTeamHandler = uploadedImageUrl => {
+  //   const newTeam = {
+  //     teamName: this.state.newTeamName,
+  //     players: [],
+  //     teamLogo: uploadedImageUrl
+  //   };
+  //   this.sendData(newTeam);
+  // };
+
+  // sendData = async newTeam => {
+  //   await axios.post(
+  //     "https://team-manager-b8e8c.firebaseio.com/.json",
+  //     newTeam
+  //   );
+  //   this.componentDidMount();
+  // };
+
+  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
   render() {
+    const filePreviewElement = this.state.previewFile && (
+      <div>
+        <img
+          src={this.state.previewFile}
+          className={classes.PreviewFile}
+          alt="preview-img"
+        />
+        <h2>{this.state.previewFile.fileName}</h2>
+      </div>
+    );
+
     let players = null;
 
-    if (this.state.players !== null && this.state.players !== undefined) {
+    if (this.state.players) {
       const fetchedPlayers = Object.values(this.state.players);
       players = fetchedPlayers.map((player, index) => {
         return (
           <Player
             key={index}
-            id={index}
-            number={player.nr}
+            playerId={index}
+            number={player.number}
             firstName={player.firstName}
             lastName={player.lastName}
             position={player.position}
             birth={player.birth}
-            teamName={this.state.teamName}
+            teamId={this.props.match.params.teamId}
+            photo={player.photo}
+            // teamName={this.state.teamName}
           />
         );
       });
     }
 
     return (
-      <Aux>
+      <>
         <div className={classes.Players}>{players}</div>
         <PlayerCreator
           active={this.state.addNewPlayerClicked}
           clicked={this.newPlayerClickedHandler}
           change={this.changeHandler}
-          createPlayer={this.createPlayerHandler}
           cancelled={this.createCancelledHandler}
-        />
-      </Aux>
+          addImg={this.handleFileSelect}
+          createPlayer={this.fileUploadHandler}
+          progress={this.state.progress}
+        >
+          {filePreviewElement}
+        </PlayerCreator>
+      </>
     );
   }
 }

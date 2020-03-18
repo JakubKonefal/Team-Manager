@@ -1,17 +1,19 @@
-import React from 'react';
-// import { NavLink } from 'react-router-dom';
-import classes from './Topnav.module.css';
+import React from "react";
+import classes from "./Topnav.module.css";
+import { Link } from "react-router-dom";
 
-const topnav = () =>{
-    return(
-        <div className={classes.Topnav}>
-            <span>Digital Football Manager</span>
-            <div className={classes.BtnsWraper}>
-                <button className={classes.Login} >Sign up</button>
-                <button className={classes.Signup} >Log in</button>
-            </div>
-        </div>
-    );
-}
+const Topnav = () => {
+  return (
+    <div className={classes.Topnav}>
+      <span>Football Manager</span>
+      <div className={classes.BtnsWraper}>
+        <Link to="/my-teams">
+          <button className={classes.Login}>Sign up</button>
+        </Link>
+        <button className={classes.Signup}>Log in</button>
+      </div>
+    </div>
+  );
+};
 
-export default topnav;
+export default Topnav;

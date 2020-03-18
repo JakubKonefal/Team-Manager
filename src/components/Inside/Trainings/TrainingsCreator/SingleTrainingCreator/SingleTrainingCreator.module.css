@@ -1,0 +1,29 @@
+.SingleTrainingCreator {
+  width: 80%;
+  margin: 10px auto;
+  border: 1px solid #501;
+  background-color: #eee;
+}
+
+.Form__Grid {
+  display: grid;
+  font-weight: bold;
+}
+
+.Grid__Item {
+  display: flex;
+  margin: 10px;
+}
+
+.Icon {
+  font-size: 16px;
+  margin-right: 5px;
+}
+
+.Input {
+  margin-left: 10px;
+}
+
+.Input:focus {
+  border: 3px solid #070;
+}

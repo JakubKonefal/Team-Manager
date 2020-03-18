@@ -1,0 +1,118 @@
+.TaskCreator {
+  width: 80%;
+  margin: 0 auto;
+  border: 2px solid #666;
+}
+
+.Task {
+  box-sizing: border-box;
+  margin: 10px 0 10px 20px;
+  width: 80%;
+  padding: 5px;
+  font-size: 20px;
+}
+
+.Description {
+  box-sizing: border-box;
+  margin: 10px 0 10px 20px;
+  width: 80%;
+  height: 150px;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.Label {
+  margin-left: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.Form {
+  position: relative;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.Equipment {
+  margin-left: 10px;
+  width: 40%;
+  margin-bottom: 10px;
+  padding: 5px 3px;
+}
+
+.Duration {
+  width: 120px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  padding: 5px 3px;
+}
+
+.Icon {
+  margin-right: 10px;
+}
+
+.Icon__Close {
+  position: absolute;
+  top: 3px;
+  right: 12px;
+  font-size: 26px;
+}
+
+.Buttons {
+  display: flex;
+  width: 35%;
+  margin: 0 auto;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.SubmitBtn {
+  color: #070;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.SubmitBtn:hover {
+  color: #696;
+}
+
+.Hide {
+  display: none;
+}
+
+.Relative {
+  position: relative;
+}
+
+.NewTask {
+  box-sizing: border-box;
+  border: 2px solid #777;
+  margin: 10px auto;
+  width: 80%;
+  padding: 5px 10px;
+  align-items: center;
+  color: #888;
+  font-size: 40px;
+}
+
+.NewTask:hover {
+  color: #000;
+  border-color: #070;
+  cursor: pointer;
+}
+.TaskCreator {
+  box-sizing: border-box;
+  width: 80%;
+  margin: 10px auto;
+  border: 2px solid #070;
+  align-items: center;
+  color: #000;
+  font-size: 40px;
+}
+
+.TaskCreator_Inactive {
+  font-size: 20px;
+}

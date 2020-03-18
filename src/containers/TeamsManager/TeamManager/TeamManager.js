@@ -1,35 +1,47 @@
 import React from "react";
 import classes from "./TeamManager.module.css";
 import MainContentWraper from "../../../components/MainContentWraper/MainContentWraper";
-import { Route, Link } from "react-router-dom";
+import { Route, Link, Switch } from "react-router-dom";
 import Players from "../../../components/Inside/Players/Players";
+import Trainings from "../../../components/Inside/Trainings/Trainings";
+import TrainingPlan from "../../../components/Inside/Trainings/TrainingPlan/TrainingPlan";
 
-const teamBuilder = props => (
+const TeamManager = props => (
   <div>
     <MainContentWraper>
-      <h1 style={{ margin: "0", textAlign: "center", paddingTop: "20px" }}>
-        {" "}
-        {props.match.params.teamName} + LOGO
-      </h1>
       <ul className={classes.NavLeft}>
-        {console.log(props.location.teamId)}
         <Link
           to={{
-            pathname: `/my-teams/${props.match.params.teamName}/players`,
+            pathname: `/my-teams/${props.location.teamId}/players`,
+            teamId: props.location.teamId,
+            teamName: props.location.teamName
+          }}
+        >
+          Players
+        </Link>
+        <Link
+          to={{
+            pathname: `/my-teams/${props.location.teamId}/trainings`,
             teamId: props.location.teamId
           }}
         >
-          PLAYERS
+          Trainings
         </Link>
-        <li className={classes.Inactive}>Training</li>
         <li className={classes.Inactive}>Table</li>
         <li className={classes.Inactive}>Settings</li>
       </ul>
       <div>
-        <Route path="/my-teams/:teamName/players" component={Players} />
+        <Route path="/my-teams/:teamId/players" component={Players} />
+        <Switch>
+          <Route
+            path="/my-teams/:teamId/trainings/:trainingId"
+            component={TrainingPlan}
+          />
+          <Route path="/my-teams/:teamId/trainings" component={Trainings} />
+        </Switch>
       </div>
     </MainContentWraper>
   </div>
 );
 
-export default teamBuilder;
+export default TeamManager;

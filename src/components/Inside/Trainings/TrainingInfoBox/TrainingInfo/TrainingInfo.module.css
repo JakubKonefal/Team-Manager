@@ -1,0 +1,37 @@
+.TrainingInfo {
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+  border: 3px solid #444;
+  background-color: #fff;
+}
+
+.TrainingInfo__Line {
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-left: 50px;
+}
+
+.TrainingInfo__Line:first-child {
+  border-right: 2px dashed #777;
+  margin: 5px 0;
+}
+
+.TrainingInfo__Line p {
+  margin: 10px 10px;
+  font-size: 18px;
+  /* font-weight: bold; */
+}
+
+.Icon {
+  margin-right: 5px;
+  color: #004;
+}
+
+.Info__Label {
+  font-weight: bold;
+  color: #004;
+}

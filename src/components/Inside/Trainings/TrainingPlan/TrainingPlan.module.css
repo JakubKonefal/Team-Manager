@@ -1,0 +1,26 @@
+.TrainingInfo__Label {
+  width: 80%;
+  margin: 10px auto;
+  cursor: pointer;
+}
+
+.TrainingInfo__Label:hover {
+  color: #444;
+}
+
+.TrainingPlan__Label {
+  width: 80%;
+  margin: 10px auto;
+  cursor: pointer;
+}
+
+.TrainingPlan__Label:hover {
+  color: #444;
+}
+
+.Border {
+  width: 80%;
+  height: 1px;
+  margin: 30px auto;
+  border-top: 2px dashed #777;
+}

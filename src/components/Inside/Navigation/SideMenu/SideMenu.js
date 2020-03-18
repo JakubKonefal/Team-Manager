@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import classes from "./SideMenu.module.css";
-import Aux from "../../../../hoc/Auxiliary/Auxiliary";
 import "../../../../assets/webfonts/all.css";
 import Logo from "../../../../assets/img/default_team_logo.png";
 
@@ -15,25 +14,18 @@ class SideMenu extends Component {
       menuActive: !this.state.menuActive,
       currentURL: window.location.href
     });
+    console.log(this.props);
   };
 
   render() {
-    let menuClass = classes.SideMenu;
-    if (this.state.menuActive) {
-      menuClass = `${classes.SideMenu} ${classes.Active}`;
-    }
-
-    console.log(this.state.currentURL);
-
-    let btnDisabled = null;
-    if (this.state.currentURL === "http://localhost:3000/my-teams") {
-      btnDisabled = true;
-    } else {
-      btnDisabled = false;
-    }
+    const menuClass = this.state.menuActive
+      ? `${classes.SideMenu} ${classes.Active}`
+      : classes.SideMenu;
+    const btnDisabled =
+      this.state.currentURL === "http://localhost:3000/my-teams" ? true : false;
 
     return (
-      <Aux>
+      <>
         <div className={classes.Hamburger} onClick={this.toggleMenuHandler}>
           <div className={classes.Hamburger__Bar}></div>
           <div className={classes.Hamburger__Bar}></div>
@@ -41,14 +33,7 @@ class SideMenu extends Component {
         </div>
         <ul className={menuClass}>
           <i
-            className="fas fa-times"
-            style={{
-              marginBottom: "30px",
-              fontSize: "36px",
-              display: "block",
-              marginLeft: "10px",
-              cursor: "pointer"
-            }}
+            className={`fas fa-times ${classes.Icon__Close}`}
             onClick={this.toggleMenuHandler}
           ></i>
           <div className={classes.ActiveTeam}>
@@ -84,7 +69,7 @@ class SideMenu extends Component {
             </button>
           </li>
         </ul>
-      </Aux>
+      </>
     );
   }
 }

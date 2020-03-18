@@ -8,9 +8,9 @@ const player = props => {
   return (
     <Link
       className={classes.Player}
-      to={`/my-teams/${props.teamName}/players/${props.id}`}
+      to={`/my-teams/${props.teamId}/players/${props.playerId}`}
     >
-      <img src={defaultImg} className={classes.PlayerImg} alt="player" />
+      <img src={props.photo} className={classes.PlayerImg} alt="player" />
       <div>
         <span className={classes.Label}>
           <strong>Nr:</strong> {props.number}

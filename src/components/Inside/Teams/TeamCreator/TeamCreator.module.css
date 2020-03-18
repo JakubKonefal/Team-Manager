@@ -80,3 +80,9 @@ p {
   color: #888;
   font-size: 40px;
 }
+
+.CloseIcon {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+}

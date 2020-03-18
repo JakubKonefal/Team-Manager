@@ -1,18 +1,13 @@
 import React from "react";
 import classes from "./TeamCreator.module.css";
 
-const teamCreator = props => {
-  let iconClass = null;
-  let formClass = classes.Hide;
-  let teamCreatorClass = classes.NewTeam;
-  if (props.active) {
-    iconClass = classes.Hide;
-    formClass = classes.Relative;
-    teamCreatorClass = classes.TeamCreator;
-  }
+const TeamCreator = props => {
+  const iconClass = props.active ? classes.Hide : null;
+  const formClass = props.active ? classes.Relative : classes.Hide;
+  const teamCreatorClass = props.active ? classes.TeamCreator : classes.NewTeam;
 
   return (
-    <li className={teamCreatorClass} onClick={props.clicked}>
+    <div className={teamCreatorClass} onClick={props.clicked}>
       <div className={iconClass}>
         <i className="fas fa-plus" style={{ marginRight: "30px" }}></i>
         <span>Add new team</span>
@@ -38,16 +33,17 @@ const teamCreator = props => {
         >
           Submit
         </button>
+        <progress value={props.progress} max="100" />
         <output id="list" className={classes.uploadedImage}></output>
         <input id="file-upload" type="file" onChange={props.addImg} />
         <i
-          className="far fa-times-circle"
+          className={`far fa-times-circle ${classes.CloseIcon}`}
           onClick={props.cancelled}
-          style={{ position: "absolute", top: "-15px", right: "-15px" }}
         ></i>
+        {props.children}
       </form>
-    </li>
+    </div>
   );
 };
 
-export default teamCreator;
+export default TeamCreator;
