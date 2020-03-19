@@ -1,8 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Training = props => {
-  const trainingDate = new Date(props.date);
+const Training = ({
+  date,
+  start,
+  end,
+  place,
+  type,
+  intensity,
+  teamId,
+  trainingId
+}) => {
+  const trainingDate = new Date(date);
   const trainingWeekDayIndex = trainingDate.getDay();
   const getDayOfWeek = dayIndex => {
     return [
@@ -17,24 +26,20 @@ const Training = props => {
   };
   const trainingWeekDay = getDayOfWeek(trainingWeekDayIndex);
 
-  console.log(props);
-
   return (
     <>
       <span>
         <input type="checkbox" />
       </span>
       <span>
-        <Link to={`/my-teams/${props.teamId}/trainings/${props.trainingId}`}>
-          {props.date}
-        </Link>
+        <Link to={`/my-teams/${teamId}/trainings/${trainingId}`}>{date}</Link>
       </span>
       <span>{trainingWeekDay}</span>
-      <span>{props.start}</span>
-      <span>{props.end}</span>
-      <span>{props.place}</span>
-      <span>{props.type}</span>
-      <span>{props.intensity}</span>
+      <span>{start}</span>
+      <span>{end}</span>
+      <span>{place}</span>
+      <span>{type}</span>
+      <span>{intensity}</span>
     </>
   );
 };

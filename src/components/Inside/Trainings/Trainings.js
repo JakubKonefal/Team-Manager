@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import TrainingsList from "./TrainingsList/TrainingsList";
 import SingleTrainingCreator from "./TrainingsCreator/SingleTrainingCreator/SingleTrainingCreator";
-// import MultipleTrainingsCreator from "./TrainingsCreator/MultipleTrainingsCreator/MultipleTrainingsCreator";
 import classes from "./Trainings.module.css";
 
 class Trainings extends Component {
@@ -15,16 +14,6 @@ class Trainings extends Component {
       type: null,
       intensity: null
     }
-  };
-
-  inputChangeHandler = ({ target }) => {
-    const { id, value } = target;
-    this.setState({
-      newTrainingInfo: {
-        ...this.state.newTrainingInfo,
-        [id]: value
-      }
-    });
   };
 
   componentDidMount() {
@@ -48,18 +37,28 @@ class Trainings extends Component {
       });
   }
 
-  createTrainingHandler = e => {
-    e.preventDefault();
-    const newTraining = { info: this.state.newTrainingInfo };
-    this.sendData(newTraining);
+  handleInputChange = ({ target }) => {
+    const { id, value } = target;
+    this.setState({
+      newTrainingInfo: {
+        ...this.state.newTrainingInfo,
+        [id]: value
+      }
+    });
   };
 
-  sendData = async newTraining => {
+  handlePassDataToServer = async newTraining => {
     await axios.post(
       `https://team-manager-b8e8c.firebaseio.com/${this.props.match.params.teamId}/trainings.json`,
       newTraining
     );
     this.componentDidMount();
+  };
+
+  onFormSubmit = e => {
+    e.preventDefault();
+    const newTraining = { info: this.state.newTrainingInfo };
+    this.handlePassDataToServer(newTraining);
   };
 
   render() {
@@ -70,10 +69,9 @@ class Trainings extends Component {
           teamId={this.props.match.params.teamId}
         />
         <SingleTrainingCreator
-          change={this.inputChangeHandler}
-          clicked={this.createTrainingHandler}
+          onInputChange={this.handleInputChange}
+          onClick={this.onFormSubmit}
         />
-        {/* <MultipleTrainingsCreator /> */}
       </div>
     );
   }

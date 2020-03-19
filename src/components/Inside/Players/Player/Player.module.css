@@ -27,3 +27,10 @@
 .PlayerImg {
   width: 50px;
 }
+
+.CloseIcon {
+  display: block;
+  margin-bottom: 8px;
+  color: red;
+  cursor: pointer;
+}

@@ -1,18 +1,24 @@
 import React from "react";
 import classes from "./TaskCreator.module.css";
 
-const TaskCreator = ({ active, createTask, clicked, changed, cancelled }) => {
+const TaskCreator = ({
+  active,
+  onFormSubmit,
+  onClick,
+  onInputChange,
+  onClose
+}) => {
   const iconClass = active ? classes.Hide : classes.TaskCreator_Inactive;
   const formClass = active ? classes.Form : classes.Hide;
   const taskCreatorClass = active ? classes.TaskCreator : classes.NewTask;
 
   return (
-    <div className={taskCreatorClass} onClick={clicked}>
+    <div className={taskCreatorClass} onClick={onClick}>
       <div className={iconClass}>
         <i className={`fas fa-plus ${classes.Icon}`}></i>
         Add new task
       </div>
-      <form className={formClass} onChange={changed}>
+      <form className={formClass} onChange={onInputChange}>
         <label className={classes.Label} htmlFor="task">
           Task:
         </label>
@@ -48,12 +54,12 @@ const TaskCreator = ({ active, createTask, clicked, changed, cancelled }) => {
             placeholder="2x 10min"
           />
         </label>
-        <button className={classes.SubmitBtn} onClick={createTask}>
+        <button className={classes.SubmitBtn} onClick={onFormSubmit}>
           Add task
         </button>
         <i
           className={`far fa-times-circle ${classes.Icon__Close}`}
-          onClick={cancelled}
+          onClick={onClose}
         ></i>
       </form>
     </div>

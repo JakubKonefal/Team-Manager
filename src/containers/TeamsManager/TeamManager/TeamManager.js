@@ -6,23 +6,23 @@ import Players from "../../../components/Inside/Players/Players";
 import Trainings from "../../../components/Inside/Trainings/Trainings";
 import TrainingPlan from "../../../components/Inside/Trainings/TrainingPlan/TrainingPlan";
 
-const TeamManager = props => (
+const TeamManager = ({ location }) => (
   <div>
     <MainContentWraper>
       <ul className={classes.NavLeft}>
         <Link
           to={{
-            pathname: `/my-teams/${props.location.teamId}/players`,
-            teamId: props.location.teamId,
-            teamName: props.location.teamName
+            pathname: `/my-teams/${location.teamId}/players`,
+            teamId: location.teamId,
+            teamName: location.teamName
           }}
         >
           Players
         </Link>
         <Link
           to={{
-            pathname: `/my-teams/${props.location.teamId}/trainings`,
-            teamId: props.location.teamId
+            pathname: `/my-teams/${location.teamId}/trainings`,
+            teamId: location.teamId
           }}
         >
           Trainings

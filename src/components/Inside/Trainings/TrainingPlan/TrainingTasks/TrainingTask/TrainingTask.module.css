@@ -63,6 +63,13 @@
   /* color: #004; */
 }
 
+.CloseIcon {
+  display: block;
+  margin-bottom: 8px;
+  color: red;
+  cursor: pointer;
+}
+
 .Hide {
   display: none;
 }

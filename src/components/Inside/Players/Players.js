@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 import Player from "./Player/Player";
 import axios from "axios";
-import { storage } from "../../../firebase/firebase";
-// import Spinner from "../UI/Spinner/Spinner";
+import { storage, database } from "../../../firebase/firebase";
 import classes from "./Players.module.css";
 import PlayerCreator from "./PlayerCreator/PlayerCreator";
 
 class Players extends Component {
   state = {
-    players: null,
     teamName: this.props.location.teamName,
-    addNewPlayerClicked: false,
-    submitDisabled: true,
+    players: null,
+    playerCreatorActive: false,
     newPlayerInfo: {
       number: "",
       firstName: "",
@@ -21,7 +19,8 @@ class Players extends Component {
       photo: null
     },
     previewFile: null,
-    uploadedImage: null
+    uploadedImage: null,
+    imageUploadProgress: ""
   };
 
   componentDidMount() {
@@ -34,22 +33,31 @@ class Players extends Component {
         if (!data.players) {
           this.setState({ players: [], teamName: data.teamName });
         } else {
-          this.setState({ players: data.players, teamName: data.teamName });
+          const players = data.players;
+          const playersIds = Object.keys(players);
+          const playersArray = Object.values(players);
+          for (let i = 0; i < playersIds.length; i++) {
+            playersArray[i].playerId = playersIds[i];
+            playersArray[i].teamName = data.teamName;
+          }
+          const updatedPlayers = [];
+          updatedPlayers.push(...playersArray);
+          this.setState({ players: updatedPlayers, teamName: data.teamName });
         }
       });
   }
 
-  newPlayerClickedHandler = () => {
-    if (!this.state.addNewPlayerClicked) {
-      this.setState({ addNewPlayerClicked: true });
+  handlePlayerCreatorOpen = () => {
+    if (!this.state.playerCreatorActive) {
+      this.setState({ playerCreatorActive: true });
     }
   };
 
-  createCancelledHandler = () => {
-    this.setState({ addNewPlayerClicked: false });
+  handlePlayerCreatorClose = () => {
+    this.setState({ playerCreatorActive: false });
   };
 
-  changeHandler = ({ target }) => {
+  handleInputChange = ({ target }) => {
     const { id, value } = target;
     this.setState({
       newPlayerInfo: {
@@ -59,27 +67,7 @@ class Players extends Component {
     });
   };
 
-  createPlayerHandler = uploadedImageUrl => {
-    console.log(uploadedImageUrl);
-    const newPlayer = { ...this.state.newPlayerInfo, photo: uploadedImageUrl };
-    console.log(newPlayer);
-    this.sendData(newPlayer);
-    this.componentDidMount();
-  };
-
-  sendData = async newPlayer => {
-    console.log(this.props.location.teamId);
-
-    await axios.post(
-      `https://team-manager-b8e8c.firebaseio.com/${this.props.match.params.teamId}/players.json`,
-      newPlayer
-    );
-  };
-
-  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-  handleFileSelect = e => {
+  handleImageSelect = e => {
     const file = e.target.files[0];
     const previewFile = URL.createObjectURL(file);
     this.setState({
@@ -88,8 +76,35 @@ class Players extends Component {
     });
   };
 
-  fileUploadHandler = event => {
-    event.preventDefault();
+  handlePlayerCreate = uploadedImageUrl => {
+    const newPlayer = { ...this.state.newPlayerInfo, photo: uploadedImageUrl };
+    this.handlePassDataToServer(newPlayer);
+  };
+
+  handlePlayerDelete = (playerId, teamName, playerFirebaseName) => {
+    database
+      .ref(`${this.props.match.params.teamId}/players/${playerId}`)
+      .remove()
+      .then(() => {
+        this.state.players
+          ? this.componentDidMount()
+          : this.setState({ players: [] });
+      });
+    storage
+      .ref(`images/teams/${teamName}/players/${playerFirebaseName}`)
+      .delete();
+  };
+
+  handlePassDataToServer = async newPlayer => {
+    await axios.post(
+      `https://team-manager-b8e8c.firebaseio.com/${this.props.match.params.teamId}/players.json`,
+      newPlayer
+    );
+    this.componentDidMount();
+  };
+
+  handleFormSubmit = e => {
+    e.preventDefault();
     const { teamName, uploadedImage } = this.state;
     const { firstName, lastName, number } = this.state.newPlayerInfo;
     const playerFirebaseName = `${firstName}-${lastName}-${number}`;
@@ -100,11 +115,10 @@ class Players extends Component {
     return uploadTask.on(
       "state_changed",
       snapshot => {
-        // console.log(snapshot);
-        const progress = Math.round(
+        const imageUploadProgress = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-        this.setState({ progress });
+        this.setState({ imageUploadProgress });
       },
       error => {},
       () => {
@@ -113,31 +127,11 @@ class Players extends Component {
           .child(playerFirebaseName)
           .getDownloadURL()
           .then(url => {
-            this.createPlayerHandler(url);
+            this.handlePlayerCreate(url);
           });
       }
     );
   };
-
-  // createTeamHandler = uploadedImageUrl => {
-  //   const newTeam = {
-  //     teamName: this.state.newTeamName,
-  //     players: [],
-  //     teamLogo: uploadedImageUrl
-  //   };
-  //   this.sendData(newTeam);
-  // };
-
-  // sendData = async newTeam => {
-  //   await axios.post(
-  //     "https://team-manager-b8e8c.firebaseio.com/.json",
-  //     newTeam
-  //   );
-  //   this.componentDidMount();
-  // };
-
-  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
   render() {
     const filePreviewElement = this.state.previewFile && (
@@ -155,19 +149,20 @@ class Players extends Component {
 
     if (this.state.players) {
       const fetchedPlayers = Object.values(this.state.players);
-      players = fetchedPlayers.map((player, index) => {
+      players = fetchedPlayers.map(player => {
         return (
           <Player
-            key={index}
-            playerId={index}
+            key={player.playerId}
             number={player.number}
             firstName={player.firstName}
             lastName={player.lastName}
             position={player.position}
             birth={player.birth}
-            teamId={this.props.match.params.teamId}
             photo={player.photo}
-            // teamName={this.state.teamName}
+            playerId={player.playerId}
+            teamId={this.props.match.params.teamId}
+            teamName={player.teamName}
+            onDelete={this.handlePlayerDelete}
           />
         );
       });
@@ -177,13 +172,13 @@ class Players extends Component {
       <>
         <div className={classes.Players}>{players}</div>
         <PlayerCreator
-          active={this.state.addNewPlayerClicked}
-          clicked={this.newPlayerClickedHandler}
-          change={this.changeHandler}
-          cancelled={this.createCancelledHandler}
-          addImg={this.handleFileSelect}
-          createPlayer={this.fileUploadHandler}
-          progress={this.state.progress}
+          active={this.state.playerCreatorActive}
+          imgUploadProgress={this.state.imageUploadProgress}
+          onFormSubmit={this.handleFormSubmit}
+          onInputChange={this.handleInputChange}
+          onImageSelect={this.handleImageSelect}
+          onClose={this.handlePlayerCreatorClose}
+          onClick={this.handlePlayerCreatorOpen}
         >
           {filePreviewElement}
         </PlayerCreator>

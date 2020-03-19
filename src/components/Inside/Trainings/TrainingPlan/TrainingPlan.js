@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import classes from "./TrainingPlan.module.css";
+import { database } from "../../../../firebase/firebase";
 import TrainingTasks from "./TrainingTasks/TrainingTasks";
 import TrainingInfo from "../TrainingInfoBox/TrainingInfo/TrainingInfo";
 import TaskCreator from "./TrainingTasks/TaskCreator/TaskCreator";
@@ -8,14 +9,14 @@ import TaskCreator from "./TrainingTasks/TaskCreator/TaskCreator";
 class TrainingPlan extends Component {
   state = {
     trainingInfo: null,
-    trainingTasks: null,
+    trainingTasks: "",
+    taskCreatorActive: false,
     newTask: {
       task: "",
       taskDescription: "",
       duration: "",
       equipment: ""
-    },
-    newTaskClicked: false
+    }
   };
 
   componentDidMount() {
@@ -26,7 +27,6 @@ class TrainingPlan extends Component {
       .then(res => {
         const trainingInfo = res.data.info;
         const trainingTasks = res.data.tasks;
-
         if (trainingInfo) {
           this.setState({
             trainingInfo: { ...trainingInfo }
@@ -41,11 +41,39 @@ class TrainingPlan extends Component {
           const updatedTasks = [];
           updatedTasks.push(...tasksArray);
           this.setState({ trainingTasks: updatedTasks });
+        } else {
+          this.setState({ trainingTasks: [] });
         }
       });
   }
 
-  sendData = async newTask => {
+  handleTaskCreatorOpen = () => {
+    if (!this.state.taskCreatorActive) {
+      this.setState({ taskCreatorActive: true });
+    }
+  };
+
+  handleTaskCreatorClose = () => {
+    this.setState({ taskCreatorActive: false });
+  };
+
+  handleInputChange = ({ target }) => {
+    const { id, value } = target;
+    this.setState({ newTask: { ...this.state.newTask, [id]: value } });
+  };
+
+  handleTaskDelete = taskId => {
+    database
+      .ref(
+        `${this.props.match.params.teamId}/trainings/${this.props.match.params.trainingId}/tasks/${taskId}`
+      )
+      .remove()
+      .then(() => {
+        this.componentDidMount();
+      });
+  };
+
+  handlePassDataToServer = async newTask => {
     await axios.post(
       `https://team-manager-b8e8c.firebaseio.com/${this.props.match.params.teamId}/trainings/${this.props.match.params.trainingId}/tasks.json`,
       newTask
@@ -53,25 +81,10 @@ class TrainingPlan extends Component {
     this.componentDidMount();
   };
 
-  createTaskHandler = event => {
+  handleFormSubmit = event => {
     event.preventDefault();
     const newTask = this.state.newTask;
-    this.sendData(newTask);
-  };
-
-  changeHandler = ({ target }) => {
-    const { id, value } = target;
-    this.setState({ newTask: { ...this.state.newTask, [id]: value } });
-  };
-
-  newTaskClickedHandler = () => {
-    if (!this.state.newTaskClicked) {
-      this.setState({ newTaskClicked: true });
-    }
-  };
-
-  newTaskCancelledHandler = () => {
-    this.setState({ newTaskClicked: false });
+    this.handlePassDataToServer(newTask);
   };
 
   render() {
@@ -89,13 +102,16 @@ class TrainingPlan extends Component {
         </div>
         <div className={classes.Border}></div>
         <h2 className={classes.TrainingPlan__Label}>Training Plan</h2>
-        <TrainingTasks tasks={this.state.trainingTasks} />
+        <TrainingTasks
+          tasks={this.state.trainingTasks}
+          onDelete={this.handleTaskDelete}
+        />
         <TaskCreator
-          changed={this.changeHandler}
-          createTask={this.createTaskHandler}
-          clicked={this.newTaskClickedHandler}
-          active={this.state.newTaskClicked}
-          cancelled={this.newTaskCancelledHandler}
+          active={this.state.taskCreatorActive}
+          onFormSubmit={this.handleFormSubmit}
+          onInputChange={this.handleInputChange}
+          onClose={this.handleTaskCreatorClose}
+          onClick={this.handleTaskCreatorOpen}
         />
       </>
     );

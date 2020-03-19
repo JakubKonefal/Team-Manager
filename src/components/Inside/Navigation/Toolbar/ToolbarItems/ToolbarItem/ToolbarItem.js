@@ -1,13 +1,11 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import classes from './ToolbarItem.module.css';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import classes from "./ToolbarItem.module.css";
 
-const toolbarItem = (props) =>{
-    return(
-        <NavLink
-         to={props.link}
-         className={classes.ToolbarItem}>{props.children}</NavLink>
-    );
-}
+const toolbarItem = ({ link, children }) => (
+  <NavLink to={link} className={classes.ToolbarItem}>
+    {children}
+  </NavLink>
+);
 
- export default toolbarItem;
+export default toolbarItem;

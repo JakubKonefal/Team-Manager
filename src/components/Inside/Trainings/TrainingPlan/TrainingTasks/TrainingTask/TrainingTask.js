@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import classes from "./TrainingTask.module.css";
 
-const TrainingTask = ({ task, taskDescription, duration, equipment }) => {
+const TrainingTask = ({
+  task,
+  taskDescription,
+  duration,
+  equipment,
+  onDelete,
+  taskId
+}) => {
   const [taskActive, toggleActiveClass] = useState(false);
 
   const activeClass = taskActive ? null : classes.Hide;
@@ -23,6 +30,12 @@ const TrainingTask = ({ task, taskDescription, duration, equipment }) => {
         <span className={classes.Task__Duration}>
           <i className={`far fa-clock ${classes.Icon}`}></i>Time: {duration}
         </span>
+        <i
+          className={`fas fa-minus-circle ${classes.CloseIcon}`}
+          onClick={() => {
+            onDelete(taskId);
+          }}
+        ></i>
       </div>
       <div className={activeClass}>
         <p className={classes.Task__MoreInfo}>{taskDescription}</p>

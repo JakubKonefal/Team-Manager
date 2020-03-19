@@ -1,25 +1,22 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { storage } from "../../firebase/firebase";
+import { storage, database } from "../../firebase/firebase";
 import classes from "./TeamsManager.module.css";
 import "../../assets/webfonts/all.css";
 import MainContentWraper from "../../components/MainContentWraper/MainContentWraper";
 import TeamCreator from "../../components/Inside/Teams/TeamCreator/TeamCreator";
 import Teams from "../../components/Inside/Teams/Teams";
-// import Spinner from "../../components/UI/Spinner/Spinner";
 
 class TeamsManager extends Component {
   state = {
-    teams: [],
-    addNewTeamClicked: false,
-    submitDisabled: true,
+    teams: null,
     newTeamName: null,
     newTeamLogo: null,
     uploadedImage: null,
     uploadedImageUrl: "",
     previewFile: null,
-    fetchedImage: null,
-    progress: ""
+    imageUploadProgress: "",
+    teamCreatorActive: false
   };
 
   componentDidMount() {
@@ -34,21 +31,27 @@ class TeamsManager extends Component {
         const updatedTeams = [];
         updatedTeams.push(...teamsArray);
         this.setState({ teams: updatedTeams });
+      } else {
+        this.setState({ teams: [] });
       }
     });
   }
 
-  newTeamClickedHandler = () => {
-    if (!this.state.addNewTeamClicked) {
-      this.setState({ addNewTeamClicked: true });
+  handleTeamCreatorOpen = () => {
+    if (!this.state.teamCreatorActive) {
+      this.setState({ teamCreatorActive: true });
     }
   };
 
-  createCancelledHandler = () => {
-    this.setState({ addNewTeamClicked: false });
+  handleTeamCreatorClose = () => {
+    this.setState({ teamCreatorActive: false });
   };
 
-  handleFileSelect = e => {
+  handleTeamNameChange = e => {
+    this.setState({ newTeamName: e.target.value });
+  };
+
+  handleImageSelect = e => {
     const file = e.target.files[0];
     const previewFile = URL.createObjectURL(file);
     this.setState({
@@ -57,43 +60,28 @@ class TeamsManager extends Component {
     });
   };
 
-  fileUploadHandler = event => {
-    event.preventDefault();
-    const { uploadedImage, newTeamName } = this.state;
-    const uploadTask = storage
-      .ref(`images/teams/${newTeamName}/team-logo/${uploadedImage.name}`)
-      .put(uploadedImage);
-    return uploadTask.on(
-      "state_changed",
-      snapshot => {
-        // console.log(snapshot);
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        this.setState({ progress });
-      },
-      error => {
-        console.log(error);
-      },
-      () => {
-        storage
-          .ref(`images/teams/${newTeamName}/team-logo/`)
-          .child(uploadedImage.name)
-          .getDownloadURL()
-          .then(url => {
-            this.createTeamHandler(url);
-          });
-      }
-    );
+  handleTeamCreate = uploadedImageUrl => {
+    const newTeam = {
+      teamName: this.state.newTeamName,
+      players: [],
+      teamLogo: uploadedImageUrl
+    };
+    this.handlePassDataToServer(newTeam);
   };
 
-  txtChangeHandler = event => {
-    this.setState({ newTeamName: event.target.value });
-    const submitDisabled = !this.state.newTeamName;
-    this.setState({ submitDisabled });
+  handleTeamDelete = (teamId, teamName) => {
+    database
+      .ref(teamId)
+      .remove()
+      .then(() => {
+        this.state.teams
+          ? this.componentDidMount()
+          : this.setState({ teams: [] });
+      });
+    storage.ref(`images/teams/${teamName}/team-logo/${teamName}`).delete();
   };
 
-  sendData = async newTeam => {
+  handlePassDataToServer = async newTeam => {
     await axios.post(
       "https://team-manager-b8e8c.firebaseio.com/.json",
       newTeam
@@ -101,13 +89,32 @@ class TeamsManager extends Component {
     this.componentDidMount();
   };
 
-  createTeamHandler = uploadedImageUrl => {
-    const newTeam = {
-      teamName: this.state.newTeamName,
-      players: [],
-      teamLogo: uploadedImageUrl
-    };
-    this.sendData(newTeam);
+  handleFormSubmit = e => {
+    e.preventDefault();
+    const { uploadedImage, newTeamName } = this.state;
+
+    const uploadTask = storage
+      .ref(`images/teams/${newTeamName}/team-logo/${newTeamName}`)
+      .put(uploadedImage);
+    return uploadTask.on(
+      "state_changed",
+      snapshot => {
+        const imageUploadProgress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        this.setState({ imageUploadProgress });
+      },
+      error => {},
+      () => {
+        storage
+          .ref(`images/teams/${newTeamName}/team-logo/`)
+          .child(newTeamName)
+          .getDownloadURL()
+          .then(url => {
+            this.handleTeamCreate(url);
+          });
+      }
+    );
   };
 
   render() {
@@ -132,18 +139,20 @@ class TeamsManager extends Component {
               </h1>
             </li>
             <li>
-              <Teams teams={this.state.teams} />
+              <Teams
+                teams={this.state.teams}
+                onDelete={this.handleTeamDelete}
+              />
             </li>
             <li>
               <TeamCreator
-                active={this.state.addNewTeamClicked}
-                btnDisabled={this.state.submitDisabled}
-                txtChange={this.txtChangeHandler}
-                createTeam={this.fileUploadHandler}
-                addImg={this.handleFileSelect}
-                cancelled={this.createCancelledHandler}
-                clicked={this.newTeamClickedHandler}
-                progress={this.state.progress}
+                active={this.state.teamCreatorActive}
+                imgUploadProgress={this.state.imageUploadProgress}
+                onFormSubmit={this.handleFormSubmit}
+                onTeamNameChange={this.handleTeamNameChange}
+                onImageSelect={this.handleImageSelect}
+                onClose={this.handleTeamCreatorClose}
+                onClick={this.handleTeamCreatorOpen}
               >
                 {filePreviewElement}
               </TeamCreator>

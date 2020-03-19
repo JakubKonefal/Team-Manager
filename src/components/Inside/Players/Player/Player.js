@@ -2,31 +2,49 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Player.module.css";
 import classes from "./Player.module.css";
-import defaultImg from "../../../../assets/img/user.jpg";
 
-const player = props => {
+const player = ({
+  number,
+  firstName,
+  lastName,
+  position,
+  birth,
+  photo,
+  playerId,
+  teamId,
+  teamName,
+  onDelete
+}) => {
+  const playerFirebaseName = `${firstName}-${lastName}-${number}`;
+
   return (
     <Link
       className={classes.Player}
-      to={`/my-teams/${props.teamId}/players/${props.playerId}`}
+      to={`/my-teams/${teamId}/players/${playerId}`}
     >
-      <img src={props.photo} className={classes.PlayerImg} alt="player" />
+      <img src={photo} className={classes.PlayerImg} alt="player" />
       <div>
         <span className={classes.Label}>
-          <strong>Nr:</strong> {props.number}
+          <strong>Nr:</strong> {number}
         </span>
         <span className={classes.Label}>
-          <strong>First name:</strong> {props.firstName}
+          <strong>First name:</strong> {firstName}
         </span>
         <span className={classes.Label}>
-          <strong>Last name:</strong> {props.lastName}
+          <strong>Last name:</strong> {lastName}
         </span>
         <span className={classes.Label}>
-          <strong>Position:</strong> {props.position}
+          <strong>Position:</strong> {position}
         </span>
         <span className={classes.Label}>
-          <strong>Date of birth:</strong> {props.birth}
+          <strong>Date of birth:</strong> {birth}
         </span>
+        <i
+          className={`fas fa-minus-circle ${classes.CloseIcon}`}
+          onClick={() => {
+            onDelete(playerId, teamName, playerFirebaseName);
+          }}
+        ></i>
       </div>
     </Link>
   );

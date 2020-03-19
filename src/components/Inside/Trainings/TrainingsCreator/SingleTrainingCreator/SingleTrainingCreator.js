@@ -1,11 +1,11 @@
 import React from "react";
 import classes from "./SingleTrainingCreator.module.css";
 
-const SingleTrainingCreator = ({ change, clicked }) => {
+const SingleTrainingCreator = ({ onInputChange, onFormSubmit }) => {
   return (
     <div className={classes.SingleTrainingCreator}>
       <h2>Create single training day</h2>
-      <form className={classes.Form__Grid} onChange={change}>
+      <form className={classes.Form__Grid} onChange={onInputChange}>
         <div className={classes.Grid__Item}>
           <label htmlFor="date" className={classes.InputLabel}>
             <i className={`fas fa-calendar-alt ${classes.Icon}`}></i>
@@ -67,7 +67,7 @@ const SingleTrainingCreator = ({ change, clicked }) => {
             id="intensity"
           />
         </div>
-        <button onClick={clicked}>Submit</button>
+        <button onClick={onFormSubmit}>Submit</button>
       </form>
     </div>
   );

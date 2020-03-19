@@ -9,12 +9,11 @@ class SideMenu extends Component {
     currentURL: null
   };
 
-  toggleMenuHandler = () => {
+  handleMenuToggle = () => {
     this.setState({
       menuActive: !this.state.menuActive,
       currentURL: window.location.href
     });
-    console.log(this.props);
   };
 
   render() {
@@ -26,7 +25,7 @@ class SideMenu extends Component {
 
     return (
       <>
-        <div className={classes.Hamburger} onClick={this.toggleMenuHandler}>
+        <div className={classes.Hamburger} onClick={this.handleMenuToggle}>
           <div className={classes.Hamburger__Bar}></div>
           <div className={classes.Hamburger__Bar}></div>
           <div className={classes.Hamburger__Bar}></div>

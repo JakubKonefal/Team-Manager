@@ -1,20 +1,27 @@
 import React from "react";
 import classes from "./PlayerCreator.module.css";
 
-const playerCreator = props => {
-  const iconClass = props.active ? classes.Hide : null;
-  const formClass = props.active ? classes.Relative : classes.Hide;
-  const playerCreatorClass = props.active
-    ? classes.PlayerCreator
-    : classes.NewPlayer;
+const playerCreator = ({
+  active,
+  progress,
+  onClick,
+  onInputChange,
+  onClose,
+  onImageSelect,
+  onFormSubmit,
+  children
+}) => {
+  const iconClass = active ? classes.Hide : null;
+  const formClass = active ? classes.Relative : classes.Hide;
+  const playerCreatorClass = active ? classes.PlayerCreator : classes.NewPlayer;
 
   return (
-    <div className={playerCreatorClass} onClick={props.clicked}>
+    <div className={playerCreatorClass} onClick={onClick}>
       <div className={iconClass}>
         <i className={`fas fa-plus ${classes.icon}`}></i>
         <span>Add new player</span>
       </div>
-      <form className={formClass} onChange={props.change}>
+      <form className={formClass} onChange={onInputChange}>
         <label htmlFor="number" className={classes.InputLabel}>
           Number:
         </label>
@@ -53,16 +60,16 @@ const playerCreator = props => {
         <p>Pick player's photo:</p>
         <output id="list" className={classes.uploadedImage}></output>
 
-        <button onClick={props.createPlayer}>Submit</button>
+        <button onClick={onFormSubmit}>Submit</button>
         <i
           className="far fa-times-circle"
-          onClick={props.cancelled}
+          onClick={onClose}
           style={{ position: "absolute", top: "5px", right: "-20px" }}
         ></i>
-        {props.children}
-        <progress value={props.progress} max="100" />
+        {children}
+        <progress value={progress} max="100" />
       </form>
-      <input type="file" id="file-upload" onChange={props.addImg} />
+      <input type="file" id="file-upload" onChange={onImageSelect} />
       <label htmlFor="file-upload" className={classes.Upload}>
         <i className="fas fa-upload" style={{ marginRight: "15px" }}></i>
         Upload file
