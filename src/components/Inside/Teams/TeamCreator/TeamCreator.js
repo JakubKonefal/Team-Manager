@@ -21,23 +21,21 @@ const TeamCreator = ({
         <i className="fas fa-plus" style={{ marginRight: "30px" }}></i>
         <span>Add new team</span>
       </div>
-      <form className={formClass}>
-        <p>Set your team name:</p>
+      <form className={formClass} onSubmit={onFormSubmit}>
+        <label>Set your team name:</label>
         <input
           type="text"
-          name="teamName"
           placeholder="Team Name"
           className={classes.TextInput}
           onChange={onTeamNameChange}
+          required
         />
         <p>Pick your team logo (optional):</p>
         <label htmlFor="file-upload" className={classes.Upload}>
           <i className="fas fa-upload" style={{ marginRight: "15px" }}></i>
           Upload file
         </label>
-        <button className={classes.Submit_btn} onClick={onFormSubmit}>
-          Submit
-        </button>
+        <input type="submit" className={classes.Submit_btn} value="Submit" />
         <progress value={imgUploadProgress} max="100" />
         <output id="list" className={classes.uploadedImage}></output>
         <input id="file-upload" type="file" onChange={onImageSelect} />

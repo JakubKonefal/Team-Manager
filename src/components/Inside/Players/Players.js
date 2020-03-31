@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Player from "./Player/Player";
 import axios from "axios";
 import { storage, database } from "../../../firebase/firebase";
-import classes from "./Players.module.css";
 import PlayerCreator from "./PlayerCreator/PlayerCreator";
+import FilePreviewElement from "../../UI/FilePreviewElement/FilePreviewElement";
+import PlayersList from "./PlayersList/PlayersList";
 
 class Players extends Component {
   state = {
@@ -103,10 +103,11 @@ class Players extends Component {
     this.componentDidMount();
   };
 
-  handleFormSubmit = e => {
+  handleNewPlayerFormSubmit = e => {
     e.preventDefault();
     const { teamName, uploadedImage } = this.state;
     const { firstName, lastName, number } = this.state.newPlayerInfo;
+
     const playerFirebaseName = `${firstName}-${lastName}-${number}`;
 
     const uploadTask = storage
@@ -134,53 +135,23 @@ class Players extends Component {
   };
 
   render() {
-    const filePreviewElement = this.state.previewFile && (
-      <div>
-        <img
-          src={this.state.previewFile}
-          className={classes.PreviewFile}
-          alt="preview-img"
-        />
-        <h2>{this.state.previewFile.fileName}</h2>
-      </div>
-    );
-
-    let players = null;
-
-    if (this.state.players) {
-      const fetchedPlayers = Object.values(this.state.players);
-      players = fetchedPlayers.map(player => {
-        return (
-          <Player
-            key={player.playerId}
-            number={player.number}
-            firstName={player.firstName}
-            lastName={player.lastName}
-            position={player.position}
-            birth={player.birth}
-            photo={player.photo}
-            playerId={player.playerId}
-            teamId={this.props.match.params.teamId}
-            teamName={player.teamName}
-            onDelete={this.handlePlayerDelete}
-          />
-        );
-      });
-    }
-
     return (
       <>
-        <div className={classes.Players}>{players}</div>
+        <PlayersList
+          players={this.state.players}
+          teamId={this.props.match.params.teamId}
+          onDelete={this.handlePlayerDelete}
+        />
         <PlayerCreator
           active={this.state.playerCreatorActive}
           imgUploadProgress={this.state.imageUploadProgress}
-          onFormSubmit={this.handleFormSubmit}
+          onFormSubmit={this.handleNewPlayerFormSubmit}
           onInputChange={this.handleInputChange}
           onImageSelect={this.handleImageSelect}
           onClose={this.handlePlayerCreatorClose}
           onClick={this.handlePlayerCreatorOpen}
         >
-          {filePreviewElement}
+          <FilePreviewElement src={this.state.previewFile} />
         </PlayerCreator>
       </>
     );

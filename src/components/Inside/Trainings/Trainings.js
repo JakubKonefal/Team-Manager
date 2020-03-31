@@ -70,7 +70,7 @@ class Trainings extends Component {
         />
         <SingleTrainingCreator
           onInputChange={this.handleInputChange}
-          onClick={this.onFormSubmit}
+          onFormSubmit={this.onFormSubmit}
         />
       </div>
     );

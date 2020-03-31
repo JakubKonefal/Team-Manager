@@ -45,9 +45,9 @@
   display: none;
 }
 
-input[type="file"] {
+/* input[type="file"] {
   display: none;
-}
+} */
 .Relative {
   position: relative;
 }

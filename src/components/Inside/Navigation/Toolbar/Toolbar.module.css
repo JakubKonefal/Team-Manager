@@ -1,7 +1,13 @@
 .Toolbar {
   display: flex;
   height: 70px;
-  background-color: #051;
+  background-color: #004707;
   justify-content: flex-end;
   align-items: center;
+  transition: 0.5s;
+}
+
+.Toolbar:hover {
+  background-color: #115818;
+  height: 71px;
 }

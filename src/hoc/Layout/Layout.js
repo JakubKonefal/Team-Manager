@@ -1,8 +1,8 @@
 import React from "react";
 import classes from "./Layout.module.css";
 
-const layout = ({ children }) => (
+const Layout = ({ children }) => (
   <div className={classes.Layout}>{children}</div>
 );
 
-export default layout;
+export default Layout;

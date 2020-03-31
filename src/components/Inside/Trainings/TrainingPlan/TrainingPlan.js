@@ -87,12 +87,24 @@ class TrainingPlan extends Component {
     this.handlePassDataToServer(newTask);
   };
 
-  render() {
-    let trainingInfo = null;
+  handleDataUpdate = () => {
+    const newValue = {
+      date: "2020-12-12",
+      end: "14:14",
+      intensity: "14",
+      place: "14",
+      start: "14:14",
+      type: "14"
+    };
+    database
+      .ref("-M2skgfVgq1cg-g8_XmP/trainings/-M2skkeYLx9Sn2mz-w_5/info")
+      .update(newValue);
+  };
 
-    if (this.state.trainingInfo) {
-      trainingInfo = <TrainingInfo {...this.state.trainingInfo} />;
-    }
+  render() {
+    const trainingInfo = this.state.trainingInfo && (
+      <TrainingInfo {...this.state.trainingInfo} />
+    );
 
     return (
       <>
@@ -113,6 +125,7 @@ class TrainingPlan extends Component {
           onClose={this.handleTaskCreatorClose}
           onClick={this.handleTaskCreatorOpen}
         />
+        <button onClick={this.handleDataUpdate}>UPDATE</button>
       </>
     );
   }

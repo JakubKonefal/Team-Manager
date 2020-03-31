@@ -6,13 +6,14 @@ import "../../assets/webfonts/all.css";
 import MainContentWraper from "../../components/MainContentWraper/MainContentWraper";
 import TeamCreator from "../../components/Inside/Teams/TeamCreator/TeamCreator";
 import Teams from "../../components/Inside/Teams/Teams";
+import FilePreviewElement from "../../components/UI/FilePreviewElement/FilePreviewElement";
 
 class TeamsManager extends Component {
   state = {
-    teams: null,
+    teams: [],
     newTeamName: null,
     newTeamLogo: null,
-    uploadedImage: null,
+    selectedImage: null,
     uploadedImageUrl: "",
     previewFile: null,
     imageUploadProgress: "",
@@ -23,16 +24,10 @@ class TeamsManager extends Component {
     axios.get("https://team-manager-b8e8c.firebaseio.com/.json").then(res => {
       const teams = res.data;
       if (teams) {
-        const teamsIds = Object.keys(teams);
-        const teamsArray = Object.values(teams);
-        for (let i = 0; i < teamsIds.length; i++) {
-          teamsArray[i].id = teamsIds[i];
-        }
-        const updatedTeams = [];
-        updatedTeams.push(...teamsArray);
-        this.setState({ teams: updatedTeams });
-      } else {
-        this.setState({ teams: [] });
+        const fetchedTeams = Object.values(teams);
+        const teamsArray = [];
+        teamsArray.push(...fetchedTeams);
+        this.setState({ teams: teamsArray });
       }
     });
   }
@@ -44,7 +39,12 @@ class TeamsManager extends Component {
   };
 
   handleTeamCreatorClose = () => {
-    this.setState({ teamCreatorActive: false });
+    this.setState({
+      teamCreatorActive: false,
+      newTeamName: null,
+      selectedImage: null,
+      previewFile: null
+    });
   };
 
   handleTeamNameChange = e => {
@@ -56,20 +56,26 @@ class TeamsManager extends Component {
     const previewFile = URL.createObjectURL(file);
     this.setState({
       previewFile: previewFile,
-      uploadedImage: file
+      selectedImage: file
     });
   };
 
-  handleTeamCreate = uploadedImageUrl => {
-    const newTeam = {
-      teamName: this.state.newTeamName,
-      players: [],
-      teamLogo: uploadedImageUrl
-    };
-    this.handlePassDataToServer(newTeam);
+  handleImageUpload = async (teamId, selectedImage) => {
+    await storage
+      .ref(`images/teams/${teamId}/team-logo/${teamId}`)
+      .put(selectedImage);
   };
 
-  handleTeamDelete = (teamId, teamName) => {
+  handleGetUploadedImageUrl = async teamId => {
+    await storage
+      .ref(`images/teams/${teamId}/team-logo/${teamId}`)
+      .getDownloadURL()
+      .then(url => {
+        this.setState({ uploadedImageUrl: url });
+      });
+  };
+
+  handleTeamDelete = (teamId, teamLogo) => {
     database
       .ref(teamId)
       .remove()
@@ -78,57 +84,79 @@ class TeamsManager extends Component {
           ? this.componentDidMount()
           : this.setState({ teams: [] });
       });
-    storage.ref(`images/teams/${teamName}/team-logo/${teamName}`).delete();
+    if (teamLogo) {
+      storage.ref(`images/teams/${teamId}/team-logo/${teamId}`).delete();
+    }
   };
 
-  handlePassDataToServer = async newTeam => {
-    await axios.post(
-      "https://team-manager-b8e8c.firebaseio.com/.json",
-      newTeam
-    );
-    this.componentDidMount();
+  handleTeamNameUpdate = (teamId, updatedTeamName) => {
+    database
+      .ref(`/${teamId}`)
+      .update({ teamName: updatedTeamName })
+      .then(this.componentDidMount());
   };
 
-  handleFormSubmit = e => {
+  handleTeamLogoUpdate = (teamId, image, updatedImage) => {
+    if (image) {
+      storage.ref(`images/teams/${teamId}/team-logo/${teamId}`).delete();
+    }
+    this.handleImageUpload(teamId, updatedImage).then(() => {
+      this.handleGetUploadedImageUrl(teamId).then(() => {
+        this.handleAddTeamLogoUrl(teamId);
+        this.componentDidMount();
+      });
+    });
+  };
+
+  handleAddTeamLogoUrl = teamId => {
+    database
+      .ref(`/${teamId}`)
+      .update({ teamLogo: this.state.uploadedImageUrl })
+      .then(this.componentDidMount());
+  };
+
+  handleUpdateTeamFormSubmit = (
+    teamId,
+    image,
+    updatedTeamName,
+    updatedImage,
+    e
+  ) => {
     e.preventDefault();
-    const { uploadedImage, newTeamName } = this.state;
 
-    const uploadTask = storage
-      .ref(`images/teams/${newTeamName}/team-logo/${newTeamName}`)
-      .put(uploadedImage);
-    return uploadTask.on(
-      "state_changed",
-      snapshot => {
-        const imageUploadProgress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        this.setState({ imageUploadProgress });
-      },
-      error => {},
-      () => {
-        storage
-          .ref(`images/teams/${newTeamName}/team-logo/`)
-          .child(newTeamName)
-          .getDownloadURL()
-          .then(url => {
-            this.handleTeamCreate(url);
+    if (updatedTeamName && updatedImage) {
+      this.handleTeamNameUpdate(teamId, updatedTeamName);
+      this.handleTeamLogoUpdate(teamId, image, updatedImage);
+    }
+    if (updatedTeamName && !updatedImage) {
+      this.handleTeamNameUpdate(teamId, updatedTeamName);
+    }
+    if (!updatedTeamName && updatedImage) {
+      this.handleTeamLogoUpdate(teamId, image, updatedImage);
+    }
+  };
+
+  handleNewTeamFormSubmit = e => {
+    e.preventDefault();
+    const { selectedImage, newTeamName } = this.state;
+    const databaseRootRef = database.ref();
+    const teamId = databaseRootRef.push().key;
+    databaseRootRef.child(teamId).set({
+      teamName: newTeamName,
+      teamId: teamId,
+      teamLogo: ""
+    });
+
+    selectedImage
+      ? this.handleImageUpload(teamId, selectedImage).then(() => {
+          this.handleGetUploadedImageUrl(teamId).then(() => {
+            this.handleAddTeamLogoUrl(teamId);
           });
-      }
-    );
+        })
+      : this.componentDidMount();
   };
 
   render() {
-    const filePreviewElement = this.state.previewFile && (
-      <div>
-        <img
-          src={this.state.previewFile}
-          className={classes.PreviewFile}
-          alt="preview-img"
-        />
-        <h2>{this.state.previewFile.fileName}</h2>
-      </div>
-    );
-
     return (
       <div>
         <MainContentWraper>
@@ -142,19 +170,20 @@ class TeamsManager extends Component {
               <Teams
                 teams={this.state.teams}
                 onDelete={this.handleTeamDelete}
+                onSubmit={this.handleUpdateTeamFormSubmit}
               />
             </li>
             <li>
               <TeamCreator
                 active={this.state.teamCreatorActive}
                 imgUploadProgress={this.state.imageUploadProgress}
-                onFormSubmit={this.handleFormSubmit}
+                onFormSubmit={this.handleNewTeamFormSubmit}
                 onTeamNameChange={this.handleTeamNameChange}
                 onImageSelect={this.handleImageSelect}
                 onClose={this.handleTeamCreatorClose}
                 onClick={this.handleTeamCreatorOpen}
               >
-                {filePreviewElement}
+                <FilePreviewElement src={this.state.previewFile} />
               </TeamCreator>
             </li>
           </ul>
