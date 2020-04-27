@@ -1,0 +1,167 @@
+.Team {
+  display: flex;
+  max-height: 150px;
+  border: 3px solid #3a623a;
+  border-radius: 10px;
+  margin: 15px 0;
+  padding: 15px 10px;
+  font-size: 35px;
+  align-items: center;
+}
+
+.TeamEditor {
+  display: flex;
+  border: 3px solid #3a623a;
+  border-radius: 10px;
+  margin: 15px 0;
+  padding: 15px 10px;
+  font-size: 35px;
+}
+
+.TeamName {
+  margin-left: 30px;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.TeamName:hover {
+  color: #3a623a;
+}
+
+.Team__Icons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+}
+
+.Team__Icons i {
+  font-size: 22px;
+  color: #707070;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.Team__Icons i:hover {
+  color: #505050;
+}
+
+.TrashIcon {
+  margin-bottom: 35px;
+}
+
+.Avatar {
+  width: 100px;
+  height: 100px;
+}
+
+.Edit {
+  font-size: 28px;
+  margin-left: 30px;
+}
+
+.Edit:focus {
+  border-color: #aaf;
+}
+
+.InputLabel {
+  font-size: 24px;
+  margin-right: 20px;
+}
+
+.PreviewFile {
+  width: 100px;
+  height: 100px;
+  border: 3px dashed #bbb;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.Label {
+  margin-bottom: 8px;
+  color: #888;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.Input_Text {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px 10px;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.Input_Text::after {
+  border-bottom-color: green;
+}
+
+.InputSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px 15px 0 15px;
+}
+
+.FileSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5px 15px 5px 5px;
+}
+
+.Upload {
+  margin-top: 10px;
+  padding: 5px 7px;
+  background-color: #71c333;
+  border-radius: 5px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+}
+
+.Upload:hover {
+  background-color: #82d444;
+}
+
+.Buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 60px;
+  width: 70%;
+}
+
+.Button_Update {
+  color: #eee;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: green;
+  font-size: 16px;
+  cursor: pointer;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.Button_Update:hover {
+  background-color: #339633;
+}
+
+.Button_Cancel {
+  color: #eee;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: #d91162;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.Button_Cancel:hover {
+  background-color: #fb3384;
+}
+
+input[type="file"] {
+  display: none;
+}

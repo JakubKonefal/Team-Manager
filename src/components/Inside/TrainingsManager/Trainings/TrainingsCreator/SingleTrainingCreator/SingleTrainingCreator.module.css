@@ -1,0 +1,80 @@
+.SingleTrainingCreator {
+  margin: 50px auto 10px auto;
+  border-width: 2px;
+}
+
+.SingleTrainingCreator__Header {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 10px 25px;
+  margin: 0;
+  color: #0a2239;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.Header__ArrowIcon {
+  margin-left: auto;
+}
+
+.SingleTrainingCreator__Content {
+  box-sizing: border-box;
+  padding: 24px;
+  border-top: 2px solid #ddd;
+}
+
+.SingleTrainingCreator__Form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Input {
+  margin-bottom: 15px;
+  width: 80%;
+  text-align: center;
+}
+
+.IntensityLabel {
+  width: 80%;
+  text-align: left;
+  font-size: 12px;
+  color: #707070;
+}
+
+.Buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 70%;
+  margin-top: 20px;
+}
+
+.Buttons_Add {
+  color: #eee;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: green;
+  font-size: 14px;
+  cursor: pointer;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.Buttons_Add:hover {
+  background-color: #339633;
+}
+
+.Buttons_Cancel {
+  color: #eee;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: #d91162;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.Buttons_Cancel:hover {
+  background-color: #fb3384;
+}

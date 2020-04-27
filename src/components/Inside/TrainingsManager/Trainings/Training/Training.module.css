@@ -1,0 +1,31 @@
+.Training {
+  display: flex;
+  justify-content: center;
+}
+
+.ListItem__Tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 6px;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+}
+
+.ListItem__Tile_Last {
+  border-right: 1px solid#ccc;
+}
+
+.ListItem__Checkbox {
+  padding: 3px;
+}
+
+.ListItem__Date {
+  color: #33b;
+  text-decoration: none;
+}
+
+.ListItem__Date:hover {
+  color: #88f;
+}

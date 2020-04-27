@@ -1,0 +1,210 @@
+.TextInput,
+.FileInput {
+  display: block;
+}
+
+.TextInput {
+  width: 60%;
+  height: 50px;
+  background-color: #eee;
+  border: 2px solid #aaa;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 0 10px;
+}
+
+.Upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  background-color: #f00;
+  color: white;
+  font-size: 20px;
+}
+.Submit_btn {
+  display: block;
+  margin-top: 15px;
+  width: 80px;
+  height: 30px;
+  padding: 5px 10px;
+  background-color: #38b048;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.PreviewFile {
+  width: 100px;
+  height: 100px;
+  border: 3px dashed #bbb;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.uploadedImage {
+  margin-left: 30px;
+  width: 100px;
+  height: 100px;
+}
+
+.Hide {
+  display: none;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.Relative {
+  position: relative;
+}
+p {
+  color: black;
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: normal;
+}
+.NewTeam {
+  border: 3px solid #888;
+  border-radius: 10px;
+  padding: 15px 35px;
+  font-size: 30px;
+  align-items: center;
+  color: #888;
+  font-size: 40px;
+}
+
+.NewTeam:hover {
+  color: #000;
+  border-color: black;
+  cursor: pointer;
+}
+.TeamCreator {
+  border: 3px solid #000;
+  border-radius: 10px;
+  padding: 15px 35px;
+  align-items: center;
+  color: #888;
+  font-size: 40px;
+}
+
+.CloseIcon {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+}
+
+.Input_Text {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px 10px;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.Input_Text::after {
+  border-bottom-color: green;
+}
+
+.InputSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px 15px 0 15px;
+}
+
+.FileSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5px 15px 5px 5px;
+}
+
+.Upload {
+  margin-top: 10px;
+  padding: 5px 7px;
+  background-color: #71c333;
+  border-radius: 5px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+}
+
+.Upload:hover {
+  background-color: #82d444;
+}
+
+.Buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 60px;
+  width: 70%;
+}
+
+.Button_Update {
+  color: #eee;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: green;
+  font-size: 16px;
+  cursor: pointer;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.Button_Update:hover {
+  background-color: #339633;
+}
+
+.Button_Cancel {
+  color: #eee;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: #d91162;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.Button_Cancel:hover {
+  background-color: #fb3384;
+}
+.TeamEditor {
+  display: flex;
+  border: 3px solid #3a623a;
+  border-radius: 10px;
+  margin: 15px 0;
+  padding: 15px 10px;
+  font-size: 35px;
+}
+
+.TeamCreator__Inactive {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #757575;
+  transition: 0.1s;
+  cursor: pointer;
+}
+
+.TeamCreator__Inactive:hover {
+  color: #3b9d3f;
+}
+
+.UsersIcon {
+  position: relative;
+  font-size: 60px;
+  margin-right: 20px;
+}
+
+.UsersIcon__Plus {
+  position: absolute;
+  top: -16%;
+  right: -16%;
+  font-size: 18px;
+}

@@ -2,9 +2,9 @@ import React from "react";
 import classes from "./TeamManager.module.css";
 import MainContentWraper from "../../../components/MainContentWraper/MainContentWraper";
 import { Route, Link, Switch } from "react-router-dom";
-import Players from "../../../components/Inside/Players/Players";
-import Trainings from "../../../components/Inside/Trainings/Trainings";
-import TrainingPlan from "../../../components/Inside/Trainings/TrainingPlan/TrainingPlan";
+import PlayersManager from "../../../components/Inside/PlayersManager/PlayersManager";
+import TrainingsManager from "../../../components/Inside/TrainingsManager/TrainingsManager";
+import TrainingOverview from "../../../components/Inside/TrainingsManager/Trainings/TrainingOverview/TrainingOverview";
 
 const TeamManager = ({ location }) => (
   <div>
@@ -14,7 +14,7 @@ const TeamManager = ({ location }) => (
           to={{
             pathname: `/my-teams/${location.teamId}/players`,
             teamId: location.teamId,
-            teamName: location.teamName
+            teamName: location.teamName,
           }}
         >
           Players
@@ -22,7 +22,7 @@ const TeamManager = ({ location }) => (
         <Link
           to={{
             pathname: `/my-teams/${location.teamId}/trainings`,
-            teamId: location.teamId
+            teamId: location.teamId,
           }}
         >
           Trainings
@@ -31,13 +31,16 @@ const TeamManager = ({ location }) => (
         <li className={classes.Inactive}>Settings</li>
       </ul>
       <div>
-        <Route path="/my-teams/:teamId/players" component={Players} />
+        <Route path="/my-teams/:teamId/players" component={PlayersManager} />
         <Switch>
           <Route
             path="/my-teams/:teamId/trainings/:trainingId"
-            component={TrainingPlan}
+            component={TrainingOverview}
           />
-          <Route path="/my-teams/:teamId/trainings" component={Trainings} />
+          <Route
+            path="/my-teams/:teamId/trainings"
+            component={TrainingsManager}
+          />
         </Switch>
       </div>
     </MainContentWraper>

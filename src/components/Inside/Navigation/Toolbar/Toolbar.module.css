@@ -6,8 +6,3 @@
   align-items: center;
   transition: 0.5s;
 }
-
-.Toolbar:hover {
-  background-color: #115818;
-  height: 71px;
-}

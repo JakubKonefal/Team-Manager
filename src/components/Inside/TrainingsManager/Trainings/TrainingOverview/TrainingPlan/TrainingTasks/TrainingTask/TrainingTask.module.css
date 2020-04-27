@@ -1,0 +1,221 @@
+.Task {
+  border-width: 2px;
+  border-color: #ddd;
+  margin-bottom: 5px;
+}
+
+.Task__Content {
+  border-top: 2px dashed #ddd;
+  box-sizing: border-box;
+}
+
+.Task__Content:last-child {
+  padding: 0;
+}
+
+.Task__TaskDescription {
+  white-space: pre-line;
+  padding: 20px 28px;
+}
+
+.Task__TaskEquipment {
+  display: flex;
+  align-items: center;
+  border-top: 2px dashed #ddd;
+  padding: 8px 28px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.Task__TaskEquipment_Content {
+  margin-left: 5px;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.TaskHeader {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  font-weight: bold;
+}
+
+.TaskHeader__Title {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  font-weight: bold;
+  margin-right: 10px;
+  color: #000;
+  cursor: pointer;
+}
+
+.TaskHeader__Title:hover {
+  color: #555;
+}
+
+.TaskHeader__Icons {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  font-size: 12px;
+  color: #707070;
+  cursor: pointer;
+}
+
+.TaskHeader__IconEdit {
+  font-size: 22px;
+}
+
+.TaskHeader__IconEdit:hover {
+  color: black;
+}
+
+.TaskHeader__IconDelete {
+  font-size: 22px;
+}
+
+.TaskHeader__IconDelete:hover {
+  color: black;
+}
+
+.TaskHeader__Duration {
+  display: flex;
+  align-items: center;
+  color: #000;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.TaskHeader__Duration_TimerIcon {
+  color: #0a2239;
+  font-size: 22px;
+  margin-right: 3px;
+}
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+
+.Task_Edit {
+  border-width: 2px;
+  border-color: #53a2be;
+  margin-bottom: 5px;
+}
+
+.TaskEdit__Header {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  transition: 0.4s;
+  background-color: #53a2be;
+  cursor: pointer;
+}
+
+.TaskEdit__Header_Label {
+  font-size: 15px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+}
+
+.TaskEdit__Header_RemoveIcon {
+  margin-right: 7px;
+  font-size: 30px;
+  color: #fff;
+  transition: 0.4s;
+}
+
+.TaskEdit__Header:hover .TaskEdit__Header_RemoveIcon {
+  transform: rotate(180deg);
+}
+
+.TaskEdit__Header:hover {
+  background-color: #4291ad;
+}
+
+.TaskHeader_Edit {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  font-weight: bold;
+}
+
+.TaskHeader__Title_Edit {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  font-weight: bold;
+  margin-right: 10px;
+  color: #000;
+  cursor: pointer;
+}
+
+.TaskHeader__Duration_Edit {
+  display: flex;
+  align-items: center;
+  color: #000;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.TaskHeader__Index {
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.Input__TaskTitle {
+  width: 50%;
+  margin-bottom: 8px;
+  margin-left: 5px;
+}
+
+.Input__TaskDuration {
+  margin-bottom: 8px;
+  margin-left: 5px;
+}
+
+.Task__TaskDescription_Edit {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 28px;
+}
+
+.Ipnut__TaskDescription {
+  width: 100%;
+}
+
+.Task__TaskEquipment_Edit {
+  display: flex;
+  align-items: center;
+  border-top: 2px dashed #ddd;
+  padding: 8px 28px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.Input__TaskEquipment {
+  margin-bottom: 10px;
+  margin-left: 8px;
+}
+
+.TaskHeader__Icons_Edit {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  color: #707070;
+  cursor: pointer;
+}
+
+.TaskHeader__IconConfirm {
+  font-size: 30px;
+  color: green;
+}
+
+.TaskHeader__IconCancel {
+  font-size: 30px;
+  margin-left: 15px;
+  color: #f50057;
+}

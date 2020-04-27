@@ -1,0 +1,54 @@
+.TrainingInfo {
+  box-sizing: border-box;
+  border-color: #176087;
+}
+
+.TrainingInfo__Content {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 12px 12px 12px 10px;
+}
+
+.TrainingInfo__Content:last-child {
+  padding-bottom: 12px;
+}
+
+.TrainingInfo__Label {
+  margin: 0 auto;
+  padding: 10px 0;
+  background-color: #176087;
+  color: #ecf0f1;
+  text-align: center;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.TrainingInfo__Label:hover {
+  background-color: #1871a9;
+}
+
+.Icon {
+  margin-right: 5px;
+  color: #444;
+  font-size: 16px;
+}
+
+.InfoBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 6px;
+}
+
+.InfoBox__InfoType {
+  display: flex;
+  align-items: center;
+  color: #444;
+}
+
+.InfoBox__Info {
+  color: black;
+  font-weight: bold;
+  margin-left: 3px;
+}

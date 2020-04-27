@@ -1,0 +1,19 @@
+.TrainingPlan {
+  box-sizing: border-box;
+  border-color: #176087;
+  margin-bottom: 20px;
+}
+
+.TrainingPlan__Header {
+  text-align: center;
+  margin: 0;
+  padding: 10px 0;
+  cursor: pointer;
+  background-color: #176087;
+  color: #ecf0f1;
+  letter-spacing: 1px;
+}
+
+.TrainingPlan__Header:hover {
+  background-color: #1871a9;
+}

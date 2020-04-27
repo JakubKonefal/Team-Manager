@@ -1,4 +1,4 @@
 .PreviewFile {
-  max-width: 100px;
-  max-height: 120px;
+  width: inherit;
+  height: inherit;
 }

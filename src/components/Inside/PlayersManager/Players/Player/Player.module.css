@@ -1,0 +1,270 @@
+.ListItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.ListItem__AvatarSection {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 8%;
+  padding: 3px;
+}
+
+.ListItem__Avatar {
+  width: 45px;
+  height: 45px;
+}
+
+.ListItem__Text {
+  height: 45px;
+  margin-left: 10px;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: #707070;
+}
+
+.Number {
+  width: 7%;
+}
+
+.FirstName {
+  width: 16%;
+  margin-left: 5px;
+}
+
+.LastName {
+  width: 18%;
+}
+
+.Position {
+  text-transform: capitalize;
+  width: 15%;
+}
+
+.Birthday {
+  width: 15%;
+}
+
+.Actions {
+  display: flex;
+  justify-content: center;
+  width: 14%;
+  margin-right: 5px;
+}
+
+.Actions__TrashIcon {
+  margin-left: 8px;
+}
+
+.Actions i {
+  cursor: pointer;
+}
+
+.ListItem__CheckboxSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5%;
+  border-left: 1px solid #ccc;
+}
+
+.ListItem__Checkbox {
+  margin: 0;
+}
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+
+.ListItem__Edit {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.ListItem__Edit_Buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.Upload {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+  vertical-align: center;
+  color: #888;
+  cursor: pointer;
+}
+
+.Upload:hover {
+  background-color: #ddd;
+}
+
+.Upload__Hide {
+  display: none;
+}
+
+.PreviewFile {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  border: 1px dashed #bbb;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.FileSection {
+  display: flex;
+  flex-direction: column;
+  width: 8%;
+  padding: 3px;
+}
+
+.TextField {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 10px;
+  align-items: center;
+}
+
+.TextField__Number {
+  width: 7%;
+  text-indent: 5px;
+}
+
+.TextField__FirstName {
+  width: 16%;
+}
+
+.TextField__LastName {
+  width: 16%;
+}
+
+.SelectField {
+  outline: none;
+  border: none;
+  font-size: 16px;
+  color: #707070;
+  cursor: pointer;
+  border-bottom: 1px solid #000;
+  padding-bottom: 3px;
+}
+
+.SelectField:hover {
+  border-bottom: 2px solid #000;
+  padding-bottom: 2px;
+}
+
+.SelectField__Position {
+  width: 17%;
+}
+
+.SelectField__Position_Label {
+  text-transform: capitalize;
+}
+
+.DateInput {
+  width: 100%;
+  border: none;
+  font-size: 16px;
+  color: #707070;
+  border-bottom: 1px solid #000;
+  padding-bottom: 3px;
+  cursor: text;
+}
+
+.DateInput::-webkit-inner-spin-button {
+  display: none;
+}
+
+.DateInput:hover {
+  border-bottom: 2px solid #000;
+  padding-bottom: 2px;
+}
+
+.DateInput:focus {
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #000;
+  padding-bottom: 2px;
+}
+
+.TextField__Birthday {
+  width: 16%;
+}
+
+.TextField__Actions {
+  width: 19%;
+}
+
+.TextInput {
+  width: 80%;
+  font-size: 16px;
+  color: #707070;
+  border: none;
+  border-bottom: 1px solid #000;
+  padding-bottom: 3px;
+}
+
+.TextInput:hover {
+  border-bottom: 2px solid #000;
+  padding-bottom: 2px;
+}
+
+.TextInput:focus {
+  outline: none;
+  border-bottom: 2px solid #22f;
+  padding-bottom: 2px;
+}
+
+.TextInput__Number {
+  width: 40%;
+}
+
+.ListItem__Edit_Buttons {
+  display: flex;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  padding-left: 18%;
+  color: #707070;
+  font-size: 18px;
+}
+
+.Button:hover {
+  cursor: pointer;
+}
+
+.Button__Confirm {
+  color: #080;
+}
+
+.Button__Confirm:hover {
+  color: #0a0;
+}
+
+.Button__Cancel {
+  color: #a00;
+  margin-left: 10px;
+}
+
+.Button__Cancel:hover {
+  color: #c00;
+}
