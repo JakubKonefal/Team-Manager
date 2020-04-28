@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import TrainingsList from "./TrainingsList/TrainingsList";
+import TrainingYear from "./TrainingYear/TrainingYear";
 import SingleTrainingCreator from "./TrainingsCreator/SingleTrainingCreator/SingleTrainingCreator";
 import MultipleTrainingsCreator from "./TrainingsCreator/MultipleTrainingsCreator/MultipleTrainingsCreator";
 import classes from "./Trainings.module.css";
@@ -29,18 +30,24 @@ class Trainings extends Component {
       .then((res) => {
         const trainings = res.data;
         if (trainings) {
-          const trainingsArr = Object.values(trainings);
-          const trainingsCheckboxes = trainingsArr.map((training) => ({
-            checked: false,
-            id: training.trainingId,
-          }));
-          this.setState({ trainings: trainingsArr, trainingsCheckboxes });
+          // const trainingsCheckboxes = trainingsYears.map((training) => ({
+          //   checked: false,
+          //   id: training.trainingId,
+          // }));
+          this.setState({ trainings });
         }
       });
   }
 
   handleFormSubmitNewTraining = (newTrainingInfo) => {
-    const databaseRef = database.ref(`${this.props.teamId}/trainings`);
+    const { date } = newTrainingInfo;
+    const dateObj = new Date(date);
+    const dateYear = dateObj.getFullYear();
+    const dateMonth = moment(dateObj).format("MMMM");
+
+    const databaseRef = database.ref(
+      `${this.props.teamId}/trainings/${dateYear}/${dateMonth}`
+    );
     const trainingId = databaseRef.push().key;
     const newTraining = {
       trainingId,
@@ -48,14 +55,14 @@ class Trainings extends Component {
     };
     databaseRef.child(trainingId).set(newTraining);
 
-    this.updateTrainingsArrayOnTrainingAdd(newTraining);
+    // this.updateTrainingsArrayOnTrainingAdd(newTraining);
   };
 
-  updateTrainingsArrayOnTrainingAdd = (newTraining) => {
-    const updatedTrainingsArr = [...this.state.trainings];
-    updatedTrainingsArr.push(newTraining);
-    this.setState({ trainings: updatedTrainingsArr });
-  };
+  // updateTrainingsArrayOnTrainingAdd = (newTraining) => {
+  //   const updatedTrainingsArr = [...this.state.trainings];
+  //   updatedTrainingsArr.push(newTraining);
+  //   this.setState({ trainings: updatedTrainingsArr });
+  // };
 
   handleCheckboxSelectAll = ({ target }) => {
     const updatedCheckboxes = [...this.state.trainingsCheckboxes];
@@ -116,33 +123,40 @@ class Trainings extends Component {
       to,
       daysOfWeekAsNumbers
     );
-    const databaseRef = database.ref(`${this.props.teamId}/trainings`);
-    const newTrainingsArray = [];
+
+    // const newTrainingsArray = [];
     selectedDaysArray.forEach((day) => {
+      const date = moment(day);
+      const dateYear = date.format("YYYY");
+      const dateMonth = date.format("MMMM");
+
+      const databaseRef = database.ref(
+        `${this.props.teamId}/trainings/${dateYear}/${dateMonth}`
+      );
       const trainingId = databaseRef.push().key;
       const newTraining = {
         trainingId,
         trainingInfo: { date: day, ...trainingInfo },
       };
       databaseRef.child(trainingId).set(newTraining);
-      newTrainingsArray.push(newTraining);
+      // newTrainingsArray.push(newTraining);
     });
-    this.updateTrainingsArrayOnTrainingsAdd(newTrainingsArray);
+    // this.updateTrainingsArrayOnTrainingsAdd(newTrainingsArray);
   };
 
-  updateTrainingsArrayOnTrainingsAdd = (newTrainings) => {
-    const updatedTrainingsArr = [...this.state.trainings];
-    updatedTrainingsArr.push(...newTrainings);
-    const updatedCheckboxesArr = [...this.state.trainingsCheckboxes];
-    const newCheckboxes = newTrainings.map((training) => {
-      return { checked: false, id: training.trainingId };
-    });
-    updatedCheckboxesArr.push(...newCheckboxes);
-    this.setState({
-      trainings: updatedTrainingsArr,
-      trainingsCheckboxes: updatedCheckboxesArr,
-    });
-  };
+  // updateTrainingsArrayOnTrainingsAdd = (newTrainings) => {
+  //   const updatedTrainingsArr = [...this.state.trainings];
+  //   updatedTrainingsArr.push(...newTrainings);
+  //   const updatedCheckboxesArr = [...this.state.trainingsCheckboxes];
+  //   const newCheckboxes = newTrainings.map((training) => {
+  //     return { checked: false, id: training.trainingId };
+  //   });
+  //   updatedCheckboxesArr.push(...newCheckboxes);
+  //   this.setState({
+  //     trainings: updatedTrainingsArr,
+  //     trainingsCheckboxes: updatedCheckboxesArr,
+  //   });
+  // };
 
   getSelectedDaysArray = (from, to, daysOfWeek) => {
     let startingDate = new Date(from);
@@ -160,15 +174,22 @@ class Trainings extends Component {
   };
 
   render() {
+    const trainingsYearsArray = Object.values(this.state.trainings);
+    const trainingsYears = Object.keys(this.state.trainings);
+    const trainingYears = this.state.trainings
+      ? trainingsYearsArray.map((year, index) => (
+          <TrainingYear
+            teamId={this.props.teamId}
+            trainings={year}
+            key={trainingsYears[index]}
+            year={trainingsYears[index]}
+          />
+        ))
+      : null;
+
     return (
       <div className={classes.Trainings}>
-        <TrainingsList
-          trainings={this.state.trainings}
-          teamId={this.props.teamId}
-          onCheck={this.handleCheckbox}
-          onCheckAll={this.handleCheckboxSelectAll}
-          checkboxes={this.state.trainingsCheckboxes}
-        />
+        {trainingYears}
         <div className={classes.Buttons}>
           <Button
             color="secondary"
@@ -178,7 +199,6 @@ class Trainings extends Component {
             Delete
           </Button>
         </div>
-
         <div className={classes.TrainingCreators}>
           <div className={classes.CreatorWraper}>
             {" "}

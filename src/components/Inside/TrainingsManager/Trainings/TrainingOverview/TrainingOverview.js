@@ -13,9 +13,11 @@ class TrainingOverview extends Component {
   componentDidMount() {
     axios
       .get(
-        `https://team-manager-b8e8c.firebaseio.com/${this.props.match.params.teamId}/trainings/${this.props.match.params.trainingId}.json`
+        `https://team-manager-b8e8c.firebaseio.com/${this.props.match.params.teamId}/trainings/${this.props.match.params.year}/${this.props.match.params.month}/${this.props.match.params.trainingId}.json`
       )
       .then((res) => {
+        console.log(res);
+
         const { trainingInfo } = res.data;
         if (trainingInfo) {
           this.setState({ trainingInfo });

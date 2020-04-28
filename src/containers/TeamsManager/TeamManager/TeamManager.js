@@ -34,7 +34,7 @@ const TeamManager = ({ location }) => (
         <Route path="/my-teams/:teamId/players" component={PlayersManager} />
         <Switch>
           <Route
-            path="/my-teams/:teamId/trainings/:trainingId"
+            path="/my-teams/:teamId/trainings/:year/:month/:trainingId"
             component={TrainingOverview}
           />
           <Route
