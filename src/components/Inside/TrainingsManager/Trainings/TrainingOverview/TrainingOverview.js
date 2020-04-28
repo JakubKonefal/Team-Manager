@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { database } from "../../../../../firebase/firebase";
 import classes from "./TrainingOverview.module.css";
 import TrainingInfo from "../TrainingInfoBox/TrainingInfo/TrainingInfo";
 import TrainingPlan from "./TrainingPlan/TrainingPlan";
@@ -7,7 +8,6 @@ import TrainingPlan from "./TrainingPlan/TrainingPlan";
 class TrainingOverview extends Component {
   state = {
     trainingInfo: null,
-    showInfoCard: true,
   };
 
   componentDidMount() {
@@ -23,19 +23,32 @@ class TrainingOverview extends Component {
       });
   }
 
-  handleToggleInfoCard = () => {
-    this.setState({ showInfoCard: !this.state.showInfoCard });
+  handleFormSubmitTrainingInfoUpdate = (updatedTrainingInfo) => {
+    console.log(updatedTrainingInfo);
+    database
+      .ref(
+        `${this.props.match.params.teamId}/trainings/${this.props.match.params.trainingId}/trainingInfo`
+      )
+      .set(updatedTrainingInfo);
+    this.updateTrainingInfoOnTrainingEdit(updatedTrainingInfo);
+  };
+
+  updateTrainingInfoOnTrainingEdit = (updatedTrainingInfo) => {
+    this.setState({ trainingInfo: updatedTrainingInfo });
   };
 
   render() {
+    const trainingInfoComponent = this.state.trainingInfo ? (
+      <TrainingInfo
+        trainingInfo={this.state.trainingInfo}
+        onFormSubmit={this.handleFormSubmitTrainingInfoUpdate}
+      />
+    ) : null;
+
     return (
       <div className={classes.TrainingOverview}>
         <div className={classes.TrainingOverview__AdditionalInfo}>
-          <TrainingInfo
-            {...this.state.trainingInfo}
-            active={this.state.showInfoCard}
-            onClick={this.handleToggleInfoCard}
-          />
+          {trainingInfoComponent}
         </div>
         <div className={classes.TrainingOverview__TrainingPlan}>
           <TrainingPlan

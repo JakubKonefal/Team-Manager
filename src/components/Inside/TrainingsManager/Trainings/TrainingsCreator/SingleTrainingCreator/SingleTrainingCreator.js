@@ -28,6 +28,20 @@ class SingleTrainingCreator extends Component {
     this.setState({ trainingCreatorActive: !this.state.trainingCreatorActive });
   };
 
+  handleFormCancel = () => {
+    this.setState({
+      trainingCreatorActive: false,
+      newTrainingInfo: {
+        date: "",
+        start: "",
+        end: "",
+        place: "",
+        trainingType: "",
+        intensity: 0,
+      },
+    });
+  };
+
   handleInputChange = ({ target }) => {
     const { id, value } = target;
 
@@ -139,9 +153,11 @@ class SingleTrainingCreator extends Component {
                   </Button>
                   <Button
                     className={classes.Buttons__Cancel}
+                    type="reset"
                     color="secondary"
                     variant="contained"
                     size="small"
+                    onClick={this.handleFormCancel}
                   >
                     cancel
                   </Button>

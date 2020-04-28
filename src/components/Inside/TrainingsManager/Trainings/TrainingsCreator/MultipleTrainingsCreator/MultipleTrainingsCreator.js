@@ -39,6 +39,22 @@ class MultipleTrainingsCreator extends Component {
     });
   };
 
+  handleFormCancel = () => {
+    this.setState({
+      trainingsCreatorActive: false,
+      newTrainingsInfo: {
+        from: "",
+        to: "",
+        daysOfWeek: [],
+        start: "",
+        end: "",
+        place: "",
+        trainingType: "",
+        intensity: 0,
+      },
+    });
+  };
+
   handleInputChange = ({ target }) => {
     const { id, value } = target;
     if (id !== "daysOfWeek") {
@@ -213,9 +229,11 @@ class MultipleTrainingsCreator extends Component {
                   </Button>
                   <Button
                     className={classes.Buttons__Cancel}
+                    type="reset"
                     color="secondary"
                     variant="contained"
                     size="small"
+                    onClick={this.handleFormCancel}
                   >
                     cancel
                   </Button>
