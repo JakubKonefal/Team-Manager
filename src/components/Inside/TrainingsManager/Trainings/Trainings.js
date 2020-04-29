@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import TrainingsList from "./TrainingsList/TrainingsList";
 import TrainingYear from "./TrainingYear/TrainingYear";
 import SingleTrainingCreator from "./TrainingsCreator/SingleTrainingCreator/SingleTrainingCreator";
 import MultipleTrainingsCreator from "./TrainingsCreator/MultipleTrainingsCreator/MultipleTrainingsCreator";
@@ -11,7 +10,7 @@ import moment from "moment";
 
 class Trainings extends Component {
   state = {
-    trainings: [],
+    trainings: {},
     newTrainingInfo: {
       date: null,
       end: null,
@@ -41,12 +40,11 @@ class Trainings extends Component {
 
   handleFormSubmitNewTraining = (newTrainingInfo) => {
     const { date } = newTrainingInfo;
-    const dateObj = new Date(date);
-    const dateYear = dateObj.getFullYear();
-    const dateMonth = moment(dateObj).format("MMMM");
+    const newTrainingYear = moment(date).format("YYYY");
+    const newTrainingMonth = moment(date).format("MMMM");
 
     const databaseRef = database.ref(
-      `${this.props.teamId}/trainings/${dateYear}/${dateMonth}`
+      `${this.props.teamId}/trainings/${newTrainingYear}/${newTrainingMonth}`
     );
     const trainingId = databaseRef.push().key;
     const newTraining = {
@@ -55,13 +53,20 @@ class Trainings extends Component {
     };
     databaseRef.child(trainingId).set(newTraining);
 
-    // this.updateTrainingsArrayOnTrainingAdd(newTraining);
+    // this.updateTrainingsOnTrainingAdd(
+    //   newTraining,
+    //   newTrainingYear,
+    //   newTrainingMonth
+    // );
   };
 
-  // updateTrainingsArrayOnTrainingAdd = (newTraining) => {
-  //   const updatedTrainingsArr = [...this.state.trainings];
-  //   updatedTrainingsArr.push(newTraining);
-  //   this.setState({ trainings: updatedTrainingsArr });
+  // updateTrainingsOnTrainingAdd = (newTraining, year, month) => {
+  //   const updatedTrainings = {
+  //     ...this.state.trainings,
+  //   };
+
+  //   updatedTrainings[year][month][newTraining.trainingId] = newTraining;
+  //   this.setState({ trainings: updatedTrainings });
   // };
 
   handleCheckboxSelectAll = ({ target }) => {
@@ -124,7 +129,6 @@ class Trainings extends Component {
       daysOfWeekAsNumbers
     );
 
-    // const newTrainingsArray = [];
     selectedDaysArray.forEach((day) => {
       const date = moment(day);
       const dateYear = date.format("YYYY");
@@ -139,9 +143,8 @@ class Trainings extends Component {
         trainingInfo: { date: day, ...trainingInfo },
       };
       databaseRef.child(trainingId).set(newTraining);
-      // newTrainingsArray.push(newTraining);
+      this.updateTrainingsOnTrainingAdd(newTraining, dateYear, dateMonth);
     });
-    // this.updateTrainingsArrayOnTrainingsAdd(newTrainingsArray);
   };
 
   // updateTrainingsArrayOnTrainingsAdd = (newTrainings) => {
