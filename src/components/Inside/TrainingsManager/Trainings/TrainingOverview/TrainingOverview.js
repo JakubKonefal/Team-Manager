@@ -83,6 +83,8 @@ class TrainingOverview extends Component {
         <div className={classes.TrainingOverview__TrainingPlan}>
           <TrainingPlan
             teamId={this.props.match.params.teamId}
+            year={this.props.match.params.year}
+            month={this.props.match.params.month}
             trainingId={this.props.match.params.trainingId}
           />
         </div>

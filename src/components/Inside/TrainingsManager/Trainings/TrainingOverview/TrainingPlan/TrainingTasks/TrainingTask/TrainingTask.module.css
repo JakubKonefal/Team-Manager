@@ -5,12 +5,9 @@
 }
 
 .Task__Content {
+  padding: 0;
   border-top: 2px dashed #ddd;
   box-sizing: border-box;
-}
-
-.Task__Content:last-child {
-  padding: 0;
 }
 
 .Task__TaskDescription {
@@ -93,8 +90,6 @@
   margin-right: 3px;
 }
 
-/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
-
 .Task_Edit {
   border-width: 2px;
   border-color: #53a2be;
@@ -138,7 +133,7 @@
 .TaskHeader_Edit {
   display: flex;
   align-items: center;
-  padding: 4px 8px;
+  padding: 12px 8px 4px;
   font-weight: bold;
 }
 
@@ -167,12 +162,13 @@
 }
 
 .Input__TaskTitle {
-  width: 50%;
+  width: 80%;
   margin-bottom: 8px;
   margin-left: 5px;
 }
 
 .Input__TaskDuration {
+  width: 70%;
   margin-bottom: 8px;
   margin-left: 5px;
 }
@@ -191,7 +187,7 @@
   display: flex;
   align-items: center;
   border-top: 2px dashed #ddd;
-  padding: 8px 28px;
+  padding: 16px 28px 8px;
   font-size: 16px;
   font-weight: bold;
 }

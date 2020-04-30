@@ -29,10 +29,6 @@ class Trainings extends Component {
       .then((res) => {
         const trainings = res.data;
         if (trainings) {
-          // const trainingsCheckboxes = trainingsYears.map((training) => ({
-          //   checked: false,
-          //   id: training.trainingId,
-          // }));
           this.setState({ trainings });
         }
       });
@@ -53,57 +49,36 @@ class Trainings extends Component {
     };
     databaseRef.child(trainingId).set(newTraining);
 
-    // this.updateTrainingsOnTrainingAdd(
-    //   newTraining,
-    //   newTrainingYear,
-    //   newTrainingMonth
-    // );
-  };
-
-  // updateTrainingsOnTrainingAdd = (newTraining, year, month) => {
-  //   const updatedTrainings = {
-  //     ...this.state.trainings,
-  //   };
-
-  //   updatedTrainings[year][month][newTraining.trainingId] = newTraining;
-  //   this.setState({ trainings: updatedTrainings });
-  // };
-
-  handleCheckboxSelectAll = ({ target }) => {
-    const updatedCheckboxes = [...this.state.trainingsCheckboxes];
-    updatedCheckboxes.forEach((item) => {
-      item.checked = target.checked;
-    });
-
-    this.setState({ trainingsCheckboxes: updatedCheckboxes });
-  };
-
-  handleCheckbox = ({ target }, index, id) => {
-    const updatedCheckboxes = [...this.state.trainingsCheckboxes];
-    const obj = { checked: target.checked, id };
-
-    updatedCheckboxes.splice(index, 1, obj);
-
-    this.setState({ trainingsCheckboxes: updatedCheckboxes });
-  };
-
-  handleCheckedTrainingsDelete = () => {
-    const checkedTrainings = [...this.state.trainingsCheckboxes].filter(
-      (checkbox) => checkbox.checked === true
+    this.updateTrainingsOnTrainingAdd(
+      newTraining,
+      newTrainingYear,
+      newTrainingMonth
     );
-    checkedTrainings.forEach((training) =>
-      database.ref(`${this.props.teamId}/trainings/${training.id}`).remove()
-    );
-    const checkedTrainingsIds = checkedTrainings.map((training) => training.id);
-    this.updateTrainingsArrayOnTrainingDelete(checkedTrainingsIds);
   };
 
-  updateTrainingsArrayOnTrainingDelete = (deletedTrainingsIds) => {
-    const currentTrainingsArr = [...this.state.trainings];
-    const updatedTrainingsArr = currentTrainingsArr.filter((training) => {
-      return !deletedTrainingsIds.includes(training.trainingId);
-    });
-    this.setState({ trainings: updatedTrainingsArr });
+  updateTrainingsOnTrainingAdd = (newTraining, year, month) => {
+    const trainingMonths = this.state.trainings[year]
+      ? this.state.trainings[year]
+      : null;
+
+    const trainingsInMonth = trainingMonths
+      ? { ...this.state.trainings[year][month] }
+      : null;
+
+    const updatedTrainings = {
+      ...this.state.trainings,
+      [year]: {
+        ...trainingMonths,
+        [month]: {
+          ...trainingsInMonth,
+          [newTraining.trainingId]: {
+            ...newTraining,
+          },
+        },
+      },
+    };
+
+    this.setState({ trainings: updatedTrainings });
   };
 
   getDaysOfWeekAsNumbers = (days) => {
@@ -143,23 +118,11 @@ class Trainings extends Component {
         trainingInfo: { date: day, ...trainingInfo },
       };
       databaseRef.child(trainingId).set(newTraining);
-      this.updateTrainingsOnTrainingAdd(newTraining, dateYear, dateMonth);
     });
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
-
-  // updateTrainingsArrayOnTrainingsAdd = (newTrainings) => {
-  //   const updatedTrainingsArr = [...this.state.trainings];
-  //   updatedTrainingsArr.push(...newTrainings);
-  //   const updatedCheckboxesArr = [...this.state.trainingsCheckboxes];
-  //   const newCheckboxes = newTrainings.map((training) => {
-  //     return { checked: false, id: training.trainingId };
-  //   });
-  //   updatedCheckboxesArr.push(...newCheckboxes);
-  //   this.setState({
-  //     trainings: updatedTrainingsArr,
-  //     trainingsCheckboxes: updatedCheckboxesArr,
-  //   });
-  // };
 
   getSelectedDaysArray = (from, to, daysOfWeek) => {
     let startingDate = new Date(from);
@@ -193,15 +156,7 @@ class Trainings extends Component {
     return (
       <div className={classes.Trainings}>
         {trainingYears}
-        <div className={classes.Buttons}>
-          <Button
-            color="secondary"
-            variant="contained"
-            onClick={this.handleCheckedTrainingsDelete}
-          >
-            Delete
-          </Button>
-        </div>
+        <div className={classes.Buttons}></div>
         <div className={classes.TrainingCreators}>
           <div className={classes.CreatorWraper}>
             {" "}

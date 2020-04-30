@@ -3,15 +3,15 @@ import TrainingMonth from "./TrainingMonth/TrainingMonth";
 
 const TrainingYear = ({ trainings, year, teamId }) => {
   const trainingMonthsArray = Object.values(trainings);
-  const months = Object.keys(trainings);
+  const monthsInTrainingYear = Object.keys(trainings);
 
   const trainingMonths = trainings
     ? trainingMonthsArray.map((month, index) => (
         <TrainingMonth
           trainings={month}
-          key={`${year} ${months[index]}`}
+          key={`${year} ${monthsInTrainingYear[index]}`}
           year={year}
-          month={months[index]}
+          month={monthsInTrainingYear[index]}
           teamId={teamId}
         />
       ))

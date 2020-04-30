@@ -90,7 +90,6 @@ class SingleTrainingCreator extends Component {
                   size="small"
                   label="Date"
                   InputLabelProps={{ shrink: true }}
-                  defaultValue="2020-06-12"
                 />
                 <TextField
                   className={`${classes.Input}`}

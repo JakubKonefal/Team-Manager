@@ -47,7 +47,12 @@ class TrainingTask extends Component {
   handleEditFormClose = () => {
     this.setState({
       editFormActive: false,
-      editedTaskInfo: {},
+      editedTaskInfo: {
+        taskTitle: "",
+        taskDescription: "",
+        duration: "",
+        equipment: "",
+      },
     });
   };
 
@@ -83,6 +88,7 @@ class TrainingTask extends Component {
                 <TextField
                   id="taskTitle"
                   label="Task title"
+                  variant="outlined"
                   size="small"
                   className={classes.Input__TaskTitle}
                   defaultValue={this.props.taskTitle}
@@ -94,6 +100,7 @@ class TrainingTask extends Component {
                 <TextField
                   id="duration"
                   label="Duration"
+                  variant="outlined"
                   size="small"
                   className={classes.Input__TaskDuration}
                   defaultValue={this.props.duration}
@@ -104,8 +111,8 @@ class TrainingTask extends Component {
               <div className={classes.Task__TaskDescription_Edit}>
                 <TextField
                   id="taskDescription"
-                  variant="outlined"
                   label="Task description"
+                  variant="outlined"
                   size="small"
                   multiline
                   rows="7"
@@ -118,6 +125,7 @@ class TrainingTask extends Component {
                 <TextField
                   id="equipment"
                   label="Equipment"
+                  variant="outlined"
                   size="small"
                   className={classes.Input__TaskEquipment}
                   defaultValue={this.props.equipment}
@@ -186,7 +194,10 @@ class TrainingTask extends Component {
             </Typography>
           </div>
           <Collapse in={this.state.trainingTaskActive}>
-            <CardContent className={classes.Task__Content}>
+            <CardContent
+              className={classes.Task__Content}
+              style={{ padding: "0" }}
+            >
               <Typography className={classes.Task__TaskDescription}>
                 {this.props.taskDescription}
               </Typography>
@@ -197,6 +208,7 @@ class TrainingTask extends Component {
                 </span>
               </Typography>
             </CardContent>
+            <div></div>
           </Collapse>
         </Card>
       </StylesProvider>

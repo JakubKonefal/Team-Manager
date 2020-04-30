@@ -14,9 +14,11 @@ class TrainingPlan extends Component {
   };
 
   componentDidMount() {
+    const { teamId, year, month, trainingId } = this.props;
+
     axios
       .get(
-        `https://team-manager-b8e8c.firebaseio.com/${this.props.teamId}/trainings/${this.props.trainingId}/tasks.json`
+        `https://team-manager-b8e8c.firebaseio.com/${teamId}/trainings/${year}/${month}/${trainingId}/tasks.json`
       )
       .then((res) => {
         const tasks = res.data;
@@ -29,8 +31,11 @@ class TrainingPlan extends Component {
 
   handleFormSubmitNewTask = (newTaskInfo, e) => {
     e.preventDefault();
+
+    const { teamId, year, month, trainingId } = this.props;
+
     const databaseRef = database.ref(
-      `${this.props.match.params.teamId}/trainings/${this.props.match.params.trainingId}/tasks`
+      `${teamId}/trainings/${year}/${month}/${trainingId}/tasks`
     );
     const taskId = databaseRef.push().key;
     const newTask = {
@@ -57,6 +62,8 @@ class TrainingPlan extends Component {
           <CardContent className={classes.TrainingPlan__Content}>
             <TrainingTasks
               teamId={this.props.teamId}
+              year={this.props.year}
+              month={this.props.month}
               trainingId={this.props.trainingId}
             />
           </CardContent>

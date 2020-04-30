@@ -10,9 +10,11 @@ class TrainingTasks extends Component {
   };
 
   componentDidMount() {
+    const { teamId, year, month, trainingId } = this.props;
+
     axios
       .get(
-        `https://team-manager-b8e8c.firebaseio.com/${this.props.teamId}/trainings/${this.props.trainingId}/tasks.json`
+        `https://team-manager-b8e8c.firebaseio.com/${teamId}/trainings/${year}/${month}/${trainingId}/tasks.json`
       )
       .then((res) => {
         const tasks = res.data;
@@ -25,8 +27,9 @@ class TrainingTasks extends Component {
 
   handleFormSubmitNewTask = (newTaskInfo, e) => {
     e.preventDefault();
+    const { teamId, year, month, trainingId } = this.props;
     const databaseRef = database.ref(
-      `${this.props.teamId}/trainings/${this.props.trainingId}/tasks`
+      `${teamId}/trainings/${year}/${month}/${trainingId}/tasks`
     );
     const taskId = databaseRef.push().key;
     const newTask = {
@@ -34,25 +37,24 @@ class TrainingTasks extends Component {
       taskInfo: { ...newTaskInfo },
     };
     databaseRef.child(taskId).set(newTask);
-    this.updateTaskArrayOnTaskAdd(newTask);
+    this.updateTasksArrayOnTaskAdd(newTask);
   };
 
-  updateTaskArrayOnTaskAdd = (newTask) => {
+  updateTasksArrayOnTaskAdd = (newTask) => {
     const updatedTasksArr = [...this.state.tasks];
     updatedTasksArr.push(newTask);
     this.setState({ tasks: updatedTasksArr });
   };
 
   handleTaskDelete = (taskId) => {
+    const { teamId, year, month, trainingId } = this.props;
     database
-      .ref(
-        `${this.props.teamId}/trainings/${this.props.trainingId}/tasks/${taskId}`
-      )
+      .ref(`${teamId}/trainings/${year}/${month}/${trainingId}/tasks/${taskId}`)
       .remove();
-    this.updateTaskArrayOnTaskDelete(taskId);
+    this.updateTasksArrayOnTaskDelete(taskId);
   };
 
-  updateTaskArrayOnTaskDelete = (taskId) => {
+  updateTasksArrayOnTaskDelete = (taskId) => {
     const currentTasksArr = [...this.state.tasks];
     const updatedTasksArr = currentTasksArr.filter(
       (task) => task.taskId !== taskId
@@ -61,15 +63,16 @@ class TrainingTasks extends Component {
   };
 
   handleFormSubmitTaskEdit = (taskId, taskInfo) => {
+    const { teamId, year, month, trainingId } = this.props;
     database
       .ref(
-        `${this.props.teamId}/trainings/${this.props.trainingId}/tasks/${taskId}/taskInfo`
+        `${teamId}/trainings/${year}/${month}/${trainingId}/tasks/${taskId}/taskInfo`
       )
       .set(taskInfo);
-    this.updatePlayersArrayOnPlayerUpdate(taskId, taskInfo);
+    this.updateTasksArrayOnTaskEdit(taskId, taskInfo);
   };
 
-  updatePlayersArrayOnPlayerUpdate = (taskId, taskInfo) => {
+  updateTasksArrayOnTaskEdit = (taskId, taskInfo) => {
     const updatedTaskArray = [...this.state.tasks];
     const updatedTaskIndex = this.state.tasks.findIndex((task) => {
       return task.taskId === taskId;
