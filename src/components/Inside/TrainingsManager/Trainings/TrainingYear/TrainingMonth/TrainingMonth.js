@@ -8,21 +8,19 @@ import Collapse from "@material-ui/core/Collapse";
 
 class TrainingMonth extends Component {
   state = {
-    trainings: [],
-    trainingsCheckboxes: [],
+    trainings: this.props.trainings,
+    trainingsCheckboxes: this.props.checkboxes,
+    deletedTrainingsIds: [],
     expanded: true,
   };
 
-  componentDidMount() {
-    const trainings = Object.values(this.props.trainings);
-    const trainingsCheckboxes = trainings.map((training) => ({
-      checked: false,
-      id: training.trainingId,
-    }));
-    this.setState({
-      trainings,
-      trainingsCheckboxes,
-    });
+  componentDidUpdate() {
+    if (this.props.trainings.length !== this.state.trainings.length) {
+      this.setState({
+        trainings: this.props.trainings,
+        trainingsCheckboxes: this.props.checkboxes,
+      });
+    }
   }
 
   handleToggleMonthExpand = () => {
@@ -57,16 +55,32 @@ class TrainingMonth extends Component {
         .remove()
     );
     const checkedTrainingsIds = checkedTrainings.map((training) => training.id);
-    this.updateTrainingsArrayOnTrainingDelete(checkedTrainingsIds);
+    this.props.onDeleteUpdate(
+      checkedTrainingsIds,
+      this.props.year,
+      this.props.month
+    );
+    // this.updateTrainingsArrayOnTrainingDelete(checkedTrainingsIds);
   };
 
-  updateTrainingsArrayOnTrainingDelete = (deletedTrainingsIds) => {
-    const currentTrainings = [...this.state.trainings];
-    const updatedTrainings = currentTrainings.filter((training) => {
-      return !deletedTrainingsIds.includes(training.trainingId);
-    });
-    this.setState({ trainings: updatedTrainings });
-  };
+  // updateTrainingsArrayOnTrainingDelete = (deletedTrainingsIds) => {
+  //   const currentTrainings = [...this.state.trainings];
+  //   const currentCheckboxes = [...this.state.trainingsCheckboxes];
+  //   const updatedTrainings = currentTrainings.filter((training) => {
+  //     return !deletedTrainingsIds.includes(training.trainingId);
+  //   });
+  //   const updatedCheckboxes = currentCheckboxes.filter((item) => {
+  //     return !deletedTrainingsIds.includes(item.id);
+  //   });
+  //   this.setState({
+  //     trainings: updatedTrainings,
+  //     trainingsCheckboxes: updatedCheckboxes,
+  //     deletedTrainingsIds: {
+  //       ...this.state.deletedTrainingsIds,
+  //       deletedTrainingsIds,
+  //     },
+  //   });
+  // };
 
   render() {
     const trainings = this.state.trainings

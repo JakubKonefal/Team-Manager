@@ -139,6 +139,24 @@ class Trainings extends Component {
     return selectedDaysArray;
   };
 
+  updateTraininingsOnDelete = (deletedIds, year, month) => {
+    const trainingsInMonth = Object.values({
+      ...this.state.trainings[year][month],
+    });
+    const updatedTrainings = trainingsInMonth.filter(
+      (training) => !deletedIds.includes(training.trainingId)
+    );
+    this.setState({
+      trainings: {
+        ...this.state.trainings,
+        [year]: {
+          ...this.state.trainings[year],
+          [month]: updatedTrainings,
+        },
+      },
+    });
+  };
+
   render() {
     const trainingsYearsArray = Object.values(this.state.trainings);
     const trainingsYears = Object.keys(this.state.trainings);
@@ -149,6 +167,7 @@ class Trainings extends Component {
             trainings={year}
             key={trainingsYears[index]}
             year={trainingsYears[index]}
+            onDeleteUpdate={this.updateTraininingsOnDelete}
           />
         ))
       : null;
