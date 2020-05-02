@@ -1,16 +1,53 @@
 import React from "react";
 import classes from "./TrainingInfoBox.module.css";
+import Tooltip from "@material-ui/core/Tooltip";
+import Sort from "@material-ui/icons/Sort";
 
-const TrainingInfoBox = () => (
+const TrainingInfoBox = ({ sort }) => (
   <>
-    <span className={classes.InfoBox__Item}></span>
-    <span className={classes.InfoBox__Item}>Date</span>
+    <Tooltip title="Ctrl + click to sort in opposite order" placement="top">
+      <span className={classes.InfoBox__Item}>
+        {" "}
+        <Sort className={classes.InfoBox__SortIcon} />
+      </span>
+    </Tooltip>
+    <span
+      className={classes.InfoBox__Item}
+      onClick={(event) => sort(event, "date")}
+    >
+      Date{" "}
+    </span>
     <span className={classes.InfoBox__Item}>Weekday</span>
-    <span className={classes.InfoBox__Item}>Start</span>
-    <span className={classes.InfoBox__Item}>End</span>
-    <span className={classes.InfoBox__Item}>Place</span>
-    <span className={classes.InfoBox__Item}>Training Type</span>
-    <span className={classes.InfoBox__Item}>Intensity</span>
+    <span
+      className={classes.InfoBox__Item}
+      onClick={(event) => sort(event, "start")}
+    >
+      Start
+    </span>
+    <span
+      className={classes.InfoBox__Item}
+      onClick={(event) => sort(event, "end")}
+    >
+      End
+    </span>
+    <span
+      className={classes.InfoBox__Item}
+      onClick={(event) => sort(event, "place")}
+    >
+      Place
+    </span>
+    <span
+      className={classes.InfoBox__Item}
+      onClick={(event) => sort(event, "trainingType")}
+    >
+      Training Type
+    </span>
+    <span
+      className={classes.InfoBox__Item}
+      onClick={(event) => sort(event, "intensity")}
+    >
+      Intensity
+    </span>
   </>
 );
 

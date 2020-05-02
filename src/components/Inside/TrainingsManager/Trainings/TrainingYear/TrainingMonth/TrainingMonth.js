@@ -60,27 +60,21 @@ class TrainingMonth extends Component {
       this.props.year,
       this.props.month
     );
-    // this.updateTrainingsArrayOnTrainingDelete(checkedTrainingsIds);
   };
 
-  // updateTrainingsArrayOnTrainingDelete = (deletedTrainingsIds) => {
-  //   const currentTrainings = [...this.state.trainings];
-  //   const currentCheckboxes = [...this.state.trainingsCheckboxes];
-  //   const updatedTrainings = currentTrainings.filter((training) => {
-  //     return !deletedTrainingsIds.includes(training.trainingId);
-  //   });
-  //   const updatedCheckboxes = currentCheckboxes.filter((item) => {
-  //     return !deletedTrainingsIds.includes(item.id);
-  //   });
-  //   this.setState({
-  //     trainings: updatedTrainings,
-  //     trainingsCheckboxes: updatedCheckboxes,
-  //     deletedTrainingsIds: {
-  //       ...this.state.deletedTrainingsIds,
-  //       deletedTrainingsIds,
-  //     },
-  //   });
-  // };
+  handleTrainingsSort = (e, attribute) => {
+    const sortedTrainings = [...this.state.trainings].sort((a, b) =>
+      a.trainingInfo[attribute] > b.trainingInfo[attribute] ? 1 : -1
+    );
+
+    if (e.ctrlKey) {
+      sortedTrainings.reverse();
+    }
+
+    this.setState({
+      trainings: sortedTrainings,
+    });
+  };
 
   render() {
     const trainings = this.state.trainings
@@ -120,7 +114,7 @@ class TrainingMonth extends Component {
         </div>
         <Collapse in={this.state.expanded}>
           <div className={classes.TrainingMonth__TrainingsList}>
-            <TrainingInfoBox />
+            <TrainingInfoBox sort={this.handleTrainingsSort} />
             {trainings}
           </div>
           <div className={classes.TrainingMonth__Buttons}>

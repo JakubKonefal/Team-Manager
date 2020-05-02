@@ -5,7 +5,6 @@ import SingleTrainingCreator from "./TrainingsCreator/SingleTrainingCreator/Sing
 import MultipleTrainingsCreator from "./TrainingsCreator/MultipleTrainingsCreator/MultipleTrainingsCreator";
 import classes from "./Trainings.module.css";
 import { database } from "../../../../firebase/firebase";
-import Button from "@material-ui/core/Button";
 import moment from "moment";
 
 class Trainings extends Component {
@@ -22,10 +21,10 @@ class Trainings extends Component {
   };
 
   componentDidMount() {
+    const { teamId } = this.props;
+
     axios
-      .get(
-        `https://team-manager-b8e8c.firebaseio.com/${this.props.teamId}/trainings.json`
-      )
+      .get(`https://team-manager-b8e8c.firebaseio.com/${teamId}/trainings.json`)
       .then((res) => {
         const trainings = res.data;
         if (trainings) {
@@ -35,12 +34,13 @@ class Trainings extends Component {
   }
 
   handleFormSubmitNewTraining = (newTrainingInfo) => {
+    const { teamId } = this.props;
     const { date } = newTrainingInfo;
     const newTrainingYear = moment(date).format("YYYY");
     const newTrainingMonth = moment(date).format("MMMM");
 
     const databaseRef = database.ref(
-      `${this.props.teamId}/trainings/${newTrainingYear}/${newTrainingMonth}`
+      `${teamId}/trainings/${newTrainingYear}/${newTrainingMonth}`
     );
     const trainingId = databaseRef.push().key;
     const newTraining = {
@@ -95,9 +95,9 @@ class Trainings extends Component {
   };
 
   handleFormSubmitNewTrainings = (newTrainingsInfo) => {
+    const { teamId } = this.props;
     const { from, to, daysOfWeek, ...trainingInfo } = newTrainingsInfo;
     const daysOfWeekAsNumbers = this.getDaysOfWeekAsNumbers(daysOfWeek);
-
     const selectedDaysArray = this.getSelectedDaysArray(
       from,
       to,
@@ -105,12 +105,11 @@ class Trainings extends Component {
     );
 
     selectedDaysArray.forEach((day) => {
-      const date = moment(day);
-      const dateYear = date.format("YYYY");
-      const dateMonth = date.format("MMMM");
+      const dateYear = moment(day).format("YYYY");
+      const dateMonth = moment(day).format("MMMM");
 
       const databaseRef = database.ref(
-        `${this.props.teamId}/trainings/${dateYear}/${dateMonth}`
+        `${teamId}/trainings/${dateYear}/${dateMonth}`
       );
       const trainingId = databaseRef.push().key;
       const newTraining = {
@@ -131,7 +130,7 @@ class Trainings extends Component {
 
     while (startingDate <= endingDate) {
       if (daysOfWeek.includes(startingDate.getDay())) {
-        selectedDaysArray.push(moment(startingDate).format("YYYY/MM/DD"));
+        selectedDaysArray.push(moment(startingDate).format("YYYY-MM-DD"));
       }
       let newDate = startingDate.setDate(startingDate.getDate() + 1);
       startingDate = new Date(newDate);

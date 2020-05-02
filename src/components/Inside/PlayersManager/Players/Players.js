@@ -24,10 +24,10 @@ class Players extends Component {
   };
 
   componentDidMount() {
+    const { teamId } = this.props;
+
     axios
-      .get(
-        `https://team-manager-b8e8c.firebaseio.com/${this.props.teamId}.json`
-      )
+      .get(`https://team-manager-b8e8c.firebaseio.com/${teamId}.json`)
       .then((res) => {
         const { teamName, players } = res.data;
         if (players) {
@@ -57,11 +57,10 @@ class Players extends Component {
   };
 
   handlePlayerDelete = (playerId, photo) => {
-    database.ref(`${this.props.teamId}/players/${playerId}`).remove();
+    const { teamId } = this.props;
+    database.ref(`${teamId}/players/${playerId}`).remove();
     if (photo) {
-      storage
-        .ref(`images/teams/${this.props.teamId}/players/${playerId}`)
-        .delete();
+      storage.ref(`images/teams/${teamId}/players/${playerId}`).delete();
     }
     this.updatePlayersArrayOnPlayerDelete(playerId);
   };
@@ -75,14 +74,16 @@ class Players extends Component {
   };
 
   handleImageUpload = async (playerId, selectedImage) => {
+    const { teamId } = this.props;
     await storage
-      .ref(`images/teams/${this.props.teamId}/players/${playerId}`)
+      .ref(`images/teams/${teamId}/players/${playerId}`)
       .put(selectedImage);
   };
 
   getUploadedImageUrl = async (playerId) => {
+    const { teamId } = this.props;
     await storage
-      .ref(`images/teams/${this.props.teamId}/players/${playerId}`)
+      .ref(`images/teams/${teamId}/players/${playerId}`)
       .getDownloadURL()
       .then((url) => {
         this.setState({ uploadedImageUrl: url });
@@ -90,8 +91,9 @@ class Players extends Component {
   };
 
   assignUploadedImageUrl = (playerId) => {
+    const { teamId } = this.props;
     database
-      .ref(`/${this.props.teamId}/players/${playerId}/`)
+      .ref(`/${teamId}/players/${playerId}/`)
       .update({ playerPhoto: this.state.uploadedImageUrl });
   };
 
@@ -110,7 +112,8 @@ class Players extends Component {
 
   handleFormSubmitNewPlayer = (playerInfo, playerPhoto, e) => {
     e.preventDefault();
-    const databaseRef = database.ref(`${this.props.teamId}/players`);
+    const { teamId } = this.props;
+    const databaseRef = database.ref(`${teamId}/players`);
     const playerId = databaseRef.push().key;
     const newPlayer = {
       playerId,
@@ -150,9 +153,8 @@ class Players extends Component {
   };
 
   handleFormSubmitEditPlayer = (playerId, playerInfo, playerPhoto) => {
-    database
-      .ref(`${this.props.teamId}/players/${playerId}/playerInfo`)
-      .set(playerInfo);
+    const { teamId } = this.props;
+    database.ref(`${teamId}/players/${playerId}/playerInfo`).set(playerInfo);
     if (playerPhoto) {
       this.handleImageUpload(playerId, playerPhoto).then(() => {
         this.getUploadedImageUrl(playerId).then(() => {

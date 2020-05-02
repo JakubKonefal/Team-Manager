@@ -1,4 +1,7 @@
 .InfoBox__Item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 4px 6px;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
@@ -10,13 +13,18 @@
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 1px;
+  cursor: pointer;
 }
-
-/* .InfoBox__Item:nth-child(1) {
-  border-top-left-radius: 5px;
-} */
 
 .InfoBox__Item:nth-child(8) {
   box-sizing: border-box;
   border-right: 1px solid black;
+}
+
+.InfoBox__Item:hover {
+  color: #333;
+}
+
+.InfoBox__SortIcon {
+  font-size: 15px;
 }
