@@ -5,13 +5,15 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Training from "../../Training/Training";
 import TrainingInfoBox from "../../TrainingInfoBox/TrainingInfoBox";
 import Collapse from "@material-ui/core/Collapse";
+import MultipleTrainingsEdit from "./MultipleTrainingsEdit/MultipleTrainingsEdit";
 
 class TrainingMonth extends Component {
   state = {
     trainings: this.props.trainings,
     trainingsCheckboxes: this.props.checkboxes,
-    deletedTrainingsIds: [],
-    expanded: true,
+    monthExpanded: true,
+    editFormActive: false,
+    checkedTrainingsCount: 0,
   };
 
   componentDidUpdate() {
@@ -24,7 +26,13 @@ class TrainingMonth extends Component {
   }
 
   handleToggleMonthExpand = () => {
-    this.setState({ expanded: !this.state.expanded });
+    this.setState({ monthExpanded: !this.state.monthExpanded });
+  };
+
+  countCheckedTrainings = (checkboxes) => {
+    const checkedTrainingsCount = checkboxes.filter((item) => item.checked)
+      .length;
+    this.setState({ checkedTrainingsCount });
   };
 
   handleCheckboxSelectAll = ({ target }) => {
@@ -32,33 +40,42 @@ class TrainingMonth extends Component {
     updatedCheckboxes.forEach((item) => {
       item.checked = target.checked;
     });
+    this.countCheckedTrainings(updatedCheckboxes);
     this.setState({ trainingsCheckboxes: updatedCheckboxes });
   };
 
   handleCheckboxClick = ({ target }, index, id) => {
     const updatedCheckboxes = [...this.state.trainingsCheckboxes];
     const clickedCheckbox = { checked: target.checked, id };
-
     updatedCheckboxes.splice(index, 1, clickedCheckbox);
 
+    this.countCheckedTrainings(updatedCheckboxes);
     this.setState({ trainingsCheckboxes: updatedCheckboxes });
   };
 
   handleCheckedTrainingsDelete = () => {
-    const { year, month } = this.props;
+    const { teamId, year, month } = this.props;
     const checkedTrainings = [...this.state.trainingsCheckboxes].filter(
-      (checkbox) => checkbox.checked === true
+      (item) => item.checked
     );
     checkedTrainings.forEach((training) =>
       database
-        .ref(`${this.props.teamId}/trainings/${year}/${month}/${training.id}`)
+        .ref(`${teamId}/trainings/${year}/${month}/${training.id}`)
         .remove()
     );
     const checkedTrainingsIds = checkedTrainings.map((training) => training.id);
-    this.props.onDeleteUpdate(
-      checkedTrainingsIds,
-      this.props.year,
-      this.props.month
+    this.props.onDeleteUpdate(checkedTrainingsIds, year, month);
+  };
+
+  handleCheckedTrainingsEdit = (editedTrainingsInfo) => {
+    const { teamId, year, month } = this.props;
+    const checkedTrainings = this.state.trainingsCheckboxes.filter(
+      (item) => item.checked
+    );
+    checkedTrainings.forEach((training) =>
+      database
+        .ref(`${teamId}/trainings/${year}/${month}/${training.id}/trainingInfo`)
+        .update(editedTrainingsInfo)
     );
   };
 
@@ -74,6 +91,14 @@ class TrainingMonth extends Component {
     this.setState({
       trainings: sortedTrainings,
     });
+  };
+
+  handleEditFormOpen = () => {
+    this.setState({ editFormActive: true });
+  };
+
+  handleEditFormClose = () => {
+    this.setState({ editFormActive: false });
   };
 
   render() {
@@ -99,6 +124,24 @@ class TrainingMonth extends Component {
         ))
       : null;
 
+    const buttons = this.state.editFormActive ? null : (
+      <div>
+        <button
+          className={`${classes.Button__Edit} ${classes.Button}`}
+          disabled={this.state.checkedTrainingsCount < 1}
+          onClick={this.handleEditFormOpen}
+        >
+          edit
+        </button>
+        <button
+          className={`${classes.Button__Delete} ${classes.Button}`}
+          onClick={this.handleCheckedTrainingsDelete}
+        >
+          delete
+        </button>
+      </div>
+    );
+
     return this.state.trainings.length > 0 ? (
       <>
         <div className={classes.TrainingMonth__Header}>
@@ -112,21 +155,22 @@ class TrainingMonth extends Component {
             {`${this.props.year} ${this.props.month}`}
           </h5>
         </div>
-        <Collapse in={this.state.expanded}>
+        <Collapse in={this.state.monthExpanded}>
           <div className={classes.TrainingMonth__TrainingsList}>
             <TrainingInfoBox sort={this.handleTrainingsSort} />
             {trainings}
           </div>
-          <div className={classes.TrainingMonth__Buttons}>
-            <button className={`${classes.Button__Edit} ${classes.Button}`}>
-              edit
-            </button>
-            <button
-              className={`${classes.Button__Delete} ${classes.Button}`}
-              onClick={this.handleCheckedTrainingsDelete}
-            >
-              delete
-            </button>
+
+          <div className={classes.TrainingMonth__ActionPanel}>
+            <MultipleTrainingsEdit
+              onFormSubmit={this.handleCheckedTrainingsEdit}
+              checkedTrainingsCount={this.state.checkedTrainingsCount}
+              active={this.state.editFormActive}
+              close={this.handleEditFormClose}
+              year={this.props.year}
+              month={this.props.month}
+            />
+            {buttons}
           </div>
         </Collapse>
       </>

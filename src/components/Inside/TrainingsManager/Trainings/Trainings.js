@@ -120,12 +120,12 @@ class Trainings extends Component {
     });
     setTimeout(() => {
       window.location.reload();
-    }, 1000);
+    }, 800);
   };
 
   getSelectedDaysArray = (from, to, daysOfWeek) => {
     let startingDate = new Date(from);
-    let endingDate = new Date(to);
+    const endingDate = new Date(to);
     const selectedDaysArray = [];
 
     while (startingDate <= endingDate) {
