@@ -19,6 +19,7 @@ class MultipleTrainingsEdit extends Component {
       trainingType: "",
       intensity: 0,
     },
+    incorrectDate: false,
   };
 
   handleInputChange = ({ target }) => {
@@ -55,31 +56,40 @@ class MultipleTrainingsEdit extends Component {
     });
   };
 
-  // validateInputDate = ({ target: { value } }) => {
-  //   const { year, month } = this.props;
-  //   const yearNumber = parseInt(year);
-  //   const monthNumber = moment().month(month).format("MM");
-  //   const pickedYear = moment(value).year();
-  //   const pickedMonthOneIndexed = moment(value).month().format("MM");
-  //   console.log(yearNumber);
-  //   console.log(monthNumber);
-  //   console.log(pickedYear);
-  //   console.log(pickedMonthOneIndexed);
+  validateInputDate = ({ target: { value } }) => {
+    const { year, month } = this.props;
+    const yearNumber = parseInt(year);
+    const monthNumber = moment().month(month).format("MM");
+    const pickedYear = moment(value).year();
+    let pickedMonthOneIndexed = moment(value).month() + 1;
+    if (pickedMonthOneIndexed < 10) {
+      pickedMonthOneIndexed = `0${pickedMonthOneIndexed}`;
+    }
 
-  //   // if (pickedYear !== yearNumber || pickedMonth !== zeroIndexedMonth) {
-  //   //   // value = `${year}-${zeroIndexedMonth}-01`;
-  //   //   console.log("SSSSSSSSSSSSSSSSSSSSS");
-
-  //   //   // this.setState({
-  //   //   //   editedTrainingsInfo: {
-  //   //   //     ...this.state.editedTrainingsInfo,
-  //   //   //     date: `2020-04-01`,
-  //   //   //   },
-  //   //   // });
-  //   // }
-  // };
+    if (pickedYear !== yearNumber || monthNumber !== pickedMonthOneIndexed) {
+      this.setState({
+        editedTrainingsInfo: {
+          ...this.state.editedTrainingsInfo,
+          date: `${yearNumber}-${monthNumber}-00`,
+        },
+        incorrectDate: true,
+      });
+    } else {
+      this.setState({
+        editedTrainingsInfo: {
+          ...this.state.editedTrainingsInfo,
+          date: value,
+        },
+        incorrectDate: false,
+      });
+    }
+  };
 
   render() {
+    const dateErrorMessage = this.state.incorrectDate
+      ? "Only day can be changed!"
+      : "";
+
     const multipleTrainingsEditor = this.props.active ? (
       <StylesProvider injectFirst>
         <Card className={classes.MultipleTrainingsEditor} variant="outlined">
@@ -97,6 +107,8 @@ class MultipleTrainingsEdit extends Component {
                   variant="outlined"
                   size="small"
                   label="Date"
+                  error={this.state.incorrectDate}
+                  helperText={dateErrorMessage}
                   InputLabelProps={{ shrink: true }}
                   disabled={this.props.checkedTrainingsCount !== 1}
                   onChange={(event) => this.validateInputDate(event)}

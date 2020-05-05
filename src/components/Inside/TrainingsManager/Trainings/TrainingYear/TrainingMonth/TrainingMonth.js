@@ -36,7 +36,7 @@ class TrainingMonth extends Component {
   };
 
   handleCheckboxSelectAll = ({ target }) => {
-    const updatedCheckboxes = [...this.state.trainingsCheckboxes];
+    const updatedCheckboxes = this.state.trainingsCheckboxes;
     updatedCheckboxes.forEach((item) => {
       item.checked = target.checked;
     });
@@ -55,7 +55,7 @@ class TrainingMonth extends Component {
 
   handleCheckedTrainingsDelete = () => {
     const { teamId, year, month } = this.props;
-    const checkedTrainings = [...this.state.trainingsCheckboxes].filter(
+    const checkedTrainings = this.state.trainingsCheckboxes.filter(
       (item) => item.checked
     );
     checkedTrainings.forEach((training) =>
@@ -69,14 +69,19 @@ class TrainingMonth extends Component {
 
   handleCheckedTrainingsEdit = (editedTrainingsInfo) => {
     const { teamId, year, month } = this.props;
+    const { date, ...restInfo } = editedTrainingsInfo;
     const checkedTrainings = this.state.trainingsCheckboxes.filter(
       (item) => item.checked
     );
+    const checkedTrainingsIds = checkedTrainings.map((training) => training.id);
+    const updatedInfo =
+      checkedTrainings.length > 1 ? restInfo : editedTrainingsInfo;
     checkedTrainings.forEach((training) =>
       database
         .ref(`${teamId}/trainings/${year}/${month}/${training.id}/trainingInfo`)
-        .update(editedTrainingsInfo)
+        .update(updatedInfo)
     );
+    setTimeout(() => window.location.reload(), 800);
   };
 
   handleTrainingsSort = (e, attribute) => {

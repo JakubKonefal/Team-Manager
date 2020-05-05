@@ -156,6 +156,8 @@ class Trainings extends Component {
     });
   };
 
+  updateTrainingsOnEdit = (params) => {};
+
   render() {
     const trainingsYearsArray = Object.values(this.state.trainings);
     const trainingsYears = Object.keys(this.state.trainings);
