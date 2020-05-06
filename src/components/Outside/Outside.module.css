@@ -1,59 +1,103 @@
 .Background {
   width: 100%;
   min-height: 100vh;
-  background-image: url(../../assets/img/bak.png);
+  background-image: url(../../assets/img/lp_background.png);
   background-position: center;
   background-size: cover;
   box-sizing: border-box;
   padding-top: 60px;
 }
 
+.Wraper {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 0 auto;
+}
+
 .Navigation {
   display: flex;
-  margin: 0 auto;
-  width: 90%;
+  margin-left: 40px;
 }
 
 .Navigation__Logo {
-  margin: 0;
-  font-size: 34px;
-  font-weight: bold;
-  text-transform: uppercase;
+  height: 85px;
+}
+
+.Navigation__LogoLabel {
+  margin: 7px 0 0 30px;
+  font-size: 50px;
+  color: #051131;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
 }
 
 .Navigation__Items {
   display: flex;
+  align-items: center;
   margin-left: auto;
-  width: 40%;
-  justify-content: space-between;
-}
-
-.Navigation__Item {
 }
 
 .Navigation__ItemText {
   font-size: 30px;
+  margin-right: 60px;
+  font-family: "Montserrat", sans-serif;
 }
 
 .Navigation__Buttons {
   display: flex;
+  align-items: center;
 }
 
 .Navigation__Button {
-  padding: 8px 20px;
+  padding: 12px 22px;
   border: none;
   border-radius: 30px;
   text-transform: uppercase;
   color: white;
-  font-weight: bold;
-  font-size: 18px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
 }
 
 .Navigation__Button_SignIn {
   background-color: #ff005a;
+  margin-left: 40px;
 }
 
 .Navigation__Button_Login {
   background-color: #59c800;
   margin-left: 40px;
+}
+
+.Description {
+  width: 40%;
+  margin-left: 40px;
+}
+
+.Description__Football_Label {
+  margin-bottom: 20px;
+  font-size: 90px;
+  color: #051131;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 900;
+  letter-spacing: 5px;
+}
+
+.Description__TeamManager_Label {
+  margin: 0 0 40px 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 44px;
+  font-weight: 500;
+  color: #278caa;
+  text-transform: uppercase;
+}
+
+.Description__AppDescription {
+  box-sizing: border-box;
+  padding-right: 40px;
+  line-height: 200%;
+  font-size: 24px;
+  font-family: "Montserrat", sans-serif;
 }
