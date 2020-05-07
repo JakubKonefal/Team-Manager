@@ -73,7 +73,6 @@ class TrainingMonth extends Component {
     const checkedTrainings = this.state.trainingsCheckboxes.filter(
       (item) => item.checked
     );
-    const checkedTrainingsIds = checkedTrainings.map((training) => training.id);
     const updatedInfo =
       checkedTrainings.length > 1 ? restInfo : editedTrainingsInfo;
     checkedTrainings.forEach((training) =>

@@ -3,7 +3,6 @@ import classes from "./Player.module.css";
 import FilePreviewElement from "../../../../UI/FilePreviewElement/FilePreviewElement";
 import { StylesProvider } from "@material-ui/core/styles";
 import defaultImage from "../../../../../assets/img/user.jpg";
-import Checkbox from "@material-ui/core/Checkbox";
 import Avatar from "@material-ui/core/Avatar";
 import Tooltip from "@material-ui/core/Tooltip";
 
@@ -210,7 +209,7 @@ class Player extends Component {
             </Tooltip>
           </div>
           <div className={classes.ListItem__CheckboxSection}>
-            <Checkbox edge="end" className={classes.ListItem__Checkbox} />
+            {this.props.checkbox}
           </div>
         </div>
       </StylesProvider>

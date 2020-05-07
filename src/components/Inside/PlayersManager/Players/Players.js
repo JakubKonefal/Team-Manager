@@ -4,11 +4,17 @@ import axios from "axios";
 import { storage, database } from "../../../../firebase/firebase";
 import PlayerCreator from "./PlayerCreator/PlayerCreator";
 import Player from "./Player/Player";
+import Button from "@material-ui/core/Button";
+import Checkbox from "@material-ui/core/Checkbox";
+import Tooltip from "@material-ui/core/Tooltip";
+import Info from "@material-ui/icons/Info";
+import StylesProvider from "@material-ui/styles/StylesProvider";
 
 class Players extends Component {
   state = {
     teamName: "",
     players: [],
+    playersCheckboxes: [],
     playerCreatorActive: false,
     newPlayerInfo: {
       number: "",
@@ -32,7 +38,12 @@ class Players extends Component {
         const { teamName, players } = res.data;
         if (players) {
           const playersArr = Object.values(players);
-          this.setState({ teamName, players: playersArr });
+          const playersCheckboxes = playersArr.map((player) => ({
+            checked: false,
+            id: player.playerId,
+            photo: player.playerPhoto,
+          }));
+          this.setState({ teamName, players: playersArr, playersCheckboxes });
         }
       });
   }
@@ -56,13 +67,42 @@ class Players extends Component {
     });
   };
 
+  handleCheckboxSelectAll = ({ target }) => {
+    const updatedCheckboxes = this.state.playersCheckboxes;
+    updatedCheckboxes.forEach((item) => {
+      item.checked = target.checked;
+    });
+    // this.countCheckedTrainings(updatedCheckboxes);
+    this.setState({ playersCheckboxes: updatedCheckboxes });
+  };
+
+  handleCheckboxClick = ({ target }, index, id, photo) => {
+    const updatedCheckboxes = [...this.state.playersCheckboxes];
+    const clickedCheckbox = { checked: target.checked, id, photo };
+    updatedCheckboxes.splice(index, 1, clickedCheckbox);
+
+    // this.countCheckedTrainings(updatedCheckboxes);
+    this.setState({ playersCheckboxes: updatedCheckboxes });
+  };
+
+  handleCheckedPlayersDelete = () => {
+    const checkedPlayers = this.state.playersCheckboxes.filter(
+      (item) => item.checked
+    );
+    checkedPlayers.forEach((player) => {
+      console.log(player);
+
+      this.handlePlayerDelete(player.id, player.photo);
+    });
+  };
+
   handlePlayerDelete = (playerId, photo) => {
     const { teamId } = this.props;
     database.ref(`${teamId}/players/${playerId}`).remove();
     if (photo) {
       storage.ref(`images/teams/${teamId}/players/${playerId}`).delete();
     }
-    this.updatePlayersArrayOnPlayerDelete(playerId);
+    // this.updatePlayersArrayOnPlayerDelete(playerId);
   };
 
   updatePlayersArrayOnPlayerDelete = (playerId) => {
@@ -98,7 +138,7 @@ class Players extends Component {
   };
 
   updatePlayersArrayOnPlayerAdd = (newPlayer, playerPhoto) => {
-    const { players } = this.state;
+    const { players, playersCheckboxes } = this.state;
 
     const playerPhotoUrl = playerPhoto
       ? URL.createObjectURL(playerPhoto)
@@ -107,7 +147,19 @@ class Players extends Component {
     const updatedPlayersArray = players
       ? [...players, { ...newPlayer, playerPhoto: playerPhotoUrl }]
       : [players, { ...newPlayer, playerPhoto: playerPhotoUrl }];
-    this.setState({ players: updatedPlayersArray });
+    const updatedCheckboxesArray = players
+      ? [
+          ...playersCheckboxes,
+          { checked: false, id: newPlayer.playerId, photo: playerPhotoUrl },
+        ]
+      : [
+          playersCheckboxes,
+          { checked: false, id: newPlayer.playerId, photo: playerPhotoUrl },
+        ];
+    this.setState({
+      players: updatedPlayersArray,
+      playersCheckboxes: updatedCheckboxesArray,
+    });
   };
 
   handleFormSubmitNewPlayer = (playerInfo, playerPhoto, e) => {
@@ -131,6 +183,19 @@ class Players extends Component {
     this.updatePlayersArrayOnPlayerAdd(newPlayer, playerPhoto);
   };
 
+  handleFormSubmitEditPlayer = (playerId, playerInfo, playerPhoto) => {
+    const { teamId } = this.props;
+    database.ref(`${teamId}/players/${playerId}/playerInfo`).set(playerInfo);
+    if (playerPhoto) {
+      this.handleImageUpload(playerId, playerPhoto).then(() => {
+        this.getUploadedImageUrl(playerId).then(() => {
+          this.assignUploadedImageUrl(playerId);
+        });
+      });
+    }
+    this.updatePlayersArrayOnPlayerUpdate(playerId, playerInfo, playerPhoto);
+  };
+
   updatePlayersArrayOnPlayerUpdate = (playerId, playerInfo, playerPhoto) => {
     const updatedPlayersArray = [...this.state.players];
     const updatedPlayerIndex = this.state.players.findIndex((player) => {
@@ -152,17 +217,18 @@ class Players extends Component {
     this.setState({ players: updatedPlayersArray });
   };
 
-  handleFormSubmitEditPlayer = (playerId, playerInfo, playerPhoto) => {
-    const { teamId } = this.props;
-    database.ref(`${teamId}/players/${playerId}/playerInfo`).set(playerInfo);
-    if (playerPhoto) {
-      this.handleImageUpload(playerId, playerPhoto).then(() => {
-        this.getUploadedImageUrl(playerId).then(() => {
-          this.assignUploadedImageUrl(playerId);
-        });
-      });
+  handlePlayersSort = (e, attribute) => {
+    const sortedPlayers = [...this.state.players].sort((a, b) =>
+      a.playerInfo[attribute] > b.playerInfo[attribute] ? 1 : -1
+    );
+
+    if (e.ctrlKey) {
+      sortedPlayers.reverse();
     }
-    this.updatePlayersArrayOnPlayerUpdate(playerId, playerInfo, playerPhoto);
+
+    this.setState({
+      players: sortedPlayers,
+    });
   };
 
   render() {
@@ -170,14 +236,46 @@ class Players extends Component {
       <div className={classes.PlayersList}>
         <div className={classes.ListItem}>
           <span className={classes.ListItem__Player}>player</span>
-          <span className={classes.ListItem__Number}>nr</span>
-          <span className={classes.ListItem__FirstName}>first name</span>
-          <span className={classes.ListItem__LastName}>last name</span>
-          <span className={classes.ListItem__Position}>position</span>
-          <span className={classes.ListItem__Birthday}>birthday</span>
+          <span
+            className={`${classes.ListItem__Number} ${classes.ListItem__Sortable}`}
+            onClick={(event) => this.handlePlayersSort(event, "number")}
+          >
+            nr
+          </span>
+          <span
+            className={`${classes.ListItem__FirstName} ${classes.ListItem__Sortable}`}
+            onClick={(event) => this.handlePlayersSort(event, "firstName")}
+          >
+            first name
+          </span>
+          <span
+            className={`${classes.ListItem__LastName} ${classes.ListItem__Sortable}`}
+            onClick={(event) => this.handlePlayersSort(event, "lastName")}
+          >
+            last name
+          </span>
+          <span
+            className={`${classes.ListItem__Position} ${classes.ListItem__Sortable}`}
+            onClick={(event) => this.handlePlayersSort(event, "position")}
+          >
+            position
+          </span>
+          <span
+            className={`${classes.ListItem__Birthday} ${classes.ListItem__Sortable}`}
+            onClick={(event) => this.handlePlayersSort(event, "birth")}
+          >
+            birthday
+          </span>
           <span className={classes.ListItem__Actions}>actions</span>
+          <Tooltip
+            className={classes.ListItem__Info}
+            title="Ctrl + click to sort in opposite order"
+            placement="top"
+          >
+            <Info />
+          </Tooltip>
         </div>
-        {this.state.players.map((player) => {
+        {this.state.players.map((player, index) => {
           return (
             <Player
               key={player.playerId}
@@ -187,9 +285,38 @@ class Players extends Component {
               playerPhoto={player.playerPhoto}
               onDelete={this.handlePlayerDelete}
               onSubmit={this.handleFormSubmitEditPlayer}
+              checkbox={
+                <Checkbox
+                  checked={this.state.playersCheckboxes[index].checked}
+                  onChange={(event) =>
+                    this.handleCheckboxClick(
+                      event,
+                      index,
+                      player.playerId,
+                      player.playerPhoto
+                    )
+                  }
+                />
+              }
             />
           );
         })}
+        <div className={classes.PlayersList__ActionPanel}>
+          <StylesProvider injectFirst>
+            <Button
+              className={classes.Button__Delete}
+              variant="contained"
+              color="secondary"
+              size="small"
+              onClick={this.handleCheckedPlayersDelete}
+            >
+              delete
+            </Button>
+            <div className={classes.ActionPanel__Checkbox}>
+              <Checkbox onChange={this.handleCheckboxSelectAll} />
+            </div>
+          </StylesProvider>
+        </div>
       </div>
     );
 
