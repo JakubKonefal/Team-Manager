@@ -203,7 +203,10 @@ class Player extends Component {
               <i
                 className={`fa fa-trash ${classes.Actions__TrashIcon}`}
                 onClick={() =>
-                  this.props.onDelete(this.props.playerId, this.props.photo)
+                  this.props.onDelete(
+                    this.props.playerId,
+                    this.props.playerPhoto
+                  )
                 }
               ></i>
             </Tooltip>

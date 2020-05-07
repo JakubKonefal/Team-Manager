@@ -35,7 +35,13 @@ class PlayerCreator extends Component {
     this.setState({
       playerCreatorActive: false,
       previewFile: "https://via.placeholder.com/100/eee",
-      newPlayerInfo: {},
+      newPlayerInfo: {
+        number: "",
+        firstName: "",
+        lastName: "",
+        position: "",
+        birth: "",
+      },
     });
   };
 
@@ -69,6 +75,14 @@ class PlayerCreator extends Component {
         <form
           className={classes.PlayerCreator__Active}
           onChange={this.handleInputChange}
+          onSubmit={(event) => {
+            this.props.onSubmit(
+              this.state.newPlayerInfo,
+              this.state.newPlayerPhoto,
+              event
+            );
+            this.handlePlayerCreatorClose();
+          }}
         >
           <div className={classes.FileSection}>
             <div className={classes.PreviewFile}>
@@ -122,7 +136,6 @@ class PlayerCreator extends Component {
             id="birth"
             label="Birthday"
             type="date"
-            defaultValue="1995-06-15"
             className={classes.TextField}
             InputLabelProps={{
               shrink: true,
@@ -134,14 +147,6 @@ class PlayerCreator extends Component {
               className={classes.Button_Add}
               variant="contained"
               color="primary"
-              onClick={(event) => {
-                this.props.onSubmit(
-                  this.state.newPlayerInfo,
-                  this.state.newPlayerPhoto,
-                  event
-                );
-                this.handlePlayerCreatorClose();
-              }}
             >
               add
             </Button>

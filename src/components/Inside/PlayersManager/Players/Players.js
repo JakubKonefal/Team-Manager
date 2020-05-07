@@ -12,18 +12,9 @@ import StylesProvider from "@material-ui/styles/StylesProvider";
 
 class Players extends Component {
   state = {
-    teamName: "",
     players: [],
     playersCheckboxes: [],
-    playerCreatorActive: false,
-    newPlayerInfo: {
-      number: "",
-      firstName: "",
-      lastName: "",
-      position: "",
-      birth: "",
-      photo: null,
-    },
+    checkedTrainingsCount: 0,
     previewFile: null,
     uploadedImage: null,
     uploadedImageUrl: "",
@@ -35,36 +26,31 @@ class Players extends Component {
     axios
       .get(`https://team-manager-b8e8c.firebaseio.com/${teamId}.json`)
       .then((res) => {
-        const { teamName, players } = res.data;
+        const { players } = res.data;
         if (players) {
-          const playersArr = Object.values(players);
-          const playersCheckboxes = playersArr.map((player) => ({
+          const playersArray = Object.values(players);
+          const playersSortedByNumber = playersArray.sort((a, b) => {
+            return a.playerInfo.number - b.playerInfo.number;
+          });
+          playersSortedByNumber.reverse();
+
+          const playersCheckboxes = playersSortedByNumber.map((player) => ({
             checked: false,
             id: player.playerId,
             photo: player.playerPhoto,
           }));
-          this.setState({ teamName, players: playersArr, playersCheckboxes });
+          this.setState({
+            players: playersSortedByNumber,
+            playersCheckboxes,
+          });
         }
       });
   }
 
-  handleInputChange = ({ target }) => {
-    const { id, value } = target;
-    this.setState({
-      newPlayerInfo: {
-        ...this.state.newPlayerInfo,
-        [id]: value,
-      },
-    });
-  };
-
-  handleImageSelect = (e) => {
-    const file = e.target.files[0];
-    const previewFile = URL.createObjectURL(file);
-    this.setState({
-      previewFile: previewFile,
-      uploadedImage: file,
-    });
+  countCheckedTrainings = (checkboxes) => {
+    const checkedTrainingsCount = checkboxes.filter((item) => item.checked)
+      .length;
+    this.setState({ checkedTrainingsCount });
   };
 
   handleCheckboxSelectAll = ({ target }) => {
@@ -72,7 +58,7 @@ class Players extends Component {
     updatedCheckboxes.forEach((item) => {
       item.checked = target.checked;
     });
-    // this.countCheckedTrainings(updatedCheckboxes);
+    this.countCheckedTrainings(updatedCheckboxes);
     this.setState({ playersCheckboxes: updatedCheckboxes });
   };
 
@@ -81,19 +67,23 @@ class Players extends Component {
     const clickedCheckbox = { checked: target.checked, id, photo };
     updatedCheckboxes.splice(index, 1, clickedCheckbox);
 
-    // this.countCheckedTrainings(updatedCheckboxes);
+    this.countCheckedTrainings(updatedCheckboxes);
     this.setState({ playersCheckboxes: updatedCheckboxes });
   };
 
   handleCheckedPlayersDelete = () => {
+    const { teamId } = this.props;
     const checkedPlayers = this.state.playersCheckboxes.filter(
       (item) => item.checked
     );
     checkedPlayers.forEach((player) => {
-      console.log(player);
-
-      this.handlePlayerDelete(player.id, player.photo);
+      database.ref(`${teamId}/players/${player.id}`).remove();
+      if (player.photo) {
+        storage.ref(`images/teams/${teamId}/players/${player.id}`).delete();
+      }
     });
+    const checkedPlayersIds = checkedPlayers.map((player) => player.id);
+    this.updatePlayersArrayOnCheckedPlayersDelete(checkedPlayersIds);
   };
 
   handlePlayerDelete = (playerId, photo) => {
@@ -102,13 +92,21 @@ class Players extends Component {
     if (photo) {
       storage.ref(`images/teams/${teamId}/players/${playerId}`).delete();
     }
-    // this.updatePlayersArrayOnPlayerDelete(playerId);
+    this.updatePlayersArrayOnPlayerDelete(playerId);
   };
 
   updatePlayersArrayOnPlayerDelete = (playerId) => {
     const currentPlayersArr = [...this.state.players];
     const updatedPlayersArr = currentPlayersArr.filter(
       (player) => player.playerId !== playerId
+    );
+    this.setState({ players: updatedPlayersArr });
+  };
+
+  updatePlayersArrayOnCheckedPlayersDelete = (playersIds) => {
+    const currentPlayersArr = [...this.state.players];
+    const updatedPlayersArr = currentPlayersArr.filter(
+      (player) => !playersIds.includes(player.playerId)
     );
     this.setState({ players: updatedPlayersArr });
   };
@@ -218,9 +216,12 @@ class Players extends Component {
   };
 
   handlePlayersSort = (e, attribute) => {
-    const sortedPlayers = [...this.state.players].sort((a, b) =>
-      a.playerInfo[attribute] > b.playerInfo[attribute] ? 1 : -1
-    );
+    const sortedPlayers = [...this.state.players].sort((a, b) => {
+      if (attribute === "number") {
+        return a.playerInfo[attribute] - b.playerInfo[attribute];
+      }
+      return a.playerInfo[attribute] > b.playerInfo[attribute] ? 1 : -1;
+    });
 
     if (e.ctrlKey) {
       sortedPlayers.reverse();
@@ -309,6 +310,7 @@ class Players extends Component {
               color="secondary"
               size="small"
               onClick={this.handleCheckedPlayersDelete}
+              disabled={this.state.checkedTrainingsCount < 1}
             >
               delete
             </Button>
