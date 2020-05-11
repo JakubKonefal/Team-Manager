@@ -6,16 +6,14 @@ import Teams from "../../components/Inside/TeamsManager/Teams/Teams";
 
 const TeamsManager = () => (
   <MainContentWraper>
-    <ul>
-      <li>
-        <h1 className={classes.Choose_label}>
-          Choose team to manage or create a new one:
-        </h1>
-      </li>
-      <li>
+    <div className={classes.TeamsManager}>
+      <h1 className={classes.TeamsManager__Header}>
+        Choose team to manage or create a new one:
+      </h1>
+      <ul className={classes.TeamsList}>
         <Teams />
-      </li>
-    </ul>
+      </ul>
+    </div>
   </MainContentWraper>
 );
 

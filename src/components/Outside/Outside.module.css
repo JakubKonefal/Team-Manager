@@ -8,23 +8,23 @@
   padding-top: 60px;
 }
 
-.Wraper {
+.PageWraper {
   display: flex;
   flex-direction: column;
   width: 90%;
   margin: 0 auto;
 }
 
-.Navigation {
+.TopBar {
   display: flex;
   margin-left: 40px;
 }
 
-.Navigation__Logo {
+.TopBar__Logo_Img {
   height: 85px;
 }
 
-.Navigation__LogoLabel {
+.TopBar__Logo_Label {
   margin: 7px 0 0 30px;
   font-size: 50px;
   color: #051131;
@@ -32,24 +32,24 @@
   font-weight: 600;
 }
 
-.Navigation__Items {
+.Navigation {
   display: flex;
   align-items: center;
   margin-left: auto;
 }
 
-.Navigation__ItemText {
+.Navigation__Item_Text {
   font-size: 30px;
   margin-right: 60px;
   font-family: "Montserrat", sans-serif;
 }
 
-.Navigation__Buttons {
+.Buttons {
   display: flex;
   align-items: center;
 }
 
-.Navigation__Button {
+.Buttons__Button {
   padding: 12px 22px;
   border: none;
   border-radius: 30px;
@@ -60,12 +60,12 @@
   font-size: 16px;
 }
 
-.Navigation__Button_SignIn {
+.Buttons__Button_SignUp {
   background-color: #ff005a;
   margin-left: 40px;
 }
 
-.Navigation__Button_Login {
+.Buttons__Button_Login {
   background-color: #59c800;
   margin-left: 40px;
 }
@@ -75,7 +75,7 @@
   margin-left: 40px;
 }
 
-.Description__Football_Label {
+.Description__Title {
   margin-bottom: 20px;
   font-size: 90px;
   color: #051131;
@@ -85,7 +85,7 @@
   letter-spacing: 5px;
 }
 
-.Description__TeamManager_Label {
+.Description__Subtitle {
   margin: 0 0 40px 0;
   font-family: "Montserrat", sans-serif;
   font-size: 44px;
@@ -94,7 +94,7 @@
   text-transform: uppercase;
 }
 
-.Description__AppDescription {
+.Description__Text {
   box-sizing: border-box;
   padding-right: 40px;
   line-height: 200%;

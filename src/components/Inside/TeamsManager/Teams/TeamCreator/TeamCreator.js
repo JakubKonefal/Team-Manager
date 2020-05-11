@@ -12,7 +12,7 @@ class TeamCreator extends Component {
     selectedImage: null,
     uploadedImageUrl: "",
     previewFile: "https://via.placeholder.com/100/eee",
-    teamCreatorActive: false
+    teamCreatorActive: false,
   };
 
   handleTeamCreatorOpen = () => {
@@ -24,25 +24,25 @@ class TeamCreator extends Component {
   handleTeamCreatorClose = () => {
     this.setState({
       teamCreatorActive: false,
-      newTeamName: null
+      newTeamName: null,
     });
     if (this.state.selectedImage)
       this.setState({
         selectedImage: null,
-        previewFile: "https://via.placeholder.com/100/eee"
+        previewFile: "https://via.placeholder.com/100/eee",
       });
   };
 
-  handleTeamNameChange = e => {
+  handleTeamNameChange = (e) => {
     this.setState({ newTeamName: e.target.value });
   };
 
-  handleImageSelect = e => {
+  handleImageSelect = (e) => {
     const file = e.target.files[0];
     const previewFile = URL.createObjectURL(file);
     this.setState({
       previewFile: previewFile,
-      selectedImage: file
+      selectedImage: file,
     });
   };
 
@@ -52,21 +52,24 @@ class TeamCreator extends Component {
 
   render() {
     const teamCreator = this.state.teamCreatorActive ? (
-      <form className={classes.TeamEditor}>
-        <div className={classes.FileSection}>
-          <div className={classes.PreviewFile}>
+      <form className={classes.TeamCreator}>
+        <div className={classes.FileUploadSection}>
+          <div className={classes.FileUploadSection__PreviewFile}>
             <FilePreviewElement src={this.state.previewFile} />
           </div>
           <input type="file" id="teamLogo" onChange={this.handleImageSelect} />
-          <label htmlFor="teamLogo" className={classes.Upload}>
+          <label
+            htmlFor="teamLogo"
+            className={classes.FileUploadSection__HelperText}
+          >
             Choose file..
           </label>
         </div>
-        <div className={classes.InputSection}>
+        <div className={classes.MidColumnWraper}>
           <StylesProvider injectFirst>
             <Input
               type="text"
-              className={classes.Input_Text}
+              className={classes.MidColumnWraper__Input}
               placeholder="Team Name"
               autoFocus
               onChange={this.handleTeamNameChange}
@@ -76,8 +79,8 @@ class TeamCreator extends Component {
             <div className={classes.Buttons}>
               <Button
                 type="submit"
-                className={classes.Button_Update}
-                onClick={event => {
+                className={classes.Buttons__Button_Update}
+                onClick={(event) => {
                   this.props.onSubmit(
                     this.state.newTeamName,
                     this.state.selectedImage,
@@ -92,7 +95,7 @@ class TeamCreator extends Component {
                 add
               </Button>
               <Button
-                className={classes.Button_Cancel}
+                className={classes.Buttons__Button_Cancel}
                 onClick={this.handleTeamCreatorClose}
                 variant="contained"
                 color="secondary"

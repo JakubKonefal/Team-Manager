@@ -1,103 +1,29 @@
-.ListItem {
+.Player_Edit {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  padding-top: 0;
-  padding-bottom: 0;
+  justify-content: flex-start;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
 }
 
-.ListItem__AvatarSection {
+.FileUploadSection {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  flex-direction: column;
   width: 8%;
   padding: 3px;
 }
 
-.ListItem__Avatar {
+.FileUploadSection__PreviewFile {
+  position: relative;
   width: 45px;
   height: 45px;
+  border: 1px dashed #bbb;
+  border-radius: 5px;
+  text-align: center;
 }
 
-.ListItem__Text {
-  height: 45px;
-  margin-left: 10px;
-  padding: 0 5px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  color: #707070;
-}
-
-.Number {
-  width: 7%;
-}
-
-.FirstName {
-  width: 16%;
-  margin-left: 5px;
-}
-
-.LastName {
-  width: 18%;
-}
-
-.Position {
-  text-transform: capitalize;
-  width: 15%;
-}
-
-.Birthday {
-  width: 15%;
-}
-
-.Actions {
-  display: flex;
-  justify-content: center;
-  width: 14%;
-  margin-right: 5px;
-}
-
-.Actions__TrashIcon {
-  margin-left: 8px;
-}
-
-.Actions i {
-  cursor: pointer;
-}
-
-.ListItem__CheckboxSection {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 5%;
-  border-left: 1px solid #ccc;
-}
-
-.ListItem__Checkbox {
-  margin: 0;
-}
-
-/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
-
-.ListItem__Edit {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-}
-
-.ListItem__Edit_Buttons {
-  display: flex;
-  justify-content: space-around;
-}
-
-.Upload {
+.FileUploadSection__HelperText {
   position: absolute;
   top: 0;
   left: 0;
@@ -114,47 +40,35 @@
   cursor: pointer;
 }
 
-.Upload:hover {
+.FileUploadSection__HelperText:hover {
   background-color: #ddd;
 }
 
-.Upload__Hide {
+.FileUploadSection__HelperText_Hide {
   display: none;
 }
 
-.PreviewFile {
-  position: relative;
-  width: 45px;
-  height: 45px;
-  border: 1px dashed #bbb;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.FileSection {
-  display: flex;
-  flex-direction: column;
-  width: 8%;
-  padding: 3px;
-}
-
-.TextField {
+.InputSection {
   display: flex;
   justify-content: flex-start;
   margin-left: 10px;
   align-items: center;
 }
 
-.TextField__Number {
+.InputSection_Number {
   width: 7%;
   text-indent: 5px;
 }
 
-.TextField__FirstName {
+.InputSection_FirstName {
   width: 16%;
 }
 
-.TextField__LastName {
+.InputSection_LastName {
+  width: 16%;
+}
+
+.InputSection_Birthday {
   width: 16%;
 }
 
@@ -173,15 +87,31 @@
   padding-bottom: 2px;
 }
 
-.SelectField__Position {
-  width: 17%;
+.InputSection__TextInput {
+  width: 80%;
+  font-size: 16px;
+  color: #707070;
+  border: none;
+  border-bottom: 1px solid #000;
+  padding-bottom: 3px;
 }
 
-.SelectField__Position_Label {
-  text-transform: capitalize;
+.InputSection__TextInput:hover {
+  border-bottom: 2px solid #000;
+  padding-bottom: 2px;
 }
 
-.DateInput {
+.InputSection__TextInput:focus {
+  outline: none;
+  border-bottom: 2px solid #22f;
+  padding-bottom: 2px;
+}
+
+.InputSection__TextInput_Number {
+  width: 40%;
+}
+
+.InputSection__DateInput {
   width: 100%;
   border: none;
   font-size: 16px;
@@ -191,55 +121,27 @@
   cursor: text;
 }
 
-.DateInput::-webkit-inner-spin-button {
+.InputSection__DateInput::-webkit-inner-spin-button {
   display: none;
 }
 
-.DateInput:hover {
+.InputSection__DateInput:hover {
   border-bottom: 2px solid #000;
   padding-bottom: 2px;
 }
 
-.DateInput:focus {
+.InputSection__DateInput:focus {
   border: none;
   outline: none;
   border-bottom: 2px solid #000;
   padding-bottom: 2px;
 }
 
-.TextField__Birthday {
-  width: 16%;
-}
-
-.TextField__Actions {
+.ButtonsSection {
   width: 19%;
 }
 
-.TextInput {
-  width: 80%;
-  font-size: 16px;
-  color: #707070;
-  border: none;
-  border-bottom: 1px solid #000;
-  padding-bottom: 3px;
-}
-
-.TextInput:hover {
-  border-bottom: 2px solid #000;
-  padding-bottom: 2px;
-}
-
-.TextInput:focus {
-  outline: none;
-  border-bottom: 2px solid #22f;
-  padding-bottom: 2px;
-}
-
-.TextInput__Number {
-  width: 40%;
-}
-
-.ListItem__Edit_Buttons {
+.Buttons {
   display: flex;
   justify-content: flex-start;
   box-sizing: border-box;
@@ -248,23 +150,107 @@
   font-size: 18px;
 }
 
-.Button:hover {
+.Buttons__Button:hover {
   cursor: pointer;
 }
 
-.Button__Confirm {
+.Buttons__Button_Save {
   color: #080;
 }
 
-.Button__Confirm:hover {
+.Buttons__Button_Save:hover {
   color: #0a0;
 }
 
-.Button__Cancel {
+.Buttons__Button_Cancel {
   color: #a00;
   margin-left: 10px;
 }
 
-.Button__Cancel:hover {
+.Buttons__Button_Cancel:hover {
   color: #c00;
+}
+
+.Player {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.Player__AvatarSection {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 8%;
+  padding: 3px;
+}
+
+.AvatarSection__Avatar {
+  width: 45px;
+  height: 45px;
+}
+
+.Player__Info {
+  height: 45px;
+  margin-left: 10px;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: #707070;
+}
+
+.Player__Info_Number {
+  width: 7%;
+}
+
+.Player__Info_FirstName {
+  width: 16%;
+  margin-left: 5px;
+}
+
+.Player__Info_LastName {
+  width: 18%;
+}
+
+.Player__Info_Position {
+  text-transform: capitalize;
+  width: 15%;
+}
+
+.Player__Info_Birthday {
+  width: 15%;
+}
+
+.Icons {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 45px;
+  width: 14%;
+  margin-left: 10px;
+  margin-right: 5px;
+  padding: 0 5px;
+  color: #707070;
+}
+
+.Icons i {
+  cursor: pointer;
+}
+
+.Icons_EditIcon {
+  margin-left: 8px;
+}
+
+.Player__CheckboxSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5%;
+  border-left: 1px solid #ccc;
 }

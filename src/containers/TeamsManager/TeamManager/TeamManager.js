@@ -9,8 +9,9 @@ import TrainingOverview from "../../../components/Inside/TrainingsManager/Traini
 const TeamManager = ({ location }) => (
   <div>
     <MainContentWraper>
-      <ul className={classes.NavLeft}>
+      <ul className={classes.Navbar}>
         <Link
+          className={classes.Navbar__Item}
           to={{
             pathname: `/my-teams/${location.teamId}/players`,
             teamId: location.teamId,
@@ -20,6 +21,7 @@ const TeamManager = ({ location }) => (
           Players
         </Link>
         <Link
+          className={classes.Navbar__Item}
           to={{
             pathname: `/my-teams/${location.teamId}/trainings`,
             teamId: location.teamId,
@@ -27,8 +29,8 @@ const TeamManager = ({ location }) => (
         >
           Trainings
         </Link>
-        <li className={classes.Inactive}>Table</li>
-        <li className={classes.Inactive}>Settings</li>
+        <li className={classes.Navbar__Item}>Table</li>
+        <li className={classes.Navbar__Item}>Settings</li>
       </ul>
       <div>
         <Route path="/my-teams/:teamId/players" component={PlayersManager} />

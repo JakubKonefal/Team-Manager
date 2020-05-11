@@ -11,19 +11,19 @@ class Team extends Component {
     editFormActive: false,
     newTeamName: "",
     selectedImage: "",
-    previewFile: "https://via.placeholder.com/100/eee"
+    previewFile: "https://via.placeholder.com/100/eee",
   };
 
-  handleTeamNameChange = e => {
+  handleTeamNameChange = (e) => {
     this.setState({ newTeamName: e.target.value });
   };
 
-  handleImageSelect = e => {
+  handleImageSelect = (e) => {
     const file = e.target.files[0];
     const previewFile = URL.createObjectURL(file);
     this.setState({
       previewFile: previewFile,
-      selectedImage: file
+      selectedImage: file,
     });
   };
 
@@ -36,22 +36,22 @@ class Team extends Component {
   handleEditFormClose = () => {
     this.setState({
       editFormActive: false,
-      newTeamName: null
+      newTeamName: null,
     });
     if (this.state.selectedImage) {
       this.setState({
         selectedImage: null,
-        previewFile: "https://via.placeholder.com/100/eee"
+        previewFile: "https://via.placeholder.com/100/eee",
       });
     }
   };
 
   render() {
     const team = this.state.editFormActive ? (
-      <>
-        <form className={classes.TeamEditor}>
-          <div className={classes.FileSection}>
-            <div className={classes.PreviewFile}>
+      <li>
+        <form className={classes.Team_EditForm}>
+          <div className={classes.FileUploadSection}>
+            <div className={classes.FileUploadSection__PreviewFile}>
               <FilePreviewElement src={this.state.previewFile} />
             </div>
             <input
@@ -59,15 +59,18 @@ class Team extends Component {
               id="teamLogo"
               onChange={this.handleImageSelect}
             />
-            <label htmlFor="teamLogo" className={classes.Upload}>
+            <label
+              htmlFor="teamLogo"
+              className={classes.FileUploadSection__HelperText}
+            >
               Choose file..
             </label>
           </div>
-          <div className={classes.InputSection}>
+          <div className={classes.MidColumnWraper}>
             <StylesProvider injectFirst>
               <Input
                 type="text"
-                className={classes.Input_Text}
+                className={classes.MidColumnWraper__Input}
                 placeholder={this.props.teamName}
                 autoFocus
                 onChange={this.handleTeamNameChange}
@@ -76,8 +79,8 @@ class Team extends Component {
               <div className={classes.Buttons}>
                 <Button
                   type="submit"
-                  className={classes.Button_Update}
-                  onClick={event => {
+                  className={classes.Buttons__Button_Update}
+                  onClick={(event) => {
                     this.props.onSubmit(
                       this.props.teamId,
                       this.state.newTeamName,
@@ -92,7 +95,7 @@ class Team extends Component {
                   Save
                 </Button>
                 <Button
-                  className={classes.Button_Cancel}
+                  className={classes.Buttons__Button_Cancel}
                   onClick={this.handleEditFormClose}
                   variant="contained"
                   color="secondary"
@@ -103,12 +106,12 @@ class Team extends Component {
             </StylesProvider>
           </div>
         </form>
-      </>
+      </li>
     ) : (
-      <div className={classes.Team}>
+      <li className={classes.Team}>
         <StylesProvider injectFirst>
           <Avatar
-            className={classes.Avatar}
+            className={classes.Team__Avatar}
             src={this.props.teamLogo || defaultTeamLogo}
             alt="team-logo"
             variant="square"
@@ -116,30 +119,33 @@ class Team extends Component {
         </StylesProvider>
 
         <Link
-          className={classes.TeamName}
+          className={classes.Team__TeamName_Link}
           to={{
             pathname: `/my-teams/${this.props.teamId}`,
             teamId: this.props.teamId,
-            teamName: this.props.teamName
+            teamName: this.props.teamName,
           }}
         >
           {this.props.teamName}
         </Link>
 
-        <div className={classes.Team__Icons}>
+        <div className={classes.Icons}>
           <Tooltip title="Delete" placement="bottom">
             <i
-              className={`fa fa-trash ${classes.TrashIcon}`}
+              className={`fa fa-trash ${classes.Icons__Icon} ${classes.Icons__TrashIcon} `}
               onClick={() => {
                 this.props.onDelete(this.props.teamId, this.props.teamLogo);
               }}
             ></i>
           </Tooltip>
           <Tooltip title="Edit" placement="bottom">
-            <i className={`fas fa-edit`} onClick={this.handleEditFormOpen}></i>
+            <i
+              className={`${classes.Icons__Icon} fas fa-edit `}
+              onClick={this.handleEditFormOpen}
+            ></i>
           </Tooltip>
         </div>
-      </div>
+      </li>
     );
 
     return <>{team}</>;

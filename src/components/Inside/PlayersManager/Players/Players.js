@@ -235,41 +235,41 @@ class Players extends Component {
   render() {
     const teamPlayers = this.state.players && (
       <div className={classes.PlayersList}>
-        <div className={classes.ListItem}>
-          <span className={classes.ListItem__Player}>player</span>
+        <div className={classes.InfoBar}>
+          <span className={classes.InfoBar__Info_Player}>player</span>
           <span
-            className={`${classes.ListItem__Number} ${classes.ListItem__Sortable}`}
+            className={`${classes.InfoBar__Info_Number} ${classes.InfoBar__Info_Sortable}`}
             onClick={(event) => this.handlePlayersSort(event, "number")}
           >
             nr
           </span>
           <span
-            className={`${classes.ListItem__FirstName} ${classes.ListItem__Sortable}`}
+            className={`${classes.InfoBar__Info_FirstName} ${classes.InfoBar__Info_Sortable}`}
             onClick={(event) => this.handlePlayersSort(event, "firstName")}
           >
             first name
           </span>
           <span
-            className={`${classes.ListItem__LastName} ${classes.ListItem__Sortable}`}
+            className={`${classes.InfoBar__Info_LastName} ${classes.InfoBar__Info_Sortable}`}
             onClick={(event) => this.handlePlayersSort(event, "lastName")}
           >
             last name
           </span>
           <span
-            className={`${classes.ListItem__Position} ${classes.ListItem__Sortable}`}
+            className={`${classes.InfoBar__Info_Position} ${classes.InfoBar__Info_Sortable}`}
             onClick={(event) => this.handlePlayersSort(event, "position")}
           >
             position
           </span>
           <span
-            className={`${classes.ListItem__Birthday} ${classes.ListItem__Sortable}`}
+            className={`${classes.InfoBar__Info_Birthday} ${classes.InfoBar__Info_Sortable}`}
             onClick={(event) => this.handlePlayersSort(event, "birth")}
           >
             birthday
           </span>
-          <span className={classes.ListItem__Actions}>actions</span>
+          <span className={classes.InfoBar__Info_Actions}>actions</span>
           <Tooltip
-            className={classes.ListItem__Info}
+            className={classes.InfoBar__InfoIcon}
             title="Ctrl + click to sort in opposite order"
             placement="top"
           >
@@ -302,10 +302,10 @@ class Players extends Component {
             />
           );
         })}
-        <div className={classes.PlayersList__ActionPanel}>
+        <div className={classes.ActionPanel}>
           <StylesProvider injectFirst>
             <Button
-              className={classes.Button__Delete}
+              className={classes.ActionPanel__Button_Delete}
               variant="contained"
               color="secondary"
               size="small"

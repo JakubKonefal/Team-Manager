@@ -61,20 +61,20 @@ class Player extends Component {
     const player = this.state.editFormActive ? (
       <StylesProvider injectFirst>
         <form
-          className={classes.ListItem__Edit}
+          className={classes.Player_Edit}
           autoComplete="off"
           onChange={(event) => this.handleInputChange(event)}
         >
-          <div className={classes.FileSection}>
-            <div className={classes.PreviewFile}>
+          <div className={classes.FileUploadSection}>
+            <div className={classes.FileUploadSection__PreviewFile}>
               <FilePreviewElement src={this.state.previewFile} />
               <label
                 htmlFor="photo"
                 className={
                   this.state.previewFile !==
                   "https://via.placeholder.com/45/eee?text=+"
-                    ? classes.Upload__Hide
-                    : classes.Upload
+                    ? classes.FileUploadSection__HelperText_Hide
+                    : classes.FileUploadSection__HelperText
                 }
               >
                 <i className={`fas fa-plus`}></i>
@@ -82,40 +82,40 @@ class Player extends Component {
             </div>
             <input type="file" id="photo" onChange={this.handleImageSelect} />
           </div>
-          <div className={`${classes.TextField__Number} ${classes.TextField} `}>
+          <div
+            className={`${classes.InputSection} ${classes.InputSection_Number} `}
+          >
             <input
               type="text"
               id="number"
-              className={`${classes.TextInput} ${classes.TextInput__Number}`}
+              className={`${classes.InputSection__TextInput} ${classes.InputSection__TextInput_Number}`}
               placeholder={this.props.playerInfo.number}
               onFocus={(event) => this.handleClearInput(event)}
             />
           </div>
           <div
-            className={`${classes.TextField__FirstName} ${classes.TextField} `}
+            className={`${classes.InputSection} ${classes.InputSection_FirstName} `}
           >
             <input
               type="text"
               id="firstName"
-              className={classes.TextInput}
+              className={classes.InputSection__TextInput}
               placeholder={this.props.playerInfo.firstName}
               onFocus={(event) => this.handleClearInput(event)}
             />
           </div>
           <div
-            className={`${classes.TextField__LastName} ${classes.TextField} `}
+            className={`${classes.InputSection} ${classes.InputSection_LastName} `}
           >
             <input
               type="text"
               id="lastName"
-              className={classes.TextInput}
+              className={classes.InputSection__TextInput}
               placeholder={this.props.playerInfo.lastName}
               onFocus={(event) => this.handleClearInput(event)}
             />
           </div>
-          <div
-            className={`${classes.SelectField__Position} ${classes.TextField} `}
-          >
+          <div className={classes.InputSection}>
             <select
               id="position"
               defaultValue={this.props.playerInfo.position}
@@ -128,20 +128,20 @@ class Player extends Component {
             </select>
           </div>
           <div
-            className={`${classes.TextField__Birthday} ${classes.TextField} `}
+            className={`${classes.InputSection} ${classes.InputSection_Birthday} `}
           >
             <input
               type="date"
               id="birth"
-              className={classes.DateInput}
+              className={classes.InputSection__DateInput}
               defaultValue={this.props.playerInfo.birth}
             />
           </div>
-          <div className={classes.TextField__Actions}>
-            <div className={classes.ListItem__Edit_Buttons}>
+          <div className={classes.ButtonsSection}>
+            <div className={classes.Buttons}>
               <Tooltip title="Save" placement="bottom">
                 <i
-                  className={`fas fa-check ${classes.Button} ${classes.Button__Confirm}`}
+                  className={`fas fa-check ${classes.Buttons__Button} ${classes.Buttons__Button_Save}`}
                   variant="contained"
                   color="primary"
                   onClick={() => {
@@ -156,7 +156,7 @@ class Player extends Component {
               </Tooltip>
               <Tooltip title="Cancel" placement="bottom">
                 <i
-                  className={`fas fa-times ${classes.Button} ${classes.Button__Cancel}`}
+                  className={`fas fa-times ${classes.Buttons__Button} ${classes.Buttons__Button_Cancel}`}
                   variant="contained"
                   color="secondary"
                   onClick={this.handleEditFormClose}
@@ -168,40 +168,50 @@ class Player extends Component {
       </StylesProvider>
     ) : (
       <StylesProvider injectFirst>
-        <div className={classes.ListItem}>
-          <div className={classes.ListItem__AvatarSection}>
+        <div className={classes.Player}>
+          <div className={classes.Player__AvatarSection}>
             <Avatar
               alt={`Player Avatar`}
               src={this.props.playerPhoto || defaultImage}
-              className={classes.ListItem__Avatar}
+              className={classes.AvatarSection__Avatar}
               variant="rounded"
             />
           </div>
-          <div className={`${classes.ListItem__Text} ${classes.Number}`}>
+          <div
+            className={`${classes.Player__Info} ${classes.Player__Info_Number}`}
+          >
             <span>{this.props.playerInfo.number}</span>
           </div>
-          <div className={`${classes.ListItem__Text} ${classes.FirstName}`}>
+          <div
+            className={`${classes.Player__Info} ${classes.Player__Info_FirstName}`}
+          >
             <span>{this.props.playerInfo.firstName}</span>
           </div>
-          <div className={`${classes.ListItem__Text} ${classes.LastName}`}>
+          <div
+            className={`${classes.Player__Info} ${classes.Player__Info_LastName}`}
+          >
             <span>{this.props.playerInfo.lastName}</span>
           </div>
-          <div className={`${classes.ListItem__Text} ${classes.Position}`}>
+          <div
+            className={`${classes.Player__Info} ${classes.Player__Info_Position}`}
+          >
             <span>{this.props.playerInfo.position}</span>
           </div>
-          <div className={`${classes.ListItem__Text} ${classes.Birthday}`}>
+          <div
+            className={`${classes.Player__Info} ${classes.Player__Info_Birthday}`}
+          >
             <span>{this.props.playerInfo.birth}</span>
           </div>
-          <div className={`${classes.ListItem__Text} ${classes.Actions}`}>
+          <div className={`${classes.Icons}`}>
             <Tooltip title="Edit" placement="bottom">
               <i
-                className={`fas fa-edit ${classes.Actions__EditIcon}`}
+                className={`fas fa-edit ${classes.Icons__EditIcon}`}
                 onClick={this.handleEditFormOpen}
               ></i>
             </Tooltip>
             <Tooltip title="Delete" placement="bottom">
               <i
-                className={`fa fa-trash ${classes.Actions__TrashIcon}`}
+                className={`fa fa-trash`}
                 onClick={() =>
                   this.props.onDelete(
                     this.props.playerId,
@@ -211,7 +221,7 @@ class Player extends Component {
               ></i>
             </Tooltip>
           </div>
-          <div className={classes.ListItem__CheckboxSection}>
+          <div className={classes.Player__CheckboxSection}>
             {this.props.checkbox}
           </div>
         </div>

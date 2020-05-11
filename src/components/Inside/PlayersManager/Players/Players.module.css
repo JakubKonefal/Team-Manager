@@ -3,24 +3,8 @@
   display: grid;
   grid-template-rows: 1fr;
 }
-/* 
-.ListInfoBox {
-  display: flex;
-  align-items: center;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  background-color: #3b444f;
-}
 
-.ListItem__Text {
-  text-align: center;
-  color: #ccc;
-  text-transform: uppercase;
-  padding: 0 5px;
-  margin: 0;
-  /* justify-content: flex-start; */
-
-.ListItem {
+.InfoBar {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -35,61 +19,61 @@
   letter-spacing: 1px;
 }
 
-.ListItem > span {
+.InfoBar > span {
   margin-left: 2px;
   box-sizing: border-box;
 }
 
-.ListItem__Sortable:hover {
+.PlayersList__InfoBar_Sortable:hover {
   color: #fff;
   cursor: pointer;
 }
 
-.ListItem__Player {
+.PlayersList__InfoBar_Player {
   width: 8%;
   min-width: 45px;
 }
 
-.ListItem__Number {
+.PlayersList__InfoBar_Number {
   width: 7%;
 }
 
-.ListItem__FirstName {
+.PlayersList__InfoBar_FirstName {
   width: 16%;
   padding-left: 6px;
 }
 
-.ListItem__LastName {
+.PlayersList__InfoBar_LastName {
   width: 18%;
   padding-left: 8px;
 }
 
-.ListItem__Position {
+.PlayersList__InfoBar_Position {
   width: 15%;
   padding-left: 9px;
 }
 
-.ListItem__Birthday {
+.PlayersList__InfoBar_Birthday {
   width: 15%;
   padding-left: 12px;
 }
 
-.ListItem__Actions {
+.PlayersList__InfoBar_Actions {
   display: flex;
   justify-content: center;
   width: 13%;
   padding-left: 20px;
 }
 
-.ListItem__Info {
+.InfoBar__InfoIcon {
   margin-left: auto;
 }
 
-.ListItem__Info:hover {
+.InfoBar__InfoIcon:hover {
   color: #fff;
 }
 
-.PlayersList__ActionPanel {
+.ActionPanel {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -99,7 +83,7 @@
   border-top: none;
 }
 
-.Button__Delete {
+.ActionPanel__Button_Delete {
   margin-right: 20px;
 }
 
