@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import classes from "./MultipleTrainingsEdit.module.css";
+import classes from "./MultipleTrainingsEditor.module.css";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import TextField from "@material-ui/core/TextField";
@@ -93,15 +93,12 @@ class MultipleTrainingsEdit extends Component {
     const multipleTrainingsEditor = this.props.active ? (
       <StylesProvider injectFirst>
         <Card className={classes.MultipleTrainingsEditor} variant="outlined">
-          <CardContent className={classes.MultipleTrainingsEditor__Content}>
-            <form
-              className={classes.MultipleTrainingsEditor__Form}
-              onChange={this.handleInputChange}
-            >
-              <div className={classes.MultipleTrainingsEditor__Form_Row}>
+          <CardContent className={classes.Content}>
+            <form className={classes.Form} onChange={this.handleInputChange}>
+              <div className={classes.Form__Row}>
                 {" "}
                 <TextField
-                  className={`${classes.Input}`}
+                  className={classes.Form__Input}
                   id="date"
                   type="date"
                   variant="outlined"
@@ -115,7 +112,7 @@ class MultipleTrainingsEdit extends Component {
                   value={this.state.editedTrainingsInfo.date}
                 />
                 <TextField
-                  className={`${classes.Input}`}
+                  className={classes.Form__Input}
                   id="start"
                   type="time"
                   variant="outlined"
@@ -125,7 +122,7 @@ class MultipleTrainingsEdit extends Component {
                   disabled={this.props.checkedTrainingsCount < 1}
                 />
                 <TextField
-                  className={`${classes.Input}`}
+                  className={classes.Form__Input}
                   id="end"
                   type="time"
                   variant="outlined"
@@ -135,10 +132,10 @@ class MultipleTrainingsEdit extends Component {
                   disabled={this.props.checkedTrainingsCount < 1}
                 />
               </div>
-              <div className={classes.MultipleTrainingsEditor__Form_Row}>
+              <div className={classes.Form__Row}>
                 {" "}
                 <TextField
-                  className={`${classes.Input}`}
+                  className={classes.Form__Input}
                   id="place"
                   variant="outlined"
                   size="small"
@@ -146,23 +143,23 @@ class MultipleTrainingsEdit extends Component {
                   disabled={this.props.checkedTrainingsCount < 1}
                 />
                 <TextField
-                  className={`${classes.Input}`}
+                  className={classes.Form__Input}
                   id="trainingType"
                   variant="outlined"
                   size="small"
                   label="Training type"
                   disabled={this.props.checkedTrainingsCount < 1}
                 />
-                <div className={classes.Slider__Wraper}>
+                <div className={classes.Form__SliderWraper}>
                   <Typography
-                    className={classes.IntensityLabel}
+                    className={classes.Form__SliderLabel}
                     id="intensity"
                     gutterBottom
                   >
                     Intensity %
                   </Typography>
                   <Slider
-                    className={`${classes.Slider}`}
+                    className={classes.Form__Slider}
                     id="intensity"
                     size="small"
                     value={this.state.editedTrainingsInfo.intensity}
@@ -173,9 +170,9 @@ class MultipleTrainingsEdit extends Component {
                 </div>
               </div>
 
-              <div className={classes.Buttons}>
+              <div className={classes.Form__Buttons}>
                 <Button
-                  className={classes.Buttons__Add}
+                  className={classes.Form__Button_Add}
                   color="primary"
                   variant="contained"
                   size="small"
@@ -187,7 +184,7 @@ class MultipleTrainingsEdit extends Component {
                   save
                 </Button>
                 <Button
-                  className={classes.Buttons__Cancel}
+                  className={classes.Form__Button_Cancel}
                   type="reset"
                   color="secondary"
                   variant="contained"

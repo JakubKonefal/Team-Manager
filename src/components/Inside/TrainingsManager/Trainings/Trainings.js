@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import TrainingYear from "./TrainingYear/TrainingYear";
-import SingleTrainingCreator from "./TrainingsCreator/SingleTrainingCreator/SingleTrainingCreator";
-import MultipleTrainingsCreator from "./TrainingsCreator/MultipleTrainingsCreator/MultipleTrainingsCreator";
+import SingleTrainingCreator from "./TrainingCreators/SingleTrainingCreator/SingleTrainingCreator";
+import MultipleTrainingsCreator from "./TrainingCreators/MultipleTrainingsCreator/MultipleTrainingsCreator";
 import classes from "./Trainings.module.css";
 import { database } from "../../../../firebase/firebase";
 import moment from "moment";
@@ -174,15 +174,14 @@ class Trainings extends Component {
     return (
       <div className={classes.Trainings}>
         {trainingYears}
-        <div className={classes.Buttons}></div>
         <div className={classes.TrainingCreators}>
-          <div className={classes.CreatorWraper}>
+          <div className={classes.TrainingCreators__Creator_Wraper}>
             {" "}
             <SingleTrainingCreator
               onFormSubmit={this.handleFormSubmitNewTraining}
             />
           </div>
-          <div className={classes.CreatorWraper}>
+          <div className={classes.TrainingCreators__Creator_Wraper}>
             {" "}
             <MultipleTrainingsCreator
               onFormSubmit={this.handleFormSubmitNewTrainings}

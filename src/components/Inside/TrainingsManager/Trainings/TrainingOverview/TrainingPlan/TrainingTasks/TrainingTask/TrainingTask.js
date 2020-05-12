@@ -69,20 +69,20 @@ class TrainingTask extends Component {
   render() {
     const trainingTask = this.state.editFormActive ? (
       <StylesProvider injectFirst>
-        <Card className={classes.Task_Edit} variant="outlined">
+        <Card className={classes.TrainingTask_Edit} variant="outlined">
           <div
-            className={classes.TaskEdit__Header}
+            className={classes.TrainingTask_Edit__Header}
             onClick={this.handleEditFormClose}
           >
-            <RemoveCircle className={classes.TaskEdit__Header_RemoveIcon} />
-            <Typography className={classes.TaskEdit__Header_Label}>
+            <RemoveCircle className={classes.TrainingTask_Edit__RemoveIcon} />
+            <Typography className={classes.TrainingTask_Edit__Title}>
               edit task
             </Typography>
           </div>
           <form onChange={this.handleInputChange}>
-            <div className={classes.TaskHeader_Edit}>
-              <div className={classes.TaskHeader__Title_Edit}>
-                <Typography className={classes.TaskHeader__Index}>
+            <div className={classes.TrainingTask_Edit__HeaderInputs_Wraper}>
+              <div className={classes.TrainingTask_Edit__TitleInput_Wraper}>
+                <Typography className={classes.TrainingTask_Edit__TaskIndex}>
                   {this.props.index + 1}.{" "}
                 </Typography>{" "}
                 <TextField
@@ -90,25 +90,29 @@ class TrainingTask extends Component {
                   label="Task title"
                   variant="outlined"
                   size="small"
-                  className={classes.Input__TaskTitle}
+                  className={classes.TrainingTask_Edit__Input_Title}
                   defaultValue={this.props.taskTitle}
                 />
               </div>
 
-              <div className={classes.TaskHeader__Duration_Edit}>
-                <Timer className={classes.TaskHeader__Duration_TimerIcon} />
+              <div className={classes.TrainingTask_Edit__DurationInput_Wraper}>
+                <Timer />
                 <TextField
                   id="duration"
                   label="Duration"
                   variant="outlined"
                   size="small"
-                  className={classes.Input__TaskDuration}
+                  className={classes.TrainingTask_Edit__Input_Duration}
                   defaultValue={this.props.duration}
                 />
               </div>
             </div>
-            <div className={classes.Task__Content}>
-              <div className={classes.Task__TaskDescription_Edit}>
+            <div className={classes.TrainingTask__Content}>
+              <div
+                className={
+                  classes.TrainingTask_Edit__TaskDescriptionInput_Wraper
+                }
+              >
                 <TextField
                   id="taskDescription"
                   label="Task description"
@@ -116,25 +120,25 @@ class TrainingTask extends Component {
                   size="small"
                   multiline
                   rows="7"
-                  className={classes.Input__TaskDescription}
+                  className={classes.TrainingTask_Edit__Input_TaskDescription}
                   defaultValue={this.props.taskDescription}
                 />
               </div>
-              <div className={classes.Task__TaskEquipment_Edit}>
+              <div className={classes.TrainingTask_Edit__TaskEquipment_Wraper}>
                 Equipment:{" "}
                 <TextField
                   id="equipment"
                   label="Equipment"
                   variant="outlined"
                   size="small"
-                  className={classes.Input__TaskEquipment}
+                  className={classes.TrainingTask_Edit__Input_TaskEquipment}
                   defaultValue={this.props.equipment}
                 />
-                <div className={classes.TaskHeader__Icons_Edit}>
+                <div className={classes.TrainingTask_Edit__Icons}>
                   <Tooltip
                     title="Save"
                     placement="bottom"
-                    className={classes.TaskHeader__IconConfirm}
+                    className={classes.TrainingTask_Edit__Icon_Save}
                     onClick={() => {
                       this.props.onEdit(
                         this.props.taskId,
@@ -148,7 +152,7 @@ class TrainingTask extends Component {
                   <Tooltip
                     title="Cancel"
                     placement="bottom"
-                    className={classes.TaskHeader__IconCancel}
+                    className={classes.TrainingTask_Edit__Icon_Close}
                     onClick={this.handleEditFormClose}
                   >
                     <Close />
@@ -161,24 +165,24 @@ class TrainingTask extends Component {
       </StylesProvider>
     ) : (
       <StylesProvider injectFirst>
-        <Card className={classes.Task} variant="outlined">
-          <div className={classes.TaskHeader}>
+        <Card className={classes.TrainingTask} variant="outlined">
+          <div className={classes.TrainingTask__TaskHeader}>
             <Typography
-              className={classes.TaskHeader__Title}
+              className={classes.TrainingTask__TaskTitle}
               onClick={this.handleTrainingTaskToggle}
             >
               {this.props.index + 1}. {this.props.taskTitle}
             </Typography>
 
-            <Typography className={classes.TaskHeader__Duration}>
-              <Timer className={classes.TaskHeader__Duration_TimerIcon} />
+            <Typography className={classes.TrainingTask__TaskDuration}>
+              <Timer className={classes.TrainingTask__TimerIcon} />
               {this.props.duration}
             </Typography>
-            <Typography className={classes.TaskHeader__Icons}>
+            <Typography className={classes.TrainingTask__Icons}>
               <Tooltip
                 title="Edit"
                 placement="bottom"
-                className={classes.TaskHeader__IconEdit}
+                className={classes.TrainingTask__Icon_Edit}
                 onClick={this.handleEditFormOpen}
               >
                 <Edit />
@@ -186,7 +190,7 @@ class TrainingTask extends Component {
               <Tooltip
                 title="Delete"
                 placement="bottom"
-                className={classes.TaskHeader__IconDelete}
+                className={classes.TrainingTask__Icon_Delete}
                 onClick={() => this.props.onDelete(this.props.taskId)}
               >
                 <Delete />
@@ -195,15 +199,15 @@ class TrainingTask extends Component {
           </div>
           <Collapse in={this.state.trainingTaskActive}>
             <CardContent
-              className={classes.Task__Content}
+              className={classes.TrainingTask__Content}
               style={{ padding: "0" }}
             >
-              <Typography className={classes.Task__TaskDescription}>
+              <Typography className={classes.TrainingTask__TaskDescription}>
                 {this.props.taskDescription}
               </Typography>
-              <Typography className={classes.Task__TaskEquipment}>
+              <Typography className={classes.TrainingTask__TaskEquipment}>
                 Equipment:{" "}
-                <span className={classes.Task__TaskEquipment_Content}>
+                <span className={classes.TrainingTask__TaskEquipment_Text}>
                   {this.props.equipment}
                 </span>
               </Typography>

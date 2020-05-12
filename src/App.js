@@ -9,9 +9,8 @@ class App extends Component {
       <>
         <Switch>
           <Route path="/my-teams" component={Inside} />
-          <Route path="/" component={Outside} />1
+          <Route path="/" component={Outside} />
         </Switch>
-        {/* <Footer /> */}
       </>
     );
   }

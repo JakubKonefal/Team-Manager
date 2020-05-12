@@ -1,0 +1,54 @@
+.Register {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 350px;
+  height: 425px;
+  background-color: #fff;
+  border-radius: 15px;
+}
+
+.Register__Header {
+  width: 100%;
+  background-color: #fe005a;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  color: white;
+}
+
+.Register__Title {
+  margin: 0;
+  padding: 12px 0;
+  text-align: center;
+  font-size: 24px;
+  font-family: "Montserrat";
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.Register__Inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.Register__Input {
+  width: 70%;
+  margin: 20px 0;
+}
+
+.Register__Button {
+  width: 70%;
+  border-radius: 20px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}

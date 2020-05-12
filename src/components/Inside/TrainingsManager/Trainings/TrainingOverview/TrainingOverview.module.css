@@ -1,23 +1,9 @@
-.TrainingPlan__Label {
-  width: 90%;
-  margin: 50px auto 15px auto;
-  cursor: pointer;
-  text-align: center;
-}
-
-/* .Border {
-  width: 80%;
-  height: 1px;
-  margin: 30px auto;
-  border-top: 2px dashed #777;
-} */
-
 .TrainingOverview {
   display: flex;
   justify-content: space-around;
 }
 
-.TrainingOverview__AdditionalInfo {
+.TrainingOverview__TrainingInfo {
   display: flex;
   flex-direction: column;
   width: 25%;

@@ -14,18 +14,7 @@
   background-color: #008ab0;
 }
 
-.TaskCreator__Header:hover .TaskCreator__Header_AddIcon {
-  transform: rotate(180deg);
-}
-
-.TaskCreator__Header_AddIcon {
-  margin-right: 7px;
-  font-size: 30px;
-  color: #fff;
-  transition: 0.4s;
-}
-
-.TaskCreator__Header_Label {
+.TaskCreator__Title {
   font-size: 15px;
   font-weight: bold;
   color: #fff;
@@ -53,7 +42,7 @@
   margin-bottom: 10px;
 }
 
-.TaskCreator__Duration {
+.TaskCreator__Input_Duration {
   width: 50%;
 }
 
@@ -65,10 +54,20 @@
   margin: 16px auto 10px auto;
 }
 
-.TaskCreator__AddButton {
+.TaskCreator__Button_Add {
   background-color: #119bc1;
 }
 
-.TaskCreator__AddButton:hover {
+.TaskCreator__Button_Add:hover {
   background-color: #0079a0;
+}
+
+.TaskCreator__AddIcon {
+  margin-right: 7px;
+  font-size: 30px;
+  color: #fff;
+  transition: 0.4s;
+}
+.TaskCreator__Header:hover .TaskCreator__AddIcon {
+  transform: rotate(180deg);
 }

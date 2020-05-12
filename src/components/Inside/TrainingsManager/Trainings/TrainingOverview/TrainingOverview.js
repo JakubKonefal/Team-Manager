@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { database } from "../../../../../firebase/firebase";
 import classes from "./TrainingOverview.module.css";
-import TrainingInfo from "../TrainingInfoBox/TrainingInfo/TrainingInfo";
+import TrainingInfo from "../TrainingInfo/TrainingInfo";
 import TrainingPlan from "./TrainingPlan/TrainingPlan";
 import moment from "moment";
 
@@ -77,7 +77,7 @@ class TrainingOverview extends Component {
 
     return (
       <div className={classes.TrainingOverview}>
-        <div className={classes.TrainingOverview__AdditionalInfo}>
+        <div className={classes.TrainingOverview__TrainingInfo}>
           {trainingInfoComponent}
         </div>
         <div className={classes.TrainingOverview__TrainingPlan}>

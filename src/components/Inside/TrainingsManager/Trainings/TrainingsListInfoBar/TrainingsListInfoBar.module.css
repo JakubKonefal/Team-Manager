@@ -1,4 +1,4 @@
-.InfoBox__Item {
+.TrainingsListInfoBar__Tile {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,20 +16,20 @@
   cursor: pointer;
 }
 
-.InfoBox__Item:nth-child(8) {
+.TrainingsListInfoBar__Tile:nth-child(8) {
   box-sizing: border-box;
   border-right: 1px solid #333;
 }
 
-.InfoBox__Item:hover {
+.TrainingsListInfoBar__Tile:hover {
   color: #333;
 }
 
-.InfoBox__Item:nth-child(3):hover {
+.TrainingsListInfoBar__Tile:nth-child(3):hover {
   color: black;
   cursor: default;
 }
 
-.InfoBox__SortIcon {
+.TrainingsListInfoBar__SortIcon {
   font-size: 15px;
 }

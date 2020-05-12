@@ -84,9 +84,13 @@ class MultipleTrainingsCreator extends Component {
 
   render() {
     const arrowIcon = this.state.trainingsCreatorActive ? (
-      <ArrowDropUp className={classes.Header__ArrowIcon}></ArrowDropUp>
+      <ArrowDropUp
+        className={classes.MultipleTrainingsCreator__ArrowIcon}
+      ></ArrowDropUp>
     ) : (
-      <ArrowDropDown className={classes.Header__ArrowIcon}></ArrowDropDown>
+      <ArrowDropDown
+        className={classes.MultipleTrainingsCreator__ArrowIcon}
+      ></ArrowDropDown>
     );
 
     const daysInWeek = [
@@ -104,7 +108,7 @@ class MultipleTrainingsCreator extends Component {
         <Card className={classes.MultipleTrainingsCreator} variant="outlined">
           <Typography
             variant="h6"
-            className={classes.MultipleTrainingsCreator__Header}
+            className={classes.MultipleTrainingsCreator__Title}
             onClick={this.handleTrainingCreatorToggle}
           >
             2. Create multiple training days {arrowIcon}
@@ -116,7 +120,7 @@ class MultipleTrainingsCreator extends Component {
                 onChange={this.handleInputChange}
               >
                 <TextField
-                  className={`${classes.Input}`}
+                  className={classes.MultipleTrainingsCreator__Input}
                   id="from"
                   type="date"
                   variant="outlined"
@@ -125,7 +129,7 @@ class MultipleTrainingsCreator extends Component {
                   InputLabelProps={{ shrink: true }}
                 />
                 <TextField
-                  className={`${classes.Input}`}
+                  className={classes.MultipleTrainingsCreator__Input}
                   id="to"
                   type="date"
                   variant="outlined"
@@ -135,7 +139,7 @@ class MultipleTrainingsCreator extends Component {
                 />
                 <FormControl
                   variant="outlined"
-                  className={`${classes.Input} ${classes.formControl}`}
+                  className={classes.MultipleTrainingsCreator__Input}
                 >
                   <InputLabel variant="outlined" id="daysOfWeek">
                     Weekdays
@@ -169,7 +173,7 @@ class MultipleTrainingsCreator extends Component {
                   </Select>
                 </FormControl>
                 <TextField
-                  className={`${classes.Input}`}
+                  className={classes.MultipleTrainingsCreator__Input}
                   id="start"
                   type="time"
                   variant="outlined"
@@ -178,7 +182,7 @@ class MultipleTrainingsCreator extends Component {
                   InputLabelProps={{ shrink: true }}
                 />
                 <TextField
-                  className={`${classes.Input}`}
+                  className={classes.MultipleTrainingsCreator__Input}
                   id="end"
                   type="time"
                   variant="outlined"
@@ -187,37 +191,37 @@ class MultipleTrainingsCreator extends Component {
                   InputLabelProps={{ shrink: true }}
                 />
                 <TextField
-                  className={`${classes.Input}`}
+                  className={classes.MultipleTrainingsCreator__Input}
                   id="place"
                   variant="outlined"
                   size="small"
                   label="Place"
                 />
                 <TextField
-                  className={`${classes.Input}`}
+                  className={classes.MultipleTrainingsCreator__Input}
                   id="trainingType"
                   variant="outlined"
                   size="small"
                   label="Training type"
                 />
                 <Typography
-                  className={classes.IntensityLabel}
+                  className={classes.MultipleTrainingsCreator__SliderLabel}
                   id="intensity"
                   gutterBottom
                 >
                   Intensity %
                 </Typography>
                 <Slider
-                  className={`${classes.Input}`}
+                  className={classes.MultipleTrainingsCreator__Input}
                   id="intensity"
                   size="small"
                   value={this.state.newTrainingsInfo.intensity}
                   valueLabelDisplay="auto"
                   onChange={this.handleSliderChange}
                 />
-                <div className={classes.Buttons}>
+                <div className={classes.MultipleTrainingsCreator__Buttons}>
                   <Button
-                    className={classes.Buttons__Add}
+                    className={classes.MultipleTrainingsCreator__Button_Add}
                     color="primary"
                     variant="contained"
                     size="small"
@@ -228,7 +232,7 @@ class MultipleTrainingsCreator extends Component {
                     add
                   </Button>
                   <Button
-                    className={classes.Buttons__Cancel}
+                    className={classes.MultipleTrainingsCreator__Button_Cancel}
                     type="reset"
                     color="secondary"
                     variant="contained"

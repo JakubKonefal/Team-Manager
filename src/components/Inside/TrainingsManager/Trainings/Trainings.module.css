@@ -5,13 +5,6 @@
   margin: 20px auto;
 }
 
-.CreatorWraper {
+.TrainingCreators__Creator_Wraper {
   width: 45%;
-}
-
-.Buttons {
-  width: 90%;
-  display: flex;
-  justify-content: flex-end;
-  margin: 20px auto;
 }

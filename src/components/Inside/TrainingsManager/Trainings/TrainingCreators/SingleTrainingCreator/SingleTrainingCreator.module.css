@@ -15,10 +15,6 @@
   cursor: pointer;
 }
 
-.Header__ArrowIcon {
-  margin-left: auto;
-}
-
 .SingleTrainingCreator__Content {
   box-sizing: border-box;
   padding: 24px;
@@ -31,27 +27,27 @@
   align-items: center;
 }
 
-.Input {
+.SingleTrainingCreator__Input {
   margin-bottom: 15px;
   width: 80%;
   text-align: center;
 }
 
-.IntensityLabel {
+.SingleTrainingCreator__SliderLabel {
   width: 80%;
   text-align: left;
   font-size: 12px;
   color: #707070;
 }
 
-.Buttons {
+.SingleTrainingCreator__Buttons {
   display: flex;
   justify-content: space-around;
   width: 70%;
   margin-top: 20px;
 }
 
-.Buttons_Add {
+.SingleTrainingCreator__Button_Add {
   color: #eee;
   font-weight: bold;
   text-transform: uppercase;
@@ -62,11 +58,11 @@
   padding-right: 25px;
 }
 
-.Buttons_Add:hover {
+.SingleTrainingCreator__Button_Add:hover {
   background-color: #339633;
 }
 
-.Buttons_Cancel {
+.SingleTrainingCreator__Button_Cancel {
   color: #eee;
   font-weight: bold;
   text-transform: uppercase;
@@ -75,6 +71,10 @@
   cursor: pointer;
 }
 
-.Buttons_Cancel:hover {
+.SingleTrainingCreator__Button_Cancel:hover {
   background-color: #fb3384;
+}
+
+.SingleTrainingCreator__HeaderIcon {
+  margin-left: auto;
 }

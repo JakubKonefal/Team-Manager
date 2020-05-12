@@ -1,102 +1,10 @@
-.Task {
-  border-width: 2px;
-  border-color: #ddd;
-  margin-bottom: 5px;
-}
-
-.Task__Content {
-  padding: 0;
-  border-top: 2px dashed #ddd;
-  box-sizing: border-box;
-}
-
-.Task__TaskDescription {
-  white-space: pre-line;
-  padding: 20px 28px;
-}
-
-.Task__TaskEquipment {
-  display: flex;
-  align-items: center;
-  border-top: 2px dashed #ddd;
-  padding: 8px 28px;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.Task__TaskEquipment_Content {
-  margin-left: 5px;
-  font-size: 14px;
-  font-weight: normal;
-}
-
-.TaskHeader {
-  display: flex;
-  align-items: center;
-  padding: 4px 8px;
-  font-weight: bold;
-}
-
-.TaskHeader__Title {
-  display: flex;
-  align-items: center;
-  width: 50%;
-  font-weight: bold;
-  margin-right: 10px;
-  color: #000;
-  cursor: pointer;
-}
-
-.TaskHeader__Title:hover {
-  color: #555;
-}
-
-.TaskHeader__Icons {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-  font-size: 12px;
-  color: #707070;
-  cursor: pointer;
-}
-
-.TaskHeader__IconEdit {
-  font-size: 22px;
-}
-
-.TaskHeader__IconEdit:hover {
-  color: black;
-}
-
-.TaskHeader__IconDelete {
-  font-size: 22px;
-}
-
-.TaskHeader__IconDelete:hover {
-  color: black;
-}
-
-.TaskHeader__Duration {
-  display: flex;
-  align-items: center;
-  color: #000;
-  font-weight: bold;
-  font-size: 15px;
-}
-
-.TaskHeader__Duration_TimerIcon {
-  color: #0a2239;
-  font-size: 22px;
-  margin-right: 3px;
-}
-
-.Task_Edit {
+.TrainingTask_Edit {
   border-width: 2px;
   border-color: #53a2be;
   margin-bottom: 5px;
 }
 
-.TaskEdit__Header {
+.TrainingTask_Edit__Header {
   display: flex;
   align-items: center;
   padding: 4px 8px;
@@ -108,36 +16,36 @@
   cursor: pointer;
 }
 
-.TaskEdit__Header_Label {
-  font-size: 15px;
-  font-weight: bold;
-  color: #fff;
-  cursor: pointer;
+.TrainingTask_Edit__Header:hover {
+  background-color: #4291ad;
 }
 
-.TaskEdit__Header_RemoveIcon {
+.TrainingTask_Edit__RemoveIcon {
   margin-right: 7px;
   font-size: 30px;
   color: #fff;
   transition: 0.4s;
 }
 
-.TaskEdit__Header:hover .TaskEdit__Header_RemoveIcon {
+.TrainingTask_Edit__Header:hover .TrainingTask_Edit__RemoveIcon {
   transform: rotate(180deg);
 }
 
-.TaskEdit__Header:hover {
-  background-color: #4291ad;
+.TrainingTask_Edit__Title {
+  font-size: 15px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
 }
 
-.TaskHeader_Edit {
+.TrainingTask_Edit__HeaderInputs_Wraper {
   display: flex;
   align-items: center;
   padding: 12px 8px 4px;
   font-weight: bold;
 }
 
-.TaskHeader__Title_Edit {
+.TrainingTask_Edit__TitleInput_Wraper {
   display: flex;
   align-items: center;
   width: 50%;
@@ -147,7 +55,19 @@
   cursor: pointer;
 }
 
-.TaskHeader__Duration_Edit {
+.TrainingTask_Edit__TaskIndex {
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.TrainingTask_Edit__Input_Title {
+  width: 80%;
+  margin-bottom: 8px;
+  margin-left: 5px;
+}
+
+.TrainingTask_Edit__DurationInput_Wraper {
   display: flex;
   align-items: center;
   color: #000;
@@ -155,35 +75,23 @@
   font-size: 15px;
 }
 
-.TaskHeader__Index {
-  font-weight: bold;
-  margin-top: 10px;
-  font-size: 18px;
-}
-
-.Input__TaskTitle {
-  width: 80%;
-  margin-bottom: 8px;
-  margin-left: 5px;
-}
-
-.Input__TaskDuration {
+.TrainingTask_Edit__Input_Duration {
   width: 70%;
   margin-bottom: 8px;
   margin-left: 5px;
 }
 
-.Task__TaskDescription_Edit {
+.TrainingTask_Edit__TaskDescriptionInput_Wraper {
   display: flex;
   flex-direction: column;
   padding: 20px 28px;
 }
 
-.Ipnut__TaskDescription {
+.TrainingTask_Edit__Input_TaskDescription {
   width: 100%;
 }
 
-.Task__TaskEquipment_Edit {
+.TrainingTask_Edit__TaskEquipment_Wraper {
   display: flex;
   align-items: center;
   border-top: 2px dashed #ddd;
@@ -192,12 +100,12 @@
   font-weight: bold;
 }
 
-.Input__TaskEquipment {
+.TrainingTask_Edit__Input_TaskEquipment {
   margin-bottom: 10px;
   margin-left: 8px;
 }
 
-.TaskHeader__Icons_Edit {
+.TrainingTask_Edit__Icons {
   display: flex;
   align-items: center;
   margin-left: auto;
@@ -205,13 +113,105 @@
   cursor: pointer;
 }
 
-.TaskHeader__IconConfirm {
+.TrainingTask_Edit__Icon_Save {
   font-size: 30px;
   color: green;
 }
 
-.TaskHeader__IconCancel {
+.TrainingTask_Edit__Icon_Close {
   font-size: 30px;
   margin-left: 15px;
   color: #f50057;
+}
+
+.TrainingTask {
+  border-width: 2px;
+  border-color: #ddd;
+  margin-bottom: 5px;
+}
+
+.TrainingTask__TaskHeader {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  font-weight: bold;
+}
+
+.TrainingTask__TaskTitle {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  font-weight: bold;
+  margin-right: 10px;
+  color: #000;
+  cursor: pointer;
+}
+
+.TrainingTask__TaskTitle:hover {
+  color: #555;
+}
+
+.TrainingTask__TaskDuration {
+  display: flex;
+  align-items: center;
+  color: #000;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.TrainingTask__TimerIcon {
+  color: #0a2239;
+  font-size: 22px;
+  margin-right: 3px;
+}
+
+.TrainingTask__Icons {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  font-size: 12px;
+  color: #707070;
+  cursor: pointer;
+}
+
+.TrainingTask__Icon_Edit {
+  font-size: 22px;
+}
+
+.TrainingTask__Icon_Edit:hover {
+  color: black;
+}
+
+.TrainingTask__Icon_Delete {
+  font-size: 22px;
+}
+
+.TrainingTask__Icon_Delete:hover {
+  color: black;
+}
+
+.TrainingTask__Content {
+  padding: 0;
+  border-top: 2px dashed #ddd;
+  box-sizing: border-box;
+}
+
+.TrainingTask__TaskDescription {
+  white-space: pre-line;
+  padding: 20px 28px;
+}
+
+.TrainingTask__TaskEquipment {
+  display: flex;
+  align-items: center;
+  border-top: 2px dashed #ddd;
+  padding: 8px 28px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.TrainingTask__TaskEquipment_Text {
+  margin-left: 5px;
+  font-size: 14px;
+  font-weight: normal;
 }

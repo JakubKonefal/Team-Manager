@@ -1,4 +1,4 @@
-.TrainingMonth__Header {
+.TrainingMonthHeader {
   display: flex;
   align-items: center;
   width: 90%;
@@ -11,23 +11,23 @@
   text-transform: uppercase;
 }
 
-.TrainingMonth__Header_Label {
+.TrainingMonthHeader__Title {
   margin: 0 0 0 8px;
   cursor: pointer;
 }
 
-.TrainingMonth__Header_Label:hover {
+.TrainingMonthHeader__Title:hover {
   color: #333;
 }
 
-.TrainingMonth__TrainingsList {
+.TrainingMonthList {
   display: grid;
   width: 90%;
   margin: 0 auto;
   grid-template-columns: 0.3fr 0.7fr 0.8fr 0.5fr 0.5fr 1.2fr 1.2fr 0.6fr;
 }
 
-.TrainingMonth__ActionPanel {
+.TrainingMonthActions {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -50,25 +50,25 @@
   cursor: pointer;
 }
 
-.Button__Edit {
+.Button_Edit {
   margin-right: 16px;
   margin-left: auto;
   background-color: #3f51b5;
 }
 
-.Button__Edit:hover {
+.Button_Edit:hover {
   background-color: #3f51b5d5;
 }
 
-.Button__Edit:disabled {
+.Button_Edit:disabled {
   background-color: #e0e0e0;
   cursor: default;
 }
 
-.Button__Delete {
+.Button_Delete {
   background-color: #f50057;
 }
 
-.Button__Delete:hover {
+.Button_Delete:hover {
   background-color: #f50056d3;
 }

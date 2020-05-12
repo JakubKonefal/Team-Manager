@@ -1,49 +1,49 @@
 import React from "react";
-import classes from "./TrainingInfoBox.module.css";
+import classes from "./TrainingsListInfoBar.module.css";
 import Tooltip from "@material-ui/core/Tooltip";
 import Sort from "@material-ui/icons/Sort";
 
-const TrainingInfoBox = ({ sort }) => (
+const TrainingsListInfoBar = ({ sort }) => (
   <>
     <Tooltip title="Ctrl + click to sort in opposite order" placement="top">
-      <span className={classes.InfoBox__Item}>
+      <span className={classes.TrainingsListInfoBar__Tile}>
         {" "}
-        <Sort className={classes.InfoBox__SortIcon} />
+        <Sort className={classes.TrainingsListInfoBar__SortIcon} />
       </span>
     </Tooltip>
     <span
-      className={classes.InfoBox__Item}
+      className={classes.TrainingsListInfoBar__Tile}
       onClick={(event) => sort(event, "date")}
     >
       Date{" "}
     </span>
-    <span className={classes.InfoBox__Item}>Weekday</span>
+    <span className={classes.TrainingsListInfoBar__Tile}>Weekday</span>
     <span
-      className={classes.InfoBox__Item}
+      className={classes.TrainingsListInfoBar__Tile}
       onClick={(event) => sort(event, "start")}
     >
       Start
     </span>
     <span
-      className={classes.InfoBox__Item}
+      className={classes.TrainingsListInfoBar__Tile}
       onClick={(event) => sort(event, "end")}
     >
       End
     </span>
     <span
-      className={classes.InfoBox__Item}
+      className={classes.TrainingsListInfoBar__Tile}
       onClick={(event) => sort(event, "place")}
     >
       Place
     </span>
     <span
-      className={classes.InfoBox__Item}
+      className={classes.TrainingsListInfoBar__Tile}
       onClick={(event) => sort(event, "trainingType")}
     >
       Training Type
     </span>
     <span
-      className={classes.InfoBox__Item}
+      className={classes.TrainingsListInfoBar__Tile}
       onClick={(event) => sort(event, "intensity")}
     >
       Intensity
@@ -51,4 +51,4 @@ const TrainingInfoBox = ({ sort }) => (
   </>
 );
 
-export default TrainingInfoBox;
+export default TrainingsListInfoBar;

@@ -3,9 +3,9 @@ import classes from "./TrainingMonth.module.css";
 import { database } from "../../../../../../firebase/firebase";
 import Checkbox from "@material-ui/core/Checkbox";
 import Training from "../../Training/Training";
-import TrainingInfoBox from "../../TrainingInfoBox/TrainingInfoBox";
+import TrainingsListInfoBar from "../../TrainingsListInfoBar/TrainingsListInfoBar";
 import Collapse from "@material-ui/core/Collapse";
-import MultipleTrainingsEdit from "./MultipleTrainingsEdit/MultipleTrainingsEdit";
+import MultipleTrainingsEdit from "./MultipleTrainingsEditor/MultipleTrainingsEditor";
 
 class TrainingMonth extends Component {
   state = {
@@ -131,14 +131,14 @@ class TrainingMonth extends Component {
     const buttons = this.state.editFormActive ? null : (
       <div>
         <button
-          className={`${classes.Button__Edit} ${classes.Button}`}
+          className={`${classes.Button} ${classes.Button_Edit}`}
           disabled={this.state.checkedTrainingsCount < 1}
           onClick={this.handleEditFormOpen}
         >
           edit
         </button>
         <button
-          className={`${classes.Button__Delete} ${classes.Button}`}
+          className={`${classes.Button} ${classes.Button_Delete}`}
           onClick={this.handleCheckedTrainingsDelete}
         >
           delete
@@ -148,24 +148,24 @@ class TrainingMonth extends Component {
 
     return this.state.trainings.length > 0 ? (
       <>
-        <div className={classes.TrainingMonth__Header}>
-          <div className={classes.TrainingMonth__Header_Checkbox}>
+        <div className={classes.TrainingMonthHeader}>
+          <div>
             <Checkbox color="default" onClick={this.handleCheckboxSelectAll} />{" "}
           </div>
           <h5
-            className={classes.TrainingMonth__Header_Label}
+            className={classes.TrainingMonthHeader__Title}
             onClick={this.handleToggleMonthExpand}
           >
             {`${this.props.year} ${this.props.month}`}
           </h5>
         </div>
         <Collapse in={this.state.monthExpanded}>
-          <div className={classes.TrainingMonth__TrainingsList}>
-            <TrainingInfoBox sort={this.handleTrainingsSort} />
+          <div className={classes.TrainingMonthList}>
+            <TrainingsListInfoBar sort={this.handleTrainingsSort} />
             {trainings}
           </div>
 
-          <div className={classes.TrainingMonth__ActionPanel}>
+          <div className={classes.TrainingMonthActions}>
             <MultipleTrainingsEdit
               onFormSubmit={this.handleCheckedTrainingsEdit}
               checkedTrainingsCount={this.state.checkedTrainingsCount}

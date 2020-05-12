@@ -69,11 +69,13 @@ class PlayerCreator extends Component {
   render() {
     const playerCreator = this.state.playerCreatorActive ? (
       <StylesProvider injectFirst>
-        <div className={classes.FormTitle}>
-          <h2 className={classes.FormTitle__Label}>Create new player</h2>
+        <div className={classes.PlayerCreatorHeader}>
+          <h2 className={classes.PlayerCreatorHeader__Title}>
+            Create new player
+          </h2>
         </div>
         <form
-          className={classes.PlayerCreator__Active}
+          className={classes.PlayerCreator}
           onChange={this.handleInputChange}
           onSubmit={(event) => {
             this.props.onSubmit(
@@ -84,12 +86,15 @@ class PlayerCreator extends Component {
             this.handlePlayerCreatorClose();
           }}
         >
-          <div className={classes.FileSection}>
-            <div className={classes.PreviewFile}>
+          <div className={classes.FileUploadSection}>
+            <div className={classes.FileUploadSection__PreviewFile}>
               <FilePreviewElement src={this.state.previewFile} />
             </div>
             <input type="file" id="photo" onChange={this.handleImageSelect} />
-            <label htmlFor="photo" className={classes.Upload}>
+            <label
+              htmlFor="photo"
+              className={classes.FileUploadSection__HelperText}
+            >
               Choose file..
             </label>
           </div>
@@ -98,23 +103,26 @@ class PlayerCreator extends Component {
             id="number"
             label="Number"
             variant="outlined"
-            className={classes.TextField}
+            className={classes.PlayerCreator__Input}
           />
           <TextField
             id="firstName"
             label="First name"
             variant="outlined"
-            className={classes.TextField}
+            className={classes.PlayerCreator__Input}
             required
           />
           <TextField
             id="lastName"
             label="Last name"
             variant="outlined"
-            className={classes.TextField}
+            className={classes.PlayerCreator__Input}
             required
           />
-          <FormControl variant="outlined" className={classes.SelectField}>
+          <FormControl
+            variant="outlined"
+            className={classes.PlayerCreator__Input}
+          >
             <InputLabel id="demo-simple-select-outlined-label">
               Position
             </InputLabel>
@@ -136,7 +144,7 @@ class PlayerCreator extends Component {
             id="birth"
             label="Birthday"
             type="date"
-            className={classes.TextField}
+            className={classes.PlayerCreator__Input}
             InputLabelProps={{
               shrink: true,
             }}
@@ -144,14 +152,14 @@ class PlayerCreator extends Component {
           <div className={classes.Buttons}>
             <Button
               type="submit"
-              className={classes.Button_Add}
+              className={classes.Buttons__Button_Add}
               variant="contained"
               color="primary"
             >
               add
             </Button>
             <Button
-              className={classes.Button_Cancel}
+              className={classes.Buttons__Button_Cancel}
               variant="contained"
               color="secondary"
               onClick={this.handlePlayerCreatorClose}
@@ -162,9 +170,9 @@ class PlayerCreator extends Component {
         </form>
       </StylesProvider>
     ) : (
-      <div className={classes.PlayerCreator__Inactive}>
+      <div className={classes.PlayerCreator_Inactive}>
         <i
-          className={`fas fa-user-plus ${classes.AddUserIcon}`}
+          className={`fas fa-user-plus ${classes.PlayerCreator_Inactive__AddUserIcon}`}
           onClick={this.handlePlayerCreatorOpen}
         ></i>
         <span>add player</span>

@@ -49,20 +49,20 @@ class TaskCreator extends Component {
 
   render() {
     const circleHelperIcon = this.state.taskCreatorActive ? (
-      <RemoveCircle className={classes.TaskCreator__Header_AddIcon} />
+      <RemoveCircle className={classes.TaskCreator__AddIcon} />
     ) : (
-      <AddCircle className={classes.TaskCreator__Header_AddIcon} />
+      <AddCircle className={classes.TaskCreator__AddIcon} />
     );
 
     return (
       <StylesProvider injectFirst>
-        <Card className={classes.TaskCreator} variant="outlined">
+        <Card variant="outlined">
           <div
             className={classes.TaskCreator__Header}
             onClick={this.handleTaskCreatorToggle}
           >
             {circleHelperIcon}
-            <Typography className={classes.TaskCreator__Header_Label}>
+            <Typography className={classes.TaskCreator__Title}>
               Add new task
             </Typography>
           </div>
@@ -96,7 +96,7 @@ class TaskCreator extends Component {
                   label="Equipment"
                 />
                 <TextField
-                  className={`${classes.TaskCreator__Input} ${classes.TaskCreator__Duration}`}
+                  className={`${classes.TaskCreator__Input} ${classes.TaskCreator__Input_Duration}`}
                   id="duration"
                   variant="outlined"
                   size="small"
@@ -104,7 +104,7 @@ class TaskCreator extends Component {
                 />
                 <div className={classes.TaskCreator__Buttons}>
                   <Button
-                    className={classes.TaskCreator__AddButton}
+                    className={classes.TaskCreator__Button_Add}
                     variant="contained"
                     color="primary"
                     type="reset"
@@ -116,7 +116,6 @@ class TaskCreator extends Component {
                     add task
                   </Button>
                   <Button
-                    className={classes.TaskCreator__CancelButton}
                     variant="contained"
                     color="secondary"
                     onClick={this.handleTaskCreatorCancel}

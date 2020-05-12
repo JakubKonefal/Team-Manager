@@ -1,57 +1,56 @@
-.MultipleTrainingsCreator {
-  margin: 50px auto 10px auto;
+.MultipleTrainingsEditor {
+  width: 100%;
+  margin: 20px 30px;
   border-width: 2px;
 }
 
-.MultipleTrainingsCreator__Header {
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-  padding: 10px 25px;
-  margin: 0;
-  color: #0a2239;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.Header__ArrowIcon {
-  margin-left: auto;
-}
-
-.MultipleTrainingsCreator__Content {
+.Content {
   box-sizing: border-box;
   padding: 24px;
-  border-top: 2px solid #ddd;
 }
 
-.MultipleTrainingsCreator__Form {
+.Form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.Input {
+.Form__Row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.Form__Input {
   margin-bottom: 15px;
-  width: 80%;
+  width: 30%;
   text-align: center;
 }
 
-.IntensityLabel {
+.Form__SliderWraper {
+  width: 30%;
+}
+
+.Form__SliderLabel {
   width: 80%;
   text-align: left;
   font-size: 12px;
   color: #707070;
 }
 
-.Buttons {
+.Form__Slider {
+  width: 100%;
+}
+
+.Form__Buttons {
   display: flex;
   justify-content: space-around;
-  width: 70%;
+  width: 55%;
   margin-top: 20px;
 }
 
-.Buttons_Add {
+.Form__Button_Add {
   color: #eee;
   font-weight: bold;
   text-transform: uppercase;
@@ -62,11 +61,11 @@
   padding-right: 25px;
 }
 
-.Buttons_Add:hover {
+.Form__Button_Add:hover {
   background-color: #339633;
 }
 
-.Buttons_Cancel {
+.Form__Button_Cancel {
   color: #eee;
   font-weight: bold;
   text-transform: uppercase;
@@ -75,6 +74,6 @@
   cursor: pointer;
 }
 
-.Buttons_Cancel:hover {
+.Form__Button_Cancel:hover {
   background-color: #fb3384;
 }

@@ -1,0 +1,80 @@
+.MultipleTrainingsCreator {
+  margin: 50px auto 10px auto;
+  border-width: 2px;
+}
+
+.MultipleTrainingsCreator__Title {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 10px 25px;
+  margin: 0;
+  color: #0a2239;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.MultipleTrainingsCreator__Content {
+  box-sizing: border-box;
+  padding: 24px;
+  border-top: 2px solid #ddd;
+}
+
+.MultipleTrainingsCreator__Form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.MultipleTrainingsCreator__Input {
+  margin-bottom: 15px;
+  width: 80%;
+  text-align: center;
+}
+
+.MultipleTrainingsCreator__SliderLabel {
+  width: 80%;
+  text-align: left;
+  font-size: 12px;
+  color: #707070;
+}
+
+.MultipleTrainingsCreator__Buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 70%;
+  margin-top: 20px;
+}
+
+.MultipleTrainingsCreator__Button_Add {
+  color: #eee;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: green;
+  font-size: 14px;
+  cursor: pointer;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.MultipleTrainingsCreator__Button_Add:hover {
+  background-color: #339633;
+}
+
+.MultipleTrainingsCreator__Button_Cancel {
+  color: #eee;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: #d91162;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.MultipleTrainingsCreator__Button_Cancel:hover {
+  background-color: #fb3384;
+}
+
+.MultipleTrainingsCreator__ArrowIcon {
+  margin-left: auto;
+}
