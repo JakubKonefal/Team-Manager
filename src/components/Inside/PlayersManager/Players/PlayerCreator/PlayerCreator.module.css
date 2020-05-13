@@ -1,4 +1,15 @@
-.PlayerCreatorHeader {
+.PlayerCreator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  margin-bottom: 20px;
+  border: 2px solid #ccc;
+  border-top: none;
+}
+
+.PlayerCreator__Header {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,37 +23,26 @@
   border-top-right-radius: 10px;
 }
 
-.PlayerCreatorHeader__Title {
+.PlayerCreator__Title {
   margin: 0;
   font-size: 20px;
 }
 
-.PlayerCreator {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 50%;
-  margin-bottom: 20px;
-  border: 2px solid #ccc;
-  border-top: none;
-}
-
-.FileUploadSection {
+.PlayerCreator__FileUploadSection {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 15px 15px 5px 5px;
 }
 
-.FileUploadSection__PreviewFile {
+.PlayerCreator__PreviewFile {
   width: 100px;
   height: 100px;
   border: 3px dashed #bbb;
   text-align: center;
 }
 
-.FileUploadSection__HelperText {
+.PlayerCreator__PrevFileHelperText {
   margin-top: 10px;
   padding: 5px 7px;
   background-color: #71c333;
@@ -52,7 +52,7 @@
   cursor: pointer;
 }
 
-.FileUploadSection__HelperText:hover {
+.PlayerCreator__PrevFileHelperText:hover {
   background-color: #82d444;
 }
 
@@ -61,14 +61,14 @@
   margin: 15px;
 }
 
-.Buttons {
+.PlayerCreator__Buttons {
   display: flex;
   justify-content: space-around;
   width: 80%;
   margin: 5px 0 15px;
 }
 
-.Buttons__Button_Add {
+.PlayerCreator__Button_Add {
   color: #eee;
   font-weight: bold;
   text-transform: uppercase;
@@ -79,11 +79,11 @@
   padding-right: 25px;
 }
 
-.Buttons__Button_Add:hover {
+.PlayerCreator__Button_Add:hover {
   background-color: #339633;
 }
 
-.Buttons__Button_Cancel {
+.PlayerCreator__Button_Cancel {
   color: #eee;
   font-weight: bold;
   text-transform: uppercase;
@@ -92,7 +92,7 @@
   cursor: pointer;
 }
 
-.Buttons__Button_Cancel:hover {
+.PlayerCreator__Button_Cancel:hover {
   background-color: #fb3384;
 }
 

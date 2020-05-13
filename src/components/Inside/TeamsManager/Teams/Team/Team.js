@@ -49,9 +49,9 @@ class Team extends Component {
   render() {
     const team = this.state.editFormActive ? (
       <li>
-        <form className={classes.Team_EditForm}>
-          <div className={classes.FileUploadSection}>
-            <div className={classes.FileUploadSection__PreviewFile}>
+        <form className={classes.Team_Editable}>
+          <div className={classes.Team_Editable__FileUploadSection}>
+            <div className={classes.Team_Editable__PreviewFile}>
               <FilePreviewElement src={this.state.previewFile} />
             </div>
             <input
@@ -61,25 +61,25 @@ class Team extends Component {
             />
             <label
               htmlFor="teamLogo"
-              className={classes.FileUploadSection__HelperText}
+              className={classes.Team_Editable__PrevFileHelperText}
             >
               Choose file..
             </label>
           </div>
-          <div className={classes.MidColumnWraper}>
+          <div className={classes.Team_Editable__MidColumnWraper}>
             <StylesProvider injectFirst>
               <Input
                 type="text"
-                className={classes.MidColumnWraper__Input}
+                className={classes.Team_Editable__Input}
                 placeholder={this.props.teamName}
                 autoFocus
                 onChange={this.handleTeamNameChange}
                 color="primary"
               />
-              <div className={classes.Buttons}>
+              <div className={classes.Team_Editable__Buttons}>
                 <Button
                   type="submit"
-                  className={classes.Buttons__Button_Update}
+                  className={classes.Team_Editable__Button_Update}
                   onClick={(event) => {
                     this.props.onSubmit(
                       this.props.teamId,
@@ -95,7 +95,7 @@ class Team extends Component {
                   Save
                 </Button>
                 <Button
-                  className={classes.Buttons__Button_Cancel}
+                  className={classes.Team_Editable__Button_Cancel}
                   onClick={this.handleEditFormClose}
                   variant="contained"
                   color="secondary"
@@ -119,7 +119,7 @@ class Team extends Component {
         </StylesProvider>
 
         <Link
-          className={classes.Team__TeamName_Link}
+          className={classes.Team__TeamName}
           to={{
             pathname: `/my-teams/${this.props.teamId}`,
             teamId: this.props.teamId,
@@ -129,10 +129,10 @@ class Team extends Component {
           {this.props.teamName}
         </Link>
 
-        <div className={classes.Icons}>
+        <div className={classes.Team__Icons}>
           <Tooltip title="Delete" placement="bottom">
             <i
-              className={`fa fa-trash ${classes.Icons__Icon} ${classes.Icons__TrashIcon} `}
+              className={`fa fa-trash ${classes.Team__Icon} ${classes.Team__Icon_Trash} `}
               onClick={() => {
                 this.props.onDelete(this.props.teamId, this.props.teamLogo);
               }}
@@ -140,7 +140,7 @@ class Team extends Component {
           </Tooltip>
           <Tooltip title="Edit" placement="bottom">
             <i
-              className={`${classes.Icons__Icon} fas fa-edit `}
+              className={`${classes.Team__Icon} fas fa-edit `}
               onClick={this.handleEditFormOpen}
             ></i>
           </Tooltip>

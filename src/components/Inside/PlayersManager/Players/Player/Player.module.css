@@ -1,4 +1,4 @@
-.Player_Edit {
+.Player_Editable {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -7,14 +7,14 @@
   border-bottom: 1px solid #ccc;
 }
 
-.FileUploadSection {
+.Player_Editable__FileUploadSection {
   display: flex;
   flex-direction: column;
   width: 8%;
   padding: 3px;
 }
 
-.FileUploadSection__PreviewFile {
+.Player_Editable__PreviewFile {
   position: relative;
   width: 45px;
   height: 45px;
@@ -23,7 +23,7 @@
   text-align: center;
 }
 
-.FileUploadSection__HelperText {
+.Player_Editable__PrevFileHelperText {
   position: absolute;
   top: 0;
   left: 0;
@@ -40,39 +40,39 @@
   cursor: pointer;
 }
 
-.FileUploadSection__HelperText:hover {
+.Player_Editable__PrevFileHelperText:hover {
   background-color: #ddd;
 }
 
-.FileUploadSection__HelperText_Hide {
+.Player_Editable__PrevFileHelperText_Hide {
   display: none;
 }
 
-.InputSection {
+.Player_Editable__InputWraper {
   display: flex;
   justify-content: flex-start;
   margin-left: 10px;
   align-items: center;
 }
 
-.InputSection_Number {
+.Player_Editable_Number {
   width: 7%;
   text-indent: 5px;
 }
 
-.InputSection_FirstName {
+.Player_Editable_FirstName {
   width: 16%;
 }
 
-.InputSection_LastName {
+.Player_Editable_LastName {
   width: 16%;
 }
 
-.InputSection_Birthday {
+.Player_Editable_Birthday {
   width: 16%;
 }
 
-.SelectField {
+.Player_Editable__SelectField {
   outline: none;
   border: none;
   font-size: 16px;
@@ -82,12 +82,12 @@
   padding-bottom: 3px;
 }
 
-.SelectField:hover {
+.Player_Editable__SelectField:hover {
   border-bottom: 2px solid #000;
   padding-bottom: 2px;
 }
 
-.InputSection__TextInput {
+.Player_Editable__InputText {
   width: 80%;
   font-size: 16px;
   color: #707070;
@@ -96,22 +96,22 @@
   padding-bottom: 3px;
 }
 
-.InputSection__TextInput:hover {
+.Player_Editable__InputText:hover {
   border-bottom: 2px solid #000;
   padding-bottom: 2px;
 }
 
-.InputSection__TextInput:focus {
+.Player_Editable__InputText:focus {
   outline: none;
   border-bottom: 2px solid #22f;
   padding-bottom: 2px;
 }
 
-.InputSection__TextInput_Number {
+.Player_Editable__InputText_Number {
   width: 40%;
 }
 
-.InputSection__DateInput {
+.Player_Editable__DateInput {
   width: 100%;
   border: none;
   font-size: 16px;
@@ -121,27 +121,27 @@
   cursor: text;
 }
 
-.InputSection__DateInput::-webkit-inner-spin-button {
+.Player_Editable__DateInput::-webkit-inner-spin-button {
   display: none;
 }
 
-.InputSection__DateInput:hover {
+.Player_Editable__DateInput:hover {
   border-bottom: 2px solid #000;
   padding-bottom: 2px;
 }
 
-.InputSection__DateInput:focus {
+.Player_Editable__DateInput:focus {
   border: none;
   outline: none;
   border-bottom: 2px solid #000;
   padding-bottom: 2px;
 }
 
-.ButtonsSection {
+.Player_Editable__ButtonsWraper {
   width: 19%;
 }
 
-.Buttons {
+.Player_Editable__Buttons {
   display: flex;
   justify-content: flex-start;
   box-sizing: border-box;
@@ -150,24 +150,24 @@
   font-size: 18px;
 }
 
-.Buttons__Button:hover {
+.Player_Editable__Button:hover {
   cursor: pointer;
 }
 
-.Buttons__Button_Save {
+.Player_Editable__Button_Save {
   color: #080;
 }
 
-.Buttons__Button_Save:hover {
+.Player_Editable__Button_Save:hover {
   color: #0a0;
 }
 
-.Buttons__Button_Cancel {
+.Player_Editable__Button_Cancel {
   color: #a00;
   margin-left: 10px;
 }
 
-.Buttons__Button_Cancel:hover {
+.Player_Editable__Button_Cancel:hover {
   color: #c00;
 }
 
@@ -182,7 +182,7 @@
   border-bottom: 1px solid #ccc;
 }
 
-.Player__AvatarSection {
+.Player__AvatarWraper {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -190,7 +190,7 @@
   padding: 3px;
 }
 
-.AvatarSection__Avatar {
+.Player__Avatar {
   width: 45px;
   height: 45px;
 }
@@ -227,7 +227,7 @@
   width: 15%;
 }
 
-.Icons {
+.Player__Icons {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -239,15 +239,15 @@
   color: #707070;
 }
 
-.Icons i {
+.Player__Icons i {
   cursor: pointer;
 }
 
-.Icons_EditIcon {
+.Player__Icon_Edit {
   margin-left: 8px;
 }
 
-.Player__CheckboxSection {
+.Player__CheckboxWraper {
   display: flex;
   justify-content: center;
   align-items: center;

@@ -4,7 +4,7 @@
   grid-template-rows: 1fr;
 }
 
-.InfoBar {
+.PlayersList__InfoBar {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -19,61 +19,61 @@
   letter-spacing: 1px;
 }
 
-.InfoBar > span {
+.PlayersList__InfoBar > span {
   margin-left: 2px;
   box-sizing: border-box;
 }
 
-.PlayersList__InfoBar_Sortable:hover {
+.PlayersList__InfoTile_Sortable:hover {
   color: #fff;
   cursor: pointer;
 }
 
-.PlayersList__InfoBar_Player {
+.PlayersList__InfoTile_Player {
   width: 8%;
   min-width: 45px;
 }
 
-.PlayersList__InfoBar_Number {
+.PlayersList__InfoTile_Number {
   width: 7%;
 }
 
-.PlayersList__InfoBar_FirstName {
+.PlayersList__InfoTile_FirstName {
   width: 16%;
   padding-left: 6px;
 }
 
-.PlayersList__InfoBar_LastName {
+.PlayersList__InfoTile_LastName {
   width: 18%;
   padding-left: 8px;
 }
 
-.PlayersList__InfoBar_Position {
+.PlayersList__InfoTile_Position {
   width: 15%;
   padding-left: 9px;
 }
 
-.PlayersList__InfoBar_Birthday {
+.PlayersList__InfoTile_Birthday {
   width: 15%;
   padding-left: 12px;
 }
 
-.PlayersList__InfoBar_Actions {
+.PlayersList__InfoTile_Actions {
   display: flex;
   justify-content: center;
   width: 13%;
   padding-left: 20px;
 }
 
-.InfoBar__InfoIcon {
+.PlayersList__InfoIcon {
   margin-left: auto;
 }
 
-.InfoBar__InfoIcon:hover {
+.PlayersList__InfoIcon:hover {
   color: #fff;
 }
 
-.ActionPanel {
+.PlayersList__ActionPanel {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -83,10 +83,10 @@
   border-top: none;
 }
 
-.ActionPanel__Button_Delete {
+.PlayersList__Button_Delete {
   margin-right: 20px;
 }
 
-.ActionPanel__Checkbox {
+.PlayersList__Checkbox {
   border-left: 1px solid #ccc;
 }

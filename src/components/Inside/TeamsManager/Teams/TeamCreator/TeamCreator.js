@@ -53,33 +53,33 @@ class TeamCreator extends Component {
   render() {
     const teamCreator = this.state.teamCreatorActive ? (
       <form className={classes.TeamCreator}>
-        <div className={classes.FileUploadSection}>
-          <div className={classes.FileUploadSection__PreviewFile}>
+        <div className={classes.TeamCreator__FileUploadSection}>
+          <div className={classes.TeamCreator__PreviewFile}>
             <FilePreviewElement src={this.state.previewFile} />
           </div>
           <input type="file" id="teamLogo" onChange={this.handleImageSelect} />
           <label
             htmlFor="teamLogo"
-            className={classes.FileUploadSection__HelperText}
+            className={classes.TeamCreator__PrevFileHelperText}
           >
             Choose file..
           </label>
         </div>
-        <div className={classes.MidColumnWraper}>
+        <div className={classes.TeamCreator__MidColumnWraper}>
           <StylesProvider injectFirst>
             <Input
               type="text"
-              className={classes.MidColumnWraper__Input}
+              className={classes.TeamCreator__Input}
               placeholder="Team Name"
               autoFocus
               onChange={this.handleTeamNameChange}
               color="primary"
               required
             />
-            <div className={classes.Buttons}>
+            <div className={classes.TeamCreator__Buttons}>
               <Button
                 type="submit"
-                className={classes.Buttons__Button_Update}
+                className={classes.TeamCreator__Button_Update}
                 onClick={(event) => {
                   this.props.onSubmit(
                     this.state.newTeamName,
@@ -95,7 +95,7 @@ class TeamCreator extends Component {
                 add
               </Button>
               <Button
-                className={classes.Buttons__Button_Cancel}
+                className={classes.TeamCreator__Button_Cancel}
                 onClick={this.handleTeamCreatorClose}
                 variant="contained"
                 color="secondary"
@@ -108,11 +108,15 @@ class TeamCreator extends Component {
       </form>
     ) : (
       <div
-        className={classes.TeamCreator__Inactive}
+        className={classes.TeamCreator_Inactive}
         onClick={this.handleTeamCreatorOpen}
       >
-        <i className={`fas fa-users ${classes.UsersIcon}`}>
-          <i className={`fas fa-plus ${classes.UsersIcon__Plus}`}></i>
+        <i
+          className={`fas fa-users ${classes.TeamCreator_Inactive__UsersIcon}`}
+        >
+          <i
+            className={`fas fa-plus ${classes.TeamCreator_Inactive__UsersIcon_Plus}`}
+          ></i>
         </i>
         <span>add team</span>
       </div>

@@ -61,20 +61,20 @@ class Player extends Component {
     const player = this.state.editFormActive ? (
       <StylesProvider injectFirst>
         <form
-          className={classes.Player_Edit}
+          className={classes.Player_Editable}
           autoComplete="off"
           onChange={(event) => this.handleInputChange(event)}
         >
-          <div className={classes.FileUploadSection}>
-            <div className={classes.FileUploadSection__PreviewFile}>
+          <div className={classes.Player_Editable__FileUploadSection}>
+            <div className={classes.Player_Editable__PreviewFile}>
               <FilePreviewElement src={this.state.previewFile} />
               <label
                 htmlFor="photo"
                 className={
                   this.state.previewFile !==
                   "https://via.placeholder.com/45/eee?text=+"
-                    ? classes.FileUploadSection__HelperText_Hide
-                    : classes.FileUploadSection__HelperText
+                    ? classes.Player_Editable__PrevFileHelperText_Hide
+                    : classes.Player_Editable__PrevFileHelperText
                 }
               >
                 <i className={`fas fa-plus`}></i>
@@ -83,43 +83,43 @@ class Player extends Component {
             <input type="file" id="photo" onChange={this.handleImageSelect} />
           </div>
           <div
-            className={`${classes.InputSection} ${classes.InputSection_Number} `}
+            className={`${classes.Player_Editable__InputWraper} ${classes.Player_Editable_Number} `}
           >
             <input
               type="text"
               id="number"
-              className={`${classes.InputSection__TextInput} ${classes.InputSection__TextInput_Number}`}
+              className={`${classes.Player_Editable__InputText} ${classes.Player_Editable__InputText_Number}`}
               placeholder={this.props.playerInfo.number}
               onFocus={(event) => this.handleClearInput(event)}
             />
           </div>
           <div
-            className={`${classes.InputSection} ${classes.InputSection_FirstName} `}
+            className={`${classes.Player_Editable__InputWraper} ${classes.Player_Editable_FirstName} `}
           >
             <input
               type="text"
               id="firstName"
-              className={classes.InputSection__TextInput}
+              className={classes.Player_Editable__InputText}
               placeholder={this.props.playerInfo.firstName}
               onFocus={(event) => this.handleClearInput(event)}
             />
           </div>
           <div
-            className={`${classes.InputSection} ${classes.InputSection_LastName} `}
+            className={`${classes.Player_Editable__InputWraper} ${classes.Player_Editable_LastName} `}
           >
             <input
               type="text"
               id="lastName"
-              className={classes.InputSection__TextInput}
+              className={classes.Player_Editable__InputText}
               placeholder={this.props.playerInfo.lastName}
               onFocus={(event) => this.handleClearInput(event)}
             />
           </div>
-          <div className={classes.InputSection}>
+          <div className={classes.Player_Editable__InputWraper}>
             <select
               id="position"
               defaultValue={this.props.playerInfo.position}
-              className={classes.SelectField}
+              className={classes.Player_Editable__SelectField}
             >
               <option value="goalkeeper">Goalkeeper</option>
               <option value="defender">Defender</option>
@@ -128,20 +128,20 @@ class Player extends Component {
             </select>
           </div>
           <div
-            className={`${classes.InputSection} ${classes.InputSection_Birthday} `}
+            className={`${classes.Player_Editable__InputWraper} ${classes.Player_Editable_Birthday} `}
           >
             <input
               type="date"
               id="birth"
-              className={classes.InputSection__DateInput}
+              className={classes.Player_Editable__DateInput}
               defaultValue={this.props.playerInfo.birth}
             />
           </div>
-          <div className={classes.ButtonsSection}>
-            <div className={classes.Buttons}>
+          <div className={classes.Player_Editable__ButtonsWraper}>
+            <div className={classes.Player_Editable__Buttons}>
               <Tooltip title="Save" placement="bottom">
                 <i
-                  className={`fas fa-check ${classes.Buttons__Button} ${classes.Buttons__Button_Save}`}
+                  className={`fas fa-check ${classes.Player_Editable__Button} ${classes.Player_Editable__Button_Save}`}
                   variant="contained"
                   color="primary"
                   onClick={() => {
@@ -156,7 +156,7 @@ class Player extends Component {
               </Tooltip>
               <Tooltip title="Cancel" placement="bottom">
                 <i
-                  className={`fas fa-times ${classes.Buttons__Button} ${classes.Buttons__Button_Cancel}`}
+                  className={`fas fa-times ${classes.Player_Editable__Button} ${classes.Player_Editable__Button_Cancel}`}
                   variant="contained"
                   color="secondary"
                   onClick={this.handleEditFormClose}
@@ -169,11 +169,11 @@ class Player extends Component {
     ) : (
       <StylesProvider injectFirst>
         <div className={classes.Player}>
-          <div className={classes.Player__AvatarSection}>
+          <div className={classes.Player__AvatarWraper}>
             <Avatar
               alt={`Player Avatar`}
               src={this.props.playerPhoto || defaultImage}
-              className={classes.AvatarSection__Avatar}
+              className={classes.Player__Avatar}
               variant="rounded"
             />
           </div>
@@ -202,10 +202,10 @@ class Player extends Component {
           >
             <span>{this.props.playerInfo.birth}</span>
           </div>
-          <div className={`${classes.Icons}`}>
+          <div className={`${classes.Player__Icons}`}>
             <Tooltip title="Edit" placement="bottom">
               <i
-                className={`fas fa-edit ${classes.Icons__EditIcon}`}
+                className={`fas fa-edit ${classes.Player__Icon_Edit}`}
                 onClick={this.handleEditFormOpen}
               ></i>
             </Tooltip>
@@ -221,7 +221,7 @@ class Player extends Component {
               ></i>
             </Tooltip>
           </div>
-          <div className={classes.Player__CheckboxSection}>
+          <div className={classes.Player__CheckboxWraper}>
             {this.props.checkbox}
           </div>
         </div>

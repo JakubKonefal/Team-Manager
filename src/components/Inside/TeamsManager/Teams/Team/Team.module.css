@@ -1,4 +1,4 @@
-.Team_EditForm {
+.Team_Editable {
   display: flex;
   border: 3px solid #3a623a;
   border-radius: 10px;
@@ -7,21 +7,21 @@
   font-size: 35px;
 }
 
-.FileUploadSection {
+.Team_Editable__FileUploadSection {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 5px 15px 5px 5px;
 }
 
-.FileUploadSection__PreviewFile {
+.Team_Editable__PreviewFile {
   width: 100px;
   height: 100px;
   border: 3px dashed #bbb;
   border-radius: 5px;
   text-align: center;
 }
-.FileUploadSection__HelperText {
+.Team_Editable__PrevFileHelperText {
   margin-top: 10px;
   padding: 5px 7px;
   background-color: #71c333;
@@ -31,18 +31,18 @@
   cursor: pointer;
 }
 
-.FileUploadSection__HelperText:hover {
+.Team_Editable__PrevFileHelperText:hover {
   background-color: #82d444;
 }
 
-.MidColumnWraper {
+.Team_Editable__MidColumnWraper {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 30px 15px 0 15px;
 }
 
-.MidColumnWraper__Input {
+.Team_Editable__Input {
   box-sizing: border-box;
   width: 100%;
   padding: 5px 10px;
@@ -50,18 +50,18 @@
   font-weight: bold;
 }
 
-.MidColumnWraper__Input::after {
+.Team_Editable__Input::after {
   border-bottom-color: green;
 }
 
-.Buttons {
+.Team_Editable__Buttons {
   display: flex;
   justify-content: space-around;
   margin-top: 60px;
   width: 70%;
 }
 
-.Buttons__Button_Update {
+.Team_Editable__Button_Update {
   color: #eee;
   font-weight: bold;
   text-transform: uppercase;
@@ -72,11 +72,11 @@
   padding-right: 30px;
 }
 
-.Buttons__Button_Update:hover {
+.Team_Editable__Button_Update:hover {
   background-color: #339633;
 }
 
-.Buttons__Button_Cancel {
+.Team_Editable__Button_Cancel {
   color: #eee;
   font-weight: bold;
   text-transform: uppercase;
@@ -85,7 +85,7 @@
   cursor: pointer;
 }
 
-.Buttons__Button_Cancel:hover {
+.Team_Editable__Button_Cancel:hover {
   background-color: #fb3384;
 }
 
@@ -105,18 +105,18 @@
   height: 100px;
 }
 
-.Team__TeamName_Link {
+.Team__TeamName {
   margin-left: 30px;
   text-decoration: none;
   color: black;
   font-weight: bold;
 }
 
-.Team__TeamName_Link:hover {
+.Team__TeamName:hover {
   color: #3a623a;
 }
 
-.Icons {
+.Team__Icons {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -124,18 +124,18 @@
   margin-left: auto;
 }
 
-.Icons .Icons__Icon {
+.Team__Icons .Team__Icon {
   font-size: 22px;
   color: #707070;
   transition: 0.3s;
   cursor: pointer;
 }
 
-.Icons .Icons__Icon:hover {
+.Team__Icons .Icons__Icon:hover {
   color: #505050;
 }
 
-.Icons__TrashIcon {
+.Team__Icon_Trash {
   margin-bottom: 35px;
 }
 

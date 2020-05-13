@@ -1,4 +1,4 @@
-.Background {
+.LP__Background {
   width: 100%;
   min-height: 100vh;
   background-image: url(../../assets/img/lp_background.png);
@@ -8,23 +8,23 @@
   padding-top: 60px;
 }
 
-.PageWraper {
+.LP__PageWraper {
   display: flex;
   flex-direction: column;
   width: 90%;
   margin: 0 auto;
 }
 
-.TopBar {
+.LP__TopBar {
   display: flex;
   margin-left: 40px;
 }
 
-.TopBar__Logo_Img {
+.LP__Logo_Img {
   height: 85px;
 }
 
-.TopBar__Logo_Label {
+.LP__Logo_Label {
   margin: 7px 0 0 30px;
   font-size: 50px;
   color: #051131;
@@ -32,24 +32,24 @@
   font-weight: 600;
 }
 
-.Navigation {
+.LP__Navigation {
   display: flex;
   align-items: center;
   margin-left: auto;
 }
 
-.Navigation__Item_Text {
+.LP__NavItem {
   font-size: 30px;
   margin-right: 60px;
   font-family: "Montserrat", sans-serif;
 }
 
-.Buttons {
+.LP__Buttons {
   display: flex;
   align-items: center;
 }
 
-.Buttons__Button {
+.LP__Button {
   padding: 12px 22px;
   border: none;
   border-radius: 30px;
@@ -60,22 +60,24 @@
   font-size: 16px;
 }
 
-.Buttons__Button_SignUp {
+.LP__Button_SignUp {
+  cursor: pointer;
   background-color: #ff005a;
   margin-left: 40px;
 }
 
-.Buttons__Button_Login {
+.LP__Button_Login {
+  cursor: pointer;
   background-color: #59c800;
   margin-left: 40px;
 }
 
-.Description {
+.LP__Description {
   width: 40%;
   margin-left: 40px;
 }
 
-.Description__Title {
+.LP__DescriptionTitle {
   margin-bottom: 20px;
   font-size: 90px;
   color: #051131;
@@ -85,7 +87,7 @@
   letter-spacing: 5px;
 }
 
-.Description__Subtitle {
+.LP__DescriptionSubtitle {
   margin: 0 0 40px 0;
   font-family: "Montserrat", sans-serif;
   font-size: 44px;
@@ -94,7 +96,7 @@
   text-transform: uppercase;
 }
 
-.Description__Text {
+.LP__DescriptionText {
   box-sizing: border-box;
   padding-right: 40px;
   line-height: 200%;
@@ -102,6 +104,6 @@
   font-family: "Montserrat", sans-serif;
 }
 
-.ModalContent {
+.LP__Modal {
   outline: none;
 }

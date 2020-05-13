@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import classes from "./Outside.module.css";
 import Logo from "../../assets/img/logo.png";
 import Register from "../Register/Register";
+import Login from "../Login/Login";
 import StylesProvider from "@material-ui/styles/StylesProvider";
 import Modal from "@material-ui/core/Modal";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -22,23 +23,23 @@ class Outside extends Component {
 
   render() {
     return (
-      <div className={classes.Background}>
-        <div className={classes.PageWraper}>
-          <div className={classes.TopBar}>
-            <img src={Logo} className={classes.TopBar__Logo_Img} alt="Logo" />
-            <h4 className={classes.TopBar__Logo_Label}>localCoach</h4>
-            <nav className={classes.Navigation}>
-              <span className={classes.Navigation__Item_Text}>Home</span>
-              <span className={classes.Navigation__Item_Text}>Contact</span>
-              <div className={classes.Buttons}>
+      <div className={classes.LP__Background}>
+        <div className={classes.LP__PageWraper}>
+          <div className={classes.LP__TopBar}>
+            <img src={Logo} className={classes.LP__Logo_Img} alt="Logo" />
+            <h4 className={classes.LP__Logo_Label}>localCoach</h4>
+            <nav className={classes.LP__Navigation}>
+              <span className={classes.LP__NavItem}>Home</span>
+              <span className={classes.LP__NavItem}>Contact</span>
+              <div className={classes.LP__Buttons}>
                 <button
-                  className={`${classes.Buttons__Button} ${classes.Buttons__Button_SignUp} `}
+                  className={`${classes.LP__Button} ${classes.LP__Button_SignUp} `}
                   onClick={() => this.handleModalOpen("signUpOpen")}
                 >
                   sign up
                 </button>
                 <button
-                  className={`${classes.Buttons__Button} ${classes.Buttons__Button_Login} `}
+                  className={`${classes.LP__Button} ${classes.LP__Button_Login} `}
                   onClick={() => this.handleModalOpen("loginOpen")}
                 >
                   login
@@ -46,10 +47,10 @@ class Outside extends Component {
               </div>
             </nav>
           </div>
-          <div className={classes.Description}>
-            <h2 className={classes.Description__Title}>football</h2>
-            <h3 className={classes.Description__Subtitle}>team - manager</h3>
-            <p className={classes.Description__Text}>
+          <div className={classes.LP__Description}>
+            <h2 className={classes.LP__DescriptionTitle}>football</h2>
+            <h3 className={classes.LP__DescriptionSubtitle}>team - manager</h3>
+            <p className={classes.LP__DescriptionText}>
               Manage your football teams online. Gather all information about
               teams, players and trainings in one place!
             </p>
@@ -57,13 +58,15 @@ class Outside extends Component {
         </div>
         <StylesProvider injectFirst>
           <Modal open={this.state.signUpOpen} onClose={this.handleModalClose}>
-            <DialogContent className={classes.ModalContent}>
+            <DialogContent className={classes.LP__Modal}>
               <Register />
             </DialogContent>
           </Modal>
-          {/* <Modal open={this.state.loginOpen} onClose={this.handleModalClose}>
-          <p className={classes.Modal_SignUp}>LOGIN</p>
-        </Modal> */}
+          <Modal open={this.state.loginOpen} onClose={this.handleModalClose}>
+            <DialogContent className={classes.LP__Modal}>
+              <Login />
+            </DialogContent>
+          </Modal>
         </StylesProvider>
       </div>
     );

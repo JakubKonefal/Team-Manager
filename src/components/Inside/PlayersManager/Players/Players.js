@@ -235,41 +235,41 @@ class Players extends Component {
   render() {
     const teamPlayers = this.state.players && (
       <div className={classes.PlayersList}>
-        <div className={classes.InfoBar}>
-          <span className={classes.InfoBar__Info_Player}>player</span>
+        <div className={classes.PlayersList__InfoBar}>
+          <span className={classes.PlayersList__InfoTile_Player}>player</span>
           <span
-            className={`${classes.InfoBar__Info_Number} ${classes.InfoBar__Info_Sortable}`}
+            className={`${classes.PlayersList__InfoTile_Number} ${classes.PlayersList__InfoTile_Sortable}`}
             onClick={(event) => this.handlePlayersSort(event, "number")}
           >
             nr
           </span>
           <span
-            className={`${classes.InfoBar__Info_FirstName} ${classes.InfoBar__Info_Sortable}`}
+            className={`${classes.PlayersList__InfoTile_FirstName} ${classes.PlayersList__InfoTile_Sortable}`}
             onClick={(event) => this.handlePlayersSort(event, "firstName")}
           >
             first name
           </span>
           <span
-            className={`${classes.InfoBar__Info_LastName} ${classes.InfoBar__Info_Sortable}`}
+            className={`${classes.PlayersList__InfoTile_LastName} ${classes.PlayersList__InfoTile_Sortable}`}
             onClick={(event) => this.handlePlayersSort(event, "lastName")}
           >
             last name
           </span>
           <span
-            className={`${classes.InfoBar__Info_Position} ${classes.InfoBar__Info_Sortable}`}
+            className={`${classes.PlayersList__InfoTile_Position} ${classes.PlayersList__InfoTile_Sortable}`}
             onClick={(event) => this.handlePlayersSort(event, "position")}
           >
             position
           </span>
           <span
-            className={`${classes.InfoBar__Info_Birthday} ${classes.InfoBar__Info_Sortable}`}
+            className={`${classes.PlayersList__InfoTile_Birthday} ${classes.PlayersList__InfoTile_Sortable}`}
             onClick={(event) => this.handlePlayersSort(event, "birth")}
           >
             birthday
           </span>
-          <span className={classes.InfoBar__Info_Actions}>actions</span>
+          <span className={classes.PlayersList__InfoTile_Actions}>actions</span>
           <Tooltip
-            className={classes.InfoBar__InfoIcon}
+            className={classes.PlayersList__InfoIcon}
             title="Ctrl + click to sort in opposite order"
             placement="top"
           >
@@ -302,10 +302,10 @@ class Players extends Component {
             />
           );
         })}
-        <div className={classes.ActionPanel}>
+        <div className={classes.PlayersList__ActionPanel}>
           <StylesProvider injectFirst>
             <Button
-              className={classes.ActionPanel__Button_Delete}
+              className={classes.PlayersList__Button_Delete}
               variant="contained"
               color="secondary"
               size="small"
@@ -314,7 +314,7 @@ class Players extends Component {
             >
               delete
             </Button>
-            <div className={classes.ActionPanel__Checkbox}>
+            <div className={classes.PlayersList__Checkbox}>
               <Checkbox onChange={this.handleCheckboxSelectAll} />
             </div>
           </StylesProvider>

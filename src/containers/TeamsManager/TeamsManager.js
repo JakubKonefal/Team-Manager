@@ -10,7 +10,7 @@ const TeamsManager = () => (
       <h1 className={classes.TeamsManager__Header}>
         Choose team to manage or create a new one:
       </h1>
-      <ul className={classes.TeamsList}>
+      <ul className={classes.TeamsManager__TeamsList}>
         <Teams />
       </ul>
     </div>

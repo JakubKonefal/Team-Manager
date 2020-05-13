@@ -69,10 +69,8 @@ class PlayerCreator extends Component {
   render() {
     const playerCreator = this.state.playerCreatorActive ? (
       <StylesProvider injectFirst>
-        <div className={classes.PlayerCreatorHeader}>
-          <h2 className={classes.PlayerCreatorHeader__Title}>
-            Create new player
-          </h2>
+        <div className={classes.PlayerCreator__Header}>
+          <h2 className={classes.PlayerCreator__Title}>Create new player</h2>
         </div>
         <form
           className={classes.PlayerCreator}
@@ -86,14 +84,14 @@ class PlayerCreator extends Component {
             this.handlePlayerCreatorClose();
           }}
         >
-          <div className={classes.FileUploadSection}>
-            <div className={classes.FileUploadSection__PreviewFile}>
+          <div className={classes.PlayerCreator__FileUploadSection}>
+            <div className={classes.PlayerCreator__PreviewFile}>
               <FilePreviewElement src={this.state.previewFile} />
             </div>
             <input type="file" id="photo" onChange={this.handleImageSelect} />
             <label
               htmlFor="photo"
-              className={classes.FileUploadSection__HelperText}
+              className={classes.PlayerCreator__PrevFileHelperText}
             >
               Choose file..
             </label>
@@ -149,17 +147,17 @@ class PlayerCreator extends Component {
               shrink: true,
             }}
           />
-          <div className={classes.Buttons}>
+          <div className={classes.PlayerCreator__Buttons}>
             <Button
               type="submit"
-              className={classes.Buttons__Button_Add}
+              className={classes.PlayerCreator__Button_Add}
               variant="contained"
               color="primary"
             >
               add
             </Button>
             <Button
-              className={classes.Buttons__Button_Cancel}
+              className={classes.PlayerCreator__Button_Cancel}
               variant="contained"
               color="secondary"
               onClick={this.handlePlayerCreatorClose}
