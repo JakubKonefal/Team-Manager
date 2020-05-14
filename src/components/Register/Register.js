@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import classes from "./Register.module.css";
+import { auth } from "../../firebase/firebase";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import MailOutline from "@material-ui/icons/MailOutline";
 import LockOutlined from "@material-ui/icons/LockOutlined";
+import CheckCircle from "@material-ui/icons/CheckCircle";
 import Button from "@material-ui/core/Button";
 
 class Register extends Component {
   state = {
     email: "",
     password: "",
+    registered: false,
   };
 
   handleInputChange = ({ target }) => {
@@ -19,16 +22,28 @@ class Register extends Component {
     });
   };
 
-  handleFormSubmit = () => {
-    alert("Register");
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+    const { email, password } = this.state;
+    auth.createUserWithEmailAndPassword(email, password).then(() => {
+      this.setState({ registered: true });
+    });
   };
 
   render() {
-    return (
+    const register = this.state.registered ? (
+      <div className={classes.Register_After}>
+        <CheckCircle className={classes.Register_After__DoneIcon} />
+        <p className={classes.Register_After__Text}>
+          Your account has been created!
+        </p>
+        <p className={classes.Register_After__Text}>You may now log in.</p>
+      </div>
+    ) : (
       <form
         className={classes.Register}
         onChange={(event) => this.handleInputChange(event)}
-        onSubmit={this.handleFormSubmit}
+        onSubmit={(event) => this.handleFormSubmit(event)}
       >
         <div className={classes.Register__Header}>
           <h3 className={classes.Register__Title}>sign up</h3>
@@ -78,6 +93,8 @@ class Register extends Component {
         </Button>
       </form>
     );
+
+    return <>{register}</>;
   }
 }
 

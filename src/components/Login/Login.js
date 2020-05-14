@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import classes from "./Login.module.css";
+import { auth } from "../../firebase/firebase";
+import { withRouter } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import MailOutline from "@material-ui/icons/MailOutline";
@@ -19,8 +21,18 @@ class Login extends Component {
     });
   };
 
-  handleFormSubmit = () => {
-    alert("Login");
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+    const { history } = this.props;
+    const { email, password } = this.state;
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        history.push("/my-teams");
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
 
   render() {
@@ -28,7 +40,7 @@ class Login extends Component {
       <form
         className={classes.Login}
         onChange={(event) => this.handleInputChange(event)}
-        onSubmit={this.handleFormSubmit}
+        onSubmit={(event) => this.handleFormSubmit(event)}
       >
         <div className={classes.Login__Header}>
           <h3 className={classes.Login__Title}>login</h3>
@@ -73,11 +85,11 @@ class Login extends Component {
           type="submit"
           variant="contained"
         >
-          sign up
+          log in
         </Button>
       </form>
     );
   }
 }
 
-export default Login;
+export default withRouter(Login);
