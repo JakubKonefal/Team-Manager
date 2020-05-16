@@ -1,18 +1,11 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
 import classes from "./TeamsManager.module.css";
 import { auth } from "../../firebase/firebase";
 import "../../assets/webfonts/all.css";
 import MainContentWraper from "../../components/MainContentWraper/MainContentWraper";
 import Teams from "../../components/Inside/TeamsManager/Teams/Teams";
 
-const TeamsManager = ({ history }) => {
-  auth.onAuthStateChanged((user) => {
-    if (!user) {
-      history.push("/");
-    }
-  });
-
+const TeamsManager = () => {
   return (
     <MainContentWraper>
       <div className={classes.TeamsManager}>

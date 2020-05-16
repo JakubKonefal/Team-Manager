@@ -1,7 +1,8 @@
 import React from "react";
 import classes from "./TeamManager.module.css";
 import MainContentWraper from "../../../components/MainContentWraper/MainContentWraper";
-import { Route, Link, Switch } from "react-router-dom";
+import { Link, Switch } from "react-router-dom";
+import ProtectedRoute from "../../../hoc/ProtectedRoute/ProtectedRoute";
 import PlayersManager from "../../../components/Inside/PlayersManager/PlayersManager";
 import TrainingsManager from "../../../components/Inside/TrainingsManager/TrainingsManager";
 import TrainingOverview from "../../../components/Inside/TrainingsManager/Trainings/TrainingOverview/TrainingOverview";
@@ -33,13 +34,16 @@ const TeamManager = ({ location }) => (
         <li className={classes.Navbar__Item}>Settings</li>
       </ul>
       <div>
-        <Route path="/my-teams/:teamId/players" component={PlayersManager} />
+        <ProtectedRoute
+          path="/my-teams/:teamId/players"
+          component={PlayersManager}
+        />
         <Switch>
-          <Route
+          <ProtectedRoute
             path="/my-teams/:teamId/trainings/:year/:month/:trainingId"
             component={TrainingOverview}
           />
-          <Route
+          <ProtectedRoute
             path="/my-teams/:teamId/trainings"
             component={TrainingsManager}
           />
