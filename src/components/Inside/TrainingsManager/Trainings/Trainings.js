@@ -21,10 +21,12 @@ class Trainings extends Component {
   };
 
   componentDidMount() {
-    const { teamId } = this.props;
+    const { teamId, userId } = this.props;
 
     axios
-      .get(`https://team-manager-b8e8c.firebaseio.com/${teamId}/trainings.json`)
+      .get(
+        `https://team-manager-b8e8c.firebaseio.com/users/${userId}/teams/${teamId}/trainings.json`
+      )
       .then((res) => {
         const trainings = res.data;
         if (trainings) {
@@ -34,13 +36,13 @@ class Trainings extends Component {
   }
 
   handleFormSubmitNewTraining = (newTrainingInfo) => {
-    const { teamId } = this.props;
+    const { teamId, userId } = this.props;
     const { date } = newTrainingInfo;
     const newTrainingYear = moment(date).format("YYYY");
     const newTrainingMonth = moment(date).format("MMMM");
 
     const databaseRef = database.ref(
-      `${teamId}/trainings/${newTrainingYear}/${newTrainingMonth}`
+      `/users/${userId}/teams/${teamId}/trainings/${newTrainingYear}/${newTrainingMonth}`
     );
     const trainingId = databaseRef.push().key;
     const newTraining = {
@@ -95,7 +97,7 @@ class Trainings extends Component {
   };
 
   handleFormSubmitNewTrainings = (newTrainingsInfo) => {
-    const { teamId } = this.props;
+    const { teamId, userId } = this.props;
     const { from, to, daysOfWeek, ...trainingInfo } = newTrainingsInfo;
     const daysOfWeekAsNumbers = this.getDaysOfWeekAsNumbers(daysOfWeek);
     const selectedDaysArray = this.getSelectedDaysArray(
@@ -109,7 +111,7 @@ class Trainings extends Component {
       const dateMonth = moment(day).format("MMMM");
 
       const databaseRef = database.ref(
-        `${teamId}/trainings/${dateYear}/${dateMonth}`
+        `/users/${userId}/teams/${teamId}/trainings/${dateYear}/${dateMonth}`
       );
       const trainingId = databaseRef.push().key;
       const newTraining = {
@@ -162,6 +164,7 @@ class Trainings extends Component {
     const trainingYears = this.state.trainings
       ? trainingsYearsArray.map((year, index) => (
           <TrainingYear
+            userId={this.props.userId}
             teamId={this.props.teamId}
             trainings={year}
             key={trainingsYears[index]}

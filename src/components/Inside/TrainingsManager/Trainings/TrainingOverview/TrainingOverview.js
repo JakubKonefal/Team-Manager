@@ -13,10 +13,11 @@ class TrainingOverview extends Component {
 
   componentDidMount() {
     const { teamId, year, month, trainingId } = this.props.match.params;
+    const { userId } = this.props;
 
     axios
       .get(
-        `https://team-manager-b8e8c.firebaseio.com/${teamId}/trainings/${year}/${month}/${trainingId}.json`
+        `https://team-manager-b8e8c.firebaseio.com/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}.json`
       )
       .then((res) => {
         const { trainingInfo } = res.data;
@@ -28,18 +29,19 @@ class TrainingOverview extends Component {
 
   handleFormSubmitTrainingInfoUpdate = (updatedTrainingInfo) => {
     const { teamId, year, month, trainingId } = this.props.match.params;
+    const { userId } = this.props;
     const { date } = updatedTrainingInfo;
     const updatedDateYear = moment(date).format("YYYY");
     const updatedDateMonth = moment(date).format("MMMM");
     const databaseRef = database.ref(
-      `${teamId}/trainings/${year}/${month}/${trainingId}`
+      `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/trainingInfo`
     );
 
     if (year === updatedDateYear && month === updatedDateMonth) {
       databaseRef.set(updatedTrainingInfo);
     } else {
       const updatedDatabaseRef = database.ref(
-        `${teamId}/trainings/${updatedDateYear}/${updatedDateMonth}/${trainingId}`
+        `/users/${userId}/teams/${teamId}/trainings/${updatedDateYear}/${updatedDateMonth}/${trainingId}/trainingInfo`
       );
       const updatedTraining = {
         trainingId,
@@ -82,6 +84,7 @@ class TrainingOverview extends Component {
         </div>
         <div className={classes.TrainingOverview__TrainingPlan}>
           <TrainingPlan
+            userId={this.props.userId}
             teamId={this.props.match.params.teamId}
             year={this.props.match.params.year}
             month={this.props.match.params.month}

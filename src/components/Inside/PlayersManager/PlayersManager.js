@@ -6,7 +6,7 @@ const PlayersManager = (props) => {
   return (
     <div className={classes.PlayersManager}>
       <h2>Players:</h2>
-      <Players teamId={props.match.params.teamId} />
+      <Players teamId={props.match.params.teamId} userId={props.userId} />
     </div>
   );
 };

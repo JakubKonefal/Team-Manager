@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import classes from "./Register.module.css";
-import { auth } from "../../firebase/firebase";
+import { auth, database } from "../../firebase/firebase";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import MailOutline from "@material-ui/icons/MailOutline";
@@ -25,7 +25,11 @@ class Register extends Component {
   handleFormSubmit = (e) => {
     e.preventDefault();
     const { email, password } = this.state;
-    auth.createUserWithEmailAndPassword(email, password).then(() => {
+    auth.createUserWithEmailAndPassword(email, password).then((res) => {
+      database.ref(`users/${res.user.uid}`).set({
+        userId: res.user.uid,
+        userEmail: email,
+      });
       this.setState({ registered: true });
     });
   };

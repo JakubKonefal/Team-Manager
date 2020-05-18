@@ -10,11 +10,11 @@ class TrainingTasks extends Component {
   };
 
   componentDidMount() {
-    const { teamId, year, month, trainingId } = this.props;
+    const { userId, teamId, year, month, trainingId } = this.props;
 
     axios
       .get(
-        `https://team-manager-b8e8c.firebaseio.com/${teamId}/trainings/${year}/${month}/${trainingId}/tasks.json`
+        `https://team-manager-b8e8c.firebaseio.com/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks.json`
       )
       .then((res) => {
         const tasks = res.data;
@@ -27,9 +27,9 @@ class TrainingTasks extends Component {
 
   handleFormSubmitNewTask = (newTaskInfo, e) => {
     e.preventDefault();
-    const { teamId, year, month, trainingId } = this.props;
+    const { userId, teamId, year, month, trainingId } = this.props;
     const databaseRef = database.ref(
-      `${teamId}/trainings/${year}/${month}/${trainingId}/tasks`
+      `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks`
     );
     const taskId = databaseRef.push().key;
     const newTask = {
@@ -47,9 +47,11 @@ class TrainingTasks extends Component {
   };
 
   handleTaskDelete = (taskId) => {
-    const { teamId, year, month, trainingId } = this.props;
+    const { userId, teamId, year, month, trainingId } = this.props;
     database
-      .ref(`${teamId}/trainings/${year}/${month}/${trainingId}/tasks/${taskId}`)
+      .ref(
+        `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks/${taskId}`
+      )
       .remove();
     this.updateTasksArrayOnTaskDelete(taskId);
   };
@@ -63,10 +65,10 @@ class TrainingTasks extends Component {
   };
 
   handleFormSubmitTaskEdit = (taskId, taskInfo) => {
-    const { teamId, year, month, trainingId } = this.props;
+    const { userId, teamId, year, month, trainingId } = this.props;
     database
       .ref(
-        `${teamId}/trainings/${year}/${month}/${trainingId}/tasks/${taskId}/taskInfo`
+        `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks/${taskId}/taskInfo`
       )
       .set(taskInfo);
     this.updateTasksArrayOnTaskEdit(taskId, taskInfo);

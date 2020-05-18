@@ -13,37 +13,37 @@ class TrainingPlan extends Component {
     trainingPlanActive: true,
   };
 
-  componentDidMount() {
-    const { teamId, year, month, trainingId } = this.props;
+  // componentDidMount() {
+  //   const {userId, teamId, year, month, trainingId } = this.props;
 
-    axios
-      .get(
-        `https://team-manager-b8e8c.firebaseio.com/${teamId}/trainings/${year}/${month}/${trainingId}/tasks.json`
-      )
-      .then((res) => {
-        const tasks = res.data;
-        if (tasks) {
-          const tasksArr = Object.values(tasks);
-          this.setState({ tasks: tasksArr });
-        }
-      });
-  }
+  //   axios
+  //     .get(
+  //       `https://team-manager-b8e8c.firebaseio.com/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks.json`
+  //     )
+  //     .then((res) => {
+  //       const tasks = res.data;
+  //       if (tasks) {
+  //         const tasksArr = Object.values(tasks);
+  //         this.setState({ tasks: tasksArr });
+  //       }
+  //     });
+  // }
 
-  handleFormSubmitNewTask = (newTaskInfo, e) => {
-    e.preventDefault();
+  // handleFormSubmitNewTask = (newTaskInfo, e) => {
+  //   e.preventDefault();
 
-    const { teamId, year, month, trainingId } = this.props;
+  //   const {userId, teamId, year, month, trainingId } = this.props;
 
-    const databaseRef = database.ref(
-      `${teamId}/trainings/${year}/${month}/${trainingId}/tasks`
-    );
-    const taskId = databaseRef.push().key;
-    const newTask = {
-      taskId,
-      task: { ...newTaskInfo },
-    };
-    databaseRef.child(taskId).set(newTask);
-  };
+  //   const databaseRef = database.ref(
+  //     `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks`
+  //   );
+  //   const taskId = databaseRef.push().key;
+  //   const newTask = {
+  //     taskId,
+  //     task: { ...newTaskInfo },
+  //   };
+  //   databaseRef.child(taskId).set(newTask);
+  // };
 
   handleTrainingPlanToggle = () => {
     this.setState({ trainingPlanActive: !this.state.trainingPlanActive });
@@ -61,6 +61,7 @@ class TrainingPlan extends Component {
         <Collapse in={this.state.trainingPlanActive}>
           <CardContent className={classes.TrainingPlan__Content}>
             <TrainingTasks
+              userId={this.props.userId}
               teamId={this.props.teamId}
               year={this.props.year}
               month={this.props.month}

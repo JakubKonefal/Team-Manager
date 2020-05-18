@@ -5,7 +5,7 @@ import "../../assets/webfonts/all.css";
 import MainContentWraper from "../../components/MainContentWraper/MainContentWraper";
 import Teams from "../../components/Inside/TeamsManager/Teams/Teams";
 
-const TeamsManager = () => {
+const TeamsManager = ({ userId }) => {
   return (
     <MainContentWraper>
       <div className={classes.TeamsManager}>
@@ -13,7 +13,7 @@ const TeamsManager = () => {
           Choose team to manage or create a new one:
         </h1>
         <ul className={classes.TeamsManager__TeamsList}>
-          <Teams />
+          <Teams userId={userId} />
         </ul>
         <button
           onClick={() => {

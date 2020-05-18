@@ -12,39 +12,37 @@ class ProtectedRoute extends Component {
     auth.onAuthStateChanged((user) => {
       if (!user) {
         this.setState({ route: <Redirect to="/" /> });
+      } else {
+        const { component: Component, ...rest } = this.props;
+        const route = (
+          <Route
+            {...rest}
+            render={(props) => {
+              return <Component {...props} userId={user.uid} />;
+            }}
+          />
+        );
+
+        this.setState({
+          route,
+        });
       }
     });
   };
 
   componentDidMount() {
-    this.setState({
-      route: (
-        <Route
-          component={this.props.component}
-          path={this.props.path}
-          exact={this.props.exact}
-        />
-      ),
-    });
+    this.isLoggedIn();
+    console.log("ComponentDidMount");
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.component !== this.props.component) {
-      this.setState({
-        route: (
-          <Route
-            component={this.props.component}
-            path={this.props.path}
-            exact={this.props.exact}
-          />
-        ),
-      });
+      this.isLoggedIn();
+      console.log("ComponentDidUpdate");
     }
   }
 
   render() {
-    this.isLoggedIn();
-
     return this.state.route;
   }
 }

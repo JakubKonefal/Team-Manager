@@ -21,12 +21,14 @@ class Players extends Component {
   };
 
   componentDidMount() {
-    const { teamId } = this.props;
+    const { teamId, userId } = this.props;
 
     axios
-      .get(`https://team-manager-b8e8c.firebaseio.com/${teamId}.json`)
+      .get(
+        `https://team-manager-b8e8c.firebaseio.com/users/${userId}/teams/${teamId}/players.json`
+      )
       .then((res) => {
-        const { players } = res.data;
+        const players = res.data;
         if (players) {
           const playersArray = Object.values(players);
           const playersSortedByNumber = playersArray.sort((a, b) => {
@@ -72,14 +74,18 @@ class Players extends Component {
   };
 
   handleCheckedPlayersDelete = () => {
-    const { teamId } = this.props;
+    const { teamId, userId } = this.props;
     const checkedPlayers = this.state.playersCheckboxes.filter(
       (item) => item.checked
     );
     checkedPlayers.forEach((player) => {
-      database.ref(`${teamId}/players/${player.id}`).remove();
+      database
+        .ref(`/users/${userId}/teams/${teamId}/players/${player.id}`)
+        .remove();
       if (player.photo) {
-        storage.ref(`images/teams/${teamId}/players/${player.id}`).delete();
+        storage
+          .ref(`/users/${userId}/images/teams/${teamId}/players/${player.id}`)
+          .delete();
       }
     });
     const checkedPlayersIds = checkedPlayers.map((player) => player.id);
@@ -87,10 +93,14 @@ class Players extends Component {
   };
 
   handlePlayerDelete = (playerId, photo) => {
-    const { teamId } = this.props;
-    database.ref(`${teamId}/players/${playerId}`).remove();
+    const { teamId, userId } = this.props;
+    database
+      .ref(`/users/${userId}/teams/${teamId}/players/${playerId}`)
+      .remove();
     if (photo) {
-      storage.ref(`images/teams/${teamId}/players/${playerId}`).delete();
+      storage
+        .ref(`/users/${userId}/images/teams/${teamId}/players/${playerId}`)
+        .delete();
     }
     this.updatePlayersArrayOnPlayerDelete(playerId);
   };
@@ -112,16 +122,16 @@ class Players extends Component {
   };
 
   handleImageUpload = async (playerId, selectedImage) => {
-    const { teamId } = this.props;
+    const { teamId, userId } = this.props;
     await storage
-      .ref(`images/teams/${teamId}/players/${playerId}`)
+      .ref(`/users/${userId}/images/teams/${teamId}/players/${playerId}`)
       .put(selectedImage);
   };
 
   getUploadedImageUrl = async (playerId) => {
-    const { teamId } = this.props;
+    const { teamId, userId } = this.props;
     await storage
-      .ref(`images/teams/${teamId}/players/${playerId}`)
+      .ref(`/users/${userId}/images/teams/${teamId}/players/${playerId}`)
       .getDownloadURL()
       .then((url) => {
         this.setState({ uploadedImageUrl: url });
@@ -129,9 +139,9 @@ class Players extends Component {
   };
 
   assignUploadedImageUrl = (playerId) => {
-    const { teamId } = this.props;
+    const { teamId, userId } = this.props;
     database
-      .ref(`/${teamId}/players/${playerId}/`)
+      .ref(`/users/${userId}/teams/${teamId}/players/${playerId}`)
       .update({ playerPhoto: this.state.uploadedImageUrl });
   };
 
@@ -162,8 +172,10 @@ class Players extends Component {
 
   handleFormSubmitNewPlayer = (playerInfo, playerPhoto, e) => {
     e.preventDefault();
-    const { teamId } = this.props;
-    const databaseRef = database.ref(`${teamId}/players`);
+    const { teamId, userId } = this.props;
+    const databaseRef = database.ref(
+      `/users/${userId}/teams/${teamId}/players`
+    );
     const playerId = databaseRef.push().key;
     const newPlayer = {
       playerId,
@@ -182,8 +194,10 @@ class Players extends Component {
   };
 
   handleFormSubmitEditPlayer = (playerId, playerInfo, playerPhoto) => {
-    const { teamId } = this.props;
-    database.ref(`${teamId}/players/${playerId}/playerInfo`).set(playerInfo);
+    const { teamId, userId } = this.props;
+    database
+      .ref(`/users/${userId}/teams/${teamId}/players/${playerId}/playerInfo`)
+      .set(playerInfo);
     if (playerPhoto) {
       this.handleImageUpload(playerId, playerPhoto).then(() => {
         this.getUploadedImageUrl(playerId).then(() => {

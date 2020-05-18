@@ -54,13 +54,15 @@ class TrainingMonth extends Component {
   };
 
   handleCheckedTrainingsDelete = () => {
-    const { teamId, year, month } = this.props;
+    const { userId, teamId, year, month } = this.props;
     const checkedTrainings = this.state.trainingsCheckboxes.filter(
       (item) => item.checked
     );
     checkedTrainings.forEach((training) =>
       database
-        .ref(`${teamId}/trainings/${year}/${month}/${training.id}`)
+        .ref(
+          `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${training.id}`
+        )
         .remove()
     );
     const checkedTrainingsIds = checkedTrainings.map((training) => training.id);
@@ -68,7 +70,7 @@ class TrainingMonth extends Component {
   };
 
   handleCheckedTrainingsEdit = (editedTrainingsInfo) => {
-    const { teamId, year, month } = this.props;
+    const { userId, teamId, year, month } = this.props;
     const { date, ...restInfo } = editedTrainingsInfo;
     const checkedTrainings = this.state.trainingsCheckboxes.filter(
       (item) => item.checked
@@ -77,7 +79,9 @@ class TrainingMonth extends Component {
       checkedTrainings.length > 1 ? restInfo : editedTrainingsInfo;
     checkedTrainings.forEach((training) =>
       database
-        .ref(`${teamId}/trainings/${year}/${month}/${training.id}/trainingInfo`)
+        .ref(
+          `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${training.id}/trainingInfo`
+        )
         .update(updatedInfo)
     );
     setTimeout(() => window.location.reload(), 800);

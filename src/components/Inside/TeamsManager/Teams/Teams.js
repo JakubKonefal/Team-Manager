@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Team from "./Team/Team";
 import TeamCreator from "./TeamCreator/TeamCreator";
-import { storage, database } from "../../../../firebase/firebase";
+import { storage, database, auth } from "../../../../firebase/firebase";
 
 class Teams extends Component {
   state = {
@@ -16,13 +16,18 @@ class Teams extends Component {
   };
 
   componentDidMount() {
-    axios.get("https://team-manager-b8e8c.firebaseio.com/.json").then((res) => {
-      const teams = res.data;
-      if (teams) {
-        const teamsArr = Object.values(teams);
-        this.setState({ teams: teamsArr });
-      }
-    });
+    const { userId } = this.props;
+    axios
+      .get(
+        `https://team-manager-b8e8c.firebaseio.com/users/${userId}/teams.json`
+      )
+      .then((res) => {
+        const teams = res.data;
+        if (teams) {
+          const teamsArr = Object.values(teams);
+          this.setState({ teams: teamsArr });
+        }
+      });
   }
 
   handleFormSubmitEditTeam = (teamId, updatedTeamName, updatedImage, e) => {
@@ -44,10 +49,11 @@ class Teams extends Component {
 
   handleFormSubmitNewTeam = (newTeamName, selectedImage, e) => {
     e.preventDefault();
-    const databaseRootRef = database.ref();
-    const teamId = databaseRootRef.push().key;
+    const { userId } = this.props;
+    const databsseRef = database.ref(`/users/${userId}/teams`);
+    const teamId = databsseRef.push().key;
     const newTeam = { teamName: newTeamName, teamId: teamId, teamLogo: "" };
-    databaseRootRef.child(teamId).set(newTeam);
+    databsseRef.child(teamId).set(newTeam);
 
     selectedImage
       ? this.handleImageUpload(teamId, selectedImage).then(() => {
@@ -63,14 +69,16 @@ class Teams extends Component {
   };
 
   handleImageUpload = async (teamId, selectedImage) => {
+    const { userId } = this.props;
     await storage
-      .ref(`images/teams/${teamId}/team-logo/${teamId}`)
+      .ref(`users/${userId}/images/teams/${teamId}/team-logo/${teamId}`)
       .put(selectedImage);
   };
 
   getUploadedImageUrl = async (teamId) => {
+    const { userId } = this.props;
     await storage
-      .ref(`images/teams/${teamId}/team-logo/${teamId}`)
+      .ref(`users/${userId}/images/teams/${teamId}/team-logo/${teamId}`)
       .getDownloadURL()
       .then((url) => {
         this.setState({ uploadedImageUrl: url });
@@ -78,13 +86,17 @@ class Teams extends Component {
   };
 
   assignUploadedImageUrl = (teamId) => {
+    const { userId } = this.props;
     database
-      .ref(`/${teamId}`)
+      .ref(`/users/${userId}/teams/${teamId}`)
       .update({ teamLogo: this.state.uploadedImageUrl });
   };
 
   handleTeamNameUpdate = (teamId, updatedTeamName) => {
-    database.ref(`/${teamId}`).update({ teamName: updatedTeamName });
+    const { userId } = this.props;
+    database
+      .ref(`/users/${userId}/teams/${teamId}`)
+      .update({ teamName: updatedTeamName });
   };
 
   handleTeamLogoUpdate = (teamId, updatedImage) => {
@@ -140,9 +152,12 @@ class Teams extends Component {
   };
 
   handleTeamDelete = (teamId, teamLogo) => {
-    database.ref(teamId).remove();
+    const { userId } = this.props;
+    database.ref(`users/${userId}/teams/${teamId}`).remove();
     if (teamLogo) {
-      storage.ref(`images/teams/${teamId}/team-logo/${teamId}`).delete();
+      storage
+        .ref(`users/${userId}/images/teams/${teamId}/team-logo/${teamId}`)
+        .delete();
     }
     this.updateTeamsArrayOnTeamDelete(teamId);
   };
