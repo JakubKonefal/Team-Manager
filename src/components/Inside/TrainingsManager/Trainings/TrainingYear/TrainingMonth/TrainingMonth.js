@@ -65,8 +65,8 @@ class TrainingMonth extends Component {
         )
         .remove()
     );
-    const checkedTrainingsIds = checkedTrainings.map((training) => training.id);
-    this.props.onDeleteUpdate(checkedTrainingsIds, year, month);
+
+    this.props.updateTrainings();
   };
 
   handleCheckedTrainingsEdit = (editedTrainingsInfo) => {
@@ -84,7 +84,9 @@ class TrainingMonth extends Component {
         )
         .update(updatedInfo)
     );
-    setTimeout(() => window.location.reload(), 800);
+    setTimeout(() => {
+      window.location.reload();
+    }, 800);
   };
 
   handleTrainingsSort = (e, attribute) => {

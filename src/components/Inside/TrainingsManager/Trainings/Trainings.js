@@ -41,46 +41,22 @@ class Trainings extends Component {
     const newTrainingYear = moment(date).format("YYYY");
     const newTrainingMonth = moment(date).format("MMMM");
 
-    const databaseRef = database.ref(
+    const newTrainingDatabaseRef = database.ref(
       `/users/${userId}/teams/${teamId}/trainings/${newTrainingYear}/${newTrainingMonth}`
     );
-    const trainingId = databaseRef.push().key;
+    const trainingsDatabaseRef = database.ref(
+      `/users/${userId}/teams/${teamId}/trainings`
+    );
+    const trainingId = newTrainingDatabaseRef.push().key;
     const newTraining = {
       trainingId,
       trainingInfo: { ...newTrainingInfo },
     };
-    databaseRef.child(trainingId).set(newTraining);
-
-    this.updateTrainingsOnTrainingAdd(
-      newTraining,
-      newTrainingYear,
-      newTrainingMonth
-    );
-  };
-
-  updateTrainingsOnTrainingAdd = (newTraining, year, month) => {
-    const trainingMonths = this.state.trainings[year]
-      ? this.state.trainings[year]
-      : null;
-
-    const trainingsInMonth = trainingMonths
-      ? { ...this.state.trainings[year][month] }
-      : null;
-
-    const updatedTrainings = {
-      ...this.state.trainings,
-      [year]: {
-        ...trainingMonths,
-        [month]: {
-          ...trainingsInMonth,
-          [newTraining.trainingId]: {
-            ...newTraining,
-          },
-        },
-      },
-    };
-
-    this.setState({ trainings: updatedTrainings });
+    newTrainingDatabaseRef.child(trainingId).set(newTraining);
+    trainingsDatabaseRef.once("value", (snapshot) => {
+      const trainings = snapshot.val();
+      this.setState({ trainings });
+    });
   };
 
   getDaysOfWeekAsNumbers = (days) => {
@@ -113,6 +89,7 @@ class Trainings extends Component {
       const databaseRef = database.ref(
         `/users/${userId}/teams/${teamId}/trainings/${dateYear}/${dateMonth}`
       );
+
       const trainingId = databaseRef.push().key;
       const newTraining = {
         trainingId,
@@ -120,9 +97,7 @@ class Trainings extends Component {
       };
       databaseRef.child(trainingId).set(newTraining);
     });
-    setTimeout(() => {
-      window.location.reload();
-    }, 800);
+    this.updateTraininings();
   };
 
   getSelectedDaysArray = (from, to, daysOfWeek) => {
@@ -140,21 +115,15 @@ class Trainings extends Component {
     return selectedDaysArray;
   };
 
-  updateTraininingsOnDelete = (deletedIds, year, month) => {
-    const trainingsInMonth = Object.values({
-      ...this.state.trainings[year][month],
-    });
-    const updatedTrainings = trainingsInMonth.filter(
-      (training) => !deletedIds.includes(training.trainingId)
+  updateTraininings = () => {
+    const { teamId, userId } = this.props;
+    const trainingsDatabaseRef = database.ref(
+      `/users/${userId}/teams/${teamId}/trainings`
     );
-    this.setState({
-      trainings: {
-        ...this.state.trainings,
-        [year]: {
-          ...this.state.trainings[year],
-          [month]: updatedTrainings,
-        },
-      },
+    trainingsDatabaseRef.once("value", (snapshot) => {
+      const snapshotValue = snapshot.val();
+      const trainings = snapshotValue ? snapshotValue : {};
+      this.setState({ trainings });
     });
   };
 
@@ -169,7 +138,7 @@ class Trainings extends Component {
             trainings={year}
             key={trainingsYears[index]}
             year={trainingsYears[index]}
-            onDeleteUpdate={this.updateTraininingsOnDelete}
+            updateTrainings={this.updateTraininings}
           />
         ))
       : null;

@@ -44,7 +44,7 @@ class Teams extends Component {
       this.handleTeamLogoUpdate(teamId, updatedImage);
     }
 
-    this.updateTeamsArrayOnTeamUpdate(teamId, updatedTeamName, updatedImage);
+    this.updateTeamsArrayOnEdit(teamId, updatedTeamName, updatedImage);
   };
 
   handleFormSubmitNewTeam = (newTeamName, selectedImage, e) => {
@@ -59,13 +59,13 @@ class Teams extends Component {
       ? this.handleImageUpload(teamId, selectedImage).then(() => {
           this.getUploadedImageUrl(teamId).then(() => {
             this.assignUploadedImageUrl(teamId);
-            this.updateTeamsArrayOnTeamAdd({
+            this.updateTeamsOnAdd({
               ...newTeam,
               teamLogo: this.state.uploadedImageUrl,
             });
           });
         })
-      : this.updateTeamsArrayOnTeamAdd(newTeam);
+      : this.updateTeamsOnAdd(newTeam);
   };
 
   handleImageUpload = async (teamId, selectedImage) => {
@@ -107,12 +107,12 @@ class Teams extends Component {
     });
   };
 
-  updateTeamsArrayOnTeamAdd = (newTeam) => {
+  updateTeamsOnAdd = (newTeam) => {
     const updatedTeamsArray = [...this.state.teams, newTeam];
     this.setState({ teams: updatedTeamsArray });
   };
 
-  updateTeamsArrayOnTeamUpdate = (teamId, updatedTeamName, updatedImage) => {
+  updateTeamsArrayOnEdit = (teamId, updatedTeamName, updatedImage) => {
     const teamsArray = [...this.state.teams];
     let updatedTeam = teamsArray.find((team) => {
       return team.teamId === teamId;
@@ -143,12 +143,14 @@ class Teams extends Component {
     this.setState({ teams: teamsArray });
   };
 
-  updateTeamsArrayOnTeamDelete = (teamId) => {
-    const currentTeamsArr = [...this.state.teams];
-    const updatedTeamsArr = currentTeamsArr.filter(
-      (team) => team.teamId !== teamId
-    );
-    this.setState({ teams: updatedTeamsArr });
+  updateTeamsOnDelete = () => {
+    const { userId } = this.props;
+    const teamsDatabaseRef = database.ref(`users/${userId}/teams`);
+    teamsDatabaseRef.once("value", (snapshot) => {
+      const snapshotValue = snapshot.val();
+      const teams = snapshotValue ? Object.values(snapshotValue) : [];
+      this.setState({ teams });
+    });
   };
 
   handleTeamDelete = (teamId, teamLogo) => {
@@ -159,7 +161,7 @@ class Teams extends Component {
         .ref(`users/${userId}/images/teams/${teamId}/team-logo/${teamId}`)
         .delete();
     }
-    this.updateTeamsArrayOnTeamDelete(teamId);
+    this.updateTeamsOnDelete();
   };
 
   render() {

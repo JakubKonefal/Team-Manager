@@ -53,10 +53,6 @@ class TrainingOverview extends Component {
       this.updateUrlAdressBar(updatedDateYear, updatedDateMonth);
     }
 
-    this.updateTrainingInfoOnTrainingUpdate(updatedTrainingInfo);
-  };
-
-  updateTrainingInfoOnTrainingUpdate = (updatedTrainingInfo) => {
     this.setState({ trainingInfo: updatedTrainingInfo });
   };
 

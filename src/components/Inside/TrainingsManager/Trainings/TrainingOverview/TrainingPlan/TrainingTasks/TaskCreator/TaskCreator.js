@@ -71,6 +71,10 @@ class TaskCreator extends Component {
               <form
                 className={classes.TaskCreator__Form}
                 onChange={(event) => this.handleInputChange(event)}
+                onSubmit={(event) => {
+                  this.props.onFormSubmit(this.state.newTaskInfo, event);
+                  this.handleTaskCreatorCancel();
+                }}
               >
                 <TextField
                   className={classes.TaskCreator__Input}
@@ -107,11 +111,7 @@ class TaskCreator extends Component {
                     className={classes.TaskCreator__Button_Add}
                     variant="contained"
                     color="primary"
-                    type="reset"
-                    onClick={(event) => {
-                      this.props.onFormSubmit(this.state.newTaskInfo, event);
-                      this.handleTaskCreatorCancel();
-                    }}
+                    type="submit"
                   >
                     add task
                   </Button>

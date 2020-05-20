@@ -1,50 +1,21 @@
-import React, { Component } from "react";
-import { auth } from "../../firebase/firebase";
-
+import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
-class ProtectedRoute extends Component {
-  state = {
-    route: null,
-  };
-
-  isLoggedIn = () => {
-    auth.onAuthStateChanged((user) => {
-      if (!user) {
-        this.setState({ route: <Redirect to="/" /> });
-      } else {
-        const { component: Component, ...rest } = this.props;
-        const route = (
-          <Route
-            {...rest}
-            render={(props) => {
-              return <Component {...props} userId={user.uid} />;
-            }}
-          />
-        );
-
-        this.setState({
-          route,
-        });
+const ProtectedRoute = ({ component: RouteComponent, ...rest }) => {
+  const { currentUser, currentUid } = useContext(AuthContext);
+  return (
+    <Route
+      {...rest}
+      render={(routeProps) =>
+        !!currentUser ? (
+          <RouteComponent {...routeProps} userId={currentUid} />
+        ) : (
+          <Redirect to="/" />
+        )
       }
-    });
-  };
-
-  componentDidMount() {
-    this.isLoggedIn();
-    console.log("ComponentDidMount");
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.component !== this.props.component) {
-      this.isLoggedIn();
-      console.log("ComponentDidUpdate");
-    }
-  }
-
-  render() {
-    return this.state.route;
-  }
-}
+    />
+  );
+};
 
 export default ProtectedRoute;

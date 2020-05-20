@@ -2,10 +2,11 @@ import React from "react";
 import classes from "./TeamManager.module.css";
 import MainContentWraper from "../../../components/MainContentWraper/MainContentWraper";
 import { Link, Switch } from "react-router-dom";
-import ProtectedRoute from "../../../hoc/ProtectedRoute/ProtectedRoute";
 import PlayersManager from "../../../components/Inside/PlayersManager/PlayersManager";
 import TrainingsManager from "../../../components/Inside/TrainingsManager/TrainingsManager";
 import TrainingOverview from "../../../components/Inside/TrainingsManager/Trainings/TrainingOverview/TrainingOverview";
+import { AuthProvider } from "../../../hoc/AuthProvider/AuthProvider";
+import ProtectedRoute from "../../../hoc/ProtectedRoute/ProtectedRoute";
 
 const TeamManager = ({ location }) => (
   <div>
@@ -34,20 +35,22 @@ const TeamManager = ({ location }) => (
         <li className={classes.Navbar__Item}>Settings</li>
       </ul>
       <div>
-        <ProtectedRoute
-          path="/my-teams/:teamId/players"
-          component={PlayersManager}
-        />
-        <Switch>
+        <AuthProvider>
           <ProtectedRoute
-            path="/my-teams/:teamId/trainings/:year/:month/:trainingId"
-            component={TrainingOverview}
+            path="/my-teams/:teamId/players"
+            component={PlayersManager}
           />
-          <ProtectedRoute
-            path="/my-teams/:teamId/trainings"
-            component={TrainingsManager}
-          />
-        </Switch>
+          <Switch>
+            <ProtectedRoute
+              path="/my-teams/:teamId/trainings/:year/:month/:trainingId"
+              component={TrainingOverview}
+            />
+            <ProtectedRoute
+              path="/my-teams/:teamId/trainings"
+              component={TrainingsManager}
+            />
+          </Switch>
+        </AuthProvider>
       </div>
     </MainContentWraper>
   </div>

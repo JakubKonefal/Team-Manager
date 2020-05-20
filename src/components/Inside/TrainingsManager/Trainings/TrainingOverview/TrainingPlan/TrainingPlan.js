@@ -9,41 +9,8 @@ import Collapse from "@material-ui/core/Collapse";
 
 class TrainingPlan extends Component {
   state = {
-    tasks: "",
     trainingPlanActive: true,
   };
-
-  // componentDidMount() {
-  //   const {userId, teamId, year, month, trainingId } = this.props;
-
-  //   axios
-  //     .get(
-  //       `https://team-manager-b8e8c.firebaseio.com/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks.json`
-  //     )
-  //     .then((res) => {
-  //       const tasks = res.data;
-  //       if (tasks) {
-  //         const tasksArr = Object.values(tasks);
-  //         this.setState({ tasks: tasksArr });
-  //       }
-  //     });
-  // }
-
-  // handleFormSubmitNewTask = (newTaskInfo, e) => {
-  //   e.preventDefault();
-
-  //   const {userId, teamId, year, month, trainingId } = this.props;
-
-  //   const databaseRef = database.ref(
-  //     `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks`
-  //   );
-  //   const taskId = databaseRef.push().key;
-  //   const newTask = {
-  //     taskId,
-  //     task: { ...newTaskInfo },
-  //   };
-  //   databaseRef.child(taskId).set(newTask);
-  // };
 
   handleTrainingPlanToggle = () => {
     this.setState({ trainingPlanActive: !this.state.trainingPlanActive });

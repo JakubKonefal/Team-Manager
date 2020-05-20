@@ -2,7 +2,7 @@ import React from "react";
 import TrainingMonth from "./TrainingMonth/TrainingMonth";
 import moment from "moment";
 
-const TrainingYear = ({ trainings, year, userId, teamId, onDeleteUpdate }) => {
+const TrainingYear = ({ trainings, year, userId, teamId, updateTrainings }) => {
   const trainingMonthsArray = Object.values(trainings);
   const trainingMonthsNames = Object.keys(trainings);
 
@@ -28,7 +28,7 @@ const TrainingYear = ({ trainings, year, userId, teamId, onDeleteUpdate }) => {
             month={trainingMonthsNames[index]}
             userId={userId}
             teamId={teamId}
-            onDeleteUpdate={onDeleteUpdate}
+            updateTrainings={updateTrainings}
           />
         );
       })

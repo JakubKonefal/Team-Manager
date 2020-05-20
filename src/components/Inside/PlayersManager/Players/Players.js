@@ -88,8 +88,7 @@ class Players extends Component {
           .delete();
       }
     });
-    const checkedPlayersIds = checkedPlayers.map((player) => player.id);
-    this.updatePlayersArrayOnCheckedPlayersDelete(checkedPlayersIds);
+    this.updatePlayersOnDelete();
   };
 
   handlePlayerDelete = (playerId, photo) => {
@@ -102,23 +101,20 @@ class Players extends Component {
         .ref(`/users/${userId}/images/teams/${teamId}/players/${playerId}`)
         .delete();
     }
-    this.updatePlayersArrayOnPlayerDelete(playerId);
+    this.updatePlayersOnDelete();
   };
 
-  updatePlayersArrayOnPlayerDelete = (playerId) => {
-    const currentPlayersArr = [...this.state.players];
-    const updatedPlayersArr = currentPlayersArr.filter(
-      (player) => player.playerId !== playerId
+  updatePlayersOnDelete = () => {
+    const { teamId, userId } = this.props;
+    const playersDatabaseRef = database.ref(
+      `/users/${userId}/teams/${teamId}/players`
     );
-    this.setState({ players: updatedPlayersArr });
-  };
+    playersDatabaseRef.once("value", (snapshot) => {
+      const snapshotValue = snapshot.val();
 
-  updatePlayersArrayOnCheckedPlayersDelete = (playersIds) => {
-    const currentPlayersArr = [...this.state.players];
-    const updatedPlayersArr = currentPlayersArr.filter(
-      (player) => !playersIds.includes(player.playerId)
-    );
-    this.setState({ players: updatedPlayersArr });
+      const players = snapshotValue ? Object.values(snapshotValue) : [];
+      this.setState({ players });
+    });
   };
 
   handleImageUpload = async (playerId, selectedImage) => {
@@ -145,7 +141,7 @@ class Players extends Component {
       .update({ playerPhoto: this.state.uploadedImageUrl });
   };
 
-  updatePlayersArrayOnPlayerAdd = (newPlayer, playerPhoto) => {
+  updatePlayersOnAdd = (newPlayer, playerPhoto) => {
     const { players, playersCheckboxes } = this.state;
 
     const playerPhotoUrl = playerPhoto
@@ -190,7 +186,7 @@ class Players extends Component {
         });
       });
     }
-    this.updatePlayersArrayOnPlayerAdd(newPlayer, playerPhoto);
+    this.updatePlayersOnAdd(newPlayer, playerPhoto);
   };
 
   handleFormSubmitEditPlayer = (playerId, playerInfo, playerPhoto) => {
@@ -205,10 +201,10 @@ class Players extends Component {
         });
       });
     }
-    this.updatePlayersArrayOnPlayerUpdate(playerId, playerInfo, playerPhoto);
+    this.updatePlayersOnEdit(playerId, playerInfo, playerPhoto);
   };
 
-  updatePlayersArrayOnPlayerUpdate = (playerId, playerInfo, playerPhoto) => {
+  updatePlayersOnEdit = (playerId, playerInfo, playerPhoto) => {
     const updatedPlayersArray = [...this.state.players];
     const updatedPlayerIndex = this.state.players.findIndex((player) => {
       return player.playerId === playerId;

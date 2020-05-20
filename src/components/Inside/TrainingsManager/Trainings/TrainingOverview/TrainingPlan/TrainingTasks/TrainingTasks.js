@@ -37,55 +37,37 @@ class TrainingTasks extends Component {
       taskInfo: { ...newTaskInfo },
     };
     databaseRef.child(taskId).set(newTask);
-    this.updateTasksArrayOnTaskAdd(newTask);
-  };
-
-  updateTasksArrayOnTaskAdd = (newTask) => {
-    const updatedTasksArr = [...this.state.tasks];
-    updatedTasksArr.push(newTask);
-    this.setState({ tasks: updatedTasksArr });
+    this.updateTasks();
   };
 
   handleTaskDelete = (taskId) => {
     const { userId, teamId, year, month, trainingId } = this.props;
-    database
-      .ref(
-        `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks/${taskId}`
-      )
-      .remove();
-    this.updateTasksArrayOnTaskDelete(taskId);
-  };
-
-  updateTasksArrayOnTaskDelete = (taskId) => {
-    const currentTasksArr = [...this.state.tasks];
-    const updatedTasksArr = currentTasksArr.filter(
-      (task) => task.taskId !== taskId
+    const taskDatabaseRef = database.ref(
+      `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks/${taskId}`
     );
-    this.setState({ tasks: updatedTasksArr });
+    taskDatabaseRef.remove();
+    this.updateTasks();
   };
 
   handleFormSubmitTaskEdit = (taskId, taskInfo) => {
     const { userId, teamId, year, month, trainingId } = this.props;
-    database
-      .ref(
-        `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks/${taskId}/taskInfo`
-      )
-      .set(taskInfo);
-    this.updateTasksArrayOnTaskEdit(taskId, taskInfo);
+    const taskDatabaseRef = database.ref(
+      `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks/${taskId}/taskInfo`
+    );
+    taskDatabaseRef.set(taskInfo);
+    this.updateTasks();
   };
 
-  updateTasksArrayOnTaskEdit = (taskId, taskInfo) => {
-    const updatedTaskArray = [...this.state.tasks];
-    const updatedTaskIndex = this.state.tasks.findIndex((task) => {
-      return task.taskId === taskId;
+  updateTasks = () => {
+    const { userId, teamId, year, month, trainingId } = this.props;
+    const tasksDatabaseRef = database.ref(
+      `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks`
+    );
+    tasksDatabaseRef.once("value", (snapshot) => {
+      const snapshotValue = snapshot.val() ? Object.values(snapshot.val()) : "";
+      const tasks = snapshotValue;
+      this.setState({ tasks });
     });
-
-    const updatedTask = {
-      taskId,
-      taskInfo,
-    };
-    updatedTaskArray.splice(updatedTaskIndex, 1, updatedTask);
-    this.setState({ tasks: updatedTaskArray });
   };
 
   render() {
