@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import classes from "./Team.module.css";
 import { Link } from "react-router-dom";
-import { Avatar, Tooltip, Input, Button } from "@material-ui/core";
+import { Avatar, Tooltip, Input, Button, Modal, Card } from "@material-ui/core";
 import { StylesProvider } from "@material-ui/core/styles";
 import defaultTeamLogo from "../../../../../assets/img/default_team_logo.png";
 import FilePreviewElement from "../../../../UI/FilePreviewElement/FilePreviewElement";
@@ -12,6 +12,7 @@ class Team extends Component {
     newTeamName: "",
     selectedImage: "",
     previewFile: "https://via.placeholder.com/100/eee",
+    deleteModalOpen: false,
   };
 
   handleTeamNameChange = (e) => {
@@ -44,6 +45,14 @@ class Team extends Component {
         previewFile: "https://via.placeholder.com/100/eee",
       });
     }
+  };
+
+  handleModalOpen = () => {
+    this.setState({ deleteModalOpen: true });
+  };
+
+  handleModalClose = () => {
+    this.setState({ deleteModalOpen: false });
   };
 
   render() {
@@ -133,11 +142,37 @@ class Team extends Component {
           <Tooltip title="Delete" placement="bottom">
             <i
               className={`fa fa-trash ${classes.Team__Icon} ${classes.Team__Icon_Trash} `}
-              onClick={() => {
-                this.props.onDelete(this.props.teamId, this.props.teamLogo);
-              }}
+              onClick={this.handleModalOpen}
             ></i>
           </Tooltip>
+          <Modal
+            open={this.state.deleteModalOpen}
+            onClose={this.handleModalClose}
+          >
+            <Card className={classes.Team__Modal}>
+              <span className={classes.Team__ModalMsg}>
+                Are you sure you want to delete this team?
+              </span>
+              <div className={classes.Team__ModalButtons}>
+                <button
+                  className={`${classes.Team__ModalButton} ${classes.Team__ModalButton_Yes}`}
+                  onClick={() => {
+                    const { onDelete, teamId, teamLogo } = this.props;
+                    onDelete(teamId, teamLogo);
+                    this.handleModalClose();
+                  }}
+                >
+                  Yes
+                </button>
+                <button
+                  className={`${classes.Team__ModalButton} ${classes.Team__ModalButton_No}`}
+                  onClick={this.handleModalClose}
+                >
+                  No
+                </button>
+              </div>
+            </Card>
+          </Modal>
           <Tooltip title="Edit" placement="bottom">
             <i
               className={`${classes.Team__Icon} fas fa-edit `}

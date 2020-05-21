@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Team from "./Team/Team";
 import TeamCreator from "./TeamCreator/TeamCreator";
-import { storage, database, auth } from "../../../../firebase/firebase";
+import { storage, database } from "../../../../firebase/firebase";
 
 class Teams extends Component {
   state = {

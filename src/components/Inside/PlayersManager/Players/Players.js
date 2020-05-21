@@ -4,6 +4,8 @@ import axios from "axios";
 import { storage, database } from "../../../../firebase/firebase";
 import PlayerCreator from "./PlayerCreator/PlayerCreator";
 import Player from "./Player/Player";
+import Modal from "@material-ui/core/Modal";
+import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -18,6 +20,7 @@ class Players extends Component {
     previewFile: null,
     uploadedImage: null,
     uploadedImageUrl: "",
+    deleteModalOpen: false,
   };
 
   componentDidMount() {
@@ -242,6 +245,14 @@ class Players extends Component {
     });
   };
 
+  handleModalOpen = () => {
+    this.setState({ deleteModalOpen: true });
+  };
+
+  handleModalClose = () => {
+    this.setState({ deleteModalOpen: false });
+  };
+
   render() {
     const teamPlayers = this.state.players && (
       <div className={classes.PlayersList}>
@@ -319,11 +330,41 @@ class Players extends Component {
               variant="contained"
               color="secondary"
               size="small"
-              onClick={this.handleCheckedPlayersDelete}
+              onClick={this.handleModalOpen}
               disabled={this.state.checkedTrainingsCount < 1}
             >
               delete
             </Button>
+            <Modal
+              open={this.state.deleteModalOpen}
+              onClose={this.handleModalClose}
+            >
+              <Card className={classes.PlayersList__Modal}>
+                <span className={classes.PlayersList__ModalMsg}>
+                  Are you sure you want to delete
+                </span>
+                <span className={classes.PlayersList__ModalMsg}>
+                  checked players?
+                </span>
+                <div className={classes.PlayersList__ModalButtons}>
+                  <button
+                    className={`${classes.PlayersList__ModalButton} ${classes.PlayersList__ModalButton_Yes}`}
+                    onClick={() => {
+                      this.handleCheckedPlayersDelete();
+                      this.handleModalClose();
+                    }}
+                  >
+                    Yes
+                  </button>
+                  <button
+                    className={`${classes.PlayersList__ModalButton} ${classes.PlayersList__ModalButton_No}`}
+                    onClick={this.handleModalClose}
+                  >
+                    No
+                  </button>
+                </div>
+              </Card>
+            </Modal>
             <div className={classes.PlayersList__Checkbox}>
               <Checkbox onChange={this.handleCheckboxSelectAll} />
             </div>

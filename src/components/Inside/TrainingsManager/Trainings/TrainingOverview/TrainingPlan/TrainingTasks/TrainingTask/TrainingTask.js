@@ -4,6 +4,7 @@ import Collapse from "@material-ui/core/Collapse";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import Modal from "@material-ui/core/Modal";
 import StylesProvider from "@material-ui/styles/StylesProvider";
 import {
   Delete,
@@ -64,6 +65,14 @@ class TrainingTask extends Component {
         [id]: value,
       },
     });
+  };
+
+  handleModalOpen = () => {
+    this.setState({ deleteModalOpen: true });
+  };
+
+  handleModalClose = () => {
+    this.setState({ deleteModalOpen: false });
   };
 
   render() {
@@ -191,11 +200,38 @@ class TrainingTask extends Component {
                 title="Delete"
                 placement="bottom"
                 className={classes.TrainingTask__Icon_Delete}
-                onClick={() => this.props.onDelete(this.props.taskId)}
+                onClick={this.handleModalOpen}
               >
                 <Delete />
               </Tooltip>
             </Typography>
+            <Modal
+              open={this.state.deleteModalOpen}
+              onClose={this.handleModalClose}
+            >
+              <Card className={classes.TrainingTask__Modal}>
+                <span className={classes.TrainingTask__ModalMsg}>
+                  Are you sure you want to delete this task?
+                </span>
+                <div className={classes.TrainingTask__ModalButtons}>
+                  <button
+                    className={`${classes.TrainingTask__ModalButton} ${classes.TrainingTask__ModalButton_Yes}`}
+                    onClick={() => {
+                      this.props.onDelete(this.props.taskId);
+                      this.handleModalClose();
+                    }}
+                  >
+                    Yes
+                  </button>
+                  <button
+                    className={`${classes.TrainingTask__ModalButton} ${classes.TrainingTask__ModalButton_No}`}
+                    onClick={this.handleModalClose}
+                  >
+                    No
+                  </button>
+                </div>
+              </Card>
+            </Modal>
           </div>
           <Collapse in={this.state.trainingTaskActive}>
             <CardContent

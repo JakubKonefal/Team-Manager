@@ -72,3 +72,46 @@
 .Button_Delete:hover {
   background-color: #f50056d3;
 }
+
+.TrainingMonth__Modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 360px;
+  height: 100px;
+  padding: 10px 20px;
+}
+
+.TrainingMonth__ModalMsg {
+  font-size: 18px;
+}
+
+.TrainingMonth__ModalButtons {
+  display: flex;
+  width: 40%;
+  margin-top: 20px;
+  justify-content: space-around;
+}
+
+.TrainingMonth__ModalButton {
+  border: none;
+  background-color: transparent;
+  color: green;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.TrainingMonth__ModalButton_Yes {
+  color: green;
+}
+
+.TrainingMonth__ModalButton_No {
+  color: red;
+}

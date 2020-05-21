@@ -215,3 +215,46 @@
   font-size: 14px;
   font-weight: normal;
 }
+
+.TrainingTask__Modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 360px;
+  height: 100px;
+  padding: 10px 20px;
+}
+
+.TrainingTask__ModalMsg {
+  margin-bottom: 24px;
+  font-size: 18px;
+}
+
+.TrainingTask__ModalButtons {
+  display: flex;
+  width: 40%;
+  justify-content: space-around;
+}
+
+.TrainingTask__ModalButton {
+  border: none;
+  background-color: transparent;
+  color: green;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.TrainingTask__ModalButton_Yes {
+  color: green;
+}
+
+.TrainingTask__ModalButton_No {
+  color: red;
+}

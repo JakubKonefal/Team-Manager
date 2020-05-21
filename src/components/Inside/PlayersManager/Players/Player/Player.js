@@ -3,6 +3,8 @@ import classes from "./Player.module.css";
 import FilePreviewElement from "../../../../UI/FilePreviewElement/FilePreviewElement";
 import { StylesProvider } from "@material-ui/core/styles";
 import defaultImage from "../../../../../assets/img/user.jpg";
+import Modal from "@material-ui/core/Modal";
+import Card from "@material-ui/core/Card";
 import Avatar from "@material-ui/core/Avatar";
 import Tooltip from "@material-ui/core/Tooltip";
 
@@ -12,6 +14,7 @@ class Player extends Component {
     updatedPlayerInfo: null,
     selectedImage: null,
     previewFile: "https://via.placeholder.com/45/eee?text=+",
+    deleteModalOpen: false,
   };
 
   handleEditFormOpen = () => {
@@ -55,6 +58,14 @@ class Player extends Component {
 
   handleClearInput = ({ target }) => {
     target.placeholder = "";
+  };
+
+  handleModalOpen = () => {
+    this.setState({ deleteModalOpen: true });
+  };
+
+  handleModalClose = () => {
+    this.setState({ deleteModalOpen: false });
   };
 
   render() {
@@ -210,16 +221,36 @@ class Player extends Component {
               ></i>
             </Tooltip>
             <Tooltip title="Delete" placement="bottom">
-              <i
-                className={`fa fa-trash`}
-                onClick={() =>
-                  this.props.onDelete(
-                    this.props.playerId,
-                    this.props.playerPhoto
-                  )
-                }
-              ></i>
+              <i className={`fa fa-trash`} onClick={this.handleModalOpen}></i>
             </Tooltip>
+            <Modal
+              open={this.state.deleteModalOpen}
+              onClose={this.handleModalClose}
+            >
+              <Card className={classes.Player__Modal}>
+                <span className={classes.Player__ModalMsg}>
+                  Are you sure you want to delete this player?
+                </span>
+                <div className={classes.Player__ModalButtons}>
+                  <button
+                    className={`${classes.Player__ModalButton} ${classes.Player__ModalButton_Yes}`}
+                    onClick={() => {
+                      const { onDelete, playerId, playerPhoto } = this.props;
+                      onDelete(playerId, playerPhoto);
+                      this.handleModalClose();
+                    }}
+                  >
+                    Yes
+                  </button>
+                  <button
+                    className={`${classes.Player__ModalButton} ${classes.Player__ModalButton_No}`}
+                    onClick={this.handleModalClose}
+                  >
+                    No
+                  </button>
+                </div>
+              </Card>
+            </Modal>
           </div>
           <div className={classes.Player__CheckboxWraper}>
             {this.props.checkbox}

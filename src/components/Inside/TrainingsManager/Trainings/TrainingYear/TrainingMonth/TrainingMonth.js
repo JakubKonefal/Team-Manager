@@ -5,6 +5,8 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Training from "../../Training/Training";
 import TrainingsListInfoBar from "../../TrainingsListInfoBar/TrainingsListInfoBar";
 import Collapse from "@material-ui/core/Collapse";
+import Modal from "@material-ui/core/Modal";
+import Card from "@material-ui/core/Card";
 import MultipleTrainingsEdit from "./MultipleTrainingsEditor/MultipleTrainingsEditor";
 
 class TrainingMonth extends Component {
@@ -14,6 +16,7 @@ class TrainingMonth extends Component {
     monthExpanded: true,
     editFormActive: false,
     checkedTrainingsCount: 0,
+    deleteModalOpen: false,
   };
 
   componentDidUpdate() {
@@ -111,6 +114,14 @@ class TrainingMonth extends Component {
     this.setState({ editFormActive: false });
   };
 
+  handleModalOpen = () => {
+    this.setState({ deleteModalOpen: true });
+  };
+
+  handleModalClose = () => {
+    this.setState({ deleteModalOpen: false });
+  };
+
   render() {
     const trainings = this.state.trainings
       ? this.state.trainings.map((training, index) => (
@@ -145,10 +156,40 @@ class TrainingMonth extends Component {
         </button>
         <button
           className={`${classes.Button} ${classes.Button_Delete}`}
-          onClick={this.handleCheckedTrainingsDelete}
+          onClick={this.handleModalOpen}
         >
           delete
         </button>
+        <Modal
+          open={this.state.deleteModalOpen}
+          onClose={this.handleModalClose}
+        >
+          <Card className={classes.TrainingMonth__Modal}>
+            <span className={classes.TrainingMonth__ModalMsg}>
+              Are you sure you want to delete
+            </span>
+            <span className={classes.TrainingMonth__ModalMsg}>
+              checked trainings?
+            </span>
+            <div className={classes.TrainingMonth__ModalButtons}>
+              <button
+                className={`${classes.TrainingMonth__ModalButton} ${classes.TrainingMonth__ModalButton_Yes}`}
+                onClick={() => {
+                  this.handleCheckedTrainingsDelete();
+                  this.handleModalClose();
+                }}
+              >
+                Yes
+              </button>
+              <button
+                className={`${classes.TrainingMonth__ModalButton} ${classes.TrainingMonth__ModalButton_No}`}
+                onClick={this.handleModalClose}
+              >
+                No
+              </button>
+            </div>
+          </Card>
+        </Modal>
       </div>
     );
 

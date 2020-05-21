@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { database } from "../../../../../../firebase/firebase";
 import classes from "./TrainingPlan.module.css";
 import TrainingTasks from "./TrainingTasks/TrainingTasks";
 import Card from "@material-ui/core/Card";
