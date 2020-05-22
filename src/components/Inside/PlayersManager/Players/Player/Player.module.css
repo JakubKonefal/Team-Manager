@@ -2,9 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  background-color: #3a414c;
 }
 
 .Player_Editable__FileUploadSection {
@@ -76,34 +74,36 @@
   outline: none;
   border: none;
   font-size: 16px;
-  color: #707070;
+  background-color: transparent;
+  color: #fff;
   cursor: pointer;
   border-bottom: 1px solid #000;
   padding-bottom: 3px;
 }
 
 .Player_Editable__SelectField:hover {
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #cf1c2c;
   padding-bottom: 2px;
 }
 
 .Player_Editable__InputText {
   width: 80%;
   font-size: 16px;
-  color: #707070;
+  color: #fff;
+  background-color: transparent;
   border: none;
   border-bottom: 1px solid #000;
   padding-bottom: 3px;
 }
 
 .Player_Editable__InputText:hover {
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #cf1c2c;
   padding-bottom: 2px;
 }
 
 .Player_Editable__InputText:focus {
   outline: none;
-  border-bottom: 2px solid #22f;
+  border-bottom: 2px solid #cf1c2c;
   padding-bottom: 2px;
 }
 
@@ -115,7 +115,8 @@
   width: 100%;
   border: none;
   font-size: 16px;
-  color: #707070;
+  background-color: transparent;
+  color: #fff;
   border-bottom: 1px solid #000;
   padding-bottom: 3px;
   cursor: text;
@@ -126,14 +127,14 @@
 }
 
 .Player_Editable__DateInput:hover {
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #cf1c2c;
   padding-bottom: 2px;
 }
 
 .Player_Editable__DateInput:focus {
   border: none;
   outline: none;
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #cf1c2c;
   padding-bottom: 2px;
 }
 
@@ -145,7 +146,7 @@
   display: flex;
   justify-content: flex-start;
   box-sizing: border-box;
-  padding-left: 18%;
+  padding-left: 25%;
   color: #707070;
   font-size: 18px;
 }
@@ -175,11 +176,10 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  background-color: #3a414c;
   padding-top: 0;
   padding-bottom: 0;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 10px solid #2d3037;
 }
 
 .Player__AvatarWraper {
@@ -202,7 +202,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  color: #707070;
+  color: #fff;
 }
 
 .Player__Info_Number {
@@ -229,7 +229,7 @@
 
 .Player__Icons {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   height: 45px;
   width: 14%;
@@ -242,9 +242,16 @@
 .Player__Icons i {
   cursor: pointer;
 }
+.Player__Icons i:hover {
+  color: #fff;
+}
 
 .Player__Icon_Edit {
-  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.Player__Icon_Trash {
+  margin-right: 15px;
 }
 
 .Player__CheckboxWraper {
@@ -252,7 +259,6 @@
   justify-content: center;
   align-items: center;
   width: 5%;
-  border-left: 1px solid #ccc;
 }
 
 .Player__Modal {

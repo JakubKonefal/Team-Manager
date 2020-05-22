@@ -1,8 +1,19 @@
 .Toolbar {
-  position: fixed;
   width: 100%;
   height: 70px;
   display: flex;
   align-items: center;
-  background-color: #005817;
+  background-color: #2e40a4;
+}
+
+.Toolbar__TabsBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #3f51b5;
+}
+
+.Toolbar__Link {
+  text-decoration: none;
+  color: inherit;
 }

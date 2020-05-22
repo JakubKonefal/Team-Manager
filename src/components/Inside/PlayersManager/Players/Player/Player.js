@@ -221,7 +221,10 @@ class Player extends Component {
               ></i>
             </Tooltip>
             <Tooltip title="Delete" placement="bottom">
-              <i className={`fa fa-trash`} onClick={this.handleModalOpen}></i>
+              <i
+                className={`fa fa-trash ${classes.Player__Icon_Trash}`}
+                onClick={this.handleModalOpen}
+              ></i>
             </Tooltip>
             <Modal
               open={this.state.deleteModalOpen}

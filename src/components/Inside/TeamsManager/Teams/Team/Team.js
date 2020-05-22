@@ -11,7 +11,7 @@ class Team extends Component {
     editFormActive: false,
     newTeamName: "",
     selectedImage: "",
-    previewFile: "https://via.placeholder.com/100/eee",
+    previewFile: "https://via.placeholder.com/120/eee",
     deleteModalOpen: false,
   };
 
@@ -42,7 +42,7 @@ class Team extends Component {
     if (this.state.selectedImage) {
       this.setState({
         selectedImage: null,
-        previewFile: "https://via.placeholder.com/100/eee",
+        previewFile: "https://via.placeholder.com/120/eee",
       });
     }
   };
@@ -83,12 +83,12 @@ class Team extends Component {
                 placeholder={this.props.teamName}
                 autoFocus
                 onChange={this.handleTeamNameChange}
-                color="primary"
+                color="default"
               />
               <div className={classes.Team_Editable__Buttons}>
                 <Button
                   type="submit"
-                  className={classes.Team_Editable__Button_Update}
+                  className={classes.Team_Editable__Button_Save}
                   onClick={(event) => {
                     this.props.onSubmit(
                       this.props.teamId,
@@ -175,7 +175,7 @@ class Team extends Component {
           </Modal>
           <Tooltip title="Edit" placement="bottom">
             <i
-              className={`${classes.Team__Icon} fas fa-edit `}
+              className={`fas fa-edit ${classes.Team__Icon} ${classes.Team__Icon_Edit}`}
               onClick={this.handleEditFormOpen}
             ></i>
           </Tooltip>

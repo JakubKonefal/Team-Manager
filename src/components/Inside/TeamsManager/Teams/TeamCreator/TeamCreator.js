@@ -11,7 +11,7 @@ class TeamCreator extends Component {
     newTeamLogo: null,
     selectedImage: null,
     uploadedImageUrl: "",
-    previewFile: "https://via.placeholder.com/100/eee",
+    previewFile: "https://via.placeholder.com/120/eee",
     teamCreatorActive: false,
   };
 
@@ -29,7 +29,7 @@ class TeamCreator extends Component {
     if (this.state.selectedImage)
       this.setState({
         selectedImage: null,
-        previewFile: "https://via.placeholder.com/100/eee",
+        previewFile: "https://via.placeholder.com/120/eee",
       });
   };
 

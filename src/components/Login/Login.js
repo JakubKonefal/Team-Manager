@@ -27,8 +27,15 @@ class Login extends Component {
     const { email, password } = this.state;
     auth
       .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        history.push("/my-teams");
+      .then((res) => {
+        history.push({
+          pathname: "/my-teams",
+          state: {
+            loggedIn: true,
+            loggedInUserEmail: email,
+            loggedInUid: res.user.uid,
+          },
+        });
       })
       .catch((err) => {
         alert(err);

@@ -1,15 +1,23 @@
 import React, { useContext } from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, withRouter } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const ProtectedRoute = ({ component: RouteComponent, ...rest }) => {
-  const { currentUser, currentUid } = useContext(AuthContext);
+  const { currentUser, currentUid, currentUserEmail } = useContext(AuthContext);
+  const { loggedIn, loggedInUid, loggedInUserEmail } = {
+    ...rest.location.state,
+  };
+
   return (
     <Route
       {...rest}
       render={(routeProps) =>
-        !!currentUser ? (
-          <RouteComponent {...routeProps} userId={currentUid} />
+        !!currentUser || loggedIn ? (
+          <RouteComponent
+            {...routeProps}
+            userId={currentUid || loggedInUid}
+            email={currentUserEmail || loggedInUserEmail}
+          />
         ) : (
           <Redirect to="/" />
         )
@@ -18,4 +26,4 @@ const ProtectedRoute = ({ component: RouteComponent, ...rest }) => {
   );
 };
 
-export default ProtectedRoute;
+export default withRouter(ProtectedRoute);

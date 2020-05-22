@@ -1,5 +1,6 @@
 .ToolbarItems__Logo_Img {
   height: 60px;
+  margin-left: 50px;
 }
 
 .ToolbarItems__Logo_Label {
@@ -15,12 +16,15 @@
   color: white;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .ToolbarItems__Logout {
+  margin-right: 50px;
   border: none;
   background-color: transparent;
   color: white;
   font-size: 18px;
   font-weight: bold;
+  cursor: pointer;
 }

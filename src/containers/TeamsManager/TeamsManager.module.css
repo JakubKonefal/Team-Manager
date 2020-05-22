@@ -7,6 +7,12 @@
 
 .TeamsManager__Header {
   margin-bottom: 60px;
+  font-family: "Montserrat";
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 4px;
 }
 
 .TeamsManager__TeamsList {

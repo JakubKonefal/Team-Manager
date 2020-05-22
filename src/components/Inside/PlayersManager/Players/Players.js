@@ -254,7 +254,7 @@ class Players extends Component {
   };
 
   render() {
-    const teamPlayers = this.state.players && (
+    const playersList = this.state.players && (
       <div className={classes.PlayersList}>
         <div className={classes.PlayersList__InfoBar}>
           <span className={classes.PlayersList__InfoTile_Player}>player</span>
@@ -375,7 +375,7 @@ class Players extends Component {
 
     return (
       <>
-        {teamPlayers}
+        {playersList}
         <PlayerCreator
           onSubmit={this.handleFormSubmitNewPlayer}
         ></PlayerCreator>

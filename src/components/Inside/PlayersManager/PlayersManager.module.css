@@ -3,3 +3,16 @@
   flex-direction: column;
   align-items: center;
 }
+
+.PlayersManager__Title {
+  width: 100%;
+  margin: 0;
+  padding: 25px 0;
+  font-family: "Montserrat";
+  font-weight: 600;
+  background-color: #cf1c2c;
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 4px;
+}
