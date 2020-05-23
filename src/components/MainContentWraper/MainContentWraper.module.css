@@ -1,4 +1,5 @@
 .MainContentWraper {
+  position: relative;
   width: 50%;
   margin: 0 auto;
   background-color: #2d3037;

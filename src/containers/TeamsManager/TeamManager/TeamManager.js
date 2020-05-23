@@ -12,24 +12,22 @@ import Footer from "../../../components/Navigation/Footer/Footer";
 const TeamManager = () => (
   <Layout>
     <MainContentWraper>
-      <div>
-        <AuthProvider>
+      <AuthProvider>
+        <ProtectedRoute
+          path="/my-teams/:teamId/players"
+          component={PlayersManager}
+        />
+        <Switch>
           <ProtectedRoute
-            path="/my-teams/:teamId/players"
-            component={PlayersManager}
+            path="/my-teams/:teamId/trainings/:year/:month/:trainingId"
+            component={TrainingOverview}
           />
-          <Switch>
-            <ProtectedRoute
-              path="/my-teams/:teamId/trainings/:year/:month/:trainingId"
-              component={TrainingOverview}
-            />
-            <ProtectedRoute
-              path="/my-teams/:teamId/trainings"
-              component={TrainingsManager}
-            />
-          </Switch>
-        </AuthProvider>
-      </div>
+          <ProtectedRoute
+            path="/my-teams/:teamId/trainings"
+            component={TrainingsManager}
+          />
+        </Switch>
+      </AuthProvider>
     </MainContentWraper>
     <Footer />
   </Layout>

@@ -1,0 +1,32 @@
+.Sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-100%, 0);
+  background-color: #2e40a4;
+}
+
+.Sidebar__Link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-decoration: none;
+  width: 100%;
+  color: inherit;
+  box-sizing: border-box;
+  padding: 8px 34px 10px 12px;
+  background-color: #2e40a4;
+  color: #a0a0a0;
+}
+
+.Sidebar__Link_Active {
+  color: white;
+  background-color: #3f51b5;
+}
+
+.Sidebar__Icon {
+  margin-right: 8px;
+}

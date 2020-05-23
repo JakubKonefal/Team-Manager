@@ -323,6 +323,9 @@ class Players extends Component {
             />
           );
         })}
+        <PlayerCreator
+          onSubmit={this.handleFormSubmitNewPlayer}
+        ></PlayerCreator>
         <div className={classes.PlayersList__ActionPanel}>
           <StylesProvider injectFirst>
             <Button
@@ -373,14 +376,7 @@ class Players extends Component {
       </div>
     );
 
-    return (
-      <>
-        {playersList}
-        <PlayerCreator
-          onSubmit={this.handleFormSubmitNewPlayer}
-        ></PlayerCreator>
-      </>
-    );
+    return <>{playersList}</>;
   }
 }
 

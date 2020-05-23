@@ -70,7 +70,7 @@
 .PlayerCreator__Buttons {
   display: flex;
   justify-content: space-around;
-  width: 80%;
+  width: 65%;
   margin: 5px 0 15px;
 }
 
@@ -116,7 +116,7 @@
 }
 
 .PlayerCreator_Inactive:hover {
-  color: #3b9d3f;
+  color: #2e40a4;
 }
 
 .PlayerCreator_Inactive__AddUserIcon {
