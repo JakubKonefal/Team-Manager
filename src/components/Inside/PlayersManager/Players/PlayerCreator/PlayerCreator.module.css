@@ -4,9 +4,9 @@
   align-items: center;
   justify-content: center;
   background-color: #ddd;
-  width: 50%;
+  width: 40%;
   box-sizing: border-box;
-  margin-bottom: 20px;
+  margin: 0 auto 20px;
   border: 2px solid #cf1c2c;
   border-top: none;
 }
@@ -16,8 +16,8 @@
   align-items: center;
   justify-content: center;
   height: 65px;
-  width: 50%;
-  margin-top: 20px;
+  width: 40%;
+  margin: 20px auto 0;
   color: white;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -105,9 +105,9 @@
 .PlayerCreator_Inactive {
   display: flex;
   align-items: center;
-  margin-top: 40px;
-  margin-left: 10px;
-  font-size: 20px;
+  justify-content: flex-start;
+  margin: 10px 0 15px 10px;
+  font-size: 14px;
   font-weight: bold;
   text-transform: uppercase;
   color: #757575;
@@ -120,6 +120,6 @@
 }
 
 .PlayerCreator_Inactive__AddUserIcon {
-  font-size: 60px;
+  font-size: 32px;
   margin-right: 20px;
 }

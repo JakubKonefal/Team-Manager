@@ -13,7 +13,10 @@ class App extends Component {
         <AuthProvider>
           <Switch>
             <ProtectedRoute path="/my-teams" exact component={TeamsManager} />
-            <ProtectedRoute path="/my-teams/:teamId" component={TeamManager} />
+            <ProtectedRoute
+              path="/my-teams/:teamId/:teamName"
+              component={TeamManager}
+            />
 
             <Route path="/" component={Outside} />
           </Switch>

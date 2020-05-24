@@ -309,6 +309,7 @@ class Players extends Component {
               onSubmit={this.handleFormSubmitEditPlayer}
               checkbox={
                 <Checkbox
+                  style={{ color: "#ADB6C4" }}
                   checked={this.state.playersCheckboxes[index].checked}
                   onChange={(event) =>
                     this.handleCheckboxClick(
@@ -368,8 +369,13 @@ class Players extends Component {
                 </div>
               </Card>
             </Modal>
-            <div className={classes.PlayersList__Checkbox}>
-              <Checkbox onChange={this.handleCheckboxSelectAll} />
+            <div>
+              <Tooltip placement="top" title="Select all">
+                <Checkbox
+                  onChange={this.handleCheckboxSelectAll}
+                  style={{ color: "#ADB6C4" }}
+                />
+              </Tooltip>
             </div>
           </StylesProvider>
         </div>

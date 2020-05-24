@@ -3,12 +3,12 @@ import classes from "./MainContentWraper.module.css";
 import Toolbar from "../Navigation/Toolbar/Toolbar";
 import Sidebar from "../Navigation/Sidebar/Sidebar";
 
-const MainContentWraper = ({ children }) => (
+const MainContentWraper = ({ children, match }) => (
   <>
     <Toolbar />
     <div className={classes.MainContentWraper}>
       {children}
-      <Sidebar />
+      <Sidebar match={match} />
     </div>
   </>
 );

@@ -78,17 +78,26 @@
   align-items: center;
   box-sizing: border-box;
   padding: 5px 0;
-  background-color: #cf1c2c;
+  background-color: #35383f;
   border-top: none;
 }
 
 .PlayersList__Button_Delete {
   margin-right: 20px;
+
+  background-color: #cf1c2c;
+  opacity: 0.8;
 }
 
 .PlayersList__Button_Delete:disabled {
-  background-color: #ee0055;
-  opacity: 0.5;
+  background-color: #cf1c2c;
+  color: white;
+  opacity: 0.2;
+}
+
+.PlayersList__Button_Delete:hover {
+  background-color: #cf1c2c;
+  opacity: 1;
 }
 
 .PlayersList__Modal {
@@ -132,4 +141,31 @@
 
 .PlayersList__ModalButton_No {
   color: red;
+}
+
+.PlayersManager {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.PlayersManager__Title {
+  width: 100%;
+  margin: 0;
+  padding: 29px 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  background-color: #cf1c2c;
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 4px;
+}
+
+.PlayersManager__Footer {
+  margin-top: auto;
+  background-color: #cf1c2c;
+  height: 50px;
+  width: 100%;
 }

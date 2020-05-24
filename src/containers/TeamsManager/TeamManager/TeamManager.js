@@ -9,12 +9,12 @@ import ProtectedRoute from "../../../hoc/ProtectedRoute/ProtectedRoute";
 import Layout from "../../../hoc/Layout/Layout";
 import Footer from "../../../components/Navigation/Footer/Footer";
 
-const TeamManager = () => (
+const TeamManager = ({ match }) => (
   <Layout>
-    <MainContentWraper>
+    <MainContentWraper match={match}>
       <AuthProvider>
         <ProtectedRoute
-          path="/my-teams/:teamId/players"
+          path="/my-teams/:teamId/:teamName/players"
           component={PlayersManager}
         />
         <Switch>
@@ -23,7 +23,7 @@ const TeamManager = () => (
             component={TrainingOverview}
           />
           <ProtectedRoute
-            path="/my-teams/:teamId/trainings"
+            path="/my-teams/:teamId/:teamName/trainings"
             component={TrainingsManager}
           />
         </Switch>

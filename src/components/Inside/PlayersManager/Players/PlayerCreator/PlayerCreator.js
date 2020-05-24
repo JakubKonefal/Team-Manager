@@ -101,12 +101,14 @@ class PlayerCreator extends Component {
             id="number"
             label="Number"
             variant="outlined"
+            size="small"
             className={classes.PlayerCreator__Input}
           />
           <TextField
             id="firstName"
             label="First name"
             variant="outlined"
+            size="small"
             className={classes.PlayerCreator__Input}
             required
           />
@@ -114,6 +116,7 @@ class PlayerCreator extends Component {
             id="lastName"
             label="Last name"
             variant="outlined"
+            size="small"
             className={classes.PlayerCreator__Input}
             required
           />
@@ -127,6 +130,7 @@ class PlayerCreator extends Component {
             <Select
               labelId="demo-simple-select-outlined-label"
               label="Position"
+              size="small"
               onChange={this.handleInputChange}
               value={this.state.newPlayerInfo.position}
               name="position"
@@ -139,6 +143,7 @@ class PlayerCreator extends Component {
           </FormControl>
           <TextField
             variant="outlined"
+            size="small"
             id="birth"
             label="Birthday"
             type="date"

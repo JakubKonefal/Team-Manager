@@ -1,14 +1,17 @@
 import React from "react";
+import classes from "./TrainingsManager.module.css";
 import Trainings from "./Trainings/Trainings";
 
-const TrainingsManager = (props) => {
-  console.log(props);
+const TrainingsManager = ({ match, userId }) => (
+  <div className={classes.TrainingsManager}>
+    <h2 className={classes.TrainingsManager__Title}>
+      {" "}
+      {match.params.teamName}'s trainings{" "}
+    </h2>
 
-  return (
-    <div>
-      <Trainings teamId={props.match.params.teamId} userId={props.userId} />
-    </div>
-  );
-};
+    <Trainings teamId={match.params.teamId} userId={userId} />
+    <div className={classes.TrainingsManager__Footer}></div>
+  </div>
+);
 
 export default TrainingsManager;

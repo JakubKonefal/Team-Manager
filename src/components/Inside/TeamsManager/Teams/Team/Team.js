@@ -130,9 +130,9 @@ class Team extends Component {
         <Link
           className={classes.Team__TeamName}
           to={{
-            pathname: `/my-teams/${this.props.teamId}`,
-            teamId: this.props.teamId,
-            teamName: this.props.teamName,
+            pathname: `/my-teams/${this.props.teamId}/${this.props.teamName}`,
+            // teamId: this.props.teamId,
+            // teamName: this.props.teamName,
           }}
         >
           {this.props.teamName}

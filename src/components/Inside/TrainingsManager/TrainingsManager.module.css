@@ -1,26 +1,27 @@
-.PlayersManager {
+.TrainingsManager {
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  width: 100%;
 }
 
-.PlayersManager__Title {
+.TrainingsManager__Title {
   width: 100%;
   margin: 0;
   padding: 30px 0;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
-  background-color: #cf1c2c;
+  background-color: #0b5351;
   color: white;
   text-transform: uppercase;
   text-align: center;
   letter-spacing: 4px;
 }
 
-.PlayersManager__Footer {
+.TrainingsManager__Footer {
   margin-top: auto;
-  background-color: #cf1c2c;
+  background-color: #0b5351;
   height: 50px;
   width: 100%;
 }

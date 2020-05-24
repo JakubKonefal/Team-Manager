@@ -3,21 +3,21 @@ import classes from "./Sidebar.module.css";
 import { NavLink, withRouter } from "react-router-dom";
 import {
   AssignmentOutlined,
-  PeopleOutline,
+  GroupOutlined,
+  PersonOutline,
   DashboardOutlined,
 } from "@material-ui/icons";
 
-const Sidebar = ({ location }) => {
-  const { pathname } = location;
+const Sidebar = ({ match: { params, path } }) => {
+  const { teamId, teamName } = params;
   const toolbarTabs =
-    pathname !== "/my-teams" && pathname !== "/my-teams/" ? (
+    path !== "/my-teams" && path !== "/my-teams/" ? (
       <div className={classes.Sidebar}>
         <NavLink
           exact
           className={classes.Sidebar__Link}
           to={{
-            pathname: `/my-teams/${location.teamId}`,
-            teamId: location.teamId,
+            pathname: `/my-teams/${teamId}/${teamName}`,
           }}
           activeClassName={classes.Sidebar__Link_Active}
         >
@@ -27,20 +27,27 @@ const Sidebar = ({ location }) => {
           exact
           className={classes.Sidebar__Link}
           to={{
-            pathname: `/my-teams/${location.teamId}/players`,
-            teamId: location.teamId,
-            teamName: location.teamName,
+            pathname: "/my-teams",
           }}
           activeClassName={classes.Sidebar__Link_Active}
         >
-          <PeopleOutline className={classes.Sidebar__Icon} /> Players
+          <GroupOutlined className={classes.Sidebar__Icon} /> Teams
         </NavLink>
         <NavLink
           exact
           className={classes.Sidebar__Link}
           to={{
-            pathname: `/my-teams/${location.teamId}/trainings`,
-            teamId: location.teamId,
+            pathname: `/my-teams/${teamId}/${teamName}/players`,
+          }}
+          activeClassName={classes.Sidebar__Link_Active}
+        >
+          <PersonOutline className={classes.Sidebar__Icon} /> Players
+        </NavLink>
+        <NavLink
+          exact
+          className={classes.Sidebar__Link}
+          to={{
+            pathname: `/my-teams/${teamId}/${teamName}/trainings`,
           }}
           activeClassName={classes.Sidebar__Link_Active}
         >

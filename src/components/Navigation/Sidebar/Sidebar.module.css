@@ -13,13 +13,14 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  text-decoration: none;
   width: 100%;
-  color: inherit;
   box-sizing: border-box;
   padding: 8px 34px 10px 12px;
   background-color: #2e40a4;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
   color: #a0a0a0;
+  text-decoration: none;
 }
 
 .Sidebar__Link_Active {

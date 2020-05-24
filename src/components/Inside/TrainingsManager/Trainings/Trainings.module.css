@@ -1,3 +1,7 @@
+.Trainings {
+  width: 100%;
+}
+
 .TrainingCreators {
   display: flex;
   justify-content: space-around;
