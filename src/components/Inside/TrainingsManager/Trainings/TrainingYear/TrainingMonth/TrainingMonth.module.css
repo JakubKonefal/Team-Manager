@@ -1,11 +1,12 @@
 .TrainingMonthHeader {
   display: flex;
   align-items: center;
-  width: 90%;
-  margin: 0 auto;
+  width: 100%;
+  margin: 40px auto 0;
   box-sizing: border-box;
   padding: 0 0 0 6px;
-  background-color: #04773b;
+  background-color: #12782f;
+  color: black;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   text-transform: uppercase;
@@ -13,6 +14,9 @@
 
 .TrainingMonthHeader__Title {
   margin: 0 0 0 8px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 17px;
+  font-weight: 600;
   cursor: pointer;
 }
 
@@ -20,10 +24,17 @@
   color: #333;
 }
 
+.TrainingMonthHeader__Title_Year {
+  text-decoration: underline;
+  margin-right: 10px;
+}
+
 .TrainingMonthList {
   display: grid;
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
+  background-color: #def4c6;
+  color: black;
   grid-template-columns: 0.3fr 0.7fr 0.8fr 0.5fr 0.5fr 1.2fr 1.2fr 0.6fr;
 }
 
@@ -31,12 +42,11 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 90%;
+  width: 100%;
   margin: 0 auto 25px;
   box-sizing: border-box;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-top: none;
+  padding: 12px 15px;
+  background-color: #12782f;
 }
 
 .Button {
@@ -61,7 +71,7 @@
 }
 
 .Button_Edit:disabled {
-  background-color: #e0e0e0;
+  opacity: 0.4;
   cursor: default;
 }
 
@@ -71,6 +81,11 @@
 
 .Button_Delete:hover {
   background-color: #f50056d3;
+}
+
+.Button_Delete:disabled {
+  opacity: 0.4;
+  cursor: default;
 }
 
 .TrainingMonth__Modal {

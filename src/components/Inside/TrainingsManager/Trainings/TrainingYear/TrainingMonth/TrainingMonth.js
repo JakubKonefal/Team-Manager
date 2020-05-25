@@ -156,6 +156,7 @@ class TrainingMonth extends Component {
         </button>
         <button
           className={`${classes.Button} ${classes.Button_Delete}`}
+          disabled={this.state.checkedTrainingsCount < 1}
           onClick={this.handleModalOpen}
         >
           delete
@@ -203,7 +204,11 @@ class TrainingMonth extends Component {
             className={classes.TrainingMonthHeader__Title}
             onClick={this.handleToggleMonthExpand}
           >
-            {`${this.props.year} ${this.props.month}`}
+            <span className={classes.TrainingMonthHeader__Title_Year}>
+              {this.props.year}
+            </span>
+            <span>{this.props.month}</span>
+            {/* {`$ $`} */}
           </h5>
         </div>
         <Collapse in={this.state.monthExpanded}>

@@ -16,9 +16,16 @@
   cursor: pointer;
 }
 
+.TrainingsListInfoBar__SortIcon {
+  font-size: 15px;
+}
+
+.TrainingsListInfoBar__Tile:nth-child(1) {
+  border-left: none;
+}
+
 .TrainingsListInfoBar__Tile:nth-child(8) {
   box-sizing: border-box;
-  border-right: 1px solid #333;
 }
 
 .TrainingsListInfoBar__Tile:hover {
@@ -28,8 +35,4 @@
 .TrainingsListInfoBar__Tile:nth-child(3):hover {
   color: black;
   cursor: default;
-}
-
-.TrainingsListInfoBar__SortIcon {
-  font-size: 15px;
 }

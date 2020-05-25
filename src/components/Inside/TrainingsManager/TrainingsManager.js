@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./TrainingsManager.module.css";
 import Trainings from "./Trainings/Trainings";
+import { AssignmentOutlined } from "@material-ui/icons";
 
 const TrainingsManager = ({ match, userId }) => (
   <div className={classes.TrainingsManager}>
@@ -10,7 +11,9 @@ const TrainingsManager = ({ match, userId }) => (
     </h2>
 
     <Trainings teamId={match.params.teamId} userId={userId} />
-    <div className={classes.TrainingsManager__Footer}></div>
+    <div className={classes.TrainingsManager__Footer}>
+      <AssignmentOutlined className={classes.TrainingsManager__FooterIcon} />
+    </div>
   </div>
 );
 
