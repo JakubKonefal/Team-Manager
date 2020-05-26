@@ -23,16 +23,12 @@ class Trainings extends Component {
   componentDidMount() {
     const { teamId, userId } = this.props;
 
-    axios
-      .get(
-        `https://team-manager-b8e8c.firebaseio.com/users/${userId}/teams/${teamId}/trainings.json`
-      )
-      .then((res) => {
-        const trainings = res.data;
-        if (trainings) {
-          this.setState({ trainings });
-        }
-      });
+    axios.get(`/users/${userId}/teams/${teamId}/trainings.json`).then((res) => {
+      const trainings = res.data;
+      if (trainings) {
+        this.setState({ trainings });
+      }
+    });
   }
 
   handleFormSubmitNewTraining = (newTrainingInfo) => {
@@ -146,14 +142,14 @@ class Trainings extends Component {
     return (
       <div className={classes.Trainings}>
         {trainingYears}
-        <div className={classes.TrainingCreators}>
-          <div className={classes.TrainingCreators__Creator_Wraper}>
+        <div className={classes.Trainings__TrainingCreators}>
+          <div className={classes.Trainings__TrainingCreator_Wraper}>
             {" "}
             <SingleTrainingCreator
               onFormSubmit={this.handleFormSubmitNewTraining}
             />
           </div>
-          <div className={classes.TrainingCreators__Creator_Wraper}>
+          <div className={classes.Trainings__TrainingCreator_Wraper}>
             {" "}
             <MultipleTrainingsCreator
               onFormSubmit={this.handleFormSubmitNewTrainings}

@@ -1,6 +1,6 @@
 .TrainingTask_Edit {
   border-width: 2px;
-  border-color: #53a2be;
+  border-color: #069e2d;
   margin-bottom: 5px;
 }
 
@@ -9,15 +9,14 @@
   align-items: center;
   padding: 4px 8px;
   font-weight: bold;
-  text-transform: uppercase;
   color: #fff;
   transition: 0.4s;
-  background-color: #53a2be;
+  background-color: #069e2d;
   cursor: pointer;
 }
 
 .TrainingTask_Edit__Header:hover {
-  background-color: #4291ad;
+  background-color: #17af3e;
 }
 
 .TrainingTask_Edit__RemoveIcon {
@@ -33,7 +32,8 @@
 
 .TrainingTask_Edit__Title {
   font-size: 15px;
-  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
   color: #fff;
   cursor: pointer;
 }

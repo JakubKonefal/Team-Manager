@@ -2,13 +2,13 @@
   width: 100%;
 }
 
-.TrainingCreators {
+.Trainings__TrainingCreators {
   display: flex;
   justify-content: space-around;
   width: 90%;
   margin: 20px auto;
 }
 
-.TrainingCreators__Creator_Wraper {
+.Trainings__TrainingCreator_Wraper {
   width: 45%;
 }

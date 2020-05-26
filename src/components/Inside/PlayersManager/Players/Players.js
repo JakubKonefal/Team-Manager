@@ -26,30 +26,26 @@ class Players extends Component {
   componentDidMount() {
     const { teamId, userId } = this.props;
 
-    axios
-      .get(
-        `https://team-manager-b8e8c.firebaseio.com/users/${userId}/teams/${teamId}/players.json`
-      )
-      .then((res) => {
-        const players = res.data;
-        if (players) {
-          const playersArray = Object.values(players);
-          const playersSortedByNumber = playersArray.sort((a, b) => {
-            return a.playerInfo.number - b.playerInfo.number;
-          });
-          playersSortedByNumber.reverse();
+    axios.get(`/users/${userId}/teams/${teamId}/players.json`).then((res) => {
+      const players = res.data;
+      if (players) {
+        const playersArray = Object.values(players);
+        const playersSortedByNumber = playersArray.sort((a, b) => {
+          return a.playerInfo.number - b.playerInfo.number;
+        });
+        playersSortedByNumber.reverse();
 
-          const playersCheckboxes = playersSortedByNumber.map((player) => ({
-            checked: false,
-            id: player.playerId,
-            photo: player.playerPhoto,
-          }));
-          this.setState({
-            players: playersSortedByNumber,
-            playersCheckboxes,
-          });
-        }
-      });
+        const playersCheckboxes = playersSortedByNumber.map((player) => ({
+          checked: false,
+          id: player.playerId,
+          photo: player.playerPhoto,
+        }));
+        this.setState({
+          players: playersSortedByNumber,
+          playersCheckboxes,
+        });
+      }
+    });
   }
 
   countCheckedTrainings = (checkboxes) => {

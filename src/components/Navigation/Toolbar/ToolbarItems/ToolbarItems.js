@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./ToolbarItems.module.css";
-import Logo from "../../../../assets/img/logo-blue.png";
+import Logo from "../../../../assets/img/logo.png";
 import { auth } from "../../../../firebase/firebase";
 import { withRouter } from "react-router-dom";
 

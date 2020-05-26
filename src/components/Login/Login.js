@@ -57,6 +57,7 @@ class Login extends Component {
             className={classes.Login__Input}
             type="email"
             id="email"
+            name="email"
             variant="outlined"
             size="small"
             label="Email"
@@ -73,6 +74,7 @@ class Login extends Component {
             className={classes.Login__Input}
             type="password"
             id="password"
+            name="password"
             variant="outlined"
             size="small"
             label="Password"

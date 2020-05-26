@@ -122,6 +122,7 @@ class MultipleTrainingsCreator extends Component {
                 <TextField
                   className={classes.MultipleTrainingsCreator__Input}
                   id="from"
+                  name="from"
                   type="date"
                   variant="outlined"
                   size="small"
@@ -131,6 +132,7 @@ class MultipleTrainingsCreator extends Component {
                 <TextField
                   className={classes.MultipleTrainingsCreator__Input}
                   id="to"
+                  name="to"
                   type="date"
                   variant="outlined"
                   size="small"
@@ -147,6 +149,7 @@ class MultipleTrainingsCreator extends Component {
                   <Select
                     labelId="daysOfWeek"
                     id="daysOfWeek"
+                    name="daysOfWeek"
                     multiple
                     variant="outlined"
                     input={<Input />}
@@ -175,6 +178,7 @@ class MultipleTrainingsCreator extends Component {
                 <TextField
                   className={classes.MultipleTrainingsCreator__Input}
                   id="start"
+                  name="start"
                   type="time"
                   variant="outlined"
                   size="small"
@@ -184,6 +188,7 @@ class MultipleTrainingsCreator extends Component {
                 <TextField
                   className={classes.MultipleTrainingsCreator__Input}
                   id="end"
+                  name="end"
                   type="time"
                   variant="outlined"
                   size="small"
@@ -193,6 +198,7 @@ class MultipleTrainingsCreator extends Component {
                 <TextField
                   className={classes.MultipleTrainingsCreator__Input}
                   id="place"
+                  name="place"
                   variant="outlined"
                   size="small"
                   label="Place"
@@ -200,6 +206,7 @@ class MultipleTrainingsCreator extends Component {
                 <TextField
                   className={classes.MultipleTrainingsCreator__Input}
                   id="trainingType"
+                  name="trainingType"
                   variant="outlined"
                   size="small"
                   label="Training type"
@@ -214,6 +221,7 @@ class MultipleTrainingsCreator extends Component {
                 <Slider
                   className={classes.MultipleTrainingsCreator__Input}
                   id="intensity"
+                  name="intensity"
                   size="small"
                   value={this.state.newTrainingsInfo.intensity}
                   valueLabelDisplay="auto"

@@ -1,6 +1,6 @@
 .TrainingPlan {
   box-sizing: border-box;
-  border-color: #176087;
+  border-color: #069e2d;
   margin-bottom: 20px;
 }
 
@@ -9,11 +9,13 @@
   margin: 0;
   padding: 10px 0;
   cursor: pointer;
-  background-color: #176087;
+  background-color: #069e2d;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
   color: #ecf0f1;
   letter-spacing: 1px;
 }
 
 .TrainingPlan__Header:hover {
-  background-color: #1871a9;
+  background-color: #17af3e;
 }

@@ -12,7 +12,7 @@ const Sidebar = ({ match: { params, path } }) => {
   const { teamId, teamName } = params;
   const toolbarTabs =
     path !== "/my-teams" && path !== "/my-teams/" ? (
-      <div className={classes.Sidebar}>
+      <nav className={classes.Sidebar}>
         <NavLink
           exact
           className={classes.Sidebar__Link}
@@ -53,7 +53,7 @@ const Sidebar = ({ match: { params, path } }) => {
         >
           <AssignmentOutlined className={classes.Sidebar__Icon} /> Trainings
         </NavLink>
-      </div>
+      </nav>
     ) : null;
 
   return <>{toolbarTabs}</>;

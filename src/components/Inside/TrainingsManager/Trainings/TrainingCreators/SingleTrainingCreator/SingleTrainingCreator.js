@@ -89,6 +89,7 @@ class SingleTrainingCreator extends Component {
                 <TextField
                   className={classes.SingleTrainingCreator__Input}
                   id="date"
+                  name="date"
                   type="date"
                   variant="outlined"
                   size="small"
@@ -98,6 +99,7 @@ class SingleTrainingCreator extends Component {
                 <TextField
                   className={classes.SingleTrainingCreator__Input}
                   id="start"
+                  name="start"
                   type="time"
                   variant="outlined"
                   size="small"
@@ -107,6 +109,7 @@ class SingleTrainingCreator extends Component {
                 <TextField
                   className={classes.SingleTrainingCreator__Input}
                   id="end"
+                  name="end"
                   type="time"
                   variant="outlined"
                   size="small"
@@ -116,6 +119,7 @@ class SingleTrainingCreator extends Component {
                 <TextField
                   className={classes.SingleTrainingCreator__Input}
                   id="place"
+                  name="place"
                   variant="outlined"
                   size="small"
                   label="Place"
@@ -123,6 +127,7 @@ class SingleTrainingCreator extends Component {
                 <TextField
                   className={classes.SingleTrainingCreator__Input}
                   id="trainingType"
+                  name="trainingType"
                   variant="outlined"
                   size="small"
                   label="Training type"
@@ -137,6 +142,7 @@ class SingleTrainingCreator extends Component {
                 <Slider
                   className={classes.SingleTrainingCreator__Input}
                   id="intensity"
+                  name="intensity"
                   size="small"
                   value={this.state.newTrainingInfo.intensity}
                   valueLabelDisplay="auto"

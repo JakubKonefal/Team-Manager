@@ -14,7 +14,7 @@ class TrainingTasks extends Component {
 
     axios
       .get(
-        `https://team-manager-b8e8c.firebaseio.com/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks.json`
+        `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks.json`
       )
       .then((res) => {
         const tasks = res.data;

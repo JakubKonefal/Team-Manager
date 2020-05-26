@@ -99,6 +99,7 @@ class TrainingInfo extends Component {
                 <TextField
                   className={classes.TrainingInfo__Input}
                   id="date"
+                  name="date"
                   type="date"
                   variant="outlined"
                   size="small"
@@ -109,6 +110,7 @@ class TrainingInfo extends Component {
                 <TextField
                   className={classes.TrainingInfo__Input}
                   id="start"
+                  name="start"
                   type="time"
                   variant="outlined"
                   size="small"
@@ -119,6 +121,7 @@ class TrainingInfo extends Component {
                 <TextField
                   className={classes.TrainingInfo__Input}
                   id="end"
+                  name="end"
                   type="time"
                   variant="outlined"
                   size="small"
@@ -129,6 +132,7 @@ class TrainingInfo extends Component {
                 <TextField
                   className={classes.TrainingInfo__Input}
                   id="place"
+                  name="place"
                   variant="outlined"
                   size="small"
                   label="Place"
@@ -137,6 +141,7 @@ class TrainingInfo extends Component {
                 <TextField
                   className={classes.TrainingInfo__Input}
                   id="trainingType"
+                  name="trainingType"
                   variant="outlined"
                   size="small"
                   label="Training type"
@@ -152,6 +157,7 @@ class TrainingInfo extends Component {
                 <Slider
                   className={classes.TrainingInfo__Input}
                   id="intensity"
+                  name="intensity"
                   size="small"
                   value={this.state.updatedTrainingInfo.intensity}
                   valueLabelDisplay="auto"

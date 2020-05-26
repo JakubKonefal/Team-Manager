@@ -76,7 +76,8 @@
 
 .PlayerCreator__Button_Add {
   color: #eee;
-  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
   text-transform: uppercase;
   background-color: green;
   font-size: 14px;
@@ -91,7 +92,8 @@
 
 .PlayerCreator__Button_Cancel {
   color: #eee;
-  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
   text-transform: uppercase;
   background-color: #d91162;
   font-size: 14px;

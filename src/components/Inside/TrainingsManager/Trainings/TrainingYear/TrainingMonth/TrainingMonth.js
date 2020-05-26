@@ -208,7 +208,6 @@ class TrainingMonth extends Component {
               {this.props.year}
             </span>
             <span>{this.props.month}</span>
-            {/* {`$ $`} */}
           </h5>
         </div>
         <Collapse in={this.state.monthExpanded}>

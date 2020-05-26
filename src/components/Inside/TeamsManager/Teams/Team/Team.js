@@ -66,6 +66,7 @@ class Team extends Component {
             <input
               type="file"
               id="teamLogo"
+              name="teamLogo"
               onChange={this.handleImageSelect}
             />
             <label
@@ -79,6 +80,7 @@ class Team extends Component {
             <StylesProvider injectFirst>
               <Input
                 type="text"
+                name="teamName"
                 className={classes.Team_Editable__Input}
                 placeholder={this.props.teamName}
                 autoFocus
@@ -131,8 +133,6 @@ class Team extends Component {
           className={classes.Team__TeamName}
           to={{
             pathname: `/my-teams/${this.props.teamId}/${this.props.teamName}`,
-            // teamId: this.props.teamId,
-            // teamName: this.props.teamName,
           }}
         >
           {this.props.teamName}

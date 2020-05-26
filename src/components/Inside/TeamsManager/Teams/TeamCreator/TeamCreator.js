@@ -60,6 +60,7 @@ class TeamCreator extends Component {
           <input type="file" id="teamLogo" onChange={this.handleImageSelect} />
           <label
             htmlFor="teamLogo"
+            name="teamLogo"
             className={classes.TeamCreator__PrevFileHelperText}
           >
             Choose file..
@@ -69,6 +70,7 @@ class TeamCreator extends Component {
           <StylesProvider injectFirst>
             <Input
               type="text"
+              name="teamName"
               className={classes.TeamCreator__Input}
               placeholder="Team Name"
               autoFocus

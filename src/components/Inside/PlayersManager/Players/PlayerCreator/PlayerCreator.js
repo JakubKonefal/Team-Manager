@@ -88,7 +88,12 @@ class PlayerCreator extends Component {
             <div className={classes.PlayerCreator__PreviewFile}>
               <FilePreviewElement src={this.state.previewFile} />
             </div>
-            <input type="file" id="photo" onChange={this.handleImageSelect} />
+            <input
+              type="file"
+              id="photo"
+              name="photo"
+              onChange={this.handleImageSelect}
+            />
             <label
               htmlFor="photo"
               className={classes.PlayerCreator__PrevFileHelperText}
@@ -99,6 +104,7 @@ class PlayerCreator extends Component {
 
           <TextField
             id="number"
+            name="number"
             label="Number"
             variant="outlined"
             size="small"
@@ -106,6 +112,7 @@ class PlayerCreator extends Component {
           />
           <TextField
             id="firstName"
+            name="firstName"
             label="First name"
             variant="outlined"
             size="small"
@@ -114,6 +121,7 @@ class PlayerCreator extends Component {
           />
           <TextField
             id="lastName"
+            name="lastName"
             label="Last name"
             variant="outlined"
             size="small"
@@ -145,6 +153,7 @@ class PlayerCreator extends Component {
             variant="outlined"
             size="small"
             id="birth"
+            name="birth"
             label="Birthday"
             type="date"
             className={classes.PlayerCreator__Input}
@@ -173,10 +182,12 @@ class PlayerCreator extends Component {
         </form>
       </StylesProvider>
     ) : (
-      <div className={classes.PlayerCreator_Inactive}>
+      <div
+        className={classes.PlayerCreator_Inactive}
+        onClick={this.handlePlayerCreatorOpen}
+      >
         <i
           className={`fas fa-user-plus ${classes.PlayerCreator_Inactive__AddUserIcon}`}
-          onClick={this.handlePlayerCreatorOpen}
         ></i>
         <span>add player</span>
       </div>

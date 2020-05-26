@@ -79,6 +79,7 @@ class TaskCreator extends Component {
                 <TextField
                   className={classes.TaskCreator__Input}
                   id="taskTitle"
+                  name="taskTitle"
                   variant="outlined"
                   size="small"
                   label="Task Title"
@@ -87,6 +88,7 @@ class TaskCreator extends Component {
                 <TextField
                   className={classes.TaskCreator__Input}
                   id="taskDescription"
+                  name="taskDescription"
                   variant="outlined"
                   label="Task Description"
                   multiline
@@ -95,6 +97,7 @@ class TaskCreator extends Component {
                 <TextField
                   className={classes.TaskCreator__Input}
                   id="equipment"
+                  name="equipment"
                   variant="outlined"
                   size="small"
                   label="Equipment"
@@ -102,6 +105,7 @@ class TaskCreator extends Component {
                 <TextField
                   className={`${classes.TaskCreator__Input} ${classes.TaskCreator__Input_Duration}`}
                   id="duration"
+                  name="duration"
                   variant="outlined"
                   size="small"
                   label="Duration"
@@ -116,6 +120,7 @@ class TaskCreator extends Component {
                     add task
                   </Button>
                   <Button
+                    className={classes.TaskCreator__Button_Cancel}
                     variant="contained"
                     color="secondary"
                     onClick={this.handleTaskCreatorCancel}

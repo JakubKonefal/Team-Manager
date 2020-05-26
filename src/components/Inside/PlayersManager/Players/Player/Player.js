@@ -91,7 +91,12 @@ class Player extends Component {
                 <i className={`fas fa-plus`}></i>
               </label>
             </div>
-            <input type="file" id="photo" onChange={this.handleImageSelect} />
+            <input
+              type="file"
+              id="photo"
+              name="photo"
+              onChange={this.handleImageSelect}
+            />
           </div>
           <div
             className={`${classes.Player_Editable__InputWraper} ${classes.Player_Editable_Number} `}
@@ -99,6 +104,7 @@ class Player extends Component {
             <input
               type="text"
               id="number"
+              name="number"
               className={`${classes.Player_Editable__InputText} ${classes.Player_Editable__InputText_Number}`}
               placeholder={this.props.playerInfo.number}
               onFocus={(event) => this.handleClearInput(event)}
@@ -110,6 +116,7 @@ class Player extends Component {
             <input
               type="text"
               id="firstName"
+              name="firstName"
               className={classes.Player_Editable__InputText}
               placeholder={this.props.playerInfo.firstName}
               onFocus={(event) => this.handleClearInput(event)}
@@ -121,6 +128,7 @@ class Player extends Component {
             <input
               type="text"
               id="lastName"
+              name="lastName"
               className={classes.Player_Editable__InputText}
               placeholder={this.props.playerInfo.lastName}
               onFocus={(event) => this.handleClearInput(event)}
@@ -129,6 +137,7 @@ class Player extends Component {
           <div className={classes.Player_Editable__InputWraper}>
             <select
               id="position"
+              name="position"
               defaultValue={this.props.playerInfo.position}
               className={classes.Player_Editable__SelectField}
             >
@@ -144,6 +153,7 @@ class Player extends Component {
             <input
               type="date"
               id="birth"
+              name="birth"
               className={classes.Player_Editable__DateInput}
               defaultValue={this.props.playerInfo.birth}
             />

@@ -7,7 +7,7 @@ const TrainingsManager = ({ match, userId }) => (
   <div className={classes.TrainingsManager}>
     <h2 className={classes.TrainingsManager__Title}>
       {" "}
-      {match.params.teamName}'s trainings{" "}
+      {`${match.params.teamName}'s trainings`}
     </h2>
 
     <Trainings teamId={match.params.teamId} userId={userId} />

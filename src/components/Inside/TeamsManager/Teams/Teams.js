@@ -17,18 +17,16 @@ class Teams extends Component {
 
   componentDidMount() {
     const { userId } = this.props;
-    axios
-      .get(
-        `https://team-manager-b8e8c.firebaseio.com/users/${userId}/teams.json`
-      )
-      .then((res) => {
-        const teams = res.data;
-        if (teams) {
-          const teamsArr = Object.values(teams);
-          this.setState({ teams: teamsArr });
-        }
-      });
+    axios.get(`/users/${userId}/teams.json`).then((res) => {
+      const teams = res.data;
+      if (teams) {
+        const teamsArr = Object.values(teams);
+        this.setState({ teams: teamsArr });
+      }
+    });
   }
+
+  getInitialTeamsList = () => {};
 
   handleFormSubmitEditTeam = (teamId, updatedTeamName, updatedImage, e) => {
     e.preventDefault();

@@ -2,28 +2,27 @@
   display: flex;
   align-items: center;
   padding: 4px 8px;
-  font-weight: bold;
-  text-transform: uppercase;
   color: #707070;
   transition: 0.4s;
-  background-color: #119bc1;
+  background-color: #069e2d;
   cursor: pointer;
 }
 
 .TaskCreator__Header:hover {
-  background-color: #008ab0;
+  background-color: #17af3e;
 }
 
 .TaskCreator__Title {
   font-size: 15px;
-  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
   color: #fff;
   cursor: pointer;
 }
 
 .TaskCreator__Content {
   box-sizing: border-box;
-  border: 2px solid #119bc1;
+  border: 2px solid #069e2d;
   padding: 8px 20px;
   border-top: none;
 }
@@ -55,11 +54,18 @@
 }
 
 .TaskCreator__Button_Add {
-  background-color: #119bc1;
+  background-color: #069e2d;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
 }
 
 .TaskCreator__Button_Add:hover {
-  background-color: #0079a0;
+  background-color: #17af3e;
+}
+
+.TaskCreator__Button_Cancel {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
 }
 
 .TaskCreator__AddIcon {

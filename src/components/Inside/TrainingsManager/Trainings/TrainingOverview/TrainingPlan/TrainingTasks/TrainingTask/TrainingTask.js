@@ -27,6 +27,7 @@ class TrainingTask extends Component {
       duration: "",
       equipment: "",
     },
+    deleteModalOpen: false,
   };
 
   handleTrainingTaskToggle = () => {
@@ -85,7 +86,7 @@ class TrainingTask extends Component {
           >
             <RemoveCircle className={classes.TrainingTask_Edit__RemoveIcon} />
             <Typography className={classes.TrainingTask_Edit__Title}>
-              edit task
+              Edit task
             </Typography>
           </div>
           <form onChange={this.handleInputChange}>
@@ -96,6 +97,7 @@ class TrainingTask extends Component {
                 </Typography>{" "}
                 <TextField
                   id="taskTitle"
+                  name="taskTitle"
                   label="Task title"
                   variant="outlined"
                   size="small"
@@ -108,6 +110,7 @@ class TrainingTask extends Component {
                 <Timer />
                 <TextField
                   id="duration"
+                  name="duration"
                   label="Duration"
                   variant="outlined"
                   size="small"
@@ -124,6 +127,7 @@ class TrainingTask extends Component {
               >
                 <TextField
                   id="taskDescription"
+                  name="taskDescription"
                   label="Task description"
                   variant="outlined"
                   size="small"
@@ -137,6 +141,7 @@ class TrainingTask extends Component {
                 Equipment:{" "}
                 <TextField
                   id="equipment"
+                  name="equipment"
                   label="Equipment"
                   variant="outlined"
                   size="small"
