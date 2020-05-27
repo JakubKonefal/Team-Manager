@@ -131,6 +131,7 @@ class Trainings extends Component {
           <TrainingYear
             userId={this.props.userId}
             teamId={this.props.teamId}
+            teamName={this.props.teamName}
             trainings={year}
             key={trainingsYears[index]}
             year={trainingsYears[index]}

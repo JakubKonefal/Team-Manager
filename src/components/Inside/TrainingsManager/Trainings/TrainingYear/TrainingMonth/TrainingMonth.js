@@ -129,6 +129,7 @@ class TrainingMonth extends Component {
             {...training.trainingInfo}
             key={training.trainingId}
             teamId={this.props.teamId}
+            teamName={this.props.teamName}
             trainingId={training.trainingId}
             checkbox={
               <Checkbox

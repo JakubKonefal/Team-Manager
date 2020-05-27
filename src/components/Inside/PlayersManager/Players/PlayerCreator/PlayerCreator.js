@@ -107,6 +107,9 @@ class PlayerCreator extends Component {
             name="number"
             label="Number"
             variant="outlined"
+            inputProps={{
+              maxLength: 2,
+            }}
             size="small"
             className={classes.PlayerCreator__Input}
           />
@@ -115,6 +118,9 @@ class PlayerCreator extends Component {
             name="firstName"
             label="First name"
             variant="outlined"
+            inputProps={{
+              maxLength: 12,
+            }}
             size="small"
             className={classes.PlayerCreator__Input}
             required
@@ -124,6 +130,9 @@ class PlayerCreator extends Component {
             name="lastName"
             label="Last name"
             variant="outlined"
+            inputProps={{
+              maxLength: 14,
+            }}
             size="small"
             className={classes.PlayerCreator__Input}
             required

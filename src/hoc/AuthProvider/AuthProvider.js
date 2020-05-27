@@ -4,18 +4,18 @@ import { auth } from "../../firebase/firebase";
 export const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [currentUid, setCurrentUid] = useState("");
-  const [currentUserEmail, setCurrentUserEmail] = useState("");
+  const [currentUser, setCurrentUser] = useState({});
   const [pending, setPending] = useState(true);
+
+  const setAllValues = ({ currentUser }) => {
+    setCurrentUser(currentUser);
+  };
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-      if (user) {
-        setCurrentUid(user.uid);
-        setCurrentUserEmail(user.email);
-      }
+      console.log(user);
+      const userObject = user || {};
+      setCurrentUser(userObject);
       setPending(false);
     });
   }, []);
@@ -25,7 +25,14 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ currentUser, currentUid, currentUserEmail }}>
+    <AuthContext.Provider
+      value={{
+        currentUser,
+        currentUid: currentUser.uid,
+        currentUserEmail: currentUser.email,
+        setAllValues,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -77,6 +77,9 @@ class TeamCreator extends Component {
               onChange={this.handleTeamNameChange}
               color="primary"
               required
+              inputProps={{
+                maxLength: 18,
+              }}
             />
             <div className={classes.TeamCreator__Buttons}>
               <Button

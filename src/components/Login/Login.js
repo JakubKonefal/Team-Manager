@@ -14,6 +14,15 @@ class Login extends Component {
     password: "",
   };
 
+  componentDidUpdate() {
+    const { history, currentUser } = this.props;
+    if (currentUser.uid) {
+      history.push({
+        pathname: "/my-teams",
+      });
+    }
+  }
+
   handleInputChange = ({ target }) => {
     const { id, value } = target;
     this.setState({
@@ -23,23 +32,27 @@ class Login extends Component {
 
   handleFormSubmit = (e) => {
     e.preventDefault();
-    const { history } = this.props;
+
     const { email, password } = this.state;
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then((res) => {
-        history.push({
-          pathname: "/my-teams",
-          state: {
-            loggedIn: true,
-            loggedInUserEmail: email,
-            loggedInUid: res.user.uid,
-          },
-        });
-      })
-      .catch((err) => {
-        alert(err);
+    auth.signInWithEmailAndPassword(email, password).then(({ user }) => {
+      this.props.setAllValues({
+        currentUser: user,
+        currentUid: user.uid,
+        currentUserEmail: user.email,
       });
+    });
+    //   history.push({
+    //     pathname: "/my-teams",
+    //     state: {
+    //       loggedIn: true,
+    //       loggedInUserEmail: email,
+    //       loggedInUid: res.user.uid,
+    //     },
+    //   });
+    // })
+    // .catch((err) => {
+    //   alert(err);
+    // });
   };
 
   render() {

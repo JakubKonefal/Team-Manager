@@ -17,6 +17,7 @@ class Teams extends Component {
 
   componentDidMount() {
     const { userId } = this.props;
+
     axios.get(`/users/${userId}/teams.json`).then((res) => {
       const teams = res.data;
       if (teams) {

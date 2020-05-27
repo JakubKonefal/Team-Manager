@@ -135,6 +135,9 @@ class TrainingInfo extends Component {
                   name="place"
                   variant="outlined"
                   size="small"
+                  inputProps={{
+                    maxLength: 12,
+                  }}
                   label="Place"
                   defaultValue={place}
                 />
@@ -144,6 +147,9 @@ class TrainingInfo extends Component {
                   name="trainingType"
                   variant="outlined"
                   size="small"
+                  inputProps={{
+                    maxLength: 18,
+                  }}
                   label="Training type"
                   defaultValue={trainingType}
                 />
@@ -249,7 +255,6 @@ class TrainingInfo extends Component {
                   />
                   Place:
                   <span className={classes.TrainingInfo__Info_Text}>
-                    {" "}
                     {place}
                   </span>
                 </span>

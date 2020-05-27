@@ -104,6 +104,7 @@ class Player extends Component {
             <input
               type="text"
               id="number"
+              maxLength={2}
               name="number"
               className={`${classes.Player_Editable__InputText} ${classes.Player_Editable__InputText_Number}`}
               placeholder={this.props.playerInfo.number}
@@ -116,6 +117,7 @@ class Player extends Component {
             <input
               type="text"
               id="firstName"
+              maxLength={12}
               name="firstName"
               className={classes.Player_Editable__InputText}
               placeholder={this.props.playerInfo.firstName}
@@ -128,6 +130,7 @@ class Player extends Component {
             <input
               type="text"
               id="lastName"
+              maxLength={14}
               name="lastName"
               className={classes.Player_Editable__InputText}
               placeholder={this.props.playerInfo.lastName}

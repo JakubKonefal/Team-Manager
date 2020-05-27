@@ -14,6 +14,7 @@ import {
   Close,
   RemoveCircle,
 } from "@material-ui/icons";
+import Dotdotdot from "react-dotdotdot";
 import Tooltip from "@material-ui/core/Tooltip";
 import TextField from "@material-ui/core/TextField";
 
@@ -101,6 +102,9 @@ class TrainingTask extends Component {
                   label="Task title"
                   variant="outlined"
                   size="small"
+                  inputProps={{
+                    maxLength: 20,
+                  }}
                   className={classes.TrainingTask_Edit__Input_Title}
                   defaultValue={this.props.taskTitle}
                 />
@@ -114,6 +118,9 @@ class TrainingTask extends Component {
                   label="Duration"
                   variant="outlined"
                   size="small"
+                  inputProps={{
+                    maxLength: 18,
+                  }}
                   className={classes.TrainingTask_Edit__Input_Duration}
                   defaultValue={this.props.duration}
                 />
@@ -145,6 +152,9 @@ class TrainingTask extends Component {
                   label="Equipment"
                   variant="outlined"
                   size="small"
+                  inputProps={{
+                    maxLength: 50,
+                  }}
                   className={classes.TrainingTask_Edit__Input_TaskEquipment}
                   defaultValue={this.props.equipment}
                 />

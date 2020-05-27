@@ -12,6 +12,7 @@ const Training = ({
   trainingType,
   intensity,
   teamId,
+  teamName,
   trainingId,
   checkbox,
   year,
@@ -26,7 +27,7 @@ const Training = ({
       </span>
       <span className={classes.ListItem__Tile}>
         <Link
-          to={`/my-teams/${teamId}/trainings/${year}/${month}/${trainingId}`}
+          to={`/my-teams/${teamId}/${teamName}/trainings/${year}/${month}/${trainingId}`}
           className={classes.ListItem__Date}
         >
           {date}

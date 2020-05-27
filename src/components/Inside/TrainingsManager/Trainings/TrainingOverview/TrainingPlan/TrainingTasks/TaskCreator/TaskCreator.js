@@ -82,6 +82,9 @@ class TaskCreator extends Component {
                   name="taskTitle"
                   variant="outlined"
                   size="small"
+                  inputProps={{
+                    maxLength: 20,
+                  }}
                   label="Task Title"
                   required
                 />
@@ -100,6 +103,9 @@ class TaskCreator extends Component {
                   name="equipment"
                   variant="outlined"
                   size="small"
+                  inputProps={{
+                    maxLength: 50,
+                  }}
                   label="Equipment"
                 />
                 <TextField
@@ -108,6 +114,9 @@ class TaskCreator extends Component {
                   name="duration"
                   variant="outlined"
                   size="small"
+                  inputProps={{
+                    maxLength: 18,
+                  }}
                   label="Duration"
                 />
                 <div className={classes.TaskCreator__Buttons}>

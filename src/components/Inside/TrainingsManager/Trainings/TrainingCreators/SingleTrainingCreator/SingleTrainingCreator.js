@@ -85,6 +85,9 @@ class SingleTrainingCreator extends Component {
               <form
                 className={classes.SingleTrainingCreator__Form}
                 onChange={this.handleInputChange}
+                onSubmit={(event) =>
+                  this.props.onFormSubmit(this.state.newTrainingInfo, event)
+                }
               >
                 <TextField
                   className={classes.SingleTrainingCreator__Input}
@@ -95,6 +98,7 @@ class SingleTrainingCreator extends Component {
                   size="small"
                   label="Date"
                   InputLabelProps={{ shrink: true }}
+                  required
                 />
                 <TextField
                   className={classes.SingleTrainingCreator__Input}
@@ -105,6 +109,7 @@ class SingleTrainingCreator extends Component {
                   size="small"
                   label="Start"
                   InputLabelProps={{ shrink: true }}
+                  required
                 />
                 <TextField
                   className={classes.SingleTrainingCreator__Input}
@@ -115,12 +120,16 @@ class SingleTrainingCreator extends Component {
                   size="small"
                   label="End"
                   InputLabelProps={{ shrink: true }}
+                  required
                 />
                 <TextField
                   className={classes.SingleTrainingCreator__Input}
                   id="place"
                   name="place"
                   variant="outlined"
+                  inputProps={{
+                    maxLength: 12,
+                  }}
                   size="small"
                   label="Place"
                 />
@@ -129,6 +138,9 @@ class SingleTrainingCreator extends Component {
                   id="trainingType"
                   name="trainingType"
                   variant="outlined"
+                  inputProps={{
+                    maxLength: 18,
+                  }}
                   size="small"
                   label="Training type"
                 />
@@ -150,13 +162,11 @@ class SingleTrainingCreator extends Component {
                 />
                 <div className={classes.SingleTrainingCreator__Buttons}>
                   <Button
+                    type="submit"
                     className={classes.SingleTrainingCreator__Button_Add}
                     color="primary"
                     variant="contained"
                     size="small"
-                    onClick={(event) =>
-                      this.props.onFormSubmit(this.state.newTrainingInfo, event)
-                    }
                   >
                     add
                   </Button>

@@ -6,6 +6,7 @@ import Login from "../Login/Login";
 import StylesProvider from "@material-ui/styles/StylesProvider";
 import Modal from "@material-ui/core/Modal";
 import DialogContent from "@material-ui/core/DialogContent";
+import { AuthContext } from "../../hoc/AuthProvider/AuthProvider";
 
 class Outside extends Component {
   state = {
@@ -64,7 +65,9 @@ class Outside extends Component {
           </Modal>
           <Modal open={this.state.loginOpen} onClose={this.handleModalClose}>
             <DialogContent className={classes.LP__Modal}>
-              <Login />
+              <AuthContext.Consumer>
+                {(props) => <Login {...props} />}
+              </AuthContext.Consumer>
             </DialogContent>
           </Modal>
         </StylesProvider>

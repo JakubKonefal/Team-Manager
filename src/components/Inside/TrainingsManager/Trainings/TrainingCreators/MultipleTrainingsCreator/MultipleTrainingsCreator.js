@@ -12,6 +12,7 @@ import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
@@ -21,6 +22,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 class MultipleTrainingsCreator extends Component {
   state = {
     trainingsCreatorActive: false,
+    hasError: false,
     newTrainingsInfo: {
       from: "",
       to: "",
@@ -82,6 +84,12 @@ class MultipleTrainingsCreator extends Component {
     });
   };
 
+  handleSelectInputValidate = (e) => {
+    e.preventDefault();
+    this.setState({ hasError: true });
+    return this.state.newTrainingsInfo.daysOfWeek.length > 0;
+  };
+
   render() {
     const arrowIcon = this.state.trainingsCreatorActive ? (
       <ArrowDropUp
@@ -118,6 +126,11 @@ class MultipleTrainingsCreator extends Component {
               <form
                 className={classes.MultipleTrainingsCreator__Form}
                 onChange={this.handleInputChange}
+                onSubmit={(event) => {
+                  if (this.handleSelectInputValidate(event)) {
+                    this.props.onFormSubmit(this.state.newTrainingsInfo);
+                  }
+                }}
               >
                 <TextField
                   className={classes.MultipleTrainingsCreator__Input}
@@ -128,6 +141,7 @@ class MultipleTrainingsCreator extends Component {
                   size="small"
                   label="From"
                   InputLabelProps={{ shrink: true }}
+                  required
                 />
                 <TextField
                   className={classes.MultipleTrainingsCreator__Input}
@@ -138,10 +152,12 @@ class MultipleTrainingsCreator extends Component {
                   size="small"
                   label="To"
                   InputLabelProps={{ shrink: true }}
+                  required
                 />
                 <FormControl
                   variant="outlined"
                   className={classes.MultipleTrainingsCreator__Input}
+                  required
                 >
                   <InputLabel variant="outlined" id="daysOfWeek">
                     Weekdays
@@ -152,7 +168,7 @@ class MultipleTrainingsCreator extends Component {
                     name="daysOfWeek"
                     multiple
                     variant="outlined"
-                    input={<Input />}
+                    input={<Input required />}
                     value={this.state.newTrainingsInfo.daysOfWeek}
                     onChange={this.handleSelectChange}
                     renderValue={(selected) => selected.join(", ")}
@@ -174,6 +190,15 @@ class MultipleTrainingsCreator extends Component {
                       </MenuItem>
                     ))}
                   </Select>
+                  {this.state.hasError && (
+                    <FormHelperText
+                      className={
+                        classes.MultipleTrainingsCreator__Select_ErrorMsg
+                      }
+                    >
+                      This field is required!
+                    </FormHelperText>
+                  )}
                 </FormControl>
                 <TextField
                   className={classes.MultipleTrainingsCreator__Input}
@@ -184,6 +209,7 @@ class MultipleTrainingsCreator extends Component {
                   size="small"
                   label="Start"
                   InputLabelProps={{ shrink: true }}
+                  required
                 />
                 <TextField
                   className={classes.MultipleTrainingsCreator__Input}
@@ -194,6 +220,7 @@ class MultipleTrainingsCreator extends Component {
                   size="small"
                   label="End"
                   InputLabelProps={{ shrink: true }}
+                  required
                 />
                 <TextField
                   className={classes.MultipleTrainingsCreator__Input}
@@ -201,6 +228,9 @@ class MultipleTrainingsCreator extends Component {
                   name="place"
                   variant="outlined"
                   size="small"
+                  inputProps={{
+                    maxLength: 12,
+                  }}
                   label="Place"
                 />
                 <TextField
@@ -209,6 +239,9 @@ class MultipleTrainingsCreator extends Component {
                   name="trainingType"
                   variant="outlined"
                   size="small"
+                  inputProps={{
+                    maxLength: 18,
+                  }}
                   label="Training type"
                 />
                 <Typography
@@ -229,13 +262,11 @@ class MultipleTrainingsCreator extends Component {
                 />
                 <div className={classes.MultipleTrainingsCreator__Buttons}>
                   <Button
+                    type="submit"
                     className={classes.MultipleTrainingsCreator__Button_Add}
                     color="primary"
                     variant="contained"
                     size="small"
-                    onClick={() =>
-                      this.props.onFormSubmit(this.state.newTrainingsInfo)
-                    }
                   >
                     add
                   </Button>

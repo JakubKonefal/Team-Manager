@@ -19,7 +19,7 @@ const TeamManager = ({ match }) => (
         />
         <Switch>
           <ProtectedRoute
-            path="/my-teams/:teamId/trainings/:year/:month/:trainingId"
+            path="/my-teams/:teamId/:teamName/trainings/:year/:month/:trainingId"
             component={TrainingOverview}
           />
           <ProtectedRoute

@@ -10,7 +10,11 @@ const TrainingsManager = ({ match, userId }) => (
       {`${match.params.teamName}'s trainings`}
     </h2>
 
-    <Trainings teamId={match.params.teamId} userId={userId} />
+    <Trainings
+      teamId={match.params.teamId}
+      teamName={match.params.teamName}
+      userId={userId}
+    />
     <div className={classes.TrainingsManager__Footer}>
       <AssignmentOutlined className={classes.TrainingsManager__FooterIcon} />
     </div>

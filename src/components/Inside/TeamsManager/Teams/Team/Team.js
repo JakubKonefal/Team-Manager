@@ -84,6 +84,9 @@ class Team extends Component {
                 className={classes.Team_Editable__Input}
                 placeholder={this.props.teamName}
                 autoFocus
+                inputProps={{
+                  maxLength: 18,
+                }}
                 onChange={this.handleTeamNameChange}
                 color="default"
               />
