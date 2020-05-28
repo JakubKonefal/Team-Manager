@@ -16,18 +16,18 @@ class Teams extends Component {
   };
 
   componentDidMount() {
-    const { userId } = this.props;
-
-    axios.get(`/users/${userId}/teams.json`).then((res) => {
-      const teams = res.data;
-      if (teams) {
-        const teamsArr = Object.values(teams);
-        this.setState({ teams: teamsArr });
-      }
-    });
+    this.getInitialTeamsList();
   }
 
-  getInitialTeamsList = () => {};
+  getInitialTeamsList = () => {
+    const { userId } = this.props;
+    axios.get(`/users/${userId}/teams.json`).then(({ data: teams }) => {
+      if (teams) {
+        const teamsList = Object.values(teams);
+        this.setState({ teams: teamsList });
+      }
+    });
+  };
 
   handleFormSubmitEditTeam = (teamId, updatedTeamName, updatedImage, e) => {
     e.preventDefault();

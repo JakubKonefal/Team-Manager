@@ -59,7 +59,7 @@
   margin-top: 20px;
 }
 
-.TrainingInfo__Button_Add {
+.TrainingInfo__Button_Save {
   color: #eee;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
@@ -71,7 +71,7 @@
   padding-right: 25px;
 }
 
-.TrainingInfo__Button_Add:hover {
+.TrainingInfo__Button_Save:hover {
   background-color: #339633;
 }
 

@@ -25,13 +25,7 @@ class TrainingPlan extends Component {
         </h2>
         <Collapse in={this.state.trainingPlanActive}>
           <CardContent className={classes.TrainingPlan__Content}>
-            <TrainingTasks
-              userId={this.props.userId}
-              teamId={this.props.teamId}
-              year={this.props.year}
-              month={this.props.month}
-              trainingId={this.props.trainingId}
-            />
+            <TrainingTasks userId={this.props.userId} />
           </CardContent>
         </Collapse>
       </Card>

@@ -1,12 +1,27 @@
-.Loader_Wraper {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.Dashboard__Player {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 10px 0;
+  padding: 8px;
+  background-color: #3a414c;
+  /* border: 2px solid white; */
+  border-radius: 10px;
+  color: white;
+}
+
+.Dashboard__Player > span {
+  margin-right: 15px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.Dashboard__PlayerAvatar {
+  margin-right: 15px;
 }
 
 .Loader {
-  color: #2e40a4;
+  color: #ffffff;
   font-size: 20px;
   margin: 100px auto;
   width: 1em;

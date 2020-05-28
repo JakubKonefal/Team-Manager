@@ -3,6 +3,7 @@ import axios from "axios";
 import { database } from "../../../../../../../firebase/firebase";
 import TrainingTask from "./TrainingTask/TrainingTask";
 import TaskCreator from "./TaskCreator/TaskCreator";
+import { withRouter } from "react-router-dom";
 
 class TrainingTasks extends Component {
   state = {
@@ -10,24 +11,29 @@ class TrainingTasks extends Component {
   };
 
   componentDidMount() {
-    const { userId, teamId, year, month, trainingId } = this.props;
+    this.getInitialTasksList();
+  }
+
+  getInitialTasksList = () => {
+    const { userId } = this.props;
+    const { teamId, trainingId, year, month } = this.props.match.params;
 
     axios
       .get(
         `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks.json`
       )
-      .then((res) => {
-        const tasks = res.data;
+      .then(({ data: tasks }) => {
         if (tasks) {
           const tasksArr = Object.values(tasks);
           this.setState({ tasks: tasksArr });
         }
       });
-  }
+  };
 
   handleFormSubmitNewTask = (newTaskInfo, e) => {
     e.preventDefault();
-    const { userId, teamId, year, month, trainingId } = this.props;
+    const { userId } = this.props;
+    const { teamId, trainingId, year, month } = this.props.match.params;
     const databaseRef = database.ref(
       `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks`
     );
@@ -41,7 +47,8 @@ class TrainingTasks extends Component {
   };
 
   handleTaskDelete = (taskId) => {
-    const { userId, teamId, year, month, trainingId } = this.props;
+    const { userId } = this.props;
+    const { teamId, trainingId, year, month } = this.props.match.params;
     const taskDatabaseRef = database.ref(
       `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks/${taskId}`
     );
@@ -50,7 +57,8 @@ class TrainingTasks extends Component {
   };
 
   handleFormSubmitTaskEdit = (taskId, taskInfo) => {
-    const { userId, teamId, year, month, trainingId } = this.props;
+    const { userId } = this.props;
+    const { teamId, trainingId, year, month } = this.props.match.params;
     const taskDatabaseRef = database.ref(
       `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks/${taskId}/taskInfo`
     );
@@ -59,7 +67,8 @@ class TrainingTasks extends Component {
   };
 
   updateTasks = () => {
-    const { userId, teamId, year, month, trainingId } = this.props;
+    const { userId } = this.props;
+    const { teamId, trainingId, year, month } = this.props.match.params;
     const tasksDatabaseRef = database.ref(
       `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks`
     );
@@ -97,4 +106,4 @@ class TrainingTasks extends Component {
   }
 }
 
-export default TrainingTasks;
+export default withRouter(TrainingTasks);

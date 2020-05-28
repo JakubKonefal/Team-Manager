@@ -21,15 +21,20 @@ class Trainings extends Component {
   };
 
   componentDidMount() {
+    this.getInitialTrainingsList();
+  }
+
+  getInitialTrainingsList = () => {
     const { teamId, userId } = this.props;
 
-    axios.get(`/users/${userId}/teams/${teamId}/trainings.json`).then((res) => {
-      const trainings = res.data;
-      if (trainings) {
-        this.setState({ trainings });
-      }
-    });
-  }
+    axios
+      .get(`/users/${userId}/teams/${teamId}/trainings.json`)
+      .then(({ data: trainings }) => {
+        if (trainings) {
+          this.setState({ trainings });
+        }
+      });
+  };
 
   handleFormSubmitNewTraining = (newTrainingInfo) => {
     const { teamId, userId } = this.props;

@@ -4,9 +4,6 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const ProtectedRoute = ({ component: RouteComponent, ...rest }) => {
   const { currentUser, currentUid, currentUserEmail } = useContext(AuthContext);
-  // const { loggedInUid, loggedInUserEmail } = rest.location.state;
-
-  console.log(currentUser, currentUid, currentUserEmail);
 
   return (
     <Route

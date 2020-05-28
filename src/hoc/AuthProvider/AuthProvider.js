@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import classes from "./AuthProvider.module.css";
 import { auth } from "../../firebase/firebase";
 
 export const AuthContext = React.createContext();
@@ -13,7 +14,6 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      console.log(user);
       const userObject = user || {};
       setCurrentUser(userObject);
       setPending(false);
@@ -21,7 +21,11 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   if (pending) {
-    return <>Loading...</>;
+    return (
+      <div className={classes.Loader_Wraper}>
+        <div className={classes.Loader}></div>
+      </div>
+    );
   }
 
   return (

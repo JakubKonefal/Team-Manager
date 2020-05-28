@@ -12,6 +12,10 @@ class TrainingOverview extends Component {
   };
 
   componentDidMount() {
+    this.getInitialTrainingInfo();
+  }
+
+  getInitialTrainingInfo = () => {
     const { teamId, year, month, trainingId } = this.props.match.params;
     const { userId } = this.props;
 
@@ -19,13 +23,17 @@ class TrainingOverview extends Component {
       .get(
         `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}.json`
       )
-      .then((res) => {
-        const { trainingInfo } = res.data;
+      .then(({ data: training }) => {
+        console.log(training);
+
+        const { trainingInfo } = training;
         if (trainingInfo) {
+          console.log(trainingInfo);
+
           this.setState({ trainingInfo });
         }
       });
-  }
+  };
 
   handleFormSubmitTrainingInfoUpdate = (updatedTrainingInfo) => {
     const { teamId, year, month, trainingId } = this.props.match.params;
@@ -34,14 +42,14 @@ class TrainingOverview extends Component {
     const updatedDateYear = moment(date).format("YYYY");
     const updatedDateMonth = moment(date).format("MMMM");
     const databaseRef = database.ref(
-      `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/trainingInfo`
+      `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}`
     );
 
     if (year === updatedDateYear && month === updatedDateMonth) {
       databaseRef.set(updatedTrainingInfo);
     } else {
       const updatedDatabaseRef = database.ref(
-        `/users/${userId}/teams/${teamId}/trainings/${updatedDateYear}/${updatedDateMonth}/${trainingId}/trainingInfo`
+        `/users/${userId}/teams/${teamId}/trainings/${updatedDateYear}/${updatedDateMonth}/${trainingId}`
       );
       const updatedTraining = {
         trainingId,
@@ -50,19 +58,9 @@ class TrainingOverview extends Component {
 
       databaseRef.remove();
       updatedDatabaseRef.set(updatedTraining);
-      this.updateUrlAdressBar(updatedDateYear, updatedDateMonth);
     }
 
     this.setState({ trainingInfo: updatedTrainingInfo });
-  };
-
-  updateUrlAdressBar = (updatedYear, updatedMonth) => {
-    const { year, month } = this.props.match.params;
-    const url = window.location.href;
-    const urlUpdatedYear = url.replace(year, updatedYear);
-    const urlUpdated = urlUpdatedYear.replace(month, updatedMonth);
-    const params = { month: updatedMonth, year: updatedYear };
-    window.history.pushState(params, "TestTitle", urlUpdated);
   };
 
   render() {
@@ -79,13 +77,7 @@ class TrainingOverview extends Component {
           {trainingInfoComponent}
         </div>
         <div className={classes.TrainingOverview__TrainingPlan}>
-          <TrainingPlan
-            userId={this.props.userId}
-            teamId={this.props.match.params.teamId}
-            year={this.props.match.params.year}
-            month={this.props.match.params.month}
-            trainingId={this.props.match.params.trainingId}
-          />
+          <TrainingPlan userId={this.props.userId} />
         </div>
       </div>
     );

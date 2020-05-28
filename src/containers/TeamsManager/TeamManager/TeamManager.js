@@ -1,6 +1,7 @@
 import React from "react";
 import MainContentWraper from "../../../components/MainContentWraper/MainContentWraper";
 import { Switch } from "react-router-dom";
+import Dashboard from "../../../components/Dashboard/Dashboard";
 import PlayersManager from "../../../components/Inside/PlayersManager/PlayersManager";
 import TrainingsManager from "../../../components/Inside/TrainingsManager/TrainingsManager";
 import TrainingOverview from "../../../components/Inside/TrainingsManager/Trainings/TrainingOverview/TrainingOverview";
@@ -13,6 +14,11 @@ const TeamManager = ({ match }) => (
   <Layout>
     <MainContentWraper match={match}>
       <AuthProvider>
+        <ProtectedRoute
+          path="/my-teams/:teamId/:teamName"
+          exact
+          component={Dashboard}
+        />
         <ProtectedRoute
           path="/my-teams/:teamId/:teamName/players"
           component={PlayersManager}

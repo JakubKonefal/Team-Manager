@@ -27,10 +27,6 @@ class TrainingInfo extends Component {
     },
   };
 
-  handleTrainingCreatorToggle = () => {
-    this.setState({ editFormActive: !this.state.editFormActive });
-  };
-
   handleInputChange = ({ target }) => {
     const { id, value } = target;
 
@@ -67,6 +63,10 @@ class TrainingInfo extends Component {
 
   updateTrainingInfo = (updatedTrainingInfo) => {
     this.setState({ updatedTrainingInfo });
+  };
+
+  refreshPage = () => {
+    window.location.reload();
   };
 
   render() {
@@ -171,16 +171,17 @@ class TrainingInfo extends Component {
                 />
                 <div className={classes.TrainingInfo__Buttons}>
                   <Button
-                    className={classes.TrainingInfo__Button_Add}
+                    className={classes.TrainingInfo__Button_Save}
                     color="primary"
                     variant="contained"
                     size="small"
                     onClick={() => {
                       this.props.onFormSubmit(this.state.updatedTrainingInfo);
                       this.handleEditFormClose();
+                      this.refreshPage();
                     }}
                   >
-                    add
+                    save
                   </Button>
                   <Button
                     className={classes.TrainingInfo__Button_Cancel}
