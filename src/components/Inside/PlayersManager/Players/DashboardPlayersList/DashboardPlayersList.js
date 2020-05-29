@@ -7,14 +7,11 @@ const DashboardPlayersList = ({ players }) => {
   const playersList =
     playersArray &&
     Object.values(players).map((player) => {
-      const { playerPhoto } = player;
+      const { playerPhoto, playerId } = player;
       const { number, lastName } = player.playerInfo;
       return (
-        <div className={classes.Dashboard__Player}>
-          <Avatar
-            className={classes.Dashboard__PlayerAvatar}
-            src={playerPhoto}
-          />
+        <div className={classes.Player} key={playerId}>
+          <Avatar className={classes.PlayerAvatar} src={playerPhoto} />
           <span>{number}</span>
           <span>{lastName}</span>
         </div>

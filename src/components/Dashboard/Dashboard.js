@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import classes from "./Dashboard.module.css";
 import axios from "axios";
 import DashboardPlayersList from "../Inside/PlayersManager/Players/DashboardPlayersList/DashboardPlayersList";
+import DashboardTrainingsList from "../Inside/TrainingsManager/Trainings/DashboardTrainingsList/DashboardTrainingsList";
 import Collapse from "@material-ui/core/Collapse";
 import Avatar from "@material-ui/core/Avatar";
 
@@ -37,7 +38,9 @@ class Dashboard extends Component {
           <div className={classes.Dashboard__Players}>
             <DashboardPlayersList players={this.state.team.players} />
           </div>
-          <div className={classes.Dashboard__Events}></div>
+          <div className={classes.Dashboard__Events}>
+            <DashboardTrainingsList trainings={this.state.team.trainings} />
+          </div>
         </div>
       </div>
     );

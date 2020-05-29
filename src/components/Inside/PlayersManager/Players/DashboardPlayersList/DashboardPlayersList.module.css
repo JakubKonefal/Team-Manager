@@ -1,22 +1,21 @@
-.Dashboard__Player {
+.Player {
   display: flex;
   align-items: center;
   width: 100%;
   margin: 10px 0;
   padding: 8px;
   background-color: #3a414c;
-  /* border: 2px solid white; */
   border-radius: 10px;
   color: white;
 }
 
-.Dashboard__Player > span {
+.Player > span {
   margin-right: 15px;
   font-size: 18px;
   font-weight: bold;
 }
 
-.Dashboard__PlayerAvatar {
+.PlayerAvatar {
   margin-right: 15px;
 }
 
