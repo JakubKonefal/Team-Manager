@@ -12,6 +12,7 @@ class Login extends Component {
   state = {
     email: "",
     password: "",
+    passwordError: false,
   };
 
   componentDidUpdate() {
@@ -34,28 +35,24 @@ class Login extends Component {
     e.preventDefault();
 
     const { email, password } = this.state;
-    auth.signInWithEmailAndPassword(email, password).then(({ user }) => {
-      this.props.setAllValues({
-        currentUser: user,
-        currentUid: user.uid,
-        currentUserEmail: user.email,
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(({ user }) => {
+        this.props.setAllValues({
+          currentUser: user,
+          currentUid: user.uid,
+          currentUserEmail: user.email,
+        });
+      })
+      .catch(() => {
+        this.setState({ passwordError: true });
       });
-    });
-    //   history.push({
-    //     pathname: "/my-teams",
-    //     state: {
-    //       loggedIn: true,
-    //       loggedInUserEmail: email,
-    //       loggedInUid: res.user.uid,
-    //     },
-    //   });
-    // })
-    // .catch((err) => {
-    //   alert(err);
-    // });
   };
 
   render() {
+    const passwordErrorMessage =
+      this.state.passwordError && "Incorrect password!";
+
     return (
       <form
         className={classes.Login}
@@ -91,6 +88,8 @@ class Login extends Component {
             variant="outlined"
             size="small"
             label="Password"
+            error={this.state.passwordError}
+            helperText={passwordErrorMessage}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

@@ -94,7 +94,13 @@ class MultipleTrainingsEdit extends Component {
       <StylesProvider injectFirst>
         <Card className={classes.MultipleTrainingsEditor} variant="outlined">
           <CardContent className={classes.Content}>
-            <form className={classes.Form} onChange={this.handleInputChange}>
+            <form
+              className={classes.Form}
+              onSubmit={() =>
+                this.props.onFormSubmit(this.state.editedTrainingsInfo)
+              }
+              onChange={this.handleInputChange}
+            >
               <div className={classes.Form__Row}>
                 {" "}
                 <TextField
@@ -111,6 +117,7 @@ class MultipleTrainingsEdit extends Component {
                   disabled={this.props.checkedTrainingsCount !== 1}
                   onChange={(event) => this.validateInputDate(event)}
                   value={this.state.editedTrainingsInfo.date}
+                  required
                 />
                 <TextField
                   className={classes.Form__Input}
@@ -144,6 +151,9 @@ class MultipleTrainingsEdit extends Component {
                   variant="outlined"
                   size="small"
                   label="Place"
+                  inputProps={{
+                    maxLength: 12,
+                  }}
                   disabled={this.props.checkedTrainingsCount < 1}
                 />
                 <TextField
@@ -153,6 +163,9 @@ class MultipleTrainingsEdit extends Component {
                   variant="outlined"
                   size="small"
                   label="Training type"
+                  inputProps={{
+                    maxLength: 18,
+                  }}
                   disabled={this.props.checkedTrainingsCount < 1}
                 />
                 <div className={classes.Form__SliderWraper}>
@@ -178,14 +191,12 @@ class MultipleTrainingsEdit extends Component {
 
               <div className={classes.Form__Buttons}>
                 <Button
+                  type="submit"
                   className={classes.Form__Button_Add}
                   color="primary"
                   variant="contained"
                   size="small"
                   disabled={this.props.checkedTrainingsCount < 1}
-                  onClick={() =>
-                    this.props.onFormSubmit(this.state.editedTrainingsInfo)
-                  }
                 >
                   save
                 </Button>

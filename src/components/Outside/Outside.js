@@ -53,7 +53,7 @@ class Outside extends Component {
             <h3 className={classes.LP__DescriptionSubtitle}>team - manager</h3>
             <p className={classes.LP__DescriptionText}>
               Manage your football teams online. Gather all information about
-              teams, players and trainings in one place!
+              teams, players and trainings <br /> in one place!
             </p>
           </div>
         </div>

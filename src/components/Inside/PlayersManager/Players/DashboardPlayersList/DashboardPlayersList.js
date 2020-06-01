@@ -3,10 +3,14 @@ import classes from "./DashboardPlayersList.module.css";
 import Avatar from "@material-ui/core/Avatar";
 
 const DashboardPlayersList = ({ players }) => {
-  const playersArray = players ? Object.values(players) : null;
+  const sortedPlayersArray = players
+    ? Object.values(players).sort((a, b) => {
+        return a.playerInfo.number - b.playerInfo.number;
+      })
+    : [];
   const playersList =
-    playersArray &&
-    Object.values(players).map((player) => {
+    sortedPlayersArray &&
+    sortedPlayersArray.map((player) => {
       const { playerPhoto, playerId } = player;
       const { number, lastName } = player.playerInfo;
       return (
@@ -18,10 +22,15 @@ const DashboardPlayersList = ({ players }) => {
       );
     });
 
+  const maxPlayersToDisplay = 11;
+  if (playersList.length > maxPlayersToDisplay) {
+    playersList.splice(maxPlayersToDisplay);
+  }
+
   if (playersList) {
     return playersList;
   }
-  return <div className={classes.Loader}></div>;
+  return <div></div>;
 };
 
 export default DashboardPlayersList;

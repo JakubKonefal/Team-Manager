@@ -107,3 +107,84 @@
 .LP__Modal {
   outline: none;
 }
+
+@media (min-width: 1366px) {
+  .LP__Background {
+    width: 100%;
+    background-position: right;
+    padding-top: 40px;
+  }
+
+  .LP__PageWraper {
+    width: 95%;
+  }
+
+  .LP__Logo_Img {
+    height: 75px;
+  }
+
+  .LP__Logo_Label {
+    font-size: 42px;
+  }
+
+  .LP__NavItem {
+    font-size: 26px;
+  }
+
+  .LP__Button {
+    padding: 10px 22px;
+    font-size: 15px;
+  }
+
+  .LP__DescriptionTitle {
+    font-size: 80px;
+  }
+
+  .LP__DescriptionSubtitle {
+    font-size: 38px;
+  }
+
+  .LP__DescriptionText {
+    line-height: 190%;
+    font-size: 22px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .LP__Background {
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-size: 112%;
+    padding-top: 50px;
+  }
+
+  .LP__Logo_Img {
+    height: 80px;
+  }
+
+  .LP__Logo_Label {
+    font-size: 46px;
+  }
+
+  .LP__NavItem {
+    font-size: 32px;
+  }
+
+  .LP__Button {
+    padding: 12px 25px;
+    font-size: 16px;
+  }
+
+  .LP__DescriptionTitle {
+    font-size: 84px;
+  }
+
+  .LP__DescriptionSubtitle {
+    font-size: 40px;
+  }
+
+  .LP__DescriptionText {
+    line-height: 200%;
+    font-size: 24px;
+  }
+}

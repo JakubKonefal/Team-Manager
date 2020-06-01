@@ -30,13 +30,15 @@ const DashboardTrainingsList = ({ trainings }) => {
     });
 
     const trainingsList = futureTrainings.map((training) => (
-      <DashboardTraining {...training.trainingInfo} />
+      <DashboardTraining key={training.trainingId} {...training.trainingInfo} />
     ));
 
-    console.log(allTrainingsArray);
-    console.log(futureTrainings);
+    const maxTrainingsToDisplay = 12;
+    if (trainingsList.length > maxTrainingsToDisplay) {
+      trainingsList.splice(maxTrainingsToDisplay);
+    }
 
-    return <div>{trainingsList}</div>;
+    return <>{trainingsList}</>;
   }
 
   return <div>TYRAININGS</div>;

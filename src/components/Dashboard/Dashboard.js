@@ -34,11 +34,23 @@ class Dashboard extends Component {
           <img className={classes.Dashboard__TeamLogo} src={team.teamLogo} />
           <h1 className={classes.Dashboard__TeamName}>{team.teamName}</h1>
         </div>
+        <div className={classes.Dashboard__Divider}></div>
         <div className={classes.Dashboard__Content}>
           <div className={classes.Dashboard__Players}>
+            <div className={classes.Dashboard__PlayersHeader}>
+              <h3 className={classes.Dashboard__PlayersTitle}> Players</h3>
+              <div className={classes.Dashboard__PlayersDivider}></div>
+            </div>
             <DashboardPlayersList players={this.state.team.players} />
           </div>
           <div className={classes.Dashboard__Events}>
+            <div className={classes.Dashboard__EventsHeader}>
+              <h3 className={classes.Dashboard__EventsTitle}>
+                {" "}
+                Next trainings{" "}
+              </h3>
+              <div className={classes.Dashboard__EventsDivider}></div>
+            </div>
             <DashboardTrainingsList trainings={this.state.team.trainings} />
           </div>
         </div>
