@@ -140,7 +140,6 @@ class Team extends Component {
         >
           {this.props.teamName}
         </Link>
-
         <div className={classes.Team__Icons}>
           <Tooltip title="Delete" placement="bottom">
             <i

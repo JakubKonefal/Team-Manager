@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import classes from "./Teams.module.css";
 import axios from "axios";
 import Team from "./Team/Team";
 import TeamCreator from "./TeamCreator/TeamCreator";
@@ -13,6 +14,7 @@ class Teams extends Component {
     uploadedImageUrl: "",
     previewFile: null,
     teamCreatorActive: false,
+    pending: true,
   };
 
   componentDidMount() {
@@ -26,6 +28,7 @@ class Teams extends Component {
         const teamsList = Object.values(teams);
         this.setState({ teams: teamsList });
       }
+      this.setState({ pending: false });
     });
   };
 
@@ -164,22 +167,32 @@ class Teams extends Component {
   };
 
   render() {
-    const userTeams = this.state.teams && (
-      <>
-        {this.state.teams.map((team) => {
-          return (
-            <Team
-              key={team.teamId}
-              teamId={team.teamId}
-              teamName={team.teamName}
-              teamLogo={team.teamLogo}
-              onDelete={this.handleTeamDelete}
-              onSubmit={this.handleFormSubmitEditTeam}
-            />
-          );
-        })}
-      </>
-    );
+    if (this.state.pending) {
+      return <div className={classes.Teams__Loader}></div>;
+    }
+
+    const userTeams =
+      this.state.teams.length > 0 ? (
+        <>
+          {this.state.teams.map((team) => {
+            return (
+              <Team
+                key={team.teamId}
+                teamId={team.teamId}
+                teamName={team.teamName}
+                teamLogo={team.teamLogo}
+                onDelete={this.handleTeamDelete}
+                onSubmit={this.handleFormSubmitEditTeam}
+              />
+            );
+          })}
+        </>
+      ) : (
+        <h3 className={classes.Teams__NoTeamsMsg}>
+          You have not created any teams yet!{" "}
+        </h3>
+      );
+
     return (
       <>
         {userTeams}

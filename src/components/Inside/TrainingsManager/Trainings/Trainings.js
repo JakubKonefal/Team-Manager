@@ -18,6 +18,7 @@ class Trainings extends Component {
       intensity: null,
     },
     trainingsCheckboxes: [],
+    pending: true,
   };
 
   componentDidMount() {
@@ -33,6 +34,7 @@ class Trainings extends Component {
         if (trainings) {
           this.setState({ trainings });
         }
+        this.setState({ pending: false });
       });
   };
 
@@ -129,21 +131,33 @@ class Trainings extends Component {
   };
 
   render() {
+    if (this.state.pending) {
+      return <div className={classes.Trainings__Loader}></div>;
+    }
+
+    const { userId, teamId, teamName } = this.props;
+
     const trainingsYearsArray = Object.values(this.state.trainings);
     const trainingsYears = Object.keys(this.state.trainings);
-    const trainingYears = this.state.trainings
-      ? trainingsYearsArray.map((year, index) => (
-          <TrainingYear
-            userId={this.props.userId}
-            teamId={this.props.teamId}
-            teamName={this.props.teamName}
-            trainings={year}
-            key={trainingsYears[index]}
-            year={trainingsYears[index]}
-            updateTrainings={this.updateTraininings}
-          />
-        ))
-      : null;
+    const isTrainingsObjEmpty = Object.entries(this.state.trainings).length < 1;
+
+    const trainingYears = isTrainingsObjEmpty ? (
+      <span className={classes.Trainings__NoTrainingsMsg}>
+        You have not created any trainings yet!
+      </span>
+    ) : (
+      trainingsYearsArray.map((year, index) => (
+        <TrainingYear
+          userId={userId}
+          teamId={teamId}
+          teamName={teamName}
+          trainings={year}
+          key={trainingsYears[index]}
+          year={trainingsYears[index]}
+          updateTrainings={this.updateTraininings}
+        />
+      ))
+    );
 
     return (
       <div className={classes.Trainings}>

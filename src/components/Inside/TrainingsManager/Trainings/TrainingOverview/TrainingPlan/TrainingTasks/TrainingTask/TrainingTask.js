@@ -14,7 +14,6 @@ import {
   Close,
   RemoveCircle,
 } from "@material-ui/icons";
-import Dotdotdot from "react-dotdotdot";
 import Tooltip from "@material-ui/core/Tooltip";
 import TextField from "@material-ui/core/TextField";
 

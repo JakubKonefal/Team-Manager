@@ -1,7 +1,7 @@
 .TrainingMonthHeader {
   display: flex;
   align-items: center;
-  width: 100%;
+  width: 95%;
   margin: 40px auto 0;
   box-sizing: border-box;
   padding: 0 0 0 6px;
@@ -31,7 +31,7 @@
 
 .TrainingMonthList {
   display: grid;
-  width: 100%;
+  width: 95%;
   margin: 0 auto;
   background-color: #def4c6;
   color: black;
@@ -42,7 +42,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 100%;
+  width: 95%;
   margin: 0 auto 25px;
   box-sizing: border-box;
   padding: 12px 15px;
@@ -129,4 +129,22 @@
 
 .TrainingMonth__ModalButton_No {
   color: red;
+}
+
+@media (max-width: 1680px) {
+  .TrainingMonthList {
+    grid-template-columns: 0.3fr 1.1fr 0.8fr 0.5fr 0.5fr 1.2fr 0.9fr 0.6fr;
+  }
+}
+
+@media (max-width: 1440px) {
+  .TrainingMonthList {
+    grid-template-columns: 0.3fr 1fr 0.8fr 0.5fr 0.5fr 1.2fr 1fr 0.6fr;
+  }
+}
+
+@media (max-width: 1366px) {
+  .TrainingMonthList {
+    grid-template-columns: 0.3fr 1.2fr 0.8fr 0.5fr 0.5fr 1.2fr 1fr 0.5fr;
+  }
 }

@@ -17,10 +17,10 @@ class Players extends Component {
     players: [],
     playersCheckboxes: [],
     checkedTrainingsCount: 0,
-    previewFile: null,
     uploadedImage: null,
     uploadedImageUrl: "",
     deleteModalOpen: false,
+    pending: true,
   };
 
   componentDidMount() {
@@ -49,6 +49,7 @@ class Players extends Component {
             playersCheckboxes,
           });
         }
+        this.setState({ pending: false });
       });
   };
 
@@ -254,133 +255,149 @@ class Players extends Component {
   };
 
   render() {
-    const playersList = this.state.players && (
-      <div className={classes.PlayersList}>
-        <div className={classes.PlayersList__InfoBar}>
-          <span className={classes.PlayersList__InfoTile_Player}>player</span>
-          <span
-            className={`${classes.PlayersList__InfoTile_Number} ${classes.PlayersList__InfoTile_Sortable}`}
-            onClick={(event) => this.handlePlayersSort(event, "number")}
-          >
-            nr
-          </span>
-          <span
-            className={`${classes.PlayersList__InfoTile_FirstName} ${classes.PlayersList__InfoTile_Sortable}`}
-            onClick={(event) => this.handlePlayersSort(event, "firstName")}
-          >
-            first name
-          </span>
-          <span
-            className={`${classes.PlayersList__InfoTile_LastName} ${classes.PlayersList__InfoTile_Sortable}`}
-            onClick={(event) => this.handlePlayersSort(event, "lastName")}
-          >
-            last name
-          </span>
-          <span
-            className={`${classes.PlayersList__InfoTile_Position} ${classes.PlayersList__InfoTile_Sortable}`}
-            onClick={(event) => this.handlePlayersSort(event, "position")}
-          >
-            position
-          </span>
-          <span
-            className={`${classes.PlayersList__InfoTile_Birthday} ${classes.PlayersList__InfoTile_Sortable}`}
-            onClick={(event) => this.handlePlayersSort(event, "birth")}
-          >
-            birthday
-          </span>
-          <span className={classes.PlayersList__InfoTile_Actions}>actions</span>
-          <Tooltip
-            className={classes.PlayersList__InfoIcon}
-            title="Ctrl + click to sort in opposite order"
-            placement="top"
-          >
-            <Info />
-          </Tooltip>
-        </div>
-        {this.state.players.map((player, index) => {
-          return (
-            <Player
-              key={player.playerId}
-              teamId={this.props.teamId}
-              playerId={player.playerId}
-              playerInfo={player.playerInfo}
-              playerPhoto={player.playerPhoto}
-              onDelete={this.handlePlayerDelete}
-              onSubmit={this.handleFormSubmitEditPlayer}
-              checkbox={
-                <Checkbox
-                  style={{ color: "#ADB6C4" }}
-                  checked={this.state.playersCheckboxes[index].checked}
-                  onChange={(event) =>
-                    this.handleCheckboxClick(
-                      event,
-                      index,
-                      player.playerId,
-                      player.playerPhoto
-                    )
-                  }
-                />
-              }
-            />
-          );
-        })}
-        <PlayerCreator
-          onSubmit={this.handleFormSubmitNewPlayer}
-        ></PlayerCreator>
-        <div className={classes.PlayersList__ActionPanel}>
-          <StylesProvider injectFirst>
-            <Button
-              className={classes.PlayersList__Button_Delete}
-              variant="contained"
-              color="secondary"
-              size="small"
-              onClick={this.handleModalOpen}
-              disabled={this.state.checkedTrainingsCount < 1}
+    if (this.state.pending) {
+      return <div className={classes.Players__Loader}></div>;
+    }
+
+    const playersList =
+      this.state.players.length > 0 ? (
+        <div className={classes.PlayersList}>
+          <div className={classes.PlayersList__InfoBar}>
+            <span className={classes.PlayersList__InfoTile_Player}>player</span>
+            <span
+              className={`${classes.PlayersList__InfoTile_Number} ${classes.PlayersList__InfoTile_Sortable}`}
+              onClick={(event) => this.handlePlayersSort(event, "number")}
             >
-              delete
-            </Button>
-            <Modal
-              open={this.state.deleteModalOpen}
-              onClose={this.handleModalClose}
+              nr
+            </span>
+            <span
+              className={`${classes.PlayersList__InfoTile_FirstName} ${classes.PlayersList__InfoTile_Sortable}`}
+              onClick={(event) => this.handlePlayersSort(event, "firstName")}
             >
-              <Card className={classes.PlayersList__Modal}>
-                <span className={classes.PlayersList__ModalMsg}>
-                  Are you sure you want to delete
-                </span>
-                <span className={classes.PlayersList__ModalMsg}>
-                  checked players?
-                </span>
-                <div className={classes.PlayersList__ModalButtons}>
-                  <button
-                    className={`${classes.PlayersList__ModalButton} ${classes.PlayersList__ModalButton_Yes}`}
-                    onClick={() => {
-                      this.handleCheckedPlayersDelete();
-                      this.handleModalClose();
-                    }}
-                  >
-                    Yes
-                  </button>
-                  <button
-                    className={`${classes.PlayersList__ModalButton} ${classes.PlayersList__ModalButton_No}`}
-                    onClick={this.handleModalClose}
-                  >
-                    No
-                  </button>
-                </div>
-              </Card>
-            </Modal>
-            <div>
-              <Tooltip placement="top" title="Select all">
-                <Checkbox
-                  onChange={this.handleCheckboxSelectAll}
-                  style={{ color: "#ADB6C4" }}
-                />
-              </Tooltip>
-            </div>
-          </StylesProvider>
+              first name
+            </span>
+            <span
+              className={`${classes.PlayersList__InfoTile_LastName} ${classes.PlayersList__InfoTile_Sortable}`}
+              onClick={(event) => this.handlePlayersSort(event, "lastName")}
+            >
+              last name
+            </span>
+            <span
+              className={`${classes.PlayersList__InfoTile_Position} ${classes.PlayersList__InfoTile_Sortable}`}
+              onClick={(event) => this.handlePlayersSort(event, "position")}
+            >
+              position
+            </span>
+            <span
+              className={`${classes.PlayersList__InfoTile_Birthday} ${classes.PlayersList__InfoTile_Sortable}`}
+              onClick={(event) => this.handlePlayersSort(event, "birth")}
+            >
+              birthday
+            </span>
+            <span className={classes.PlayersList__InfoTile_Actions}>
+              actions
+            </span>
+            <Tooltip
+              className={classes.PlayersList__InfoIcon}
+              title="Ctrl + click to sort in opposite order"
+              placement="top"
+            >
+              <Info />
+            </Tooltip>
+          </div>
+          {this.state.players.map((player, index) => {
+            return (
+              <Player
+                key={player.playerId}
+                teamId={this.props.teamId}
+                playerId={player.playerId}
+                playerInfo={player.playerInfo}
+                playerPhoto={player.playerPhoto}
+                onDelete={this.handlePlayerDelete}
+                onSubmit={this.handleFormSubmitEditPlayer}
+                checkbox={
+                  <Checkbox
+                    style={{ color: "#ADB6C4" }}
+                    checked={this.state.playersCheckboxes[index].checked}
+                    onChange={(event) =>
+                      this.handleCheckboxClick(
+                        event,
+                        index,
+                        player.playerId,
+                        player.playerPhoto
+                      )
+                    }
+                  />
+                }
+              />
+            );
+          })}
+          <PlayerCreator
+            onSubmit={this.handleFormSubmitNewPlayer}
+          ></PlayerCreator>
+          <div className={classes.PlayersList__ActionPanel}>
+            <StylesProvider injectFirst>
+              <Button
+                className={classes.PlayersList__Button_Delete}
+                variant="contained"
+                color="secondary"
+                size="small"
+                onClick={this.handleModalOpen}
+                disabled={this.state.checkedTrainingsCount < 1}
+              >
+                delete
+              </Button>
+              <Modal
+                open={this.state.deleteModalOpen}
+                onClose={this.handleModalClose}
+              >
+                <Card className={classes.PlayersList__Modal}>
+                  <span className={classes.PlayersList__ModalMsg}>
+                    Are you sure you want to delete
+                  </span>
+                  <span className={classes.PlayersList__ModalMsg}>
+                    checked players?
+                  </span>
+                  <div className={classes.PlayersList__ModalButtons}>
+                    <button
+                      className={`${classes.PlayersList__ModalButton} ${classes.PlayersList__ModalButton_Yes}`}
+                      onClick={() => {
+                        this.handleCheckedPlayersDelete();
+                        this.handleModalClose();
+                      }}
+                    >
+                      Yes
+                    </button>
+                    <button
+                      className={`${classes.PlayersList__ModalButton} ${classes.PlayersList__ModalButton_No}`}
+                      onClick={this.handleModalClose}
+                    >
+                      No
+                    </button>
+                  </div>
+                </Card>
+              </Modal>
+              <div>
+                <Tooltip placement="top" title="Select all">
+                  <Checkbox
+                    onChange={this.handleCheckboxSelectAll}
+                    style={{ color: "#ADB6C4" }}
+                  />
+                </Tooltip>
+              </div>
+            </StylesProvider>
+          </div>
         </div>
-      </div>
-    );
+      ) : (
+        <>
+          <span className={classes.Players__NoPlayersMsg}>
+            You have not created any players yet!
+          </span>
+          <PlayerCreator
+            onSubmit={this.handleFormSubmitNewPlayer}
+          ></PlayerCreator>
+        </>
+      );
 
     return <>{playersList}</>;
   }

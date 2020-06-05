@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import classes from "./Register.module.css";
+import axios from "axios";
 import { auth, database } from "../../firebase/firebase";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -31,6 +32,7 @@ class Register extends Component {
         userEmail: email,
       });
       this.setState({ registered: true });
+      auth.signOut();
     });
   };
 

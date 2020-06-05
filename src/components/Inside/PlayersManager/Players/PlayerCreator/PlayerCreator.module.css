@@ -107,7 +107,7 @@
 .PlayerCreator_Inactive {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   margin: 10px 0 15px 10px;
   font-size: 14px;
   font-weight: bold;
@@ -124,4 +124,16 @@
 .PlayerCreator_Inactive__AddUserIcon {
   font-size: 32px;
   margin-right: 20px;
+}
+
+@media (max-width: 1440px) {
+  .PlayerCreator__Title {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 1366px) {
+  .PlayerCreator__Title {
+    font-size: 16px;
+  }
 }

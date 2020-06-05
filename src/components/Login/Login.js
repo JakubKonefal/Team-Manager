@@ -33,7 +33,6 @@ class Login extends Component {
 
   handleFormSubmit = (e) => {
     e.preventDefault();
-
     const { email, password } = this.state;
     auth
       .signInWithEmailAndPassword(email, password)

@@ -22,7 +22,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 class MultipleTrainingsCreator extends Component {
   state = {
     trainingsCreatorActive: false,
-    hasError: false,
+    selectInputError: false,
     newTrainingsInfo: {
       from: "",
       to: "",
@@ -54,6 +54,7 @@ class MultipleTrainingsCreator extends Component {
         trainingType: "",
         intensity: 0,
       },
+      selectInputError: false,
     });
   };
 
@@ -84,10 +85,14 @@ class MultipleTrainingsCreator extends Component {
     });
   };
 
-  handleSelectInputValidate = (e) => {
+  isSelectInputEmpty = (e) => {
     e.preventDefault();
-    this.setState({ hasError: true });
-    return this.state.newTrainingsInfo.daysOfWeek.length > 0;
+    const selectedValuesCounter = this.state.newTrainingsInfo.daysOfWeek.length;
+
+    selectedValuesCounter < 1
+      ? this.setState({ selectInputError: true })
+      : this.setState({ selectInputError: false });
+    return selectedValuesCounter < 1;
   };
 
   render() {
@@ -127,8 +132,9 @@ class MultipleTrainingsCreator extends Component {
                 className={classes.MultipleTrainingsCreator__Form}
                 onChange={this.handleInputChange}
                 onSubmit={(event) => {
-                  if (this.handleSelectInputValidate(event)) {
+                  if (!this.isSelectInputEmpty(event)) {
                     this.props.onFormSubmit(this.state.newTrainingsInfo);
+                    this.handleFormCancel();
                   }
                 }}
               >
@@ -172,6 +178,7 @@ class MultipleTrainingsCreator extends Component {
                     value={this.state.newTrainingsInfo.daysOfWeek}
                     onChange={this.handleSelectChange}
                     renderValue={(selected) => selected.join(", ")}
+                    required
                   >
                     {daysInWeek.map((day) => (
                       <MenuItem
@@ -190,7 +197,7 @@ class MultipleTrainingsCreator extends Component {
                       </MenuItem>
                     ))}
                   </Select>
-                  {this.state.hasError && (
+                  {this.state.selectInputError && (
                     <FormHelperText
                       className={
                         classes.MultipleTrainingsCreator__Select_ErrorMsg

@@ -17,3 +17,10 @@
 .PlayerAvatar {
   margin-right: 15px;
 }
+
+.NoPlayersMsg {
+  font-size: 20px;
+  font-weight: bold;
+  color: #e40d07;
+  letter-spacing: 1px;
+}

@@ -3,11 +3,9 @@ import classes from "./Dashboard.module.css";
 import axios from "axios";
 import DashboardPlayersList from "../Inside/PlayersManager/Players/DashboardPlayersList/DashboardPlayersList";
 import DashboardTrainingsList from "../Inside/TrainingsManager/Trainings/DashboardTrainingsList/DashboardTrainingsList";
-import Collapse from "@material-ui/core/Collapse";
-import Avatar from "@material-ui/core/Avatar";
 
 class Dashboard extends Component {
-  state = { team: {} };
+  state = { team: {}, pending: true };
 
   componentDidMount() {
     this.getInitialTeamInformation();
@@ -22,16 +20,29 @@ class Dashboard extends Component {
         if (team) {
           this.setState({ team });
         }
+        this.setState({ pending: false });
       });
   };
 
   render() {
-    const { team } = this.state;
+    const { team, pending } = this.state;
+
+    if (pending) {
+      return (
+        <div className={classes.Dashboard__LoaderBackground}>
+          <div className={classes.Dashboard__Loader}></div>
+        </div>
+      );
+    }
 
     return (
       <div className={classes.Dashboard}>
         <div className={classes.Dashboard__Header}>
-          <img className={classes.Dashboard__TeamLogo} src={team.teamLogo} />
+          <img
+            className={classes.Dashboard__TeamLogo}
+            src={team.teamLogo}
+            alt="Logo"
+          />
           <h1 className={classes.Dashboard__TeamName}>{team.teamName}</h1>
         </div>
         <div className={classes.Dashboard__Divider}></div>
@@ -47,7 +58,7 @@ class Dashboard extends Component {
             <div className={classes.Dashboard__EventsHeader}>
               <h3 className={classes.Dashboard__EventsTitle}>
                 {" "}
-                Next trainings{" "}
+                Upcoming trainings{" "}
               </h3>
               <div className={classes.Dashboard__EventsDivider}></div>
             </div>

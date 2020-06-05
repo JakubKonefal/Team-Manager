@@ -1,6 +1,5 @@
 .MultipleTrainingsCreator {
   margin: 20px auto 50px auto;
-  border-width: 2px;
 }
 
 .MultipleTrainingsCreator__Title {
@@ -84,4 +83,23 @@
 
 .MultipleTrainingsCreator__ArrowIcon {
   margin-left: auto;
+}
+
+@media (max-width: 1680px) {
+  .MultipleTrainingsCreator__Title {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 1440px) {
+  .MultipleTrainingsCreator__Title {
+    padding: 10px 18px;
+  }
+}
+
+@media (max-width: 1366px) {
+  .MultipleTrainingsCreator__Title {
+    padding: 10px 16px;
+    font-size: 16px;
+  }
 }

@@ -9,6 +9,7 @@ import moment from "moment";
 class TrainingOverview extends Component {
   state = {
     trainingInfo: null,
+    pending: true,
   };
 
   componentDidMount() {
@@ -24,14 +25,11 @@ class TrainingOverview extends Component {
         `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}.json`
       )
       .then(({ data: training }) => {
-        console.log(training);
-
         const { trainingInfo } = training;
         if (trainingInfo) {
-          console.log(trainingInfo);
-
           this.setState({ trainingInfo });
         }
+        this.setState({ pending: false });
       });
   };
 
@@ -64,7 +62,15 @@ class TrainingOverview extends Component {
   };
 
   render() {
-    const trainingInfoComponent = this.state.trainingInfo ? (
+    if (this.state.pending) {
+      return (
+        <div className={classes.TrainingOverview__LoaderWraper}>
+          <div className={classes.TrainingOverview__Loader}></div>
+        </div>
+      );
+    }
+
+    const trainingInfo = this.state.trainingInfo ? (
       <TrainingInfo
         trainingInfo={this.state.trainingInfo}
         onFormSubmit={this.handleFormSubmitTrainingInfoUpdate}
@@ -74,7 +80,7 @@ class TrainingOverview extends Component {
     return (
       <div className={classes.TrainingOverview}>
         <div className={classes.TrainingOverview__TrainingInfo}>
-          {trainingInfoComponent}
+          {trainingInfo}
         </div>
         <div className={classes.TrainingOverview__TrainingPlan}>
           <TrainingPlan userId={this.props.userId} />

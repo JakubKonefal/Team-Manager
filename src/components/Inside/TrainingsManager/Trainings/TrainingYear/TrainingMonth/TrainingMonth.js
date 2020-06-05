@@ -70,6 +70,7 @@ class TrainingMonth extends Component {
     );
 
     this.props.updateTrainings();
+    this.setState({ checkedTrainingsCount: 0 });
   };
 
   handleCheckedTrainingsEdit = (editedTrainingsInfo) => {
