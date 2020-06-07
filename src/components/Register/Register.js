@@ -27,13 +27,21 @@ class Register extends Component {
     e.preventDefault();
     const { email, password } = this.state;
     auth.createUserWithEmailAndPassword(email, password).then((res) => {
-      database.ref(`users/${res.user.uid}`).set({
-        userId: res.user.uid,
-        userEmail: email,
+      this.getUserDefaultData().then(({ data: { teams: userDefaultData } }) => {
+        database.ref(`users/${res.user.uid}`).set({
+          userId: res.user.uid,
+          userEmail: email,
+          teams: userDefaultData,
+        });
+        this.setState({ registered: true });
+        auth.signOut();
       });
-      this.setState({ registered: true });
-      auth.signOut();
     });
+  };
+
+  getUserDefaultData = async () => {
+    const data = await axios.get("/userDefaultData.json");
+    return data;
   };
 
   render() {

@@ -18,10 +18,12 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemText from "@material-ui/core/ListItemText";
+import moment from "moment";
 
 class MultipleTrainingsCreator extends Component {
   state = {
     trainingsCreatorActive: false,
+    incorrectDateError: false,
     selectInputError: false,
     newTrainingsInfo: {
       from: "",
@@ -55,22 +57,54 @@ class MultipleTrainingsCreator extends Component {
         intensity: 0,
       },
       selectInputError: false,
+      incorrectDateError: false,
     });
   };
 
-  handleInputChange = ({ target }) => {
-    const { id, value } = target;
-    if (id !== "daysOfWeek") {
+  handleInputChange = ({ target: { id, value } }) => {
+    this.setState({
+      newTrainingsInfo: {
+        ...this.state.newTrainingsInfo,
+        [id]: value,
+      },
+    });
+  };
+
+  isDateInputCorrect = (event) => {
+    const { value } = event.target;
+    const { from } = this.state.newTrainingsInfo;
+    const fromDateObj = moment(from);
+    const toDateObj = moment(value);
+
+    if (!from || fromDateObj >= toDateObj) {
       this.setState({
         newTrainingsInfo: {
           ...this.state.newTrainingsInfo,
-          [id]: value,
+          to: "",
         },
+        incorrectDateError: true,
+      });
+      return false;
+    }
+    return true;
+  };
+
+  handleDateInputChange = (event) => {
+    event.stopPropagation();
+    const { value } = event.target;
+
+    if (this.isDateInputCorrect(event)) {
+      this.setState({
+        newTrainingsInfo: {
+          ...this.state.newTrainingsInfo,
+          to: value,
+        },
+        incorrectDateError: false,
       });
     }
   };
 
-  handleSelectChange = ({ target }) => {
+  handleSelectInputChange = ({ target }) => {
     this.setState({
       newTrainingsInfo: {
         ...this.state.newTrainingsInfo,
@@ -116,6 +150,8 @@ class MultipleTrainingsCreator extends Component {
       "Sunday",
     ];
 
+    const dateErrorMessage = this.state.incorrectDateError && "Incorrect date!";
+
     return (
       <StylesProvider injectFirst>
         <Card className={classes.MultipleTrainingsCreator} variant="outlined">
@@ -158,7 +194,11 @@ class MultipleTrainingsCreator extends Component {
                   size="small"
                   label="To"
                   InputLabelProps={{ shrink: true }}
+                  error={this.state.incorrectDateError}
+                  helperText={dateErrorMessage}
                   required
+                  onChange={(event) => this.handleDateInputChange(event)}
+                  value={this.state.newTrainingsInfo.to}
                 />
                 <FormControl
                   variant="outlined"
@@ -176,7 +216,7 @@ class MultipleTrainingsCreator extends Component {
                     variant="outlined"
                     input={<Input required />}
                     value={this.state.newTrainingsInfo.daysOfWeek}
-                    onChange={this.handleSelectChange}
+                    onChange={this.handleSelectInputChange}
                     renderValue={(selected) => selected.join(", ")}
                     required
                   >
