@@ -38,7 +38,8 @@ class Trainings extends Component {
       });
   };
 
-  handleFormSubmitNewTraining = (newTrainingInfo) => {
+  handleFormSubmitNewTraining = (newTrainingInfo, event) => {
+    event.preventDefault();
     const { teamId, userId } = this.props;
     const { date } = newTrainingInfo;
     const newTrainingYear = moment(date).format("YYYY");

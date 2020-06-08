@@ -10,29 +10,34 @@ const TrainingYear = ({
   teamName,
   updateTrainings,
 }) => {
-  const trainingMonthsArray = Object.values(trainings);
-  const trainingMonthsNames = Object.keys(trainings);
+  const trainingMonthsInYear = Object.entries(trainings);
+  const trainingMonthsSorted = trainingMonthsInYear.sort((a, b) => {
+    const firstMonthAsNumber = moment().month(a[0]).format("M");
+    const secondMonthAsNumber = moment().month(b[0]).format("M");
+    return firstMonthAsNumber - secondMonthAsNumber;
+  });
 
-  const trainingMonths = trainings
-    ? trainingMonthsArray.map((month, index) => {
-        const trainingsInMonth = Object.values(month);
-        const trainingsSortedByDate = trainingsInMonth.sort((a, b) => {
+  const trainingMonthsList = trainings
+    ? trainingMonthsSorted.map((month) => {
+        const monthName = month[0];
+        const monthTrainingsList = Object.values(month[1]);
+        monthTrainingsList.sort((a, b) => {
           const aDate = moment(new Date(a.trainingInfo.date));
           const bDate = moment(new Date(b.trainingInfo.date));
           return aDate > bDate ? 1 : -1;
         });
-        const checkboxes = trainingsInMonth.map((training) => ({
+        const checkboxes = monthTrainingsList.map((training) => ({
           checked: false,
           id: training.trainingId,
         }));
 
         return (
           <TrainingMonth
-            trainings={trainingsSortedByDate}
+            trainings={monthTrainingsList}
             checkboxes={checkboxes}
-            key={`${year} ${trainingMonthsNames[index]}`}
+            key={`${year} ${monthName}`}
             year={year}
-            month={trainingMonthsNames[index]}
+            month={monthName}
             userId={userId}
             teamId={teamId}
             teamName={teamName}
@@ -42,7 +47,7 @@ const TrainingYear = ({
       })
     : null;
 
-  return <>{trainingMonths}</>;
+  return <>{trainingMonthsList}</>;
 };
 
 export default TrainingYear;

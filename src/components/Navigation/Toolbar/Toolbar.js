@@ -5,14 +5,12 @@ import ToolbarItems from "./ToolbarItems/ToolbarItems";
 import { AuthContext } from "../../../hoc/AuthProvider/AuthProvider";
 
 const Toolbar = () => {
-  const { currentUserEmail } = useContext(AuthContext);
+  const { currentUserEmail, currentUid } = useContext(AuthContext);
 
   return (
-    <>
-      <div className={classes.Toolbar}>
-        <ToolbarItems email={currentUserEmail} />
-      </div>
-    </>
+    <div className={classes.Toolbar}>
+      <ToolbarItems email={currentUserEmail} userId={currentUid} />
+    </div>
   );
 };
 

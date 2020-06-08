@@ -3,6 +3,7 @@ import classes from "./Outside.module.css";
 import Logo from "../../assets/img/logo.png";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
+import ContactCard from "../ContactCard/ContactCard";
 import StylesProvider from "@material-ui/styles/StylesProvider";
 import Modal from "@material-ui/core/Modal";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -12,6 +13,7 @@ class Outside extends Component {
   state = {
     signUpOpen: false,
     loginOpen: false,
+    contactOpen: false,
   };
 
   handleModalOpen = (modal) => {
@@ -19,7 +21,11 @@ class Outside extends Component {
   };
 
   handleModalClose = () => {
-    this.setState({ signUpOpen: false, loginOpen: false });
+    this.setState({ signUpOpen: false, loginOpen: false, contactOpen: false });
+  };
+
+  reloadPage = () => {
+    window.location.reload();
   };
 
   render() {
@@ -30,8 +36,23 @@ class Outside extends Component {
             <img src={Logo} className={classes.LP__Logo_Img} alt="Logo" />
             <h4 className={classes.LP__Logo_Label}>localCoach</h4>
             <nav className={classes.LP__Navigation}>
-              <span className={classes.LP__NavItem}>Home</span>
-              <span className={classes.LP__NavItem}>Contact</span>
+              <span className={classes.LP__NavItem} onClick={this.reloadPage}>
+                Home
+              </span>
+              <span
+                className={classes.LP__NavItem}
+                onClick={() => this.handleModalOpen("contactOpen")}
+              >
+                Contact
+              </span>
+              <Modal
+                open={this.state.contactOpen}
+                onClose={this.handleModalClose}
+              >
+                <DialogContent className={classes.LP__Modal}>
+                  <ContactCard />
+                </DialogContent>
+              </Modal>
               <div className={classes.LP__Buttons}>
                 <button
                   className={`${classes.LP__Button} ${classes.LP__Button_SignUp} `}

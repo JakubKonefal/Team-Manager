@@ -4,7 +4,6 @@ import Collapse from "@material-ui/core/Collapse";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import Slider from "@material-ui/core/Slider";
 import Typography from "@material-ui/core/Typography";
 import StylesProvider from "@material-ui/styles/StylesProvider";
@@ -308,25 +307,19 @@ class MultipleTrainingsCreator extends Component {
                   onChange={this.handleSliderChange}
                 />
                 <div className={classes.MultipleTrainingsCreator__Buttons}>
-                  <Button
+                  <button
                     type="submit"
                     className={classes.MultipleTrainingsCreator__Button_Add}
-                    color="primary"
-                    variant="contained"
-                    size="small"
                   >
                     add
-                  </Button>
-                  <Button
+                  </button>
+                  <button
                     className={classes.MultipleTrainingsCreator__Button_Cancel}
                     type="reset"
-                    color="secondary"
-                    variant="contained"
-                    size="small"
                     onClick={this.handleFormCancel}
                   >
                     cancel
-                  </Button>
+                  </button>
                 </div>
               </form>
             </CardContent>

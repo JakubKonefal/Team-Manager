@@ -52,6 +52,9 @@
 }
 
 .MultipleTrainingsCreator__Button_Add {
+  padding: 8px 25px;
+  border: none;
+  border-radius: 8px;
   color: #eee;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
@@ -59,8 +62,6 @@
   background-color: green;
   font-size: 14px;
   cursor: pointer;
-  padding-left: 25px;
-  padding-right: 25px;
 }
 
 .MultipleTrainingsCreator__Button_Add:hover {
@@ -68,6 +69,9 @@
 }
 
 .MultipleTrainingsCreator__Button_Cancel {
+  padding: 8px 25px;
+  border: none;
+  border-radius: 8px;
   color: #eee;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;

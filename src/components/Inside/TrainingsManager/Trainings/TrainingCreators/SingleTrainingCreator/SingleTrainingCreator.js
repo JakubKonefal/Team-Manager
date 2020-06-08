@@ -4,7 +4,6 @@ import Collapse from "@material-ui/core/Collapse";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import Slider from "@material-ui/core/Slider";
 import Typography from "@material-ui/core/Typography";
 import StylesProvider from "@material-ui/styles/StylesProvider";
@@ -43,12 +42,12 @@ class SingleTrainingCreator extends Component {
   };
 
   handleInputChange = ({ target }) => {
-    const { id, value } = target;
+    const { name, value } = target;
 
     this.setState({
       newTrainingInfo: {
         ...this.state.newTrainingInfo,
-        [id]: value,
+        [name]: value,
       },
     });
   };
@@ -91,7 +90,7 @@ class SingleTrainingCreator extends Component {
               >
                 <TextField
                   className={classes.SingleTrainingCreator__Input}
-                  id="date"
+                  id="date-1"
                   name="date"
                   type="date"
                   variant="outlined"
@@ -102,7 +101,7 @@ class SingleTrainingCreator extends Component {
                 />
                 <TextField
                   className={classes.SingleTrainingCreator__Input}
-                  id="start"
+                  id="start-1"
                   name="start"
                   type="time"
                   variant="outlined"
@@ -113,7 +112,7 @@ class SingleTrainingCreator extends Component {
                 />
                 <TextField
                   className={classes.SingleTrainingCreator__Input}
-                  id="end"
+                  id="end-1"
                   name="end"
                   type="time"
                   variant="outlined"
@@ -124,7 +123,7 @@ class SingleTrainingCreator extends Component {
                 />
                 <TextField
                   className={classes.SingleTrainingCreator__Input}
-                  id="place"
+                  id="place-1"
                   name="place"
                   variant="outlined"
                   inputProps={{
@@ -135,7 +134,7 @@ class SingleTrainingCreator extends Component {
                 />
                 <TextField
                   className={classes.SingleTrainingCreator__Input}
-                  id="trainingType"
+                  id="trainingType-1"
                   name="trainingType"
                   variant="outlined"
                   inputProps={{
@@ -153,7 +152,7 @@ class SingleTrainingCreator extends Component {
                 </Typography>
                 <Slider
                   className={classes.SingleTrainingCreator__Input}
-                  id="intensity"
+                  id="intensity-1"
                   name="intensity"
                   size="small"
                   value={this.state.newTrainingInfo.intensity}
@@ -161,25 +160,19 @@ class SingleTrainingCreator extends Component {
                   onChange={this.handleSliderChange}
                 />
                 <div className={classes.SingleTrainingCreator__Buttons}>
-                  <Button
+                  <button
                     type="submit"
                     className={classes.SingleTrainingCreator__Button_Add}
-                    color="primary"
-                    variant="contained"
-                    size="small"
                   >
                     add
-                  </Button>
-                  <Button
+                  </button>
+                  <button
                     className={classes.SingleTrainingCreator__Button_Cancel}
                     type="reset"
-                    color="secondary"
-                    variant="contained"
-                    size="small"
                     onClick={this.handleFormCancel}
                   >
                     cancel
-                  </Button>
+                  </button>
                 </div>
               </form>
             </CardContent>
