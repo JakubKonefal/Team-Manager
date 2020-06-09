@@ -32,19 +32,19 @@
 
 .ToolbarItems__DeleteCard {
   position: absolute;
-  bottom: -120px;
+  bottom: -100px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 200px;
-  height: 90px;
   text-align: center;
   padding: 5px 10px;
   border-radius: 10px;
   background-color: #fff;
   cursor: default;
+  z-index: 100;
 }
 
 .ToolbarItems__DeleteCard_Inactive {
@@ -100,4 +100,53 @@
 
 .ToolbarItems__Button_No:hover {
   opacity: 1;
+}
+
+.ToolbarItems__Modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 15px;
+  outline: none;
+}
+
+.ToolbarItems__ModalForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.ToolbarItems__ConfrimPasswordLabel {
+  margin-bottom: 15px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.ToolbarItems__Button_Delete {
+  width: 100%;
+  height: 30px;
+  margin-top: 20px;
+  background-color: #cf1c2c;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.ToolbarItems__CheckIcon {
+  margin-right: 10px;
+  color: darkgreen;
+  border-radius: 50%;
+  font-size: 65px;
+}
+
+.ToolbarItems__AccountDeletedMessage {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-weight: bold;
 }

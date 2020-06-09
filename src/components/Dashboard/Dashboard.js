@@ -3,6 +3,7 @@ import classes from "./Dashboard.module.css";
 import axios from "axios";
 import DashboardPlayersList from "../Inside/PlayersManager/Players/DashboardPlayersList/DashboardPlayersList";
 import DashboardTrainingsList from "../Inside/TrainingsManager/Trainings/DashboardTrainingsList/DashboardTrainingsList";
+import DefaultTeamLogo from "../../assets/img/default_team_logo.png";
 
 class Dashboard extends Component {
   state = { team: {}, pending: true };
@@ -40,7 +41,7 @@ class Dashboard extends Component {
         <div className={classes.Dashboard__Header}>
           <img
             className={classes.Dashboard__TeamLogo}
-            src={team.teamLogo}
+            src={team.teamLogo || DefaultTeamLogo}
             alt="Logo"
           />
           <h1 className={classes.Dashboard__TeamName}>{team.teamName}</h1>

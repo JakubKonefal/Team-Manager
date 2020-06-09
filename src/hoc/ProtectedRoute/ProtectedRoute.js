@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Route, Redirect, withRouter } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const ProtectedRoute = ({ component: RouteComponent, ...rest }) => {
@@ -23,4 +23,4 @@ const ProtectedRoute = ({ component: RouteComponent, ...rest }) => {
   );
 };
 
-export default withRouter(ProtectedRoute);
+export default ProtectedRoute;
