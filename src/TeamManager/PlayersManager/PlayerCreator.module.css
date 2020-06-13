@@ -1,0 +1,139 @@
+.PlayerCreator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #ddd;
+  width: 40%;
+  box-sizing: border-box;
+  margin: 0 auto 20px;
+  border: 2px solid #cf1c2c;
+  border-top: none;
+}
+
+.PlayerCreator__Header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 65px;
+  width: 40%;
+  margin: 20px auto 0;
+  color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  font-family: "Montserrat";
+  font-weight: 600;
+  background-color: #cf1c2c;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+
+.PlayerCreator__Title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.PlayerCreator__FileUploadSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15px 15px 5px 5px;
+}
+
+.PlayerCreator__PreviewFile {
+  width: 100px;
+  height: 100px;
+  border: 3px dashed #bbb;
+  text-align: center;
+}
+
+.PlayerCreator__PrevFileHelperText {
+  margin-top: 10px;
+  padding: 5px 7px;
+  background-color: #71c333;
+  border-radius: 5px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+}
+
+.PlayerCreator__PrevFileHelperText:hover {
+  background-color: #82d444;
+}
+
+.PlayerCreator__Input {
+  width: 85%;
+  margin: 15px;
+}
+
+.PlayerCreator__Buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 65%;
+  margin: 5px 0 15px;
+}
+
+.PlayerCreator__Button_Add {
+  color: #eee;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  background-color: green;
+  font-size: 14px;
+  cursor: pointer;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.PlayerCreator__Button_Add:hover {
+  background-color: #339633;
+}
+
+.PlayerCreator__Button_Cancel {
+  color: #eee;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  background-color: #d91162;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.PlayerCreator__Button_Cancel:hover {
+  background-color: #fb3384;
+}
+
+.PlayerCreator_Inactive {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0 15px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #757575;
+  transition: 0.1s;
+  cursor: pointer;
+}
+
+.PlayerCreator_Inactive:hover {
+  color: #2e40a4;
+}
+
+.PlayerCreator_Inactive__AddUserIcon {
+  font-size: 32px;
+  margin-right: 20px;
+}
+
+@media (max-width: 1440px) {
+  .PlayerCreator__Title {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 1366px) {
+  .PlayerCreator__Title {
+    font-size: 16px;
+  }
+}

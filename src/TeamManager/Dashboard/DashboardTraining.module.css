@@ -1,0 +1,58 @@
+.DashboardTraining {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+  margin: 15px 8px;
+  background-color: #08a045;
+  border-radius: 15px;
+  color: white;
+}
+
+.DashboardTraining > span {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.DashboardTraining__Date {
+  flex-grow: 1;
+  background-color: #068934;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  font-size: 18px;
+}
+
+.DashboardTraining__TrainingType {
+  flex-grow: 3;
+}
+
+.DashboardTraining__Intensity {
+  flex-grow: 1;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  background-color: #068934;
+}
+
+.DashboardTraining__IntensityBar {
+  width: 75%;
+  height: 4px;
+  margin-left: 15px;
+  border-radius: 5px;
+}
+
+.Blue {
+  background-color: rgb(55, 181, 231);
+}
+
+.Yellow {
+  background-color: yellow;
+}
+
+.Red {
+  background-color: Red;
+}
+
+.DashboardTraining__Icon {
+  margin-right: 10px;
+}

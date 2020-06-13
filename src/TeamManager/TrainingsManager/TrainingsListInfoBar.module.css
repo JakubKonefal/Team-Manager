@@ -1,0 +1,38 @@
+.TrainingsListInfoBar__Tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 6px;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+  border-left: 1px solid #333;
+  background-color: #069e2d;
+  color: black;
+  font-size: 11px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.TrainingsListInfoBar__SortIcon {
+  font-size: 15px;
+}
+
+.TrainingsListInfoBar__Tile:nth-child(1) {
+  border-left: none;
+}
+
+.TrainingsListInfoBar__Tile:nth-child(8) {
+  box-sizing: border-box;
+}
+
+.TrainingsListInfoBar__Tile:hover {
+  color: #333;
+}
+
+.TrainingsListInfoBar__Tile:nth-child(3):hover {
+  color: black;
+  cursor: default;
+}

@@ -1,0 +1,152 @@
+.ToolbarItems__Logo_Img {
+  height: 60px;
+  margin-left: 50px;
+}
+
+.ToolbarItems__Logo_Label {
+  color: white;
+  font-size: 20px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+
+.ToolbarItems__Email {
+  position: relative;
+  margin-left: auto;
+  margin-right: 30px;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ToolbarItems__Logout {
+  margin-right: 50px;
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.ToolbarItems__DeleteCard {
+  position: absolute;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 200px;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: #fff;
+  cursor: default;
+  z-index: 100;
+}
+
+.ToolbarItems__DeleteCard_Inactive {
+  display: none;
+}
+
+.ToolbarItems__DeleteCardArrow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  z-index: -100;
+}
+
+.TooblarItems__DeleteLabel {
+  color: black;
+  margin-bottom: 10px;
+}
+
+.ToolbarItems__Buttons {
+  display: flex;
+  width: 65%;
+  margin: 0 auto;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.ToolbarItems__Button {
+  border: none;
+  background-color: transparent;
+  font-size: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.ToolbarItems__Button_Yes {
+  color: green;
+  opacity: 0.7;
+}
+
+.ToolbarItems__Button_Yes:hover {
+  opacity: 1;
+}
+
+.ToolbarItems__Button_No {
+  color: red;
+  opacity: 0.7;
+}
+
+.ToolbarItems__Button_No:hover {
+  opacity: 1;
+}
+
+.ToolbarItems__Modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 15px;
+  outline: none;
+}
+
+.ToolbarItems__ModalForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.ToolbarItems__ConfrimPasswordLabel {
+  margin-bottom: 15px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.ToolbarItems__Button_Delete {
+  width: 100%;
+  height: 30px;
+  margin-top: 20px;
+  background-color: #cf1c2c;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.ToolbarItems__CheckIcon {
+  margin-right: 10px;
+  color: darkgreen;
+  border-radius: 50%;
+  font-size: 65px;
+}
+
+.ToolbarItems__AccountDeletedMessage {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-weight: bold;
+}

@@ -1,0 +1,26 @@
+.Player {
+  display: flex;
+  align-items: center;
+  width: 90%;
+  margin: 0 0 10px;
+  padding: 5px 8px;
+  border-bottom: 2px solid black;
+  color: black;
+}
+
+.Player > span {
+  margin-right: 15px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+}
+
+.PlayerAvatar {
+  margin-right: 15px;
+}
+
+.NoPlayersMsg {
+  font-size: 20px;
+  font-weight: bold;
+  color: #e40d07;
+  letter-spacing: 1px;
+}

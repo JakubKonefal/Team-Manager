@@ -1,0 +1,120 @@
+.TeamCreator {
+  display: flex;
+  background-color: #3a414c;
+  border-radius: 10px;
+  margin: 15px 0;
+  padding: 15px 10px;
+  font-size: 35px;
+}
+
+.TeamCreator__FileUploadSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5px 15px 5px 5px;
+}
+
+.TeamCreator__PreviewFile {
+  width: 120px;
+  height: 120px;
+  border: 3px dashed #bbb;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.TeamCreator__PrevFileHelperText {
+  margin-top: 10px;
+  padding: 5px 18px;
+  background-color: #71c333;
+  border-radius: 5px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+}
+
+.FileUploadSection__HelperText:hover {
+  background-color: #82d444;
+}
+
+.TeamCreator__MidColumnWraper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px 15px 0 15px;
+}
+
+.TeamCreator__Input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px 10px;
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 32px;
+  letter-spacing: 2px;
+}
+
+.TeamCreator__Input::after {
+  border-bottom-color: #2e40a4;
+}
+
+.TeamCreator__Buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 60px;
+  width: 70%;
+}
+
+.TeamCreator__Button_Update {
+  color: #eee;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 16px;
+  cursor: pointer;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.TeamCreator__Button_Cancel {
+  color: #eee;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.TeamCreator_Inactive {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #757575;
+  transition: 0.1s;
+  cursor: pointer;
+}
+
+.TeamCreator_Inactive:hover {
+  color: #2e40a4;
+}
+
+.TeamCreator_Inactive__UsersIcon {
+  position: relative;
+  font-size: 60px;
+  margin-right: 20px;
+}
+
+.TeamCreator_Inactive__UsersIcon_Plus {
+  position: absolute;
+  top: -16%;
+  right: -16%;
+  font-size: 18px;
+}
+
+input[type="file"] {
+  display: none;
+}

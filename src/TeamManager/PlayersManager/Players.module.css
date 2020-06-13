@@ -1,0 +1,246 @@
+.PlayersList {
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr;
+}
+
+.PlayersList__InfoBar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 8px 10px;
+  background-color: #cf1c2c;
+  border-bottom: 10px solid #2d3037;
+  color: #ccc;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.PlayersList__InfoBar > span {
+  margin-left: 2px;
+  box-sizing: border-box;
+}
+
+.PlayersList__InfoTile_Sortable:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+.PlayersList__InfoTile_Player {
+  width: 8%;
+  min-width: 45px;
+}
+
+.PlayersList__InfoTile_Number {
+  width: 7%;
+}
+
+.PlayersList__InfoTile_FirstName {
+  width: 16%;
+  padding-left: 6px;
+}
+
+.PlayersList__InfoTile_LastName {
+  width: 18%;
+  padding-left: 8px;
+}
+
+.PlayersList__InfoTile_Position {
+  width: 15%;
+  padding-left: 9px;
+}
+
+.PlayersList__InfoTile_Birthday {
+  width: 15%;
+  padding-left: 12px;
+}
+
+.PlayersList__InfoTile_Actions {
+  display: flex;
+  justify-content: center;
+  width: 13%;
+  padding-left: 20px;
+}
+
+.PlayersList__InfoIcon {
+  margin-left: auto;
+}
+
+.PlayersList__InfoIcon:hover {
+  color: #fff;
+}
+
+.PlayersList__ActionPanel {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 5px 0;
+  background-color: #35383f;
+  border-top: none;
+}
+
+.PlayersList__Button_Delete {
+  margin-right: 20px;
+
+  background-color: #cf1c2c;
+  opacity: 0.8;
+}
+
+.PlayersList__Button_Delete:disabled {
+  background-color: #cf1c2c;
+  color: white;
+  opacity: 0.2;
+}
+
+.PlayersList__Button_Delete:hover {
+  background-color: #cf1c2c;
+  opacity: 1;
+}
+
+.PlayersList__Modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 360px;
+  height: 100px;
+  padding: 10px 20px;
+}
+
+.PlayersList__ModalMsg {
+  font-size: 18px;
+}
+
+.PlayersList__ModalButtons {
+  display: flex;
+  width: 40%;
+  margin-top: 20px;
+  justify-content: space-around;
+}
+
+.PlayersList__ModalButton {
+  border: none;
+  background-color: transparent;
+  color: green;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.PlayersList__ModalButton_Yes {
+  color: green;
+}
+
+.PlayersList__ModalButton_No {
+  color: red;
+}
+
+.PlayersManager {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.PlayersManager__Title {
+  width: 100%;
+  margin: 0;
+  padding: 29px 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  background-color: #cf1c2c;
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 4px;
+}
+
+.PlayersManager__Footer {
+  margin-top: auto;
+  background-color: #cf1c2c;
+  height: 50px;
+  width: 100%;
+}
+
+.Players__NoPlayersMsg {
+  font-size: 21px;
+  font-weight: bold;
+  color: #cf1c2c;
+  margin: 40px 0;
+}
+
+.Players__Loader {
+  font-size: 10px;
+  margin: 50px auto;
+  text-indent: -9999em;
+  width: 11em;
+  height: 11em;
+  border-radius: 50%;
+  background: #cf1c2c;
+  background: -moz-linear-gradient(left, #cf1c2c 10%, rgba(207, 28, 44, 0) 42%);
+  background: -webkit-linear-gradient(
+    left,
+    #cf1c2c 10%,
+    rgba(207, 28, 44, 0) 42%
+  );
+  background: -o-linear-gradient(left, #cf1c2c 10%, rgba(207, 28, 44, 0) 42%);
+  background: -ms-linear-gradient(left, #cf1c2c 10%, rgba(207, 28, 44, 0) 42%);
+  background: linear-gradient(to right, #cf1c2c 10%, rgba(207, 28, 44, 0) 42%);
+  position: relative;
+  -webkit-animation: load3 1.4s infinite linear;
+  animation: load3 1.4s infinite linear;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.Players__Loader:before {
+  width: 50%;
+  height: 50%;
+  background: #cf1c2c;
+  border-radius: 100% 0 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+}
+.Players__Loader:after {
+  background: #2d3037;
+  width: 75%;
+  height: 75%;
+  border-radius: 50%;
+  content: "";
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+@-webkit-keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
