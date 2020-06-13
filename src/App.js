@@ -1,11 +1,11 @@
 import React from "react";
-import Outside from "./components/Outside/Outside";
+import Home from "./Home/Home";
 import { Switch } from "react-router";
-import ProtectedRoute from "./hoc/ProtectedRoute/ProtectedRoute";
-import HomeRoute from "./hoc/HomeRoute/HomeRoute";
-import { AuthProvider } from "./hoc/AuthProvider/AuthProvider";
-import TeamsManager from "./containers/TeamsManager/TeamsManager";
-import TeamManager from "./containers/TeamsManager/TeamManager/TeamManager";
+import ProtectedRoute from "./shared/ProtectedRoute/ProtectedRoute";
+import HomeRoute from "./Home/HomeRoute";
+import { AuthProvider } from "./shared/AuthProvider/AuthProvider";
+import TeamsManager from "./TeamsManager/TeamsManager";
+import TeamManager from "./TeamManager/TeamManager";
 
 const App = () => {
   return (
@@ -16,8 +16,7 @@ const App = () => {
           path="/my-teams/:teamId/:teamName"
           component={TeamManager}
         />
-
-        <HomeRoute path="/" component={Outside} />
+        <HomeRoute path="/" component={Home} />
       </Switch>
     </AuthProvider>
   );
