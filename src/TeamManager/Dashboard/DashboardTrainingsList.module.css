@@ -4,3 +4,12 @@
   color: #e40d07;
   letter-spacing: 1px;
 }
+
+.Dashboard__TrainingsList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+}

@@ -1,7 +1,7 @@
-import React from "react";
-import classes from "./DashboardTrainingsList.module.css";
-import moment from "moment";
-import DashboardTraining from "./DashboardTraining";
+import React from 'react';
+import classes from './DashboardTrainingsList.module.css';
+import moment from 'moment';
+import DashboardTraining from './DashboardTraining';
 
 const DashboardTrainingsList = ({ trainings }) => {
   if (!trainings) {
@@ -47,7 +47,9 @@ const DashboardTrainingsList = ({ trainings }) => {
     trainingsList.splice(maxTrainingsToDisplay);
   }
 
-  return <>{trainingsList}</>;
+  return (
+    <div className={classes.Dashboard__TrainingsList}>{trainingsList}</div>
+  );
 };
 
 export default DashboardTrainingsList;
