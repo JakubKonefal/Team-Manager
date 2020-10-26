@@ -1,0 +1,5 @@
+# force all routes to fallback to /, allowing react-router to take control
+[[redirects]]
+from = "/*"
+to = "/"
+status = 200
