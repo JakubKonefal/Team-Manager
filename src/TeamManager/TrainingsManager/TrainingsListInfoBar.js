@@ -1,7 +1,7 @@
-import React from "react";
-import classes from "./TrainingsListInfoBar.module.css";
-import Tooltip from "@material-ui/core/Tooltip";
-import Sort from "@material-ui/icons/Sort";
+import React from 'react';
+import classes from './TrainingsListInfoBar.module.css';
+import Tooltip from '@material-ui/core/Tooltip';
+import Sort from '@material-ui/icons/Sort';
 
 const TrainingsListInfoBar = ({ sort }) => (
   <>
@@ -12,38 +12,38 @@ const TrainingsListInfoBar = ({ sort }) => (
     </Tooltip>
     <span
       className={classes.TrainingsListInfoBar__Tile}
-      onClick={(event) => sort(event, "date")}
+      onClick={(event) => sort(event, 'date')}
     >
       Date
     </span>
     <span className={classes.TrainingsListInfoBar__Tile}>Weekday</span>
     <span
       className={classes.TrainingsListInfoBar__Tile}
-      onClick={(event) => sort(event, "start")}
+      onClick={(event) => sort(event, 'start')}
     >
       Start
     </span>
     <span
-      className={classes.TrainingsListInfoBar__Tile}
-      onClick={(event) => sort(event, "end")}
+      className={`${classes.TrainingsListInfoBar__Tile} ${classes.TrainingsListInfoBar__Tile_End}`}
+      onClick={(event) => sort(event, 'end')}
     >
       End
     </span>
     <span
       className={classes.TrainingsListInfoBar__Tile}
-      onClick={(event) => sort(event, "place")}
+      onClick={(event) => sort(event, 'place')}
     >
       Place
     </span>
     <span
       className={classes.TrainingsListInfoBar__Tile}
-      onClick={(event) => sort(event, "trainingType")}
+      onClick={(event) => sort(event, 'trainingType')}
     >
       Training Type
     </span>
     <span
-      className={classes.TrainingsListInfoBar__Tile}
-      onClick={(event) => sort(event, "intensity")}
+      className={`${classes.TrainingsListInfoBar__Tile} ${classes.TrainingsListInfoBar__Tile_Intensity}`}
+      onClick={(event) => sort(event, 'intensity')}
     >
       Intensity
     </span>

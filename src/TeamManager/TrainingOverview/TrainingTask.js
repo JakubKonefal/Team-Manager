@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import classes from "./TrainingTask.module.css";
-import Collapse from "@material-ui/core/Collapse";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import Modal from "@material-ui/core/Modal";
-import StylesProvider from "@material-ui/styles/StylesProvider";
+import React, { Component } from 'react';
+import classes from './TrainingTask.module.css';
+import Collapse from '@material-ui/core/Collapse';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import Modal from '@material-ui/core/Modal';
+import StylesProvider from '@material-ui/styles/StylesProvider';
 import {
   Delete,
   Edit,
@@ -13,19 +13,19 @@ import {
   Check,
   Close,
   RemoveCircle,
-} from "@material-ui/icons";
-import Tooltip from "@material-ui/core/Tooltip";
-import TextField from "@material-ui/core/TextField";
+} from '@material-ui/icons';
+import Tooltip from '@material-ui/core/Tooltip';
+import TextField from '@material-ui/core/TextField';
 
 class TrainingTask extends Component {
   state = {
     trainingTaskActive: false,
     editFormActive: false,
     editedTaskInfo: {
-      taskTitle: "",
-      taskDescription: "",
-      duration: "",
-      equipment: "",
+      taskTitle: '',
+      taskDescription: '',
+      duration: '',
+      equipment: '',
     },
     deleteModalOpen: false,
   };
@@ -50,10 +50,10 @@ class TrainingTask extends Component {
     this.setState({
       editFormActive: false,
       editedTaskInfo: {
-        taskTitle: "",
-        taskDescription: "",
-        duration: "",
-        equipment: "",
+        taskTitle: '',
+        taskDescription: '',
+        duration: '',
+        equipment: '',
       },
     });
   };
@@ -92,9 +92,6 @@ class TrainingTask extends Component {
           <form onChange={this.handleInputChange}>
             <div className={classes.TrainingTask_Edit__HeaderInputs_Wraper}>
               <div className={classes.TrainingTask_Edit__TitleInput_Wraper}>
-                <Typography className={classes.TrainingTask_Edit__TaskIndex}>
-                  {this.props.index + 1}.
-                </Typography>
                 <TextField
                   id="taskTitle"
                   name="taskTitle"
@@ -109,7 +106,6 @@ class TrainingTask extends Component {
                 />
               </div>
               <div className={classes.TrainingTask_Edit__DurationInput_Wraper}>
-                <Timer />
                 <TextField
                   id="duration"
                   name="duration"
@@ -143,7 +139,6 @@ class TrainingTask extends Component {
                 />
               </div>
               <div className={classes.TrainingTask_Edit__TaskEquipment_Wraper}>
-                Equipment:
                 <TextField
                   id="equipment"
                   name="equipment"
@@ -186,85 +181,85 @@ class TrainingTask extends Component {
         </Card>
       </StylesProvider>
     ) : (
-        <StylesProvider injectFirst>
-          <Card className={classes.TrainingTask} variant="outlined">
-            <div className={classes.TrainingTask__TaskHeader}>
-              <Typography
-                className={classes.TrainingTask__TaskTitle}
-                onClick={this.handleTrainingTaskToggle}
+      <StylesProvider injectFirst>
+        <Card className={classes.TrainingTask} variant="outlined">
+          <div className={classes.TrainingTask__TaskHeader}>
+            <Typography
+              className={classes.TrainingTask__TaskTitle}
+              onClick={this.handleTrainingTaskToggle}
+            >
+              {this.props.index + 1}. {this.props.taskTitle}
+            </Typography>
+            <Typography className={classes.TrainingTask__TaskDuration}>
+              <Timer className={classes.TrainingTask__TimerIcon} />
+              {this.props.duration}
+            </Typography>
+            <Typography className={classes.TrainingTask__Icons}>
+              <Tooltip
+                title="Edit"
+                placement="bottom"
+                className={classes.TrainingTask__Icon_Edit}
+                onClick={this.handleEditFormOpen}
               >
-                {this.props.index + 1}. {this.props.taskTitle}
-              </Typography>
-              <Typography className={classes.TrainingTask__TaskDuration}>
-                <Timer className={classes.TrainingTask__TimerIcon} />
-                {this.props.duration}
-              </Typography>
-              <Typography className={classes.TrainingTask__Icons}>
-                <Tooltip
-                  title="Edit"
-                  placement="bottom"
-                  className={classes.TrainingTask__Icon_Edit}
-                  onClick={this.handleEditFormOpen}
-                >
-                  <Edit />
-                </Tooltip>
-                <Tooltip
-                  title="Delete"
-                  placement="bottom"
-                  className={classes.TrainingTask__Icon_Delete}
-                  onClick={this.handleModalOpen}
-                >
-                  <Delete />
-                </Tooltip>
-              </Typography>
-              <Modal
-                open={this.state.deleteModalOpen}
-                onClose={this.handleModalClose}
+                <Edit />
+              </Tooltip>
+              <Tooltip
+                title="Delete"
+                placement="bottom"
+                className={classes.TrainingTask__Icon_Delete}
+                onClick={this.handleModalOpen}
               >
-                <Card className={classes.TrainingTask__Modal}>
-                  <span className={classes.TrainingTask__ModalMsg}>
-                    Are you sure you want to delete this task?
+                <Delete />
+              </Tooltip>
+            </Typography>
+            <Modal
+              open={this.state.deleteModalOpen}
+              onClose={this.handleModalClose}
+            >
+              <Card className={classes.TrainingTask__Modal}>
+                <span className={classes.TrainingTask__ModalMsg}>
+                  Are you sure you want to delete this task?
                 </span>
-                  <div className={classes.TrainingTask__ModalButtons}>
-                    <button
-                      className={`${classes.TrainingTask__ModalButton} ${classes.TrainingTask__ModalButton_Yes}`}
-                      onClick={() => {
-                        this.props.onDelete(this.props.taskId);
-                        this.handleModalClose();
-                      }}
-                    >
-                      Yes
+                <div className={classes.TrainingTask__ModalButtons}>
+                  <button
+                    className={`${classes.TrainingTask__ModalButton} ${classes.TrainingTask__ModalButton_Yes}`}
+                    onClick={() => {
+                      this.props.onDelete(this.props.taskId);
+                      this.handleModalClose();
+                    }}
+                  >
+                    Yes
                   </button>
-                    <button
-                      className={`${classes.TrainingTask__ModalButton} ${classes.TrainingTask__ModalButton_No}`}
-                      onClick={this.handleModalClose}
-                    >
-                      No
+                  <button
+                    className={`${classes.TrainingTask__ModalButton} ${classes.TrainingTask__ModalButton_No}`}
+                    onClick={this.handleModalClose}
+                  >
+                    No
                   </button>
-                  </div>
-                </Card>
-              </Modal>
-            </div>
-            <Collapse in={this.state.trainingTaskActive}>
-              <CardContent
-                className={classes.TrainingTask__Content}
-                style={{ padding: "0" }}
-              >
-                <Typography className={classes.TrainingTask__TaskDescription}>
-                  {this.props.taskDescription}
-                </Typography>
-                <Typography className={classes.TrainingTask__TaskEquipment}>
-                  Equipment:
+                </div>
+              </Card>
+            </Modal>
+          </div>
+          <Collapse in={this.state.trainingTaskActive}>
+            <CardContent
+              className={classes.TrainingTask__Content}
+              style={{ padding: '0' }}
+            >
+              <Typography className={classes.TrainingTask__TaskDescription}>
+                {this.props.taskDescription}
+              </Typography>
+              <Typography className={classes.TrainingTask__TaskEquipment}>
+                Equipment:
                 <span className={classes.TrainingTask__TaskEquipment_Text}>
-                    {this.props.equipment}
-                  </span>
-                </Typography>
-              </CardContent>
-              <div></div>
-            </Collapse>
-          </Card>
-        </StylesProvider>
-      );
+                  {this.props.equipment}
+                </span>
+              </Typography>
+            </CardContent>
+            <div></div>
+          </Collapse>
+        </Card>
+      </StylesProvider>
+    );
 
     return trainingTask;
   }

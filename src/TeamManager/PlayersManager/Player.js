@@ -1,19 +1,19 @@
-import React, { Component } from "react";
-import classes from "./Player.module.css";
-import FilePreviewElement from "../../shared/FilePreviewElement/FilePreviewElement";
-import { StylesProvider } from "@material-ui/core/styles";
-import defaultImage from "../../assets/img/user.jpg";
-import Modal from "@material-ui/core/Modal";
-import Card from "@material-ui/core/Card";
-import Avatar from "@material-ui/core/Avatar";
-import Tooltip from "@material-ui/core/Tooltip";
+import React, { Component } from 'react';
+import classes from './Player.module.css';
+import FilePreviewElement from '../../shared/FilePreviewElement/FilePreviewElement';
+import { StylesProvider } from '@material-ui/core/styles';
+import defaultImage from '../../assets/img/user.jpg';
+import Modal from '@material-ui/core/Modal';
+import Card from '@material-ui/core/Card';
+import Avatar from '@material-ui/core/Avatar';
+import Tooltip from '@material-ui/core/Tooltip';
 
 class Player extends Component {
   state = {
     editFormActive: false,
     updatedPlayerInfo: null,
     selectedImage: null,
-    previewFile: "https://via.placeholder.com/45/eee?text=+",
+    previewFile: 'https://via.placeholder.com/45/eee?text=+',
     deleteModalOpen: false,
   };
 
@@ -30,14 +30,14 @@ class Player extends Component {
     this.setState({
       editFormActive: false,
       updatedPlayerInfo: { ...this.props.playerInfo },
-      previewFile: "https://via.placeholder.com/45/eee?text=+",
+      previewFile: 'https://via.placeholder.com/45/eee?text=+',
       selectedImage: null,
     });
   };
 
   handleInputChange = ({ target }) => {
     const { id, value, name } = target;
-    if (id !== "photo") {
+    if (id !== 'photo') {
       this.setState({
         updatedPlayerInfo: {
           ...this.state.updatedPlayerInfo,
@@ -57,7 +57,7 @@ class Player extends Component {
   };
 
   handleClearInput = ({ target }) => {
-    target.placeholder = "";
+    target.placeholder = '';
   };
 
   handleModalOpen = () => {
@@ -83,7 +83,7 @@ class Player extends Component {
                 htmlFor="photo"
                 className={
                   this.state.previewFile !==
-                  "https://via.placeholder.com/45/eee?text=+"
+                  'https://via.placeholder.com/45/eee?text=+'
                     ? classes.Player_Editable__PrevFileHelperText_Hide
                     : classes.Player_Editable__PrevFileHelperText
                 }
@@ -144,10 +144,30 @@ class Player extends Component {
               defaultValue={this.props.playerInfo.position}
               className={classes.Player_Editable__SelectField}
             >
-              <option value="goalkeeper">Goalkeeper</option>
-              <option value="defender">Defender</option>
-              <option value="midfielder">Midfielder</option>
-              <option value="forward">Forward</option>
+              <option
+                className={classes.Player_Editable__SelectOption}
+                value="goalkeeper"
+              >
+                Goalkeeper
+              </option>
+              <option
+                className={classes.Player_Editable__SelectOption}
+                value="defender"
+              >
+                Defender
+              </option>
+              <option
+                className={classes.Player_Editable__SelectOption}
+                value="midfielder"
+              >
+                Midfielder
+              </option>
+              <option
+                className={classes.Player_Editable__SelectOption}
+                value="forward"
+              >
+                Forward
+              </option>
             </select>
           </div>
           <div

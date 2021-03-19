@@ -1,3 +1,9 @@
+.ToolbarItems__Logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .ToolbarItems__Logo_Img {
   height: 60px;
   margin-left: 50px;
@@ -8,6 +14,13 @@
   font-size: 20px;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
+}
+
+.ToolbarItems__Controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
 }
 
 .ToolbarItems__Email {
@@ -149,4 +162,46 @@
   align-items: center;
   padding: 10px;
   font-weight: bold;
+}
+
+@media (max-width: 640px) {
+  .ToolbarItems__Logo {
+    margin: 0 auto;
+  }
+
+  .ToolbarItems__Logo_Img {
+    height: 50px;
+    margin-left: 0;
+  }
+
+  .ToolbarItems__Logo_Label {
+    font-size: 18px;
+  }
+
+  .ToolbarItems__Controls {
+    justify-content: space-between;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0 20px;
+  }
+
+  .ToolbarItems__Email {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .ToolbarItems__Logout {
+    margin-right: 0;
+  }
+
+  .ToolbarItems__DeleteCard {
+    transform: translateX(-25%);
+  }
+}
+
+@media (max-width: 360px) {
+  .ToolbarItems__Controls {
+    margin-top: 12px;
+  }
 }

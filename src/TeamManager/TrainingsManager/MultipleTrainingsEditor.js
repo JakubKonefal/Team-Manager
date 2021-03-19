@@ -1,22 +1,21 @@
-import React, { Component } from "react";
-import classes from "./MultipleTrainingsEditor.module.css";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Slider from "@material-ui/core/Slider";
-import Typography from "@material-ui/core/Typography";
-import StylesProvider from "@material-ui/styles/StylesProvider";
-import moment from "moment";
+import React, { Component } from 'react';
+import classes from './MultipleTrainingsEditor.module.css';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import TextField from '@material-ui/core/TextField';
+import Slider from '@material-ui/core/Slider';
+import Typography from '@material-ui/core/Typography';
+import StylesProvider from '@material-ui/styles/StylesProvider';
+import moment from 'moment';
 
 class MultipleTrainingsEdit extends Component {
   state = {
     editedTrainingsInfo: {
-      date: "",
-      start: "",
-      end: "",
-      place: "",
-      trainingType: "",
+      date: '',
+      start: '',
+      end: '',
+      place: '',
+      trainingType: '',
       intensity: 0,
     },
     incorrectDate: false,
@@ -24,7 +23,7 @@ class MultipleTrainingsEdit extends Component {
 
   handleInputChange = ({ target }) => {
     const { id, value } = target;
-    if (id !== "date") {
+    if (id !== 'date') {
       this.setState({
         editedTrainingsInfo: {
           ...this.state.editedTrainingsInfo,
@@ -46,11 +45,11 @@ class MultipleTrainingsEdit extends Component {
   resetInputsValues = () => {
     this.setState({
       editedTrainingsInfo: {
-        date: "",
-        start: "",
-        end: "",
-        place: "",
-        trainingType: "",
+        date: '',
+        start: '',
+        end: '',
+        place: '',
+        trainingType: '',
         intensity: 0,
       },
     });
@@ -59,7 +58,7 @@ class MultipleTrainingsEdit extends Component {
   validateInputDate = ({ target: { value } }) => {
     const { year, month } = this.props;
     const yearNumber = parseInt(year);
-    const monthNumber = moment().month(month).format("MM");
+    const monthNumber = moment().month(month).format('MM');
     const pickedYear = moment(value).year();
     let pickedMonthOneIndexed = moment(value).month() + 1;
     if (pickedMonthOneIndexed < 10) {
@@ -87,8 +86,8 @@ class MultipleTrainingsEdit extends Component {
 
   render() {
     const dateErrorMessage = this.state.incorrectDate
-      ? "Only day can be changed!"
-      : "";
+      ? 'Only day can be changed!'
+      : '';
 
     const multipleTrainingsEditor = this.props.active ? (
       <StylesProvider injectFirst>
@@ -187,28 +186,22 @@ class MultipleTrainingsEdit extends Component {
                 </div>
               </div>
               <div className={classes.Form__Buttons}>
-                <Button
+                <button
                   type="submit"
                   className={classes.Form__Button_Add}
-                  color="primary"
-                  variant="contained"
-                  size="small"
                   disabled={this.props.checkedTrainingsCount < 1}
                 >
                   save
-                </Button>
-                <Button
+                </button>
+                <button
                   className={classes.Form__Button_Cancel}
                   type="reset"
-                  color="secondary"
-                  variant="contained"
-                  size="small"
                   onClick={() => {
                     this.props.close();
                   }}
                 >
                   cancel
-                </Button>
+                </button>
               </div>
             </form>
           </CardContent>

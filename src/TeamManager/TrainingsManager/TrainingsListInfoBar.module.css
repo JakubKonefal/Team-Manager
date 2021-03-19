@@ -36,3 +36,25 @@
   color: black;
   cursor: default;
 }
+
+@media (max-width: 1024px) {
+  .TrainingsListInfoBar__Tile {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 640px) {
+  .TrainingsListInfoBar__Tile {
+    font-size: 8px;
+  }
+
+  .TrainingsListInfoBar__Tile_End {
+    display: none;
+  }
+}
+
+@media (max-width: 320px) {
+  .TrainingsListInfoBar__Tile_Intensity {
+    display: none;
+  }
+}

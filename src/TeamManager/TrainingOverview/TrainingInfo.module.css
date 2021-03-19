@@ -1,6 +1,7 @@
 .TrainingInfo {
   box-sizing: border-box;
   border-color: #069e2d;
+  margin-bottom: 24px;
 }
 
 .TrainingInfo__Title {
@@ -8,7 +9,7 @@
   padding: 10px 0;
   background-color: #069e2d;
   color: #ecf0f1;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   font-size: 15px;
   text-align: center;
@@ -25,12 +26,8 @@
   position: relative;
   flex-direction: column;
   margin: 0 auto;
-  padding: 12px 12px 12px 10px;
+  padding: 12px;
   background-color: #fff;
-}
-
-.TrainingInfo__Content:last-child {
-  padding-bottom: 12px;
 }
 
 .TrainingInfo__Form {
@@ -61,7 +58,7 @@
 
 .TrainingInfo__Button_Save {
   color: #eee;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   text-transform: uppercase;
   background-color: green;
@@ -78,7 +75,7 @@
 .TrainingInfo__Button_Cancel {
   padding: 0 8px;
   color: #eee;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   text-transform: uppercase;
   background-color: #d91162;
@@ -131,4 +128,34 @@
 .TrainingInfo__Icon_Edit:hover {
   color: #176087;
   border-color: #176087;
+}
+
+@media (max-width: 640px) {
+  .TrainingInfo__InfoLine {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 414px) {
+  .TrainingInfo__Content {
+    padding: 24px;
+  }
+
+  .TrainingInfo__Input {
+    width: 100%;
+  }
+
+  .TrainingInfo__Buttons {
+    justify-content: space-between;
+    width: 65%;
+  }
+
+  .TrainingInfo__Button_Save {
+    font-size: 12px;
+  }
+
+  .TrainingInfo__Button_Cancel {
+    padding: 0 16px;
+    font-size: 12px;
+  }
 }

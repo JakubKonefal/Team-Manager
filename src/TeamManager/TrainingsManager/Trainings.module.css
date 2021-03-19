@@ -56,14 +56,14 @@
   position: absolute;
   top: 0;
   left: 0;
-  content: "";
+  content: '';
 }
 .Trainings__Loader:after {
   background: #2b3636;
   width: 75%;
   height: 75%;
   border-radius: 50%;
-  content: "";
+  content: '';
   margin: auto;
   position: absolute;
   top: 0;
@@ -98,14 +98,35 @@
   }
 }
 
-@media (max-width: 1440px) {
+@media (max-width: 1024px) {
   .Trainings__TrainingCreators {
-    width: 95%;
+    width: 97.5%;
+  }
+
+  .Trainings__TrainingCreator_Wraper {
+    width: 47.5%;
   }
 }
 
-@media (max-width: 1366px) {
+@media (max-width: 896px) {
   .Trainings__TrainingCreators {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .Trainings__TrainingCreator_Wraper {
+    width: 75%;
+  }
+}
+
+@media (max-width: 414px) {
+  .Trainings__TrainingCreator_Wraper {
+    width: 90%;
+  }
+}
+
+@media (max-width: 360px) {
+  .Trainings__TrainingCreator_Wraper {
     width: 95%;
   }
 }

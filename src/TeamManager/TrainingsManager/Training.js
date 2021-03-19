@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import classes from "./Training.module.css";
-import StylesProvider from "@material-ui/styles/StylesProvider";
-import Moment from "react-moment";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import classes from './Training.module.css';
+import StylesProvider from '@material-ui/styles/StylesProvider';
+import Moment from 'react-moment';
 
 const Training = ({
   date,
@@ -35,7 +35,11 @@ const Training = ({
       </span>
       <Moment className={classes.ListItem__Tile} date={dateObj} format="dddd" />
       <span className={classes.ListItem__Tile}>{start}</span>
-      <span className={classes.ListItem__Tile}>{end}</span>
+      <span
+        className={`${classes.ListItem__Tile} ${classes.ListItem__TileText_End}`}
+      >
+        {end}
+      </span>
       <span className={classes.ListItem__Tile}>{place}</span>
       <span className={classes.ListItem__Tile}>{trainingType}</span>
       <span

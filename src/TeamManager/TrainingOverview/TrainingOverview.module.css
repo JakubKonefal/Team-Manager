@@ -1,18 +1,19 @@
 .TrainingOverview {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
 }
 
 .TrainingOverview__TrainingInfo {
   display: flex;
   flex-direction: column;
-  width: 25%;
+  width: 100%;
 }
 
 .TrainingOverview__TrainingPlan {
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 100%;
 }
 
 .TrainingOverview__LoaderWraper {
@@ -52,14 +53,14 @@
   position: absolute;
   top: 0;
   left: 0;
-  content: "";
+  content: '';
 }
 .TrainingOverview__Loader:after {
   background: #2b3636;
   width: 75%;
   height: 75%;
   border-radius: 50%;
-  content: "";
+  content: '';
   margin: auto;
   position: absolute;
   top: 0;
@@ -88,32 +89,14 @@
   }
 }
 
-@media (max-width: 1680px) {
-  .TrainingOverview__TrainingInfo {
-    width: 28%;
-  }
-
-  .TrainingOverview__TrainingPlan {
-    width: 67%;
+@media (max-width: 1280px) {
+  .TrainingOverview {
+    margin-top: 40px;
   }
 }
 
-@media (max-width: 1440px) {
-  .TrainingOverview__TrainingInfo {
-    width: 27%;
-  }
-
-  .TrainingOverview__TrainingPlan {
-    width: 68%;
-  }
-}
-
-@media (max-width: 1366px) {
-  .TrainingOverview__TrainingInfo {
-    width: 28%;
-  }
-
-  .TrainingOverview__TrainingPlan {
-    width: 67%;
+@media (max-width: 414px) {
+  .TrainingOverview {
+    margin-top: 160px;
   }
 }

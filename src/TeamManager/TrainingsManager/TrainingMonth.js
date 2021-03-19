@@ -1,13 +1,14 @@
-import React, { Component } from "react";
-import classes from "./TrainingMonth.module.css";
-import { database } from "../../firebase/firebase";
-import Checkbox from "@material-ui/core/Checkbox";
-import Training from "./Training";
-import TrainingsListInfoBar from "./TrainingsListInfoBar";
-import Collapse from "@material-ui/core/Collapse";
-import Modal from "@material-ui/core/Modal";
-import Card from "@material-ui/core/Card";
-import MultipleTrainingsEdit from "./MultipleTrainingsEditor";
+import React, { Component } from 'react';
+import classes from './TrainingMonth.module.css';
+import { database } from '../../firebase/firebase';
+import StylesProvider from '@material-ui/styles/StylesProvider';
+import Checkbox from '@material-ui/core/Checkbox';
+import Training from './Training';
+import TrainingsListInfoBar from './TrainingsListInfoBar';
+import Collapse from '@material-ui/core/Collapse';
+import Modal from '@material-ui/core/Modal';
+import Card from '@material-ui/core/Card';
+import MultipleTrainingsEdit from './MultipleTrainingsEditor';
 
 class TrainingMonth extends Component {
   state = {
@@ -126,25 +127,28 @@ class TrainingMonth extends Component {
   render() {
     const trainings = this.state.trainings
       ? this.state.trainings.map((training, index) => (
-        <Training
-          {...training.trainingInfo}
-          key={training.trainingId}
-          teamId={this.props.teamId}
-          teamName={this.props.teamName}
-          trainingId={training.trainingId}
-          checkbox={
-            <Checkbox
-              checked={this.state.trainingsCheckboxes[index].checked}
-              onClick={(event) =>
-                this.handleCheckboxClick(event, index, training.trainingId)
-              }
-              index={index}
-            />
-          }
-          year={this.props.year}
-          month={this.props.month}
-        />
-      ))
+          <Training
+            {...training.trainingInfo}
+            key={training.trainingId}
+            teamId={this.props.teamId}
+            teamName={this.props.teamName}
+            trainingId={training.trainingId}
+            checkbox={
+              <StylesProvider injectFirst>
+                <Checkbox
+                  className={classes.TrainingMonth__TrainingCheckbox}
+                  checked={this.state.trainingsCheckboxes[index].checked}
+                  onClick={(event) =>
+                    this.handleCheckboxClick(event, index, training.trainingId)
+                  }
+                  index={index}
+                />
+              </StylesProvider>
+            }
+            year={this.props.year}
+            month={this.props.month}
+          />
+        ))
       : null;
 
     const buttons = this.state.editFormActive ? null : (

@@ -51,13 +51,17 @@
 }
 
 .Form__Button_Add {
-  color: #eee;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 600;
-  text-transform: uppercase;
+  padding: 6px 8px;
   background-color: green;
+  font-family: 'Montserrat', sans-serif;
   font-size: 14px;
+  font-weight: 600;
+  color: #eee;
+  border: none;
+  border-radius: 5px;
+  text-transform: uppercase;
   cursor: pointer;
+  outline: none;
   padding-left: 25px;
   padding-right: 25px;
 }
@@ -67,15 +71,54 @@
 }
 
 .Form__Button_Cancel {
-  color: #eee;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 600;
-  text-transform: uppercase;
+  padding: 6px 16px;
   background-color: #d91162;
+  font-family: 'Montserrat', sans-serif;
   font-size: 14px;
+  font-weight: 600;
+  color: #eee;
+  border: none;
+  border-radius: 5px;
+  text-transform: uppercase;
   cursor: pointer;
+  outline: none;
 }
 
 .Form__Button_Cancel:hover {
   background-color: #fb3384;
+}
+
+@media (max-width: 1024px) {
+  .Form__Button_Add {
+    font-size: 11px;
+  }
+  .Form__Button_Cancel {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 640px) {
+  .MultipleTrainingsEditor {
+    margin: 12px 0;
+  }
+}
+
+@media (max-width: 414px) {
+  .Form__Row {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .Form__Input {
+    width: 95%;
+  }
+
+  .Form__SliderWraper {
+    width: 95%;
+  }
+
+  .Form__Buttons {
+    width: 85%;
+  }
 }

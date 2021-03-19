@@ -10,7 +10,7 @@
   padding: 10px 25px;
   margin: 0;
   color: #0a2239;
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
@@ -53,7 +53,7 @@
   border: none;
   border-radius: 8px;
   color: #eee;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   text-transform: uppercase;
   background-color: green;
@@ -70,7 +70,7 @@
   border: none;
   border-radius: 8px;
   color: #eee;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   text-transform: uppercase;
   background-color: #d91162;
@@ -89,5 +89,23 @@
 @media (max-width: 1366px) {
   .SingleTrainingCreator__Header {
     font-size: 16px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .SingleTrainingCreator__Button_Add {
+    padding: 8px 18px;
+    font-size: 12px;
+  }
+
+  .SingleTrainingCreator__Button_Cancel {
+    padding: 8px 18px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 375px) {
+  .SingleTrainingCreator__Header {
+    font-size: 14px;
   }
 }

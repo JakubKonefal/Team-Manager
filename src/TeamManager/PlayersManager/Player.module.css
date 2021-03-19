@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: flex-start;
   background-color: #3a414c;
+  margin-bottom: 10px;
 }
 
 .Player_Editable__FileUploadSection {
@@ -84,6 +85,10 @@
 .Player_Editable__SelectField:hover {
   border-bottom: 2px solid #cf1c2c;
   padding-bottom: 2px;
+}
+
+.Player_Editable__SelectOption {
+  color: #000;
 }
 
 .Player_Editable__InputText {
@@ -274,6 +279,7 @@
   width: 360px;
   height: 100px;
   padding: 10px 20px;
+  text-align: center;
 }
 
 .Player__ModalMsg {
@@ -303,4 +309,172 @@
 
 .Player__ModalButton_No {
   color: red;
+}
+
+@media (max-width: 1024px) {
+  .Player_Editable__PreviewFile {
+    width: 40px;
+    height: 40px;
+  }
+
+  .Player_Editable__InputText {
+    font-size: 12px;
+  }
+
+  .Player_Editable__SelectField {
+    font-size: 12px;
+  }
+
+  .Player_Editable__DateInput {
+    font-size: 12px;
+  }
+
+  .Player__Avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .Player__Info {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .Player_Editable_Birthday {
+    margin-left: 24px;
+  }
+
+  .Player_Editable__ButtonsWraper {
+    width: 7%;
+    margin-left: 25px;
+  }
+
+  .Player_Editable__Buttons {
+    padding: 0;
+    justify-content: space-between;
+  }
+
+  .Player__Icons {
+    width: 10%;
+  }
+
+  .Player__Icon_Trash {
+    margin-left: 7px;
+  }
+
+  .Player__CheckboxWraper {
+    width: 10%;
+  }
+}
+
+@media (max-width: 640px) {
+  .Player_Editable {
+    flex-direction: column;
+    padding: 16px 0;
+  }
+
+  .Player_Editable__FileUploadSection {
+    width: unset;
+    padding: 0;
+  }
+
+  .Player_Editable__PreviewFile {
+    width: 70px;
+    height: 80px;
+  }
+
+  .Player_Editable__InputWraper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 12px 0;
+    width: 100%;
+  }
+
+  .Player_Editable__InputText {
+    width: 70%;
+    font-size: 16px;
+  }
+
+  .Player_Editable__SelectField {
+    width: 70%;
+    font-size: 16px;
+  }
+
+  .Player_Editable__DateInput {
+    width: 70%;
+    font-size: 16px;
+  }
+
+  .Player_Editable__ButtonsWraper {
+    width: unset;
+    margin: 12px 0;
+  }
+
+  .Player_Editable__Buttons {
+    font-size: 22px;
+  }
+
+  .Player_Editable__Button_Save {
+    margin-right: 20px;
+  }
+
+  .Player {
+    flex-direction: column;
+    padding-top: 16px;
+  }
+
+  .Player__AvatarWraper {
+    width: unset;
+    margin-bottom: 12px;
+    padding: 0;
+  }
+
+  .Player__Avatar {
+    width: 70px;
+    height: 80px;
+  }
+
+  .Player__Info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: unset;
+    margin: 8px 0;
+    padding: 0;
+    font-size: 16px;
+  }
+
+  .Player__Info_Number {
+    font-weight: bold;
+  }
+
+  .Player__Icons {
+    height: unset;
+    width: unset;
+    margin: 14px 0;
+    padding: 0;
+    font-size: 20px;
+  }
+
+  .Player__Icon_Edit {
+    margin-right: 15px;
+  }
+
+  .Player__Icon_Trash {
+    margin-right: 0;
+    margin-left: 15px;
+  }
+
+  .Player__CheckboxWraper {
+    width: unset;
+    margin-bottom: 5px;
+  }
+}
+
+@media (max-width: 414px) {
+  .Player__Modal {
+    width: 265px;
+  }
 }

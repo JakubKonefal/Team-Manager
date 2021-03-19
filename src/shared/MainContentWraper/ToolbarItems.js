@@ -1,20 +1,20 @@
-import React, { Component } from "react";
-import classes from "./ToolbarItems.module.css";
-import Logo from "../../assets/img/logo.png";
-import { auth, database, emailAuthProvider } from "../../firebase/firebase";
-import { withRouter } from "react-router-dom";
-import Modal from "@material-ui/core/Modal";
-import DialogContent from "@material-ui/core/DialogContent";
-import TextField from "@material-ui/core/TextField";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import LockOutlined from "@material-ui/icons/LockOutlined";
-import CheckCircle from "@material-ui/icons/CheckCircle";
+import React, { Component } from 'react';
+import classes from './ToolbarItems.module.css';
+import Logo from '../../assets/img/logo.png';
+import { auth, database, emailAuthProvider } from '../../firebase/firebase';
+import { withRouter } from 'react-router-dom';
+import Modal from '@material-ui/core/Modal';
+import DialogContent from '@material-ui/core/DialogContent';
+import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import LockOutlined from '@material-ui/icons/LockOutlined';
+import CheckCircle from '@material-ui/icons/CheckCircle';
 
 class ToolbarItems extends Component {
   state = {
     showDeleteMessage: false,
     modalOpen: false,
-    password: "",
+    password: '',
     passwordError: false,
     accountDeleted: false,
   };
@@ -62,15 +62,22 @@ class ToolbarItems extends Component {
       : classes.ToolbarItems__DeleteCard_Inactive;
 
     const passwordErrorMessage =
-      this.state.passwordError && "Incorrect password!";
+      this.state.passwordError && 'Incorrect password!';
 
     return (
       <>
-        <img src={Logo} className={classes.ToolbarItems__Logo_Img} alt="Logo" />
-        <h4 className={classes.ToolbarItems__Logo_Label}>localCoach</h4>
-        <div className={classes.ToolbarItems__Email}>
-          <span onClick={this.toggleDeleteMessage}>{this.props.email}</span>
-          <div>
+        <div className={classes.ToolbarItems__Logo}>
+          <img
+            src={Logo}
+            className={classes.ToolbarItems__Logo_Img}
+            alt="Logo"
+          />
+          <h4 className={classes.ToolbarItems__Logo_Label}>localCoach</h4>
+        </div>
+        <div className={classes.ToolbarItems__Controls}>
+          <div className={classes.ToolbarItems__Email}>
+            <span onClick={this.toggleDeleteMessage}>{this.props.email}</span>
+
             <div className={deleteCardClass}>
               <div className={classes.ToolbarItems__DeleteCardArrow}></div>
               <span className={classes.TooblarItems__DeleteLabel}>
@@ -149,18 +156,17 @@ class ToolbarItems extends Component {
               </div>
             </div>
           </div>
+          <button
+            className={classes.ToolbarItems__Logout}
+            onClick={() => {
+              auth.signOut().then(() => {
+                this.props.history.replace('/');
+              });
+            }}
+          >
+            Logout
+          </button>
         </div>
-
-        <button
-          className={classes.ToolbarItems__Logout}
-          onClick={() => {
-            auth.signOut().then(() => {
-              this.props.history.replace("/");
-            });
-          }}
-        >
-          Logout
-        </button>
       </>
     );
   }

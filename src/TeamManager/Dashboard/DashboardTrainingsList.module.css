@@ -13,3 +13,11 @@
   padding: 10px;
   border-radius: 8px;
 }
+
+@media (max-width: 533px) {
+  .Dashboard__TrainingsList {
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+}

@@ -13,8 +13,21 @@
   }
 }
 
-@media (max-width: 1366px) {
+@media (max-width: 1280px) {
   .MainContentWraper {
-    width: 60%;
-  }
+    width: 70%;
+  } 
+}
+
+@media (max-width: 1024px) {
+  .MainContentWraper {
+    width: 80%;
+  } 
+}
+
+@media (max-width: 768px) {
+  .MainContentWraper {
+    width: 100%;
+    box-shadow: unset;
+  } 
 }

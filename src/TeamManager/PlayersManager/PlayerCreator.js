@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import classes from "./PlayerCreator.module.css";
+import React, { Component } from 'react';
+import classes from './PlayerCreator.module.css';
 import {
   Button,
   FormControl,
@@ -7,22 +7,22 @@ import {
   TextField,
   Select,
   MenuItem,
-} from "@material-ui/core";
-import StylesProvider from "@material-ui/styles/StylesProvider";
-import FilePreviewElement from "../../shared/FilePreviewElement/FilePreviewElement";
+} from '@material-ui/core';
+import StylesProvider from '@material-ui/styles/StylesProvider';
+import FilePreviewElement from '../../shared/FilePreviewElement/FilePreviewElement';
 
 class PlayerCreator extends Component {
   state = {
     playerCreatorActive: false,
     newPlayerInfo: {
-      number: "",
-      firstName: "",
-      lastName: "",
-      position: "",
-      birth: "",
+      number: '',
+      firstName: '',
+      lastName: '',
+      position: '',
+      birth: '',
     },
     newPlayerPhoto: null,
-    previewFile: "https://via.placeholder.com/100/eee",
+    previewFile: 'https://via.placeholder.com/120/eee/000/?text=Player',
   };
 
   handlePlayerCreatorOpen = () => {
@@ -34,20 +34,20 @@ class PlayerCreator extends Component {
   handlePlayerCreatorClose = () => {
     this.setState({
       playerCreatorActive: false,
-      previewFile: "https://via.placeholder.com/100/eee",
+      previewFile: 'https://via.placeholder.com/120/eee/000/?text=Player',
       newPlayerInfo: {
-        number: "",
-        firstName: "",
-        lastName: "",
-        position: "",
-        birth: "",
+        number: '',
+        firstName: '',
+        lastName: '',
+        position: '',
+        birth: '',
       },
     });
   };
 
   handleInputChange = ({ target }) => {
     const { id, value, name } = target;
-    if (id !== "photo") {
+    if (id !== 'photo') {
       this.setState({
         newPlayerInfo: {
           ...this.state.newPlayerInfo,

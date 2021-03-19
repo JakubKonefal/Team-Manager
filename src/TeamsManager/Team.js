@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import classes from "./Team.module.css";
-import { Link } from "react-router-dom";
-import { Avatar, Tooltip, Input, Button, Modal, Card } from "@material-ui/core";
-import { StylesProvider } from "@material-ui/core/styles";
-import defaultTeamLogo from "../assets/img/default_team_logo.png";
-import FilePreviewElement from "../shared/FilePreviewElement/FilePreviewElement";
+import React, { Component } from 'react';
+import classes from './Team.module.css';
+import { Link } from 'react-router-dom';
+import { Avatar, Tooltip, Input, Button, Modal, Card } from '@material-ui/core';
+import { StylesProvider } from '@material-ui/core/styles';
+import defaultTeamLogo from '../assets/img/default_team_logo.png';
+import FilePreviewElement from '../shared/FilePreviewElement/FilePreviewElement';
 
 class Team extends Component {
   state = {
     editFormActive: false,
-    newTeamName: "",
-    selectedImage: "",
-    previewFile: "https://via.placeholder.com/120/eee",
+    newTeamName: '',
+    selectedImage: '',
+    previewFile: 'https://via.placeholder.com/120/eee/000/?text=Team',
     deleteModalOpen: false,
   };
 
@@ -42,7 +42,7 @@ class Team extends Component {
     if (this.state.selectedImage) {
       this.setState({
         selectedImage: null,
-        previewFile: "https://via.placeholder.com/120/eee",
+        previewFile: 'https://via.placeholder.com/120/eee/000/?text=Team',
       });
     }
   };

@@ -14,7 +14,7 @@
 
 .TrainingMonthHeader__Title {
   margin: 0 0 0 8px;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 17px;
   font-weight: 600;
   cursor: pointer;
@@ -100,6 +100,7 @@
   width: 360px;
   height: 100px;
   padding: 10px 20px;
+  text-align: center;
 }
 
 .TrainingMonth__ModalMsg {
@@ -146,5 +147,45 @@
 @media (max-width: 1366px) {
   .TrainingMonthList {
     grid-template-columns: 0.3fr 1.2fr 0.8fr 0.5fr 0.5fr 1.2fr 1fr 0.5fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .TrainingMonthHeader__Title {
+    font-size: 14px;
+  }
+
+  .TrainingMonthHeader {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .TrainingMonthList {
+    width: 100%;
+    grid-template-columns: 0.3fr 0.9fr 0.8fr 0.5fr 1fr 1.2fr 0.6fr;
+  }
+
+  .TrainingMonthActions {
+    width: 100%;
+  }
+}
+
+@media (max-width: 414px) {
+  .TrainingMonth__Modal {
+    width: 265px;
+  }
+}
+
+@media (max-width: 393px) {
+  .TrainingMonth__TrainingCheckbox {
+    width: 0;
+    height: 18px;
+  }
+}
+
+@media (max-width: 320px) {
+  .TrainingMonthList {
+    width: 100%;
+    grid-template-columns: 0.3fr 0.9fr 0.8fr 0.5fr 1fr 1.2fr;
   }
 }

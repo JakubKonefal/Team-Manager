@@ -30,3 +30,25 @@
 .ListItem__Date:hover {
   color: #88f;
 }
+
+@media (max-width: 1024px) {
+  .ListItem__Tile {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 640px) {
+  .ListItem__TileText_End {
+    display: none;
+  }
+
+  .ListItem__Tile {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 320px) {
+  .ListItem__Tile_Last {
+    display: none;
+  }
+}

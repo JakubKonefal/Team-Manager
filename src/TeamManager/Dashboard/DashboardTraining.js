@@ -1,7 +1,7 @@
-import React from "react";
-import classes from "./DashboardTraining.module.css";
-import { Event, SportsSoccer } from "@material-ui/icons";
-import Dotdotdot from "react-dotdotdot";
+import React from 'react';
+import classes from './DashboardTraining.module.css';
+import { Event, SportsSoccer } from '@material-ui/icons';
+import Dotdotdot from 'react-dotdotdot';
 
 const DashboardTraining = ({ date, trainingType, intensity }) => {
   let intensityBarColor = classes.Blue;
@@ -18,7 +18,10 @@ const DashboardTraining = ({ date, trainingType, intensity }) => {
         <Event className={classes.DashboardTraining__Icon} /> {date}
       </span>
       <span className={classes.DashboardTraining__TrainingType}>
-        <Dotdotdot clamp={2}>
+        <Dotdotdot
+          className={classes.DashboardTraining__TrainingType_Clamp}
+          clamp={2}
+        >
           <SportsSoccer className={classes.DashboardTraining__Icon} />
           {trainingType}
         </Dotdotdot>

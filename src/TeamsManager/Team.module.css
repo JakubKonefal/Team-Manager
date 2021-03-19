@@ -47,7 +47,7 @@
   width: 100%;
   padding: 5px 10px;
   color: #fff;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 32px;
   letter-spacing: 2px;
 }
@@ -65,7 +65,7 @@
 
 .Team_Editable__Button_Save {
   color: #eee;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   text-transform: uppercase;
   font-size: 16px;
@@ -76,7 +76,7 @@
 
 .Team_Editable__Button_Cancel {
   color: #eee;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   text-transform: uppercase;
   font-size: 16px;
@@ -97,13 +97,14 @@
 .Team__Avatar {
   width: 120px;
   height: 120px;
+  border-radius: 5px;
 }
 
 .Team__TeamName {
   margin-left: 30px;
   text-decoration: none;
   color: #f1f1f1;
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   font-weight: 600;
   letter-spacing: 2px;
 }
@@ -156,6 +157,7 @@
   width: 360px;
   height: 100px;
   padding: 10px 20px;
+  text-align: center;
 }
 
 .Team__ModalMsg {
@@ -187,7 +189,7 @@
   color: red;
 }
 
-input[type="file"] {
+input[type='file'] {
   display: none;
 }
 
@@ -202,5 +204,104 @@ input[type="file"] {
   .Team__Avatar {
     width: 100px;
     height: 100px;
+  }
+}
+
+@media (max-width: 640px) {
+  .Team__Avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .Team__TeamName {
+    font-size: 26px;
+  }
+
+  .Team_Editable__Buttons {
+    width: 100%;
+  }
+}
+
+@media (max-width: 414px) {
+  .Team_Editable__PreviewFile {
+    width: 100px;
+    height: 100px;
+  }
+
+  .Team_Editable__MidColumnWraper {
+    margin: 0;
+  }
+
+  .Team_Editable__PrevFileHelperText {
+    padding: 10px 16px;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .Team_Editable__Input {
+    font-size: 20px;
+  }
+
+  .Team_Editable__Buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 75px;
+  }
+
+  .Team_Editable__Button_Save {
+    height: 40px;
+    width: 75%;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+
+  .Team_Editable__Button_Cancel {
+    height: 40px;
+    width: 75%;
+    font-size: 14px;
+  }
+
+  .Team__Modal {
+    width: 265px;
+  }
+}
+
+@media (max-width: 360px) {
+  .Team__Avatar {
+    width: 65px;
+    height: 65px;
+  }
+
+  .Team__TeamName {
+    font-size: 20px;
+  }
+
+  .Team__Icon {
+    font-size: 17px;
+  }
+
+  .Team_Editable__PreviewFile {
+    width: 85px;
+    height: 85px;
+  }
+
+  .Team_Editable__PrevFileHelperText {
+    width: 90px;
+    padding: 8px 0;
+  }
+
+  .Team_Editable__Buttons {
+    margin-top: 60px;
+  }
+
+  .Team_Editable__Button_Save {
+    height: 35px;
+    font-size: 12px;
+  }
+
+  .Team_Editable__Button_Cancel {
+    height: 35px;
+    font-size: 12px;
   }
 }

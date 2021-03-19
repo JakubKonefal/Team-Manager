@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import classes from "./TeamCreator.module.css";
-import { Input, Button } from "@material-ui/core";
-import { StylesProvider } from "@material-ui/core/styles";
-import FilePreviewElement from "../shared/FilePreviewElement/FilePreviewElement";
+import React, { Component } from 'react';
+import classes from './TeamCreator.module.css';
+import { Input, Button } from '@material-ui/core';
+import { StylesProvider } from '@material-ui/core/styles';
+import FilePreviewElement from '../shared/FilePreviewElement/FilePreviewElement';
 
 class TeamCreator extends Component {
   state = {
@@ -10,8 +10,8 @@ class TeamCreator extends Component {
     newTeamName: null,
     newTeamLogo: null,
     selectedImage: null,
-    uploadedImageUrl: "",
-    previewFile: "https://via.placeholder.com/120/eee",
+    uploadedImageUrl: '',
+    previewFile: 'https://via.placeholder.com/120/eee/000/?text=Team',
     teamCreatorActive: false,
   };
 
@@ -29,7 +29,7 @@ class TeamCreator extends Component {
     if (this.state.selectedImage)
       this.setState({
         selectedImage: null,
-        previewFile: "https://via.placeholder.com/120/eee",
+        previewFile: 'https://via.placeholder.com/120/eee/000/?text=Team',
       });
   };
 

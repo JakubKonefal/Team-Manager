@@ -1,7 +1,7 @@
 .TrainingTask_Edit {
   border-width: 2px;
   border-color: #069e2d;
-  margin-bottom: 5px;
+  margin-bottom: 12px;
 }
 
 .TrainingTask_Edit__Header {
@@ -32,7 +32,7 @@
 
 .TrainingTask_Edit__Title {
   font-size: 15px;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   color: #fff;
   cursor: pointer;
@@ -41,7 +41,7 @@
 .TrainingTask_Edit__HeaderInputs_Wraper {
   display: flex;
   align-items: center;
-  padding: 12px 8px 4px;
+  padding: 12px 8px 4px 28px;
   font-weight: bold;
 }
 
@@ -57,14 +57,12 @@
 
 .TrainingTask_Edit__TaskIndex {
   font-weight: bold;
-  margin-top: 10px;
   font-size: 18px;
 }
 
 .TrainingTask_Edit__Input_Title {
   width: 80%;
   margin-bottom: 8px;
-  margin-left: 5px;
 }
 
 .TrainingTask_Edit__DurationInput_Wraper {
@@ -102,7 +100,6 @@
 
 .TrainingTask_Edit__Input_TaskEquipment {
   margin-bottom: 10px;
-  margin-left: 8px;
 }
 
 .TrainingTask_Edit__Icons {
@@ -198,6 +195,7 @@
 
 .TrainingTask__TaskDescription {
   white-space: pre-line;
+  word-break: break-all;
   padding: 20px 28px;
 }
 
@@ -228,6 +226,7 @@
   width: 360px;
   height: 100px;
   padding: 10px 20px;
+  text-align: center;
 }
 
 .TrainingTask__ModalMsg {
@@ -257,4 +256,82 @@
 
 .TrainingTask__ModalButton_No {
   color: red;
+}
+
+@media (max-width: 640px) {
+  .TrainingTask__TaskTitle {
+    font-size: 11px;
+  }
+
+  .TrainingTask__TaskDuration {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 414px) {
+  .TrainingTask_Edit__HeaderInputs_Wraper {
+    flex-direction: column;
+    padding: 12px;
+  }
+
+  .TrainingTask_Edit__TitleInput_Wraper {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .TrainingTask_Edit__DurationInput_Wraper {
+    width: 100%;
+  }
+
+  .TrainingTask_Edit__Input_Title {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .TrainingTask_Edit__Input_Title {
+    width: 100%;
+  }
+
+  .TrainingTask_Edit__Input_Duration {
+    width: 100%;
+    margin: 0;
+  }
+
+  .TrainingTask_Edit__DurationInput_Wraper {
+    padding: 16px 12px;
+  }
+
+  .TrainingTask_Edit__TaskDescriptionInput_Wraper {
+    width: 100%;
+  }
+
+  .TrainingTask_Edit__TaskDescriptionInput_Wraper {
+    padding: 16px 12px;
+  }
+
+  .TrainingTask_Edit__TaskEquipment_Wraper {
+    flex-direction: column;
+    padding: 16px 12px;
+  }
+
+  .TrainingTask_Edit__Input_TaskEquipment {
+    width: 100%;
+  }
+
+  .TrainingTask_Edit__Icons {
+    margin-top: 12px;
+    margin-left: unset;
+  }
+
+  .TrainingTask_Edit__Icon_Close {
+    margin-left: 30px;
+  }
+
+  .TrainingTask__TaskDuration {
+    display: none;
+  }
+
+  .TrainingTask__Modal {
+    width: 265px;
+  }
 }

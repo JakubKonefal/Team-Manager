@@ -118,3 +118,96 @@
 input[type="file"] {
   display: none;
 }
+
+@media (max-width: 640px) {
+  .TeamCreator_Inactive {
+    font-size: 15px;
+  }
+
+  .TeamCreator_Inactive__UsersIcon {
+    font-size: 50px;
+  }
+
+  .TeamCreator_Inactive__UsersIcon_Plus {
+    font-size: 16px;
+  }
+
+  .TeamCreator__MidColumnWraper {
+    margin: 0;
+  }
+
+  .TeamCreator__PreviewFile {
+    width: 100px;
+    height: 100px;
+  }
+
+  .TeamCreator__PrevFileHelperText {
+    padding: 10px 18px;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .TeamCreator__Input {
+    font-size: 20px;
+  }
+
+  .TeamCreator__Buttons {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 75px;
+  }
+
+  .TeamCreator__Button_Update {
+    width: 75%;
+    height: 40px;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+
+  .TeamCreator__Button_Cancel {
+    width: 75%;
+    height: 40px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 360px) {
+
+  .TeamCreator_Inactive {
+    font-size: 13px;
+  }
+
+  .TeamCreator_Inactive__UsersIcon {
+    font-size: 42px;
+  }
+
+  .TeamCreator_Inactive__UsersIcon_Plus {
+    font-size: 15px;
+  }
+
+  .TeamCreator__PreviewFile {
+    width: 85px;
+    height: 85px;
+  }
+
+  .TeamCreator__PrevFileHelperText {
+    width: 90px;
+    padding: 8px 0;
+  }
+
+  .TeamCreator__Buttons {
+    margin-top: 60px;
+  }
+
+  .TeamCreator__Button_Update {
+    height: 35px;
+    font-size: 12px;
+  }
+
+  .TeamCreator__Button_Cancel {
+    height: 35px;
+    font-size: 12px;
+  }
+
+}

@@ -1,23 +1,44 @@
-.LP__Background {
+:root {
+  --side-padding: 140px;
+}
+
+.LP {
+  display: grid;
+  grid-template-rows: 180px auto;
   width: 100%;
   min-height: 100vh;
-  background-image: url(../assets/img/lp_background.png);
-  background-position: center;
-  background-size: cover;
   box-sizing: border-box;
-  padding-top: 60px;
 }
 
 .LP__PageWraper {
   display: flex;
-  flex-direction: column;
-  width: 90%;
+  position: relative;
+  width: 100%;
   margin: 0 auto;
+  box-sizing: border-box;
+  padding-left: var(--side-padding);
+  background-image: url(../assets/img/background.png);
+  background-position: right bottom;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.LP__Picture {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.LP__Img {
+  width: 100%;
 }
 
 .LP__TopBar {
   display: flex;
-  margin-left: 40px;
+  align-items: center;
+  box-sizing: border-box;
+  padding-left: var(--side-padding);
+  padding-right: var(--side-padding);
 }
 
 .LP__Logo_Img {
@@ -28,7 +49,7 @@
   margin: 7px 0 0 30px;
   font-size: 50px;
   color: #051131;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
 }
 
@@ -41,7 +62,7 @@
 .LP__NavItem {
   font-size: 30px;
   margin-right: 60px;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   cursor: pointer;
 }
 
@@ -56,9 +77,10 @@
   border-radius: 30px;
   text-transform: uppercase;
   color: white;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 500;
   font-size: 16px;
+  outline: none;
 }
 
 .LP__Button_SignUp {
@@ -75,22 +97,22 @@
 
 .LP__Description {
   width: 40%;
-  margin-left: 40px;
 }
 
 .LP__DescriptionTitle {
+  margin-top: 17.5%;
   margin-bottom: 20px;
   font-size: 90px;
   color: #051131;
   text-transform: uppercase;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 900;
   letter-spacing: 5px;
 }
 
 .LP__DescriptionSubtitle {
   margin: 0 0 40px 0;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 44px;
   font-weight: 500;
   color: #278caa;
@@ -102,78 +124,117 @@
   padding-right: 40px;
   line-height: 200%;
   font-size: 24px;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.LP__FormButtons {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.LP__FormButtonGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.LP__FormButtonLabel {
+  margin: 26px;
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.LP__FormButton {
+  font-size: 17px;
+  font-weight: bold;
+  border: 1px solid black;
+  border-radius: 25px;
+  padding: 16px 56px;
+  background-color: unset;
+  border: none;
+  color: #fff;
+  outline: none;
+}
+
+.LP__FormButton_SignIn {
+  background-color: #59c800;
+}
+
+.LP__FormButton_SignUp {
+  margin-bottom: 20px;
+  background-color: #ff005a;
+}
+
+.LP__Footer {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 80px;
+  background-color: #001a2b;
+  color: #fff;
+}
+
+.LP__FooterItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.LP__FooterLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.LP__FooterLink:visited {
+  color: #fff;
+}
+
+.LP__FooterItemText {
+  margin-left: 6px;
+}
+
+.LP__PagerWraper__Overlay_Mobile {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(
+    105.99deg,
+    rgba(89, 200, 0, 0.1) 2.97%,
+    rgba(89, 200, 0, 0) 97.64%
+  );
+  backdrop-filter: blur(5px);
+  z-index: 10;
+}
+
+.LP__Image_Mobile {
+  display: none;
+  width: 100%;
 }
 
 .LP__Modal {
   outline: none;
 }
 
-@media (max-width: 1440px) {
-  .LP__Background {
-    background-repeat: no-repeat;
-    background-position: bottom right;
-    background-size: 112%;
-    padding-top: 50px;
-  }
-
-  .LP__Logo_Img {
-    height: 80px;
-  }
-
-  .LP__Logo_Label {
-    font-size: 46px;
-  }
-
-  .LP__NavItem {
-    font-size: 32px;
-  }
-
-  .LP__Button {
-    padding: 12px 25px;
-    font-size: 16px;
-  }
-
-  .LP__DescriptionTitle {
-    font-size: 84px;
-  }
-
-  .LP__DescriptionSubtitle {
-    font-size: 40px;
-  }
-
-  .LP__DescriptionText {
-    line-height: 200%;
-    font-size: 24px;
+@media (max-width: 1700px) {
+  :root {
+    --side-padding: 120px;
   }
 }
 
-@media (max-width: 1366px) {
-  .LP__Background {
-    width: 100%;
-    background-position: right;
-    padding-top: 40px;
-  }
-
-  .LP__PageWraper {
-    width: 95%;
-  }
-
-  .LP__Logo_Img {
-    height: 75px;
-  }
-
-  .LP__Logo_Label {
-    font-size: 42px;
-  }
-
-  .LP__NavItem {
-    font-size: 26px;
-  }
-
-  .LP__Button {
-    padding: 10px 22px;
-    font-size: 15px;
+@media (max-width: 1600px) {
+  :root {
+    --side-padding: 80px;
   }
 
   .LP__DescriptionTitle {
@@ -181,11 +242,402 @@
   }
 
   .LP__DescriptionSubtitle {
-    font-size: 38px;
+    font-size: 40px;
   }
 
   .LP__DescriptionText {
-    line-height: 190%;
     font-size: 22px;
+  }
+}
+
+@media (max-width: 1440px) {
+  .LP__Logo_Img {
+    height: 72px;
+  }
+
+  .LP__Logo_Label {
+    font-size: 42px;
+  }
+
+  .LP__NavItem {
+    font-size: 28px;
+  }
+
+  .LP__Button {
+    padding: 10px 22px;
+  }
+
+  .LP__DescriptionTitle {
+    font-size: 72px;
+  }
+
+  .LP__DescriptionSubtitle {
+    font-size: 36px;
+  }
+
+  .LP__DescriptionText {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 1280px) {
+  :root {
+    --side-padding: 60px;
+  }
+
+  .LP__Logo_Img {
+    height: 65px;
+  }
+
+  .LP__Logo_Label {
+    font-size: 36px;
+  }
+
+  .LP__DescriptionTitle {
+    font-size: 72px;
+  }
+
+  .LP__DescriptionSubtitle {
+    font-size: 34px;
+  }
+
+  .LP__DescriptionText {
+    font-size: 19px;
+  }
+
+  .LP__NavItem {
+    font-size: 24px;
+  }
+
+  .LP__Button {
+    font-size: 15px;
+  }
+
+  .LP__Button_SignUp {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 1280px) and (min-height: 1000px) {
+  :root {
+    --side-padding: 110px;
+  }
+
+  .LP__PageWraper {
+    grid-template-rows: 220px auto;
+  }
+}
+
+@media (max-width: 1112px) {
+  :root {
+    --side-padding: 50px;
+  }
+
+  .LP__PageWraper {
+    padding-left: 80px;
+  }
+
+  .LP__Logo_Img {
+    height: 60px;
+  }
+
+  .LP__Logo_Label {
+    margin: 7px 0 0 24px;
+    font-size: 32px;
+  }
+
+  .LP__DescriptionTitle {
+    font-size: 65px;
+  }
+
+  .LP__DescriptionSubtitle {
+    font-size: 31px;
+  }
+
+  .LP__DescriptionText {
+    font-size: 18px;
+  }
+
+  .LP__NavItem {
+    margin-right: 45px;
+    font-size: 22px;
+  }
+
+  .LP__Button {
+    padding: 8px 22px;
+    font-size: 14px;
+  }
+
+  .LP__Button_Login {
+    margin-left: 30px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .LP__DescriptionTitle {
+    margin-top: 10%;
+    margin-bottom: 10px;
+    font-size: 60px;
+  }
+
+  .LP__DescriptionSubtitle {
+    margin: 0 0 25px 0;
+    font-size: 28px;
+  }
+
+  .LP__DescriptionText {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 1024px) and (min-height: 850px) {
+  .LP__DescriptionTitle {
+    margin-top: 27.5%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .LP__DescriptionTitle {
+    margin-top: 10%;
+    margin-bottom: 10px;
+    font-size: 60px;
+  }
+
+  .LP__DescriptionSubtitle {
+    margin: 0 0 25px 0;
+    font-size: 28px;
+  }
+
+  .LP__DescriptionText {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 896px) {
+  :root {
+    --side-padding: 30px;
+  }
+  .LP {
+    grid-template-rows: 90px auto;
+  }
+
+  .LP__Logo_Img {
+    height: 45px;
+  }
+
+  .LP__Logo_Label {
+    font-size: 26px;
+  }
+
+  .LP__NavItem {
+    margin-right: 35px;
+    font-size: 19px;
+  }
+
+  .LP__Button {
+    padding: 7px 20px;
+    font-size: 13px;
+  }
+
+  .LP__Button_Login {
+    margin-left: 20px;
+  }
+
+  .LP__DescriptionTitle {
+    margin-bottom: 5px;
+    font-size: 48px;
+  }
+
+  .LP__DescriptionSubtitle {
+    margin: 0 0 15px 0;
+    font-size: 22px;
+  }
+
+  .LP__DescriptionText {
+    font-size: 14px;
+    line-height: 175%;
+  }
+}
+
+@media (max-width: 768px) {
+  .LP__NavItem {
+    display: none;
+  }
+
+  .LP__Button {
+    padding: 7px 25px;
+  }
+
+  .LP__Button_Login {
+    margin-left: 40px;
+  }
+
+  .LP__PageWraper {
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    background-image: none;
+  }
+
+  .LP__PagerWraper__Overlay_Mobile {
+    display: block;
+  }
+
+  .LP__Description {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 45%;
+    z-index: 100;
+  }
+
+  .LP__DescriptionTitle {
+    margin-top: 0;
+    color: #7dea10;
+  }
+
+  .LP__DescriptionSubtitle {
+    color: #75d415;
+  }
+
+  .LP__DescriptionText {
+    color: #fff;
+  }
+
+  .LP__Image_Mobile {
+    display: block;
+  }
+
+  .LP__Footer {
+    display: flex;
+  }
+}
+
+@media (max-width: 533px) {
+  :root {
+    --side-padding: 20px;
+  }
+
+  .LP__Logo_Label {
+    margin: 7px 0 0 15px;
+  }
+
+  .LP__Button_Login {
+    margin-left: 20px;
+  }
+}
+
+@media (max-width: 414px) {
+  .LP {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-template-rows: unset;
+  }
+
+  .LP__PageWraper {
+    height: fit-content;
+  }
+
+  .LP__TopBar {
+    justify-content: center;
+    width: 100%;
+    height: 75px;
+  }
+
+  .LP__Navigation {
+    display: none;
+  }
+
+  .LP__Description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .LP__DescriptionTitle {
+    font-size: 36px;
+  }
+
+  .LP__DescriptionSubtitle {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .LP__DescriptionText {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding: 0 7.5%;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .LP__FormButtons {
+    display: flex;
+  }
+
+  .LP__Footer {
+    flex-direction: column;
+    justify-content: flex-start;
+    height: unset;
+    margin-top: auto;
+    padding: 12px 0;
+  }
+
+  .LP__FooterItem {
+    margin: 10px 0;
+  }
+}
+
+@media (max-width: 393px) {
+  .LP__DescriptionTitle {
+    font-size: 32px;
+  }
+
+  .LP__DescriptionSubtitle {
+    font-size: 16px;
+  }
+
+  .LP__DescriptionText {
+    font-size: 11px;
+  }
+
+  .LP__FormButtonLabel {
+    font-size: 18px;
+  }
+
+  .LP__FormButton {
+    padding: 10px 50px;
+  }
+}
+
+@media (max-width: 320px) {
+  .LP__Description {
+    top: 18px;
+  }
+
+  .LP__DescriptionTitle {
+    font-size: 28px;
+  }
+
+  .LP__DescriptionSubtitle {
+    font-size: 15px;
+  }
+
+  .LP__DescriptionText {
+    font-size: 11px;
+  }
+
+  .LP__FormButtonLabel {
+    font-size: 16px;
+  }
+
+  .LP__FormButton {
+    font-size: 14px;
   }
 }

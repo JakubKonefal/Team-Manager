@@ -9,7 +9,7 @@
 
 .Dashboard__Header {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   width: 100%;
   height: 20%;
@@ -18,7 +18,9 @@
 
 .Dashboard__TeamLogo {
   height: 100px;
+  width: 100px;
   margin-right: 25px;
+  border-radius: 50%;
 }
 
 .Dashboard__TeamName {
@@ -73,6 +75,9 @@
 }
 
 .Dashboard__Events {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 63%;
   padding: 10px;
 }
@@ -171,5 +176,91 @@
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1440px) {
+  .Dashboard__TeamLogo {
+    width: 90px;
+    height: 90px;
+  }
+
+  .Dashboard__TeamName {
+    font-size: 36px;
+  }
+
+  .Dashboard__Players {
+    width: 32%;
+  }
+
+  .Dashboard__Events {
+    width: 68%;
+  }
+}
+
+@media (max-width: 1280px) {
+  .Dashboard {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .Dashboard__Content {
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .Dashboard__Events {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .Dashboard__Players {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 533px) {
+  .Dashboard__TeamLogo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .Dashboard__TeamName {
+    font-size: 32px;
+  }
+
+  .Dashboard__Divider {
+    margin-bottom: 22px;
+    border-width: 2px;
+  }
+
+  .Dashboard__EventsDivider {
+    display: none;
+  }
+
+  .Dashboard__PlayersTitle {
+    margin: 20px 0;
+  }
+
+  .Dashboard__PlayersDivider {
+    display: none;
+  }
+}
+
+@media (max-width: 414px) {
+  .Dashboard {
+    margin-top: 160px;
+  }
+
+  .Dashboard__TeamLogo {
+    width: 65px;
+    height: 65px;
+  }
+
+  .Dashboard__TeamName {
+    font-size: 28px;
   }
 }

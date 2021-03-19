@@ -14,7 +14,7 @@
 
 .TaskCreator__Title {
   font-size: 15px;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   color: #fff;
   cursor: pointer;
@@ -55,7 +55,7 @@
 
 .TaskCreator__Button_Add {
   background-color: #069e2d;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
 }
 
@@ -64,7 +64,7 @@
 }
 
 .TaskCreator__Button_Cancel {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
 }
 
@@ -76,4 +76,31 @@
 }
 .TaskCreator__Header:hover .TaskCreator__AddIcon {
   transform: rotate(180deg);
+}
+
+@media (max-width: 533px) {
+  .TaskCreator__Buttons {
+    justify-content: space-between;
+    width: 65%;
+  }
+
+  .TaskCreator__Button_Add {
+    font-size: 11px;
+  }
+
+  .TaskCreator__Button_Cancel {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 414px) {
+  .TaskCreator__Input_Duration {
+    width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  .TaskCreator__Buttons {
+    width: 80%;
+  }
 }

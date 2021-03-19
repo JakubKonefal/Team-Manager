@@ -29,6 +29,12 @@
   flex-grow: 3;
 }
 
+.DashboardTraining__TrainingType_Clamp {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
 .DashboardTraining__Intensity {
   flex-grow: 1;
   border-bottom-left-radius: 15px;
@@ -57,4 +63,31 @@
 
 .DashboardTraining__Icon {
   margin-right: 10px;
+}
+
+@media (max-width: 1280px) {
+  .DashboardTraining__Date {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .DashboardTraining {
+    width: 47.5%;
+    margin: 8px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .DashboardTraining {
+    width: 45%;
+    max-width: unset;
+    margin: 12px 0;
+  }
+}
+
+@media (max-width: 533px) {
+  .DashboardTraining {
+    width: 80%;
+  }
 }

@@ -12,5 +12,24 @@
 
 .Footer__Logo {
   height: 45px;
-  margin-right: 60px;
+  margin-right: 45px;
+}
+
+@media (max-width: 640px) {
+  .Footer__Logo {
+    height: 40px;
+    margin-right: 20px;
+  }
+}
+
+@media (max-width: 533px) {
+  .Footer { 
+    flex-direction: column-reverse;
+    height: unset;
+    padding: 16px 0;
+  }
+
+  .Footer__Logo {
+    margin-top: 8px;
+  }
 }

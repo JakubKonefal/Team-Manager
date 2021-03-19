@@ -154,7 +154,7 @@
   width: 100%;
   margin: 0;
   padding: 29px 0;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   background-color: #cf1c2c;
   color: white;
@@ -209,14 +209,14 @@
   position: absolute;
   top: 0;
   left: 0;
-  content: "";
+  content: '';
 }
 .Players__Loader:after {
   background: #2d3037;
   width: 75%;
   height: 75%;
   border-radius: 50%;
-  content: "";
+  content: '';
   margin: auto;
   position: absolute;
   top: 0;
@@ -242,5 +242,11 @@
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .PlayersList__InfoBar {
+    display: none;
   }
 }
