@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from './TrainingMonth.module.css';
 import { database } from '../../firebase/firebase';
 import StylesProvider from '@material-ui/styles/StylesProvider';
@@ -8,60 +8,55 @@ import TrainingsListInfoBar from './TrainingsListInfoBar';
 import Collapse from '@material-ui/core/Collapse';
 import Modal from '@material-ui/core/Modal';
 import Card from '@material-ui/core/Card';
-import MultipleTrainingsEdit from './MultipleTrainingsEditor';
+import MultipleTrainingsEditor from './MultipleTrainingsEditor';
 
-class TrainingMonth extends Component {
-  state = {
-    trainings: this.props.trainings,
-    trainingsCheckboxes: this.props.checkboxes,
-    monthExpanded: true,
-    editFormActive: false,
-    checkedTrainingsCount: 0,
-    deleteModalOpen: false,
+const TrainingMonth = ({
+  userId,
+  teamId,
+  teamName,
+  year,
+  month,
+  trainings,
+  updateTrainings,
+  checkboxes,
+}) => {
+  const [trainingsList, setTrainingsList] = useState(trainings);
+  const [trainingsCheckboxes, setTrainingsCheckboxes] = useState(checkboxes);
+  const [monthExpanded, setMonthExpanded] = useState(true);
+  const [editFormActive, setEditFormActive] = useState(false);
+  const [checkedTrainingsCount, setCheckedTrainingsCount] = useState(0);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+
+  const handleToggleMonthExpand = () => {
+    setMonthExpanded((prevVal) => !prevVal);
   };
 
-  componentDidUpdate() {
-    if (this.props.trainings.length !== this.state.trainings.length) {
-      this.setState({
-        trainings: this.props.trainings,
-        trainingsCheckboxes: this.props.checkboxes,
-      });
-    }
-  }
-
-  handleToggleMonthExpand = () => {
-    this.setState({ monthExpanded: !this.state.monthExpanded });
-  };
-
-  countCheckedTrainings = (checkboxes) => {
-    const checkedTrainingsCount = checkboxes.filter((item) => item.checked)
+  const countCheckedTrainings = (checkboxes) => {
+    const checkedTrainingsQuantity = checkboxes.filter((item) => item.checked)
       .length;
-    this.setState({ checkedTrainingsCount });
+    setCheckedTrainingsCount(checkedTrainingsQuantity);
   };
 
-  handleCheckboxSelectAll = ({ target }) => {
-    const updatedCheckboxes = this.state.trainingsCheckboxes;
+  const handleCheckboxSelectAll = ({ target }) => {
+    const updatedCheckboxes = trainingsCheckboxes;
     updatedCheckboxes.forEach((item) => {
       item.checked = target.checked;
     });
-    this.countCheckedTrainings(updatedCheckboxes);
-    this.setState({ trainingsCheckboxes: updatedCheckboxes });
+    countCheckedTrainings(updatedCheckboxes);
+    setTrainingsCheckboxes(updatedCheckboxes);
   };
 
-  handleCheckboxClick = ({ target }, index, id) => {
-    const updatedCheckboxes = [...this.state.trainingsCheckboxes];
+  const handleCheckboxClick = ({ target }, index, id) => {
+    const updatedCheckboxes = [...trainingsCheckboxes];
     const clickedCheckbox = { checked: target.checked, id };
     updatedCheckboxes.splice(index, 1, clickedCheckbox);
 
-    this.countCheckedTrainings(updatedCheckboxes);
-    this.setState({ trainingsCheckboxes: updatedCheckboxes });
+    countCheckedTrainings(updatedCheckboxes);
+    setTrainingsCheckboxes(updatedCheckboxes);
   };
 
-  handleCheckedTrainingsDelete = () => {
-    const { userId, teamId, year, month } = this.props;
-    const checkedTrainings = this.state.trainingsCheckboxes.filter(
-      (item) => item.checked
-    );
+  const handleCheckedTrainingsDelete = () => {
+    const checkedTrainings = trainingsCheckboxes.filter((item) => item.checked);
     checkedTrainings.forEach((training) =>
       database
         .ref(
@@ -70,16 +65,13 @@ class TrainingMonth extends Component {
         .remove()
     );
 
-    this.props.updateTrainings();
-    this.setState({ checkedTrainingsCount: 0 });
+    updateTrainings();
+    setCheckedTrainingsCount(0);
   };
 
-  handleCheckedTrainingsEdit = (editedTrainingsInfo) => {
-    const { userId, teamId, year, month } = this.props;
+  const handleCheckedTrainingsEdit = (editedTrainingsInfo) => {
     const { date, ...restInfo } = editedTrainingsInfo;
-    const checkedTrainings = this.state.trainingsCheckboxes.filter(
-      (item) => item.checked
-    );
+    const checkedTrainings = trainingsCheckboxes.filter((item) => item.checked);
     const updatedInfo =
       checkedTrainings.length > 1 ? restInfo : editedTrainingsInfo;
     checkedTrainings.forEach((training) =>
@@ -94,8 +86,8 @@ class TrainingMonth extends Component {
     }, 800);
   };
 
-  handleTrainingsSort = (e, attribute) => {
-    const sortedTrainings = [...this.state.trainings].sort((a, b) =>
+  const handleTrainingsSort = (e, attribute) => {
+    const sortedTrainings = [...trainings].sort((a, b) =>
       a.trainingInfo[attribute] > b.trainingInfo[attribute] ? 1 : -1
     );
 
@@ -103,140 +95,124 @@ class TrainingMonth extends Component {
       sortedTrainings.reverse();
     }
 
-    this.setState({
-      trainings: sortedTrainings,
-    });
+    setTrainingsList(sortedTrainings);
   };
 
-  handleEditFormOpen = () => {
-    this.setState({ editFormActive: true });
-  };
+  useEffect(() => {
+    if (trainings.length !== trainingsList.length) {
+      setTrainingsList(trainings);
+      setTrainingsCheckboxes(checkboxes);
+    }
+  }, [trainings]);
 
-  handleEditFormClose = () => {
-    this.setState({ editFormActive: false });
-  };
+  const trainingsInMonth = trainingsList
+    ? trainingsList.map((training, index) => (
+        <Training
+          {...training.trainingInfo}
+          key={training.trainingId}
+          teamId={teamId}
+          teamName={teamName}
+          trainingId={training.trainingId}
+          checkbox={
+            <StylesProvider injectFirst>
+              <Checkbox
+                className={classes.TrainingMonth__TrainingCheckbox}
+                checked={trainingsCheckboxes[index].checked}
+                onClick={(event) =>
+                  handleCheckboxClick(event, index, training.trainingId)
+                }
+                index={index}
+              />
+            </StylesProvider>
+          }
+          year={year}
+          month={month}
+        />
+      ))
+    : null;
 
-  handleModalOpen = () => {
-    this.setState({ deleteModalOpen: true });
-  };
-
-  handleModalClose = () => {
-    this.setState({ deleteModalOpen: false });
-  };
-
-  render() {
-    const trainings = this.state.trainings
-      ? this.state.trainings.map((training, index) => (
-          <Training
-            {...training.trainingInfo}
-            key={training.trainingId}
-            teamId={this.props.teamId}
-            teamName={this.props.teamName}
-            trainingId={training.trainingId}
-            checkbox={
-              <StylesProvider injectFirst>
-                <Checkbox
-                  className={classes.TrainingMonth__TrainingCheckbox}
-                  checked={this.state.trainingsCheckboxes[index].checked}
-                  onClick={(event) =>
-                    this.handleCheckboxClick(event, index, training.trainingId)
-                  }
-                  index={index}
-                />
-              </StylesProvider>
-            }
-            year={this.props.year}
-            month={this.props.month}
-          />
-        ))
-      : null;
-
-    const buttons = this.state.editFormActive ? null : (
-      <div>
-        <button
-          className={`${classes.Button} ${classes.Button_Edit}`}
-          disabled={this.state.checkedTrainingsCount < 1}
-          onClick={this.handleEditFormOpen}
-        >
-          edit
-        </button>
-        <button
-          className={`${classes.Button} ${classes.Button_Delete}`}
-          disabled={this.state.checkedTrainingsCount < 1}
-          onClick={this.handleModalOpen}
-        >
-          delete
-        </button>
-        <Modal
-          open={this.state.deleteModalOpen}
-          onClose={this.handleModalClose}
-        >
-          <Card className={classes.TrainingMonth__Modal}>
-            <span className={classes.TrainingMonth__ModalMsg}>
-              Are you sure you want to delete
-            </span>
-            <span className={classes.TrainingMonth__ModalMsg}>
-              checked trainings?
-            </span>
-            <div className={classes.TrainingMonth__ModalButtons}>
-              <button
-                className={`${classes.TrainingMonth__ModalButton} ${classes.TrainingMonth__ModalButton_Yes}`}
-                onClick={() => {
-                  this.handleCheckedTrainingsDelete();
-                  this.handleModalClose();
-                }}
-              >
-                Yes
-              </button>
-              <button
-                className={`${classes.TrainingMonth__ModalButton} ${classes.TrainingMonth__ModalButton_No}`}
-                onClick={this.handleModalClose}
-              >
-                No
-              </button>
-            </div>
-          </Card>
-        </Modal>
-      </div>
-    );
-
-    return this.state.trainings.length > 0 ? (
-      <>
-        <div className={classes.TrainingMonthHeader}>
-          <div>
-            <Checkbox color="default" onClick={this.handleCheckboxSelectAll} />
+  const buttons = editFormActive ? null : (
+    <div>
+      <button
+        className={`${classes.Button} ${classes.Button_Edit}`}
+        disabled={checkedTrainingsCount < 1}
+        onClick={() => setEditFormActive(true)}
+      >
+        edit
+      </button>
+      <button
+        className={`${classes.Button} ${classes.Button_Delete}`}
+        disabled={checkedTrainingsCount < 1}
+        onClick={() => setDeleteModalOpen(true)}
+      >
+        delete
+      </button>
+      <Modal open={deleteModalOpen} onClose={() => setDeleteModalOpen(false)}>
+        <Card className={classes.TrainingMonth__Modal}>
+          <span className={classes.TrainingMonth__ModalMsg}>
+            Are you sure you want to delete
+          </span>
+          <span className={classes.TrainingMonth__ModalMsg}>
+            checked trainings?
+          </span>
+          <div className={classes.TrainingMonth__ModalButtons}>
+            <button
+              className={`${classes.TrainingMonth__ModalButton} ${classes.TrainingMonth__ModalButton_Yes}`}
+              onClick={() => {
+                handleCheckedTrainingsDelete();
+                setDeleteModalOpen(false);
+              }}
+            >
+              Yes
+            </button>
+            <button
+              className={`${classes.TrainingMonth__ModalButton} ${classes.TrainingMonth__ModalButton_No}`}
+              onClick={() => setDeleteModalOpen(false)}
+            >
+              No
+            </button>
           </div>
-          <h5
-            className={classes.TrainingMonthHeader__Title}
-            onClick={this.handleToggleMonthExpand}
-          >
-            <span className={classes.TrainingMonthHeader__Title_Year}>
-              {this.props.year}
-            </span>
-            <span>{this.props.month}</span>
-          </h5>
+        </Card>
+      </Modal>
+    </div>
+  );
+
+  return trainingsList.length > 0 ? (
+    <>
+      <div className={classes.TrainingMonthHeader}>
+        <div>
+          <Checkbox color="default" onClick={handleCheckboxSelectAll} />
         </div>
-        <Collapse in={this.state.monthExpanded}>
-          <div className={classes.TrainingMonthList}>
-            <TrainingsListInfoBar sort={this.handleTrainingsSort} />
-            {trainings}
-          </div>
+        <h5
+          className={classes.TrainingMonthHeader__Title}
+          onClick={handleToggleMonthExpand}
+        >
+          <span className={classes.TrainingMonthHeader__Title_Year}>
+            {year}
+          </span>
+          <span>{month}</span>
+        </h5>
+      </div>
+      <Collapse in={monthExpanded}>
+        <div className={classes.TrainingMonthList}>
+          <TrainingsListInfoBar sort={handleTrainingsSort} />
+          {trainingsInMonth}
+        </div>
 
-          <div className={classes.TrainingMonthActions}>
-            <MultipleTrainingsEdit
-              onFormSubmit={this.handleCheckedTrainingsEdit}
-              checkedTrainingsCount={this.state.checkedTrainingsCount}
-              active={this.state.editFormActive}
-              close={this.handleEditFormClose}
-              year={this.props.year}
-              month={this.props.month}
-            />
-            {buttons}
-          </div>
-        </Collapse>
-      </>
-    ) : null;
-  }
-}
+        <div className={classes.TrainingMonthActions}>
+          <MultipleTrainingsEditor
+            onFormSubmit={handleCheckedTrainingsEdit}
+            checkedTrainingsCount={checkedTrainingsCount}
+            active={editFormActive}
+            onClose={() => setEditFormActive(false)}
+            year={year}
+            month={month}
+          />
+          {buttons}
+        </div>
+      </Collapse>
+    </>
+  ) : null;
+};
 
 export default TrainingMonth;

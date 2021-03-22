@@ -1,23 +1,15 @@
-import React, { Component } from "react";
-import axios from "axios";
-import { database } from "../../firebase/firebase";
-import TrainingTask from "./TrainingTask";
-import TaskCreator from "./TaskCreator";
-import { withRouter } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { database } from '../../firebase/firebase';
+import TrainingTask from './TrainingTask';
+import TaskCreator from './TaskCreator';
+import { withRouter } from 'react-router-dom';
 
-class TrainingTasks extends Component {
-  state = {
-    tasks: "",
-  };
+const TrainingTasks = ({ userId, match }) => {
+  const [tasksList, setTasksList] = useState([]);
 
-  componentDidMount() {
-    this.getInitialTasksList();
-  }
-
-  getInitialTasksList = () => {
-    const { userId } = this.props;
-    const { teamId, trainingId, year, month } = this.props.match.params;
-
+  const getInitialTasksList = () => {
+    const { teamId, trainingId, year, month } = match.params;
     axios
       .get(
         `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks.json`
@@ -25,15 +17,27 @@ class TrainingTasks extends Component {
       .then(({ data: tasks }) => {
         if (tasks) {
           const tasksArr = Object.values(tasks);
-          this.setState({ tasks: tasksArr });
+          setTasksList(tasksArr);
         }
       });
   };
 
-  handleFormSubmitNewTask = (newTaskInfo, e) => {
+  const updateTasks = () => {
+    const { teamId, trainingId, year, month } = match.params;
+    const tasksDatabaseRef = database.ref(
+      `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks`
+    );
+    tasksDatabaseRef.once('value', (snapshot) => {
+      const snapshotValue = snapshot.val() ? Object.values(snapshot.val()) : '';
+      const tasks = snapshotValue;
+      setTasksList(tasks);
+    });
+  };
+
+  const handleFormSubmitNewTask = (newTaskInfo, e) => {
     e.preventDefault();
-    const { userId } = this.props;
-    const { teamId, trainingId, year, month } = this.props.match.params;
+
+    const { teamId, trainingId, year, month } = match.params;
     const databaseRef = database.ref(
       `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks`
     );
@@ -43,67 +47,52 @@ class TrainingTasks extends Component {
       taskInfo: { ...newTaskInfo },
     };
     databaseRef.child(taskId).set(newTask);
-    this.updateTasks();
+    updateTasks();
   };
 
-  handleTaskDelete = (taskId) => {
-    const { userId } = this.props;
-    const { teamId, trainingId, year, month } = this.props.match.params;
+  const handleTaskDelete = (taskId) => {
+    const { teamId, trainingId, year, month } = match.params;
     const taskDatabaseRef = database.ref(
       `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks/${taskId}`
     );
     taskDatabaseRef.remove();
-    this.updateTasks();
+    updateTasks();
   };
 
-  handleFormSubmitTaskEdit = (taskId, taskInfo) => {
-    const { userId } = this.props;
-    const { teamId, trainingId, year, month } = this.props.match.params;
+  const handleFormSubmitTaskEdit = (taskId, taskInfo) => {
+    const { teamId, trainingId, year, month } = match.params;
     const taskDatabaseRef = database.ref(
       `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks/${taskId}/taskInfo`
     );
     taskDatabaseRef.set(taskInfo);
-    this.updateTasks();
+    updateTasks();
   };
 
-  updateTasks = () => {
-    const { userId } = this.props;
-    const { teamId, trainingId, year, month } = this.props.match.params;
-    const tasksDatabaseRef = database.ref(
-      `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/tasks`
-    );
-    tasksDatabaseRef.once("value", (snapshot) => {
-      const snapshotValue = snapshot.val() ? Object.values(snapshot.val()) : "";
-      const tasks = snapshotValue;
-      this.setState({ tasks });
-    });
-  };
+  useEffect(getInitialTasksList, []);
 
-  render() {
-    const trainingTasks = this.state.tasks ? (
-      this.state.tasks.map((task, index) => {
-        return (
-          <TrainingTask
-            {...task.taskInfo}
-            key={task.taskId}
-            taskId={task.taskId}
-            index={index}
-            onDelete={this.handleTaskDelete}
-            onEdit={this.handleFormSubmitTaskEdit}
-          />
-        );
-      })
-    ) : (
-      <h2>You have not created any tasks yet!</h2>
-    );
+  const trainingTasks = tasksList ? (
+    tasksList.map((task, index) => {
+      return (
+        <TrainingTask
+          {...task.taskInfo}
+          key={task.taskId}
+          taskId={task.taskId}
+          index={index}
+          onDelete={handleTaskDelete}
+          onEdit={handleFormSubmitTaskEdit}
+        />
+      );
+    })
+  ) : (
+    <h2>You have not created any tasks yet!</h2>
+  );
 
-    return (
-      <>
-        {trainingTasks}
-        <TaskCreator onFormSubmit={this.handleFormSubmitNewTask} />
-      </>
-    );
-  }
-}
+  return (
+    <>
+      {trainingTasks}
+      <TaskCreator onSubmit={handleFormSubmitNewTask} />
+    </>
+  );
+};
 
 export default withRouter(TrainingTasks);

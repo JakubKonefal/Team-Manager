@@ -1,134 +1,110 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import classes from './TeamCreator.module.css';
 import { Input, Button } from '@material-ui/core';
 import { StylesProvider } from '@material-ui/core/styles';
 import FilePreviewElement from '../shared/FilePreviewElement/FilePreviewElement';
 
-class TeamCreator extends Component {
-  state = {
-    teams: [],
-    newTeamName: null,
-    newTeamLogo: null,
-    selectedImage: null,
-    uploadedImageUrl: '',
-    previewFile: 'https://via.placeholder.com/120/eee/000/?text=Team',
-    teamCreatorActive: false,
+const placeholderURL = 'https://via.placeholder.com/120/eee/000/?text=Team';
+
+const TeamCreator = ({ onSubmit }) => {
+  const [newTeamName, setNewTeamName] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [previewFileUrl, setPreviewFileUrl] = useState(placeholderURL);
+  const [teamCreatorActive, setTeamCreatorActive] = useState(false);
+
+  const handleTeamCreatorClose = () => {
+    setTeamCreatorActive(false);
+    setNewTeamName('');
+    if (selectedImage) setSelectedImage(null);
+    setPreviewFileUrl(placeholderURL);
   };
 
-  handleTeamCreatorOpen = () => {
-    if (!this.state.teamCreatorActive) {
-      this.setState({ teamCreatorActive: true });
-    }
+  const handleTeamNameChange = ({ target: { value } }) => {
+    setNewTeamName(value);
   };
 
-  handleTeamCreatorClose = () => {
-    this.setState({
-      teamCreatorActive: false,
-      newTeamName: null,
-    });
-    if (this.state.selectedImage)
-      this.setState({
-        selectedImage: null,
-        previewFile: 'https://via.placeholder.com/120/eee/000/?text=Team',
-      });
-  };
-
-  handleTeamNameChange = (e) => {
-    this.setState({ newTeamName: e.target.value });
-  };
-
-  handleImageSelect = (e) => {
+  const handleImageSelect = (e) => {
     const file = e.target.files[0];
-    const previewFile = URL.createObjectURL(file);
-    this.setState({
-      previewFile: previewFile,
-      selectedImage: file,
-    });
+    const previewURL = URL.createObjectURL(file);
+    setSelectedImage(file);
+    setPreviewFileUrl(previewURL);
   };
 
-  submitBtnDisabled = () => {
-    return this.state.newTeamName ? false : true;
+  const submitBtnDisabled = () => {
+    return newTeamName ? false : true;
   };
 
-  render() {
-    const teamCreator = this.state.teamCreatorActive ? (
-      <form className={classes.TeamCreator}>
-        <div className={classes.TeamCreator__FileUploadSection}>
-          <div className={classes.TeamCreator__PreviewFile}>
-            <FilePreviewElement src={this.state.previewFile} />
-          </div>
-          <input type="file" id="teamLogo" onChange={this.handleImageSelect} />
-          <label
-            htmlFor="teamLogo"
-            name="teamLogo"
-            className={classes.TeamCreator__PrevFileHelperText}
-          >
-            Choose file..
-          </label>
+  const teamCreator = teamCreatorActive ? (
+    <form className={classes.TeamCreator}>
+      <div className={classes.TeamCreator__FileUploadSection}>
+        <div className={classes.TeamCreator__PreviewFile}>
+          <FilePreviewElement src={previewFileUrl} />
         </div>
-        <div className={classes.TeamCreator__MidColumnWraper}>
-          <StylesProvider injectFirst>
-            <Input
-              type="text"
-              name="teamName"
-              className={classes.TeamCreator__Input}
-              placeholder="Team Name"
-              autoFocus
-              onChange={this.handleTeamNameChange}
-              color="primary"
-              required
-              inputProps={{
-                maxLength: 18,
-              }}
-            />
-            <div className={classes.TeamCreator__Buttons}>
-              <Button
-                type="submit"
-                className={classes.TeamCreator__Button_Update}
-                onClick={(event) => {
-                  this.props.onSubmit(
-                    this.state.newTeamName,
-                    this.state.selectedImage,
-                    event
-                  );
-                  this.handleTeamCreatorClose();
-                }}
-                disabled={this.submitBtnDisabled()}
-                variant="contained"
-                color="primary"
-              >
-                add
-              </Button>
-              <Button
-                className={classes.TeamCreator__Button_Cancel}
-                onClick={this.handleTeamCreatorClose}
-                variant="contained"
-                color="secondary"
-              >
-                cancel
-              </Button>
-            </div>
-          </StylesProvider>
-        </div>
-      </form>
-    ) : (
-      <div
-        className={classes.TeamCreator_Inactive}
-        onClick={this.handleTeamCreatorOpen}
-      >
-        <i
-          className={`fas fa-users ${classes.TeamCreator_Inactive__UsersIcon}`}
+        <input type="file" id="teamLogo" onChange={handleImageSelect} />
+        <label
+          htmlFor="teamLogo"
+          name="teamLogo"
+          className={classes.TeamCreator__PrevFileHelperText}
         >
-          <i
-            className={`fas fa-plus ${classes.TeamCreator_Inactive__UsersIcon_Plus}`}
-          ></i>
-        </i>
-        <span>add team</span>
+          Choose file..
+        </label>
       </div>
-    );
+      <div className={classes.TeamCreator__MidColumnWraper}>
+        <StylesProvider injectFirst>
+          <Input
+            type="text"
+            name="teamName"
+            className={classes.TeamCreator__Input}
+            placeholder="Team Name"
+            autoFocus
+            onChange={handleTeamNameChange}
+            color="primary"
+            required
+            inputProps={{
+              maxLength: 18,
+            }}
+          />
+          <div className={classes.TeamCreator__Buttons}>
+            <Button
+              type="submit"
+              className={classes.TeamCreator__Button_Update}
+              onClick={(event) => {
+                onSubmit(newTeamName, selectedImage, event);
+                handleTeamCreatorClose();
+              }}
+              disabled={submitBtnDisabled()}
+              variant="contained"
+              color="primary"
+            >
+              add
+            </Button>
+            <Button
+              className={classes.TeamCreator__Button_Cancel}
+              onClick={handleTeamCreatorClose}
+              variant="contained"
+              color="secondary"
+            >
+              cancel
+            </Button>
+          </div>
+        </StylesProvider>
+      </div>
+    </form>
+  ) : (
+    <div
+      className={classes.TeamCreator_Inactive}
+      onClick={() => setTeamCreatorActive(true)}
+    >
+      <i className={`fas fa-users ${classes.TeamCreator_Inactive__UsersIcon}`}>
+        <i
+          className={`fas fa-plus ${classes.TeamCreator_Inactive__UsersIcon_Plus}`}
+        ></i>
+      </i>
+      <span>add team</span>
+    </div>
+  );
 
-    return <>{teamCreator}</>;
-  }
-}
+  return <>{teamCreator}</>;
+};
 
 export default TeamCreator;

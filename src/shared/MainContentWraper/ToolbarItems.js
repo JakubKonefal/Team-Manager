@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import classes from './ToolbarItems.module.css';
 import Logo from '../../assets/img/logo.png';
 import { auth, database, emailAuthProvider } from '../../firebase/firebase';
@@ -10,166 +10,148 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import LockOutlined from '@material-ui/icons/LockOutlined';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 
-class ToolbarItems extends Component {
-  state = {
-    showDeleteMessage: false,
-    modalOpen: false,
-    password: '',
-    passwordError: false,
-    accountDeleted: false,
-  };
+const ToolbarItems = ({ history, email, userId }) => {
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
+  const [accountDeleted, setAccountDeleted] = useState(false);
+  const [showDeleteMessage, setShowDeleteMessage] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
-  deleteAccount = (event) => {
+  const deleteAccount = (event) => {
     event.preventDefault();
-    const { email } = this.props;
-    const { password } = this.state;
     const credentials = emailAuthProvider.credential(email, password);
     auth.currentUser
       .reauthenticateWithCredential(credentials)
       .then(() => {
-        this.setState({ accountDeleted: true });
+        setAccountDeleted(true);
       })
       .then(() => {
         setTimeout(() => {
           auth.currentUser.delete();
-          database.ref(`users/${this.props.userId}`).remove();
+          database.ref(`users/${userId}`).remove();
         }, 1000);
       })
       .catch(() => {
-        this.setState({ passwordError: true });
+        setPasswordError(true);
       });
   };
 
-  toggleDeleteMessage = () => {
-    this.setState({ showDeleteMessage: !this.state.showDeleteMessage });
+  const toggleDeleteMessage = () => {
+    setShowDeleteMessage((previousVal) => !previousVal);
   };
 
-  handleModalOpen = () => {
-    this.setState({ modalOpen: true });
+  const handlePasswordInputChange = ({ target: { value } }) => {
+    setPassword(value);
   };
 
-  handleModalClose = () => {
-    this.setState({ modalOpen: false, showDeleteMessage: false });
-  };
+  const deleteCardClass = showDeleteMessage
+    ? classes.ToolbarItems__DeleteCard
+    : classes.ToolbarItems__DeleteCard_Inactive;
 
-  handlePasswordInputChange = ({ target: { value } }) => {
-    this.setState({ password: value });
-  };
+  const passwordErrorMessage = passwordError && 'Incorrect password!';
 
-  render() {
-    const deleteCardClass = this.state.showDeleteMessage
-      ? classes.ToolbarItems__DeleteCard
-      : classes.ToolbarItems__DeleteCard_Inactive;
+  return (
+    <>
+      <div className={classes.ToolbarItems__Logo}>
+        <img src={Logo} className={classes.ToolbarItems__Logo_Img} alt="Logo" />
+        <h4 className={classes.ToolbarItems__Logo_Label}>localCoach</h4>
+      </div>
+      <div className={classes.ToolbarItems__Controls}>
+        <div className={classes.ToolbarItems__Email}>
+          <span onClick={toggleDeleteMessage}>{email}</span>
 
-    const passwordErrorMessage =
-      this.state.passwordError && 'Incorrect password!';
-
-    return (
-      <>
-        <div className={classes.ToolbarItems__Logo}>
-          <img
-            src={Logo}
-            className={classes.ToolbarItems__Logo_Img}
-            alt="Logo"
-          />
-          <h4 className={classes.ToolbarItems__Logo_Label}>localCoach</h4>
-        </div>
-        <div className={classes.ToolbarItems__Controls}>
-          <div className={classes.ToolbarItems__Email}>
-            <span onClick={this.toggleDeleteMessage}>{this.props.email}</span>
-
-            <div className={deleteCardClass}>
-              <div className={classes.ToolbarItems__DeleteCardArrow}></div>
-              <span className={classes.TooblarItems__DeleteLabel}>
-                Do you want to delete this account?
-              </span>
-              <div className={classes.ToolbarItems__Buttons}>
-                <button
-                  className={`${classes.ToolbarItems__Button} ${classes.ToolbarItems__Button_Yes} `}
-                  onClick={this.handleModalOpen}
-                >
-                  Yes
-                </button>
-                <button
-                  className={` ${classes.ToolbarItems__Button} ${classes.ToolbarItems__Button_No}`}
-                  onClick={this.toggleDeleteMessage}
-                >
-                  No
-                </button>
-                <Modal
-                  open={this.state.modalOpen}
-                  onClose={this.handleModalClose}
-                >
-                  {this.state.accountDeleted ? (
-                    <DialogContent className={classes.ToolbarItems__Modal}>
-                      <div
-                        className={classes.ToolbarItems__AccountDeletedMessage}
+          <div className={deleteCardClass}>
+            <div className={classes.ToolbarItems__DeleteCardArrow}></div>
+            <span className={classes.TooblarItems__DeleteLabel}>
+              Do you want to delete this account?
+            </span>
+            <div className={classes.ToolbarItems__Buttons}>
+              <button
+                className={`${classes.ToolbarItems__Button} ${classes.ToolbarItems__Button_Yes} `}
+                onClick={() => setModalOpen(true)}
+              >
+                Yes
+              </button>
+              <button
+                className={` ${classes.ToolbarItems__Button} ${classes.ToolbarItems__Button_No}`}
+                onClick={toggleDeleteMessage}
+              >
+                No
+              </button>
+              <Modal
+                open={modalOpen}
+                onClose={() => {
+                  setModalOpen(false);
+                  setShowDeleteMessage(false);
+                }}
+              >
+                {accountDeleted ? (
+                  <DialogContent className={classes.ToolbarItems__Modal}>
+                    <div
+                      className={classes.ToolbarItems__AccountDeletedMessage}
+                    >
+                      <CheckCircle
+                        className={classes.ToolbarItems__CheckIcon}
+                      />
+                      <span>Your account will be deleted!</span>
+                    </div>
+                  </DialogContent>
+                ) : (
+                  <DialogContent className={classes.ToolbarItems__Modal}>
+                    <form
+                      className={classes.ToolbarItems__ModalForm}
+                      onSubmit={(event) => deleteAccount(event)}
+                    >
+                      <span
+                        className={classes.ToolbarItems__ConfrimPasswordLabel}
                       >
-                        <CheckCircle
-                          className={classes.ToolbarItems__CheckIcon}
-                        />
-                        <span>Your account will be deleted!</span>
-                      </div>
-                    </DialogContent>
-                  ) : (
-                    <DialogContent className={classes.ToolbarItems__Modal}>
-                      <form
-                        className={classes.ToolbarItems__ModalForm}
-                        onSubmit={(event) => this.deleteAccount(event)}
+                        Confrim with password:
+                      </span>
+                      <TextField
+                        id="password"
+                        name="password"
+                        type="password"
+                        variant="outlined"
+                        size="small"
+                        placeholder="Password"
+                        error={passwordError}
+                        helperText={passwordErrorMessage}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <LockOutlined />
+                            </InputAdornment>
+                          ),
+                        }}
+                        onChange={(event) => handlePasswordInputChange(event)}
+                      />
+                      <button
+                        className={`${classes.ToolbarItems__Button} ${classes.ToolbarItems__Button_Delete} `}
+                        type="submit"
+                        onClick={deleteAccount}
                       >
-                        <span
-                          className={classes.ToolbarItems__ConfrimPasswordLabel}
-                        >
-                          Confrim with password:
-                        </span>
-                        <TextField
-                          id="password"
-                          name="password"
-                          type="password"
-                          variant="outlined"
-                          size="small"
-                          placeholder="Password"
-                          error={this.state.passwordError}
-                          helperText={passwordErrorMessage}
-                          InputProps={{
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                <LockOutlined />
-                              </InputAdornment>
-                            ),
-                          }}
-                          onChange={(event) =>
-                            this.handlePasswordInputChange(event)
-                          }
-                        />
-                        <button
-                          className={`${classes.ToolbarItems__Button} ${classes.ToolbarItems__Button_Delete} `}
-                          type="submit"
-                          onClick={this.deleteAccount}
-                        >
-                          Delete
-                        </button>
-                      </form>
-                    </DialogContent>
-                  )}
-                </Modal>
-              </div>
+                        Delete
+                      </button>
+                    </form>
+                  </DialogContent>
+                )}
+              </Modal>
             </div>
           </div>
-          <button
-            className={classes.ToolbarItems__Logout}
-            onClick={() => {
-              auth.signOut().then(() => {
-                this.props.history.replace('/');
-              });
-            }}
-          >
-            Logout
-          </button>
         </div>
-      </>
-    );
-  }
-}
+        <button
+          className={classes.ToolbarItems__Logout}
+          onClick={() => {
+            auth.signOut().then(() => {
+              history.replace('/');
+            });
+          }}
+        >
+          Logout
+        </button>
+      </div>
+    </>
+  );
+};
 
 export default withRouter(ToolbarItems);

@@ -1,49 +1,32 @@
-import React, { Component } from "react";
-import axios from "axios";
-import TrainingYear from "./TrainingYear";
-import SingleTrainingCreator from "./SingleTrainingCreator";
-import MultipleTrainingsCreator from "./MultipleTrainingsCreator";
-import classes from "./Trainings.module.css";
-import { database } from "../../firebase/firebase";
-import moment from "moment";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import TrainingYear from './TrainingYear';
+import SingleTrainingCreator from './SingleTrainingCreator';
+import MultipleTrainingsCreator from './MultipleTrainingsCreator';
+import classes from './Trainings.module.css';
+import { database } from '../../firebase/firebase';
+import moment from 'moment';
 
-class Trainings extends Component {
-  state = {
-    trainings: {},
-    newTrainingInfo: {
-      date: null,
-      end: null,
-      place: null,
-      type: null,
-      intensity: null,
-    },
-    trainingsCheckboxes: [],
-    pending: true,
-  };
+const Trainings = ({ userId, teamId, teamName }) => {
+  const [trainingsArray, setTrainingsArray] = useState({});
+  const [pending, setPending] = useState(true);
 
-  componentDidMount() {
-    this.getInitialTrainingsList();
-  }
-
-  getInitialTrainingsList = () => {
-    const { teamId, userId } = this.props;
-
+  const getInitialTrainingsList = () => {
     axios
       .get(`/users/${userId}/teams/${teamId}/trainings.json`)
       .then(({ data: trainings }) => {
         if (trainings) {
-          this.setState({ trainings });
+          setTrainingsArray(trainings);
         }
-        this.setState({ pending: false });
+        setPending(false);
       });
   };
 
-  handleFormSubmitNewTraining = (newTrainingInfo, event) => {
+  const handleFormSubmitNewTraining = (newTrainingInfo, event) => {
     event.preventDefault();
-    const { teamId, userId } = this.props;
     const { date } = newTrainingInfo;
-    const newTrainingYear = moment(date).format("YYYY");
-    const newTrainingMonth = moment(date).format("MMMM");
+    const newTrainingYear = moment(date).format('YYYY');
+    const newTrainingMonth = moment(date).format('MMMM');
 
     const newTrainingDatabaseRef = database.ref(
       `/users/${userId}/teams/${teamId}/trainings/${newTrainingYear}/${newTrainingMonth}`
@@ -57,38 +40,63 @@ class Trainings extends Component {
       trainingInfo: { ...newTrainingInfo },
     };
     newTrainingDatabaseRef.child(trainingId).set(newTraining);
-    trainingsDatabaseRef.once("value", (snapshot) => {
+    trainingsDatabaseRef.once('value', (snapshot) => {
       const trainings = snapshot.val();
-      this.setState({ trainings });
+      setTrainingsArray(trainings);
     });
   };
 
-  getDaysOfWeekAsNumbers = (days) => {
+  const getSelectedDaysArray = (from, to, daysOfWeek) => {
+    let startingDate = new Date(from);
+    const endingDate = new Date(to);
+    const selectedDaysArray = [];
+
+    while (startingDate <= endingDate) {
+      if (daysOfWeek.includes(startingDate.getDay())) {
+        selectedDaysArray.push(moment(startingDate).format('YYYY-MM-DD'));
+      }
+      let newDate = startingDate.setDate(startingDate.getDate() + 1);
+      startingDate = new Date(newDate);
+    }
+    return selectedDaysArray;
+  };
+
+  const getDaysOfWeekAsNumbers = (days) => {
     const daysInWeek = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
     ];
     return days.map((day) => daysInWeek.indexOf(day));
   };
 
-  handleFormSubmitNewTrainings = (newTrainingsInfo) => {
-    const { teamId, userId } = this.props;
+  const updateTraininings = () => {
+    const trainingsDatabaseRef = database.ref(
+      `/users/${userId}/teams/${teamId}/trainings`
+    );
+    trainingsDatabaseRef.once('value', (snapshot) => {
+      const snapshotValue = snapshot.val();
+      const trainings = snapshotValue ? snapshotValue : {};
+      setTrainingsArray(trainings);
+    });
+  };
+
+  const handleFormSubmitNewTrainings = (newTrainingsInfo) => {
     const { from, to, daysOfWeek, ...trainingInfo } = newTrainingsInfo;
-    const daysOfWeekAsNumbers = this.getDaysOfWeekAsNumbers(daysOfWeek);
-    const selectedDaysArray = this.getSelectedDaysArray(
+    const daysOfWeekAsNumbers = getDaysOfWeekAsNumbers(daysOfWeek);
+    const selectedDaysArray = getSelectedDaysArray(
       from,
       to,
       daysOfWeekAsNumbers
     );
 
     selectedDaysArray.forEach((day) => {
-      const dateYear = moment(day).format("YYYY");
-      const dateMonth = moment(day).format("MMMM");
+      const dateYear = moment(day).format('YYYY');
+      const dateMonth = moment(day).format('MMMM');
 
       const databaseRef = database.ref(
         `/users/${userId}/teams/${teamId}/trainings/${dateYear}/${dateMonth}`
@@ -101,83 +109,52 @@ class Trainings extends Component {
       };
       databaseRef.child(trainingId).set(newTraining);
     });
-    this.updateTraininings();
+    updateTraininings();
   };
 
-  getSelectedDaysArray = (from, to, daysOfWeek) => {
-    let startingDate = new Date(from);
-    const endingDate = new Date(to);
-    const selectedDaysArray = [];
+  useEffect(getInitialTrainingsList, []);
 
-    while (startingDate <= endingDate) {
-      if (daysOfWeek.includes(startingDate.getDay())) {
-        selectedDaysArray.push(moment(startingDate).format("YYYY-MM-DD"));
-      }
-      let newDate = startingDate.setDate(startingDate.getDate() + 1);
-      startingDate = new Date(newDate);
-    }
-    return selectedDaysArray;
-  };
+  if (pending) {
+    return <div className={classes.Trainings__Loader}></div>;
+  }
 
-  updateTraininings = () => {
-    const { teamId, userId } = this.props;
-    const trainingsDatabaseRef = database.ref(
-      `/users/${userId}/teams/${teamId}/trainings`
-    );
-    trainingsDatabaseRef.once("value", (snapshot) => {
-      const snapshotValue = snapshot.val();
-      const trainings = snapshotValue ? snapshotValue : {};
-      this.setState({ trainings });
-    });
-  };
+  const trainingsYearsArray = Object.values(trainingsArray);
+  const trainingsYears = Object.keys(trainingsArray);
+  const isTrainingsObjEmpty = Object.entries(trainingsArray).length < 1;
 
-  render() {
-    if (this.state.pending) {
-      return <div className={classes.Trainings__Loader}></div>;
-    }
+  const trainingYears = isTrainingsObjEmpty ? (
+    <span className={classes.Trainings__NoTrainingsMsg}>
+      You have not created any trainings yet!
+    </span>
+  ) : (
+    trainingsYearsArray.map((year, index) => (
+      <TrainingYear
+        userId={userId}
+        teamId={teamId}
+        teamName={teamName}
+        trainings={year}
+        key={trainingsYears[index]}
+        year={trainingsYears[index]}
+        updateTrainings={updateTraininings}
+      />
+    ))
+  );
 
-    const { userId, teamId, teamName } = this.props;
-
-    const trainingsYearsArray = Object.values(this.state.trainings);
-    const trainingsYears = Object.keys(this.state.trainings);
-    const isTrainingsObjEmpty = Object.entries(this.state.trainings).length < 1;
-
-    const trainingYears = isTrainingsObjEmpty ? (
-      <span className={classes.Trainings__NoTrainingsMsg}>
-        You have not created any trainings yet!
-      </span>
-    ) : (
-        trainingsYearsArray.map((year, index) => (
-          <TrainingYear
-            userId={userId}
-            teamId={teamId}
-            teamName={teamName}
-            trainings={year}
-            key={trainingsYears[index]}
-            year={trainingsYears[index]}
-            updateTrainings={this.updateTraininings}
+  return (
+    <div className={classes.Trainings}>
+      {trainingYears}
+      <div className={classes.Trainings__TrainingCreators}>
+        <div className={classes.Trainings__TrainingCreator_Wraper}>
+          <SingleTrainingCreator onFormSubmit={handleFormSubmitNewTraining} />
+        </div>
+        <div className={classes.Trainings__TrainingCreator_Wraper}>
+          <MultipleTrainingsCreator
+            onFormSubmit={handleFormSubmitNewTrainings}
           />
-        ))
-      );
-
-    return (
-      <div className={classes.Trainings}>
-        {trainingYears}
-        <div className={classes.Trainings__TrainingCreators}>
-          <div className={classes.Trainings__TrainingCreator_Wraper}>
-            <SingleTrainingCreator
-              onFormSubmit={this.handleFormSubmitNewTraining}
-            />
-          </div>
-          <div className={classes.Trainings__TrainingCreator_Wraper}>
-            <MultipleTrainingsCreator
-              onFormSubmit={this.handleFormSubmitNewTrainings}
-            />
-          </div>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Trainings;

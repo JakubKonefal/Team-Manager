@@ -26,7 +26,6 @@ const DashboardTraining = ({ date, trainingType, intensity }) => {
           {trainingType}
         </Dotdotdot>
       </span>
-
       <span className={classes.DashboardTraining__Intensity}>
         {intensity}%
         <div

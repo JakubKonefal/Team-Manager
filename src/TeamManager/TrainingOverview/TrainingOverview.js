@@ -1,25 +1,17 @@
-import React, { Component } from "react";
-import axios from "axios";
-import { database } from "../../firebase/firebase";
-import classes from "./TrainingOverview.module.css";
-import TrainingInfo from "./TrainingInfo";
-import TrainingPlan from "./TrainingPlan";
-import moment from "moment";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { database } from '../../firebase/firebase';
+import classes from './TrainingOverview.module.css';
+import TrainingInfo from './TrainingInfo';
+import TrainingPlan from './TrainingPlan';
+import moment from 'moment';
 
-class TrainingOverview extends Component {
-  state = {
-    trainingInfo: null,
-    pending: true,
-  };
+const TrainingOverview = ({ userId, match }) => {
+  const [pending, setPending] = useState(true);
+  const [trainingInformation, setTrainingInformation] = useState({});
 
-  componentDidMount() {
-    this.getInitialTrainingInfo();
-  }
-
-  getInitialTrainingInfo = () => {
-    const { teamId, year, month, trainingId } = this.props.match.params;
-    const { userId } = this.props;
-
+  const getInitialTrainingInfo = () => {
+    const { teamId, year, month, trainingId } = match.params;
     axios
       .get(
         `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}.json`
@@ -27,18 +19,17 @@ class TrainingOverview extends Component {
       .then(({ data: training }) => {
         const { trainingInfo } = training;
         if (trainingInfo) {
-          this.setState({ trainingInfo });
+          setTrainingInformation(trainingInfo);
         }
-        this.setState({ pending: false });
+        setPending(false);
       });
   };
 
-  handleFormSubmitTrainingInfoUpdate = (updatedTrainingInfo) => {
-    const { teamId, year, month, trainingId } = this.props.match.params;
-    const { userId } = this.props;
+  const handleFormSubmitTrainingInfoUpdate = (updatedTrainingInfo) => {
+    const { teamId, year, month, trainingId } = match.params;
     const { date } = updatedTrainingInfo;
-    const updatedDateYear = moment(date).format("YYYY");
-    const updatedDateMonth = moment(date).format("MMMM");
+    const updatedDateYear = moment(date).format('YYYY');
+    const updatedDateMonth = moment(date).format('MMMM');
     const databaseRef = database.ref(
       `/users/${userId}/teams/${teamId}/trainings/${year}/${month}/${trainingId}/trainingInfo`
     );
@@ -57,37 +48,36 @@ class TrainingOverview extends Component {
       databaseRef.remove();
       updatedDatabaseRef.set(updatedTraining);
     }
-
-    this.setState({ trainingInfo: updatedTrainingInfo });
+    setTrainingInformation(updatedTrainingInfo);
   };
 
-  render() {
-    if (this.state.pending) {
-      return (
-        <div className={classes.TrainingOverview__LoaderWraper}>
-          <div className={classes.TrainingOverview__Loader}></div>
-        </div>
-      );
-    }
+  useEffect(getInitialTrainingInfo, []);
 
-    const trainingInfo = this.state.trainingInfo ? (
-      <TrainingInfo
-        trainingInfo={this.state.trainingInfo}
-        onFormSubmit={this.handleFormSubmitTrainingInfoUpdate}
-      />
-    ) : null;
-
+  if (pending) {
     return (
-      <div className={classes.TrainingOverview}>
-        <div className={classes.TrainingOverview__TrainingInfo}>
-          {trainingInfo}
-        </div>
-        <div className={classes.TrainingOverview__TrainingPlan}>
-          <TrainingPlan userId={this.props.userId} />
-        </div>
+      <div className={classes.TrainingOverview__LoaderWraper}>
+        <div className={classes.TrainingOverview__Loader}></div>
       </div>
     );
   }
-}
+
+  const trainingInfo = trainingInformation ? (
+    <TrainingInfo
+      trainingInfo={trainingInformation}
+      onSubmit={handleFormSubmitTrainingInfoUpdate}
+    />
+  ) : null;
+
+  return (
+    <div className={classes.TrainingOverview}>
+      <div className={classes.TrainingOverview__TrainingInfo}>
+        {trainingInfo}
+      </div>
+      <div className={classes.TrainingOverview__TrainingPlan}>
+        <TrainingPlan userId={userId} />
+      </div>
+    </div>
+  );
+};
 
 export default TrainingOverview;

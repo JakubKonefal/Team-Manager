@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import classes from './MultipleTrainingsEditor.module.css';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -8,55 +8,51 @@ import Typography from '@material-ui/core/Typography';
 import StylesProvider from '@material-ui/styles/StylesProvider';
 import moment from 'moment';
 
-class MultipleTrainingsEdit extends Component {
-  state = {
-    editedTrainingsInfo: {
-      date: '',
-      start: '',
-      end: '',
-      place: '',
-      trainingType: '',
-      intensity: 0,
-    },
-    incorrectDate: false,
-  };
+const editedTrainingsInfoInitialObj = {
+  date: '',
+  start: '',
+  end: '',
+  place: '',
+  trainingType: '',
+  intensity: 0,
+};
 
-  handleInputChange = ({ target }) => {
+const MultipleTrainingsEdit = ({
+  active,
+  year,
+  month,
+  onFormSubmit,
+  onClose,
+  checkedTrainingsCount,
+}) => {
+  const [editedTrainingsInfo, setEditedTrainingsInfo] = useState(
+    editedTrainingsInfoInitialObj
+  );
+
+  const [incorrectDate, setIncorrectDate] = useState(false);
+
+  const handleInputChange = ({ target }) => {
     const { id, value } = target;
     if (id !== 'date') {
-      this.setState({
-        editedTrainingsInfo: {
-          ...this.state.editedTrainingsInfo,
-          [id]: value,
-        },
-      });
+      setEditedTrainingsInfo((prevInfo) => ({
+        ...prevInfo,
+        [id]: value,
+      }));
     }
   };
 
-  handleSliderChange = (e, newValue) => {
-    this.setState({
-      editedTrainingsInfo: {
-        ...this.state.editedTrainingsInfo,
-        intensity: newValue,
-      },
-    });
+  const handleSliderChange = (e, newValue) => {
+    setEditedTrainingsInfo((prevInfo) => ({
+      ...prevInfo,
+      intensity: newValue,
+    }));
   };
 
-  resetInputsValues = () => {
-    this.setState({
-      editedTrainingsInfo: {
-        date: '',
-        start: '',
-        end: '',
-        place: '',
-        trainingType: '',
-        intensity: 0,
-      },
-    });
+  const resetInputsValues = () => {
+    setEditedTrainingsInfo(editedTrainingsInfoInitialObj);
   };
 
-  validateInputDate = ({ target: { value } }) => {
-    const { year, month } = this.props;
+  const validateInputDate = ({ target: { value } }) => {
     const yearNumber = parseInt(year);
     const monthNumber = moment().month(month).format('MM');
     const pickedYear = moment(value).year();
@@ -66,151 +62,142 @@ class MultipleTrainingsEdit extends Component {
     }
 
     if (pickedYear !== yearNumber || monthNumber !== pickedMonthOneIndexed) {
-      this.setState({
-        editedTrainingsInfo: {
-          ...this.state.editedTrainingsInfo,
-          date: `${yearNumber}-${monthNumber}-00`,
-        },
-        incorrectDate: true,
-      });
+      setEditedTrainingsInfo((prevInfo) => ({
+        ...prevInfo,
+        date: `${yearNumber}-${monthNumber}-00`,
+      }));
+      setIncorrectDate(true);
     } else {
-      this.setState({
-        editedTrainingsInfo: {
-          ...this.state.editedTrainingsInfo,
-          date: value,
-        },
-        incorrectDate: false,
-      });
+      setEditedTrainingsInfo((prevInfo) => ({
+        ...prevInfo,
+        date: value,
+      }));
+      setIncorrectDate(false);
     }
   };
 
-  render() {
-    const dateErrorMessage = this.state.incorrectDate
-      ? 'Only day can be changed!'
-      : '';
+  const dateErrorMessage = incorrectDate ? 'Only day can be changed!' : '';
 
-    const multipleTrainingsEditor = this.props.active ? (
-      <StylesProvider injectFirst>
-        <Card className={classes.MultipleTrainingsEditor} variant="outlined">
-          <CardContent className={classes.Content}>
-            <form
-              className={classes.Form}
-              onSubmit={() =>
-                this.props.onFormSubmit(this.state.editedTrainingsInfo)
-              }
-              onChange={this.handleInputChange}
-            >
-              <div className={classes.Form__Row}>
-                <TextField
-                  className={classes.Form__Input}
-                  id="date"
-                  name="date"
-                  type="date"
-                  variant="outlined"
-                  size="small"
-                  label="Date"
-                  error={this.state.incorrectDate}
-                  helperText={dateErrorMessage}
-                  InputLabelProps={{ shrink: true }}
-                  disabled={this.props.checkedTrainingsCount !== 1}
-                  onChange={(event) => this.validateInputDate(event)}
-                  value={this.state.editedTrainingsInfo.date}
-                  required
-                />
-                <TextField
-                  className={classes.Form__Input}
-                  id="start"
-                  name="start"
-                  type="time"
-                  variant="outlined"
-                  size="small"
-                  label="Start"
-                  InputLabelProps={{ shrink: true }}
-                  disabled={this.props.checkedTrainingsCount < 1}
-                />
-                <TextField
-                  className={classes.Form__Input}
-                  id="end"
-                  name="end"
-                  type="time"
-                  variant="outlined"
-                  size="small"
-                  label="End"
-                  InputLabelProps={{ shrink: true }}
-                  disabled={this.props.checkedTrainingsCount < 1}
-                />
-              </div>
-              <div className={classes.Form__Row}>
-                <TextField
-                  className={classes.Form__Input}
-                  id="place"
-                  name="place"
-                  variant="outlined"
-                  size="small"
-                  label="Place"
-                  inputProps={{
-                    maxLength: 12,
-                  }}
-                  disabled={this.props.checkedTrainingsCount < 1}
-                />
-                <TextField
-                  className={classes.Form__Input}
-                  id="trainingType"
-                  name="trainingType"
-                  variant="outlined"
-                  size="small"
-                  label="Training type"
-                  inputProps={{
-                    maxLength: 18,
-                  }}
-                  disabled={this.props.checkedTrainingsCount < 1}
-                />
-                <div className={classes.Form__SliderWraper}>
-                  <Typography
-                    className={classes.Form__SliderLabel}
-                    id="intensity"
-                    gutterBottom
-                  >
-                    Intensity %
-                  </Typography>
-                  <Slider
-                    className={classes.Form__Slider}
-                    id="intensity"
-                    name="intensity"
-                    size="small"
-                    value={this.state.editedTrainingsInfo.intensity}
-                    valueLabelDisplay="auto"
-                    onChange={this.handleSliderChange}
-                    disabled={this.props.checkedTrainingsCount < 1}
-                  />
-                </div>
-              </div>
-              <div className={classes.Form__Buttons}>
-                <button
-                  type="submit"
-                  className={classes.Form__Button_Add}
-                  disabled={this.props.checkedTrainingsCount < 1}
+  const multipleTrainingsEditor = active ? (
+    <StylesProvider injectFirst>
+      <Card className={classes.MultipleTrainingsEditor} variant="outlined">
+        <CardContent className={classes.Content}>
+          <form
+            className={classes.Form}
+            onSubmit={() => onFormSubmit(editedTrainingsInfo)}
+            onChange={handleInputChange}
+          >
+            <div className={classes.Form__Row}>
+              <TextField
+                className={classes.Form__Input}
+                id="date"
+                name="date"
+                type="date"
+                variant="outlined"
+                size="small"
+                label="Date"
+                error={incorrectDate}
+                helperText={dateErrorMessage}
+                InputLabelProps={{ shrink: true }}
+                disabled={checkedTrainingsCount !== 1}
+                onChange={(event) => validateInputDate(event)}
+                value={editedTrainingsInfo.date}
+                required
+              />
+              <TextField
+                className={classes.Form__Input}
+                id="start"
+                name="start"
+                type="time"
+                variant="outlined"
+                size="small"
+                label="Start"
+                InputLabelProps={{ shrink: true }}
+                disabled={checkedTrainingsCount < 1}
+              />
+              <TextField
+                className={classes.Form__Input}
+                id="end"
+                name="end"
+                type="time"
+                variant="outlined"
+                size="small"
+                label="End"
+                InputLabelProps={{ shrink: true }}
+                disabled={checkedTrainingsCount < 1}
+              />
+            </div>
+            <div className={classes.Form__Row}>
+              <TextField
+                className={classes.Form__Input}
+                id="place"
+                name="place"
+                variant="outlined"
+                size="small"
+                label="Place"
+                inputProps={{
+                  maxLength: 12,
+                }}
+                disabled={checkedTrainingsCount < 1}
+              />
+              <TextField
+                className={classes.Form__Input}
+                id="trainingType"
+                name="trainingType"
+                variant="outlined"
+                size="small"
+                label="Training type"
+                inputProps={{
+                  maxLength: 18,
+                }}
+                disabled={checkedTrainingsCount < 1}
+              />
+              <div className={classes.Form__SliderWraper}>
+                <Typography
+                  className={classes.Form__SliderLabel}
+                  id="intensity"
+                  gutterBottom
                 >
-                  save
-                </button>
-                <button
-                  className={classes.Form__Button_Cancel}
-                  type="reset"
-                  onClick={() => {
-                    this.props.close();
-                  }}
-                >
-                  cancel
-                </button>
+                  Intensity %
+                </Typography>
+                <Slider
+                  className={classes.Form__Slider}
+                  id="intensity"
+                  name="intensity"
+                  size="small"
+                  value={editedTrainingsInfo.intensity}
+                  valueLabelDisplay="auto"
+                  onChange={handleSliderChange}
+                  disabled={checkedTrainingsCount < 1}
+                />
               </div>
-            </form>
-          </CardContent>
-        </Card>
-      </StylesProvider>
-    ) : null;
+            </div>
+            <div className={classes.Form__Buttons}>
+              <button
+                type="submit"
+                className={classes.Form__Button_Add}
+                disabled={checkedTrainingsCount < 1}
+              >
+                save
+              </button>
+              <button
+                className={classes.Form__Button_Cancel}
+                type="reset"
+                onClick={() => {
+                  onClose();
+                  resetInputsValues();
+                }}
+              >
+                cancel
+              </button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+    </StylesProvider>
+  ) : null;
 
-    return <> {multipleTrainingsEditor} </>;
-  }
-}
+  return <> {multipleTrainingsEditor} </>;
+};
 
 export default MultipleTrainingsEdit;

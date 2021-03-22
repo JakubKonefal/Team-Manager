@@ -1,87 +1,93 @@
-import React, { Component } from "react";
-import classes from "./Players.module.css";
-import axios from "axios";
-import { storage, database } from "../../firebase/firebase";
-import PlayerCreator from "./PlayerCreator";
-import Player from "./Player";
-import Modal from "@material-ui/core/Modal";
-import Card from "@material-ui/core/Card";
-import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import Tooltip from "@material-ui/core/Tooltip";
-import Info from "@material-ui/icons/Info";
-import StylesProvider from "@material-ui/styles/StylesProvider";
+import React, { useState, useEffect } from 'react';
+import classes from './Players.module.css';
+import axios from 'axios';
+import { storage, database } from '../../firebase/firebase';
+import PlayerCreator from './PlayerCreator';
+import Player from './Player';
+import Modal from '@material-ui/core/Modal';
+import Card from '@material-ui/core/Card';
+import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import Tooltip from '@material-ui/core/Tooltip';
+import Info from '@material-ui/icons/Info';
+import StylesProvider from '@material-ui/styles/StylesProvider';
 
-class Players extends Component {
-  state = {
-    players: [],
-    playersCheckboxes: [],
-    checkedTrainingsCount: 0,
-    uploadedImage: null,
-    uploadedImageUrl: "",
-    deleteModalOpen: false,
-    pending: true,
-  };
+const Players = ({ userId, teamId }) => {
+  const [players, setPlayers] = useState([]);
+  const [playersCheckboxes, setPlayersCheckboxes] = useState([]);
+  const [pending, setPending] = useState(true);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [checkedTrainingsCount, setCheckedTrainingsCount] = useState(0);
 
-  componentDidMount() {
-    this.getInitialPlayersList();
-  }
-
-  getInitialPlayersList = () => {
-    const { teamId, userId } = this.props;
-
+  const getInitialPlayersList = () => {
     axios
       .get(`/users/${userId}/teams/${teamId}/players.json`)
       .then(({ data: players }) => {
         if (players) {
           const playersArray = Object.values(players);
-          const playersSortedByNumber = playersArray.sort((a, b) => {
+          const playersByNumber = playersArray.sort((a, b) => {
             return a.playerInfo.number - b.playerInfo.number;
           });
 
-          const playersCheckboxes = playersSortedByNumber.map((player) => ({
+          const playersCheckboxesList = playersByNumber.map((player) => ({
             checked: false,
             id: player.playerId,
             photo: player.playerPhoto,
           }));
-          this.setState({
-            players: playersSortedByNumber,
-            playersCheckboxes,
-          });
+          setPlayers(playersByNumber);
+          setPlayersCheckboxes(playersCheckboxesList);
         }
-        this.setState({ pending: false });
+        setPending(false);
       });
   };
 
-  countCheckedTrainings = (checkboxes) => {
-    const checkedTrainingsCount = checkboxes.filter((item) => item.checked)
-      .length;
-    this.setState({ checkedTrainingsCount });
+  const countCheckedTrainings = (checkboxes) => {
+    const checkedItemsCount = checkboxes.filter((item) => item.checked).length;
+    setCheckedTrainingsCount(checkedItemsCount);
   };
 
-  handleCheckboxSelectAll = ({ target }) => {
-    const updatedCheckboxes = this.state.playersCheckboxes;
+  const handleCheckboxSelectAll = ({ target }) => {
+    const updatedCheckboxes = playersCheckboxes;
     updatedCheckboxes.forEach((item) => {
       item.checked = target.checked;
     });
-    this.countCheckedTrainings(updatedCheckboxes);
-    this.setState({ playersCheckboxes: updatedCheckboxes });
+
+    countCheckedTrainings(updatedCheckboxes);
+    setPlayersCheckboxes(updatedCheckboxes);
   };
 
-  handleCheckboxClick = ({ target }, index, id, photo) => {
-    const updatedCheckboxes = [...this.state.playersCheckboxes];
+  const handleCheckboxClick = ({ target }, index, id, photo) => {
+    const updatedCheckboxes = [...playersCheckboxes];
     const clickedCheckbox = { checked: target.checked, id, photo };
     updatedCheckboxes.splice(index, 1, clickedCheckbox);
 
-    this.countCheckedTrainings(updatedCheckboxes);
-    this.setState({ playersCheckboxes: updatedCheckboxes });
+    countCheckedTrainings(updatedCheckboxes);
+    setPlayersCheckboxes(updatedCheckboxes);
   };
 
-  handleCheckedPlayersDelete = () => {
-    const { teamId, userId } = this.props;
-    const checkedPlayers = this.state.playersCheckboxes.filter(
-      (item) => item.checked
+  const updatePlayersOnDelete = () => {
+    const playersDatabaseRef = database.ref(
+      `/users/${userId}/teams/${teamId}/players`
     );
+    playersDatabaseRef.once('value', (snapshot) => {
+      const snapshotValue = snapshot.val();
+      const playersListByNumber = snapshotValue
+        ? Object.values(snapshotValue).sort((a, b) => {
+            return a.playerInfo.number - b.playerInfo.number;
+          })
+        : [];
+      const updatedCheckboxes = playersListByNumber.map((player) => ({
+        checked: false,
+        id: player.playerId,
+        photo: player.playerPhoto,
+      }));
+      setPlayers(playersListByNumber);
+      setPlayersCheckboxes(updatedCheckboxes);
+    });
+  };
+
+  const handleCheckedPlayersDelete = () => {
+    const checkedPlayers = playersCheckboxes.filter((item) => item.checked);
     checkedPlayers.forEach((player) => {
       database
         .ref(`/users/${userId}/teams/${teamId}/players/${player.id}`)
@@ -92,11 +98,10 @@ class Players extends Component {
           .delete();
       }
     });
-    this.updatePlayersOnDelete();
+    updatePlayersOnDelete();
   };
 
-  handlePlayerDelete = (playerId, photo) => {
-    const { teamId, userId } = this.props;
+  const handlePlayerDelete = (playerId, photo) => {
     database
       .ref(`/users/${userId}/teams/${teamId}/players/${playerId}`)
       .remove();
@@ -105,49 +110,33 @@ class Players extends Component {
         .ref(`/users/${userId}/images/teams/${teamId}/players/${playerId}`)
         .delete();
     }
-    this.updatePlayersOnDelete();
+    updatePlayersOnDelete();
   };
 
-  updatePlayersOnDelete = () => {
-    const { teamId, userId } = this.props;
-    const playersDatabaseRef = database.ref(
-      `/users/${userId}/teams/${teamId}/players`
-    );
-    playersDatabaseRef.once("value", (snapshot) => {
-      const snapshotValue = snapshot.val();
-
-      const players = snapshotValue ? Object.values(snapshotValue) : [];
-      this.setState({ players });
-    });
-  };
-
-  handleImageUpload = async (playerId, selectedImage) => {
-    const { teamId, userId } = this.props;
+  const handleImageUpload = async (playerId, selectedImage) => {
     await storage
       .ref(`/users/${userId}/images/teams/${teamId}/players/${playerId}`)
       .put(selectedImage);
   };
 
-  getUploadedImageUrl = async (playerId) => {
-    const { teamId, userId } = this.props;
-    await storage
+  const getUploadedImageUrl = async (playerId) => {
+    const imageURL = await storage
       .ref(`/users/${userId}/images/teams/${teamId}/players/${playerId}`)
       .getDownloadURL()
       .then((url) => {
-        this.setState({ uploadedImageUrl: url });
+        return url;
       });
+
+    return imageURL;
   };
 
-  assignUploadedImageUrl = (playerId) => {
-    const { teamId, userId } = this.props;
+  const assignUploadedImageUrl = (playerId, uploadedImageUrl) => {
     database
       .ref(`/users/${userId}/teams/${teamId}/players/${playerId}`)
-      .update({ playerPhoto: this.state.uploadedImageUrl });
+      .update({ playerPhoto: uploadedImageUrl });
   };
 
-  updatePlayersOnAdd = (newPlayer, playerPhoto) => {
-    const { players, playersCheckboxes } = this.state;
-
+  const updatePlayersOnAdd = (newPlayer, playerPhoto) => {
     const playerPhotoUrl = playerPhoto
       ? URL.createObjectURL(playerPhoto)
       : null;
@@ -164,15 +153,14 @@ class Players extends Component {
           playersCheckboxes,
           { checked: false, id: newPlayer.playerId, photo: playerPhotoUrl },
         ];
-    this.setState({
-      players: updatedPlayersArray,
-      playersCheckboxes: updatedCheckboxesArray,
-    });
+
+    setPlayers(updatedPlayersArray);
+    setPlayersCheckboxes(updatedCheckboxesArray);
   };
 
-  handleFormSubmitNewPlayer = (playerInfo, playerPhoto, e) => {
+  const handleFormSubmitNewPlayer = (playerInfo, playerPhoto, e) => {
     e.preventDefault();
-    const { teamId, userId } = this.props;
+
     const databaseRef = database.ref(
       `/users/${userId}/teams/${teamId}/players`
     );
@@ -184,33 +172,18 @@ class Players extends Component {
     databaseRef.child(playerId).set(newPlayer);
 
     if (playerPhoto) {
-      this.handleImageUpload(playerId, playerPhoto).then(() => {
-        this.getUploadedImageUrl(playerId).then(() => {
-          this.assignUploadedImageUrl(playerId);
+      handleImageUpload(playerId, playerPhoto).then(() => {
+        getUploadedImageUrl(playerId).then((url) => {
+          assignUploadedImageUrl(playerId, url);
         });
       });
     }
-    this.updatePlayersOnAdd(newPlayer, playerPhoto);
+    updatePlayersOnAdd(newPlayer, playerPhoto);
   };
 
-  handleFormSubmitEditPlayer = (playerId, playerInfo, playerPhoto) => {
-    const { teamId, userId } = this.props;
-    database
-      .ref(`/users/${userId}/teams/${teamId}/players/${playerId}/playerInfo`)
-      .set(playerInfo);
-    if (playerPhoto) {
-      this.handleImageUpload(playerId, playerPhoto).then(() => {
-        this.getUploadedImageUrl(playerId).then(() => {
-          this.assignUploadedImageUrl(playerId);
-        });
-      });
-    }
-    this.updatePlayersOnEdit(playerId, playerInfo, playerPhoto);
-  };
-
-  updatePlayersOnEdit = (playerId, playerInfo, playerPhoto) => {
-    const updatedPlayersArray = [...this.state.players];
-    const updatedPlayerIndex = this.state.players.findIndex((player) => {
+  const updatePlayersOnEdit = (playerId, playerInfo, playerPhoto) => {
+    const updatedPlayersArray = [...players];
+    const updatedPlayerIndex = players.findIndex((player) => {
       return player.playerId === playerId;
     });
 
@@ -226,12 +199,26 @@ class Players extends Component {
 
     updatedPlayersArray.splice(updatedPlayerIndex, 1, updatedPlayer);
 
-    this.setState({ players: updatedPlayersArray });
+    setPlayers(updatedPlayersArray);
   };
 
-  handlePlayersSort = (e, attribute) => {
-    const sortedPlayers = [...this.state.players].sort((a, b) => {
-      if (attribute === "number") {
+  const handleFormSubmitEditPlayer = (playerId, playerInfo, playerPhoto) => {
+    database
+      .ref(`/users/${userId}/teams/${teamId}/players/${playerId}/playerInfo`)
+      .set(playerInfo);
+    if (playerPhoto) {
+      handleImageUpload(playerId, playerPhoto).then(() => {
+        getUploadedImageUrl(playerId).then((url) => {
+          assignUploadedImageUrl(playerId, url);
+        });
+      });
+    }
+    updatePlayersOnEdit(playerId, playerInfo, playerPhoto);
+  };
+
+  const handlePlayersSort = (e, attribute) => {
+    const sortedPlayers = [...players].sort((a, b) => {
+      if (attribute === 'number') {
         return a.playerInfo[attribute] - b.playerInfo[attribute];
       }
       return a.playerInfo[attribute] > b.playerInfo[attribute] ? 1 : -1;
@@ -241,166 +228,155 @@ class Players extends Component {
       sortedPlayers.reverse();
     }
 
-    this.setState({
-      players: sortedPlayers,
-    });
+    setPlayers(sortedPlayers);
   };
 
-  handleModalOpen = () => {
-    this.setState({ deleteModalOpen: true });
+  const handleModalOpen = () => {
+    setDeleteModalOpen(true);
   };
 
-  handleModalClose = () => {
-    this.setState({ deleteModalOpen: false });
+  const handleModalClose = () => {
+    setDeleteModalOpen(false);
   };
 
-  render() {
-    if (this.state.pending) {
-      return <div className={classes.Players__Loader}></div>;
-    }
+  useEffect(getInitialPlayersList, []);
 
-    const playersList =
-      this.state.players.length > 0 ? (
-        <div className={classes.PlayersList}>
-          <div className={classes.PlayersList__InfoBar}>
-            <span className={classes.PlayersList__InfoTile_Player}>player</span>
-            <span
-              className={`${classes.PlayersList__InfoTile_Number} ${classes.PlayersList__InfoTile_Sortable}`}
-              onClick={(event) => this.handlePlayersSort(event, "number")}
-            >
-              nr
-            </span>
-            <span
-              className={`${classes.PlayersList__InfoTile_FirstName} ${classes.PlayersList__InfoTile_Sortable}`}
-              onClick={(event) => this.handlePlayersSort(event, "firstName")}
-            >
-              first name
-            </span>
-            <span
-              className={`${classes.PlayersList__InfoTile_LastName} ${classes.PlayersList__InfoTile_Sortable}`}
-              onClick={(event) => this.handlePlayersSort(event, "lastName")}
-            >
-              last name
-            </span>
-            <span
-              className={`${classes.PlayersList__InfoTile_Position} ${classes.PlayersList__InfoTile_Sortable}`}
-              onClick={(event) => this.handlePlayersSort(event, "position")}
-            >
-              position
-            </span>
-            <span
-              className={`${classes.PlayersList__InfoTile_Birthday} ${classes.PlayersList__InfoTile_Sortable}`}
-              onClick={(event) => this.handlePlayersSort(event, "birth")}
-            >
-              birthday
-            </span>
-            <span className={classes.PlayersList__InfoTile_Actions}>
-              actions
-            </span>
-            <Tooltip
-              className={classes.PlayersList__InfoIcon}
-              title="Ctrl + click to sort in opposite order"
-              placement="top"
-            >
-              <Info />
-            </Tooltip>
-          </div>
-          {this.state.players.map((player, index) => {
-            return (
-              <Player
-                key={player.playerId}
-                teamId={this.props.teamId}
-                playerId={player.playerId}
-                playerInfo={player.playerInfo}
-                playerPhoto={player.playerPhoto}
-                onDelete={this.handlePlayerDelete}
-                onSubmit={this.handleFormSubmitEditPlayer}
-                checkbox={
-                  <Checkbox
-                    style={{ color: "#ADB6C4" }}
-                    checked={this.state.playersCheckboxes[index].checked}
-                    onChange={(event) =>
-                      this.handleCheckboxClick(
-                        event,
-                        index,
-                        player.playerId,
-                        player.playerPhoto
-                      )
-                    }
-                  />
-                }
-              />
-            );
-          })}
-          <PlayerCreator
-            onSubmit={this.handleFormSubmitNewPlayer}
-          ></PlayerCreator>
-          <div className={classes.PlayersList__ActionPanel}>
-            <StylesProvider injectFirst>
-              <Button
-                className={classes.PlayersList__Button_Delete}
-                variant="contained"
-                color="secondary"
-                size="small"
-                onClick={this.handleModalOpen}
-                disabled={this.state.checkedTrainingsCount < 1}
-              >
-                delete
-              </Button>
-              <Modal
-                open={this.state.deleteModalOpen}
-                onClose={this.handleModalClose}
-              >
-                <Card className={classes.PlayersList__Modal}>
-                  <span className={classes.PlayersList__ModalMsg}>
-                    Are you sure you want to delete
-                  </span>
-                  <span className={classes.PlayersList__ModalMsg}>
-                    checked players?
-                  </span>
-                  <div className={classes.PlayersList__ModalButtons}>
-                    <button
-                      className={`${classes.PlayersList__ModalButton} ${classes.PlayersList__ModalButton_Yes}`}
-                      onClick={() => {
-                        this.handleCheckedPlayersDelete();
-                        this.handleModalClose();
-                      }}
-                    >
-                      Yes
-                    </button>
-                    <button
-                      className={`${classes.PlayersList__ModalButton} ${classes.PlayersList__ModalButton_No}`}
-                      onClick={this.handleModalClose}
-                    >
-                      No
-                    </button>
-                  </div>
-                </Card>
-              </Modal>
-              <div>
-                <Tooltip placement="top" title="Select all">
-                  <Checkbox
-                    onChange={this.handleCheckboxSelectAll}
-                    style={{ color: "#ADB6C4" }}
-                  />
-                </Tooltip>
-              </div>
-            </StylesProvider>
-          </div>
-        </div>
-      ) : (
-        <>
-          <span className={classes.Players__NoPlayersMsg}>
-            You have not created any players yet!
-          </span>
-          <PlayerCreator
-            onSubmit={this.handleFormSubmitNewPlayer}
-          ></PlayerCreator>
-        </>
-      );
-
-    return <>{playersList}</>;
+  if (pending) {
+    return <div className={classes.Players__Loader}></div>;
   }
-}
+
+  const playersList =
+    players.length > 0 ? (
+      <div className={classes.PlayersList}>
+        <div className={classes.PlayersList__InfoBar}>
+          <span className={classes.PlayersList__InfoTile_Player}>player</span>
+          <span
+            className={`${classes.PlayersList__InfoTile_Number} ${classes.PlayersList__InfoTile_Sortable}`}
+            onClick={(event) => handlePlayersSort(event, 'number')}
+          >
+            nr
+          </span>
+          <span
+            className={`${classes.PlayersList__InfoTile_FirstName} ${classes.PlayersList__InfoTile_Sortable}`}
+            onClick={(event) => handlePlayersSort(event, 'firstName')}
+          >
+            first name
+          </span>
+          <span
+            className={`${classes.PlayersList__InfoTile_LastName} ${classes.PlayersList__InfoTile_Sortable}`}
+            onClick={(event) => handlePlayersSort(event, 'lastName')}
+          >
+            last name
+          </span>
+          <span
+            className={`${classes.PlayersList__InfoTile_Position} ${classes.PlayersList__InfoTile_Sortable}`}
+            onClick={(event) => handlePlayersSort(event, 'position')}
+          >
+            position
+          </span>
+          <span
+            className={`${classes.PlayersList__InfoTile_Birthday} ${classes.PlayersList__InfoTile_Sortable}`}
+            onClick={(event) => handlePlayersSort(event, 'birth')}
+          >
+            birthday
+          </span>
+          <span className={classes.PlayersList__InfoTile_Actions}>actions</span>
+          <Tooltip
+            className={classes.PlayersList__InfoIcon}
+            title="Ctrl + click to sort in opposite order"
+            placement="top"
+          >
+            <Info />
+          </Tooltip>
+        </div>
+        {players.map((player, index) => {
+          return (
+            <Player
+              key={player.playerId}
+              teamId={teamId}
+              playerId={player.playerId}
+              playerInfo={player.playerInfo}
+              playerPhoto={player.playerPhoto}
+              onDelete={handlePlayerDelete}
+              onSubmit={handleFormSubmitEditPlayer}
+              checkbox={
+                <Checkbox
+                  style={{ color: '#ADB6C4' }}
+                  checked={playersCheckboxes[index].checked}
+                  onChange={(event) =>
+                    handleCheckboxClick(
+                      event,
+                      index,
+                      player.playerId,
+                      player.playerPhoto
+                    )
+                  }
+                />
+              }
+            />
+          );
+        })}
+        <PlayerCreator onSubmit={handleFormSubmitNewPlayer}></PlayerCreator>
+        <div className={classes.PlayersList__ActionPanel}>
+          <StylesProvider injectFirst>
+            <Button
+              className={classes.PlayersList__Button_Delete}
+              variant="contained"
+              color="secondary"
+              size="small"
+              onClick={handleModalOpen}
+              disabled={checkedTrainingsCount < 1}
+            >
+              delete
+            </Button>
+            <Modal open={deleteModalOpen} onClose={handleModalClose}>
+              <Card className={classes.PlayersList__Modal}>
+                <span className={classes.PlayersList__ModalMsg}>
+                  Are you sure you want to delete
+                </span>
+                <span className={classes.PlayersList__ModalMsg}>
+                  checked players?
+                </span>
+                <div className={classes.PlayersList__ModalButtons}>
+                  <button
+                    className={`${classes.PlayersList__ModalButton} ${classes.PlayersList__ModalButton_Yes}`}
+                    onClick={() => {
+                      handleCheckedPlayersDelete();
+                      handleModalClose();
+                    }}
+                  >
+                    Yes
+                  </button>
+                  <button
+                    className={`${classes.PlayersList__ModalButton} ${classes.PlayersList__ModalButton_No}`}
+                    onClick={handleModalClose}
+                  >
+                    No
+                  </button>
+                </div>
+              </Card>
+            </Modal>
+            <div>
+              <Tooltip placement="top" title="Select all">
+                <Checkbox
+                  onChange={handleCheckboxSelectAll}
+                  style={{ color: '#ADB6C4' }}
+                />
+              </Tooltip>
+            </div>
+          </StylesProvider>
+        </div>
+      </div>
+    ) : (
+      <>
+        <span className={classes.Players__NoPlayersMsg}>
+          You have not created any players yet!
+        </span>
+        <PlayerCreator onSubmit={handleFormSubmitNewPlayer}></PlayerCreator>
+      </>
+    );
+
+  return <>{playersList}</>;
+};
 
 export default Players;
